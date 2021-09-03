@@ -1,0 +1,74 @@
+{
+  "name": "@gjuchault/typescript-library-starter",
+  "version": "0.0.0-development",
+  "description": "Yet another (opinionated) typescript library starter template",
+  "keywords": [
+    "typescript",
+    "library",
+    "starter",
+    "template"
+  ],
+  "homepage": "https://github.com/gjuchault/typescript-library-starter",
+  "bugs": "https://github.com/gjuchault/typescript-library-starter/issues",
+  "author": "Gabriel Juchault <gabriel.juchault@gmail.com>",
+  "repository": "gjuchault/typescript-library-starter",
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm/index.js",
+  "types": "./build/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": "> 14"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "setup": "node -r ./esbuild-hook ./scripts/setup",
+    "build": "yarn clean && yarn type:dts && yarn type:build",
+    "clean": "node -r ./esbuild-hook ./scripts/clean",
+    "type:dts": "tsc --emitDeclarationOnly",
+    "type:check": "tsc --noEmit",
+    "type:build": "node -r ./esbuild-hook ./scripts/build",
+    "format": "prettier \"src/**/*.ts\" --write",
+    "format:check": "prettier \"src/**/*.ts\" --check",
+    "lint": "eslint src --ext .ts --fix",
+    "lint:check": "eslint src --ext .ts",
+    "test": "ava",
+    "test:coverage": "nyc ava && nyc report --reporter=html",
+    "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts}\"",
+    "cz": "cz",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/github": "^7.2.3",
+    "@semantic-release/npm": "^7.1.3",
+    "@semantic-release/release-notes-generator": "^9.0.3",
+    "@types/node": "^16.0.0",
+    "@types/prompts": "^2.0.13",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "ava": "^3.15.0",
+    "commitizen": "^4.2.4",
+    "cspell": "^5.6.6",
+    "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.12.15",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.23.4",
+    "nyc": "^15.1.0",
+    "prettier": "^2.3.2",
+    "prompts": "^2.4.1",
+    "semantic-release": "^17.4.4",
+    "slugify": "^1.5.3",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.3.5"
+  },
+  "volta": {
+    "node": "16.4.1",
+    "yarn": "1.22.10",
+    "npm": "7.19.1"
+  }
+}
