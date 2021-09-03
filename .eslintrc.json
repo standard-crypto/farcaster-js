@@ -5,14 +5,27 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "parserOptions": { "project": "./tsconfig.lint.json" },
-  "plugins": ["import", "@typescript-eslint"],
-  "ignorePatterns": ["scripts/*", "ava.config.js", "esbuild-hook.js"],
+  "parserOptions": {
+    "project": "./tsconfig.lint.json"
+  },
+  "plugins": [
+    "import",
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": [
+    "scripts/*",
+    "ava.config.js",
+    "esbuild-hook.js"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/no-explicit-any": "error"
+  }
 }

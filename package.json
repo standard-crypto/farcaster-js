@@ -1,17 +1,6 @@
 {
-  "name": "@gjuchault/typescript-library-starter",
+  "name": "farcaster-js",
   "version": "0.0.0-development",
-  "description": "Yet another (opinionated) typescript library starter template",
-  "keywords": [
-    "typescript",
-    "library",
-    "starter",
-    "template"
-  ],
-  "homepage": "https://github.com/gjuchault/typescript-library-starter",
-  "bugs": "https://github.com/gjuchault/typescript-library-starter/issues",
-  "author": "Gabriel Juchault <gabriel.juchault@gmail.com>",
-  "repository": "gjuchault/typescript-library-starter",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
   "types": "./build/index.d.ts",
@@ -23,7 +12,6 @@
     "access": "public"
   },
   "scripts": {
-    "setup": "node -r ./esbuild-hook ./scripts/setup",
     "build": "yarn clean && yarn type:dts && yarn type:build",
     "clean": "node -r ./esbuild-hook ./scripts/clean",
     "type:dts": "tsc --emitDeclarationOnly",
@@ -60,9 +48,7 @@
     "eslint-plugin-import": "^2.23.4",
     "nyc": "^15.1.0",
     "prettier": "^2.3.2",
-    "prompts": "^2.4.1",
     "semantic-release": "^17.4.4",
-    "slugify": "^1.5.3",
     "source-map-support": "^0.5.19",
     "typescript": "^4.3.5"
   },
@@ -70,5 +56,16 @@
     "node": "16.4.1",
     "yarn": "1.22.10",
     "npm": "7.19.1"
+  },
+  "dependencies": {
+    "@ethersproject/abstract-signer": "^5.4.1",
+    "@ethersproject/keccak256": "^5.4.0",
+    "@ethersproject/networks": "^5.4.2",
+    "@ethersproject/strings": "^5.4.0",
+    "@ethersproject/wallet": "^5.4.0",
+    "axios": "^0.21.1",
+    "axios-cache-adapter": "^2.7.3",
+    "did-jwt": "^5.7.0",
+    "type-fest": "^2.1.0"
   }
 }

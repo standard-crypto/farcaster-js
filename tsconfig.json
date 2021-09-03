@@ -1,19 +1,25 @@
 {
-  "include": ["./src/**/*.ts"],
-  "exclude": ["./src/**/__tests__"],
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "./src/**/__tests__"
+  ],
   "compilerOptions": {
-    "lib": ["es2020"],
+    "lib": [
+      "es2020"
+    ],
     "module": "commonjs",
-    "target": "es2020",
-
+    "target": "ESNext",
     "rootDir": "./src",
     "outDir": "build",
-
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true
+    "declaration": true,
+    "allowUnreachableCode": false,
+    "alwaysStrict": true
   }
 }

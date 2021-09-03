@@ -1,4 +1,4 @@
-name: Typescript Library Starter
+name: farcaster-js
 
 on: [push]
 
@@ -6,7 +6,7 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-  typescript-library-starter:
+  farcaster-js:
     runs-on: ubuntu-latest
 
     concurrency:
