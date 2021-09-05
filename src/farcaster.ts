@@ -1,11 +1,12 @@
 import { Signer } from '@ethersproject/abstract-signer';
 import { keccak256 } from '@ethersproject/keccak256';
 import { toUtf8Bytes } from '@ethersproject/strings';
+import { verifyMessage } from '@ethersproject/wallet';
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 import { ContentHost } from './contentHost';
 import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, serializeAddressActivityBody, TokenCommunity, serializeDirectoryBody } from './types';
-import { UsernameRegistry, Web2UsernameRegistry } from './usernameRegistry';
+import { UserRegistry, Web2UserRegistry } from './usernameRegistry';
 
 export const POST_CHARACTER_LIMIT = 280;
 
@@ -22,24 +23,24 @@ export type UpdateDirectoryRequest = Omit<Partial<DirectoryBody>, 'timestamp' | 
 export type SignedPost = Omit<AddressActivity, 'meta'>;
 
 export class Farcaster {
-    readonly usernameRegistry: UsernameRegistry;
+    readonly usernameRegistry: UserRegistry;
     readonly axiosInstance: AxiosInstance;
-    constructor(usernameRegistry: UsernameRegistry = new Web2UsernameRegistry(), axiosInstance?: AxiosInstance) {
+    constructor(usernameRegistry: UserRegistry = new Web2UserRegistry(), axiosInstance?: AxiosInstance) {
         this.usernameRegistry = usernameRegistry;
         if (!axiosInstance) {
             axiosInstance = axios.create({
-                adapter: setupCache({}).adapter
+                adapter: setupCache({}).adapter,
+                validateStatus: (status) => status >= 200 && status < 300,
             });
         }
         this.axiosInstance = axiosInstance;
     }
 
-    // async postSimple(text: string, replyTo?: AddressActivity | string): Promise<SignedPost> {
-    //     const preparedPost = 
-    // }
-
     async updateDirectory(username: string, signer: Signer, contentHost: ContentHost, updates: UpdateDirectoryRequest): Promise<Directory> {
-        const user = await this.usernameRegistry.lookupUsername(username);
+        const user = await this.usernameRegistry.lookupByUsername(username);
+        if (!user) {
+            throw new Error(`no such user with username ${username}`);
+        }
         if (user.address !== await signer.getAddress()) {
             throw new Error(`The registered address ${user.address} for user ${username} does not match the address of the provided signer: ${signer.getAddress()}`)
         }
@@ -49,16 +50,20 @@ export class Farcaster {
             ...updates,
             timestamp: Date.now(),
         };
-        const serializedDirectoryBody = serializeDirectoryBody(newDirectoryBody);
+        const newDirectory = await Farcaster.signDirectory(newDirectoryBody, signer);
+        await contentHost.updateDirectory(user.address, newDirectory);
+        return newDirectory;
+    }
+
+    static async signDirectory(directoryBody: DirectoryBody, signer: Signer): Promise<Directory> {
+        const serializedDirectoryBody = serializeDirectoryBody(directoryBody);
         const merkleRoot = keccak256(toUtf8Bytes(serializedDirectoryBody));
         const signature = await signer.signMessage(merkleRoot);
-        const newDirectory: Directory = {
-            body: newDirectoryBody,
+        return {
+            body: directoryBody,
             merkleRoot,
             signature,
         }
-        await contentHost.updateDirectory(user.address, newDirectory);
-        return newDirectory;
     }
 
     async preparePost(request: PostRequest): Promise<AddressActivityBody> {
@@ -82,7 +87,7 @@ export class Farcaster {
         // lookup the latest activity from this user to populate the sequence number and continue the merkle tree
         const userActivity = await this.getLatestActivityForUser(request.fromUsername);
         if (!userActivity) {
-            const user = await this.usernameRegistry.lookupUsername(request.fromUsername);
+            const user = await this.usernameRegistry.lookupByUsername(request.fromUsername);
             address = user.address;
             prevMerkleRoot = keccak256(toUtf8Bytes(''));
             sequence = 0;
@@ -107,7 +112,7 @@ export class Farcaster {
         }
     }
 
-    async signPost(post: AddressActivityBody, signer: Signer): Promise<SignedPost> {
+    static async signPost(post: AddressActivityBody, signer: Signer): Promise<SignedPost> {
         if (post.address !== await signer.getAddress()) {
             throw new Error(`The address ${post.address} for user ${post.username} does not match the address of the provided signer: ${signer.getAddress()}`)
         }
@@ -121,10 +126,27 @@ export class Farcaster {
         };
     }
 
+    static async isValidDirectorySignature(address: string, directory: Directory): Promise<boolean> {
+        const serializedDirectoryBody = serializeDirectoryBody(directory.body);
+        const derivedMerkleRoot = keccak256(toUtf8Bytes(serializedDirectoryBody));
+        const signerAddress = verifyMessage(derivedMerkleRoot, directory.signature);
+        return signerAddress === address && derivedMerkleRoot === directory.merkleRoot;
+    }
+
+    static async isValidAddressActivitySignature(address: string, addressActivity: AddressActivity | SignedPost): Promise<boolean> {
+        const serializedPost = serializeAddressActivityBody(addressActivity.body);
+        const derivedMerkleRoot = keccak256(toUtf8Bytes(serializedPost));
+        const signerAddress = verifyMessage(derivedMerkleRoot, addressActivity.signature);
+        return signerAddress === address && derivedMerkleRoot == addressActivity.merkleRoot;
+    }
+
     async getLatestActivityForUser(username: string): Promise<AddressActivity | undefined> {
-        let lastActivity: AddressActivity | undefined;
-        for await (lastActivity of this.getAllActivityForUser(username)) { continue; }
-        return lastActivity;
+        for await (const activity of this.getAllActivityForUser(username)) {
+            // return first result
+            return activity;
+        }
+        // no activity
+        return undefined;
     }
 
     async* getAllActivityForUser(username: string, pageSize = 1000): AsyncGenerator<AddressActivity, void, undefined> {
@@ -148,7 +170,7 @@ export class Farcaster {
     }
 
     async getDirectory(username: string): Promise<Directory> {
-        const user = await this.usernameRegistry.lookupUsername(username);
+        const user = await this.usernameRegistry.lookupByUsername(username);
         const directoryResp = await this.axiosInstance.get<Directory>(user.directoryUrl);
         return directoryResp.data;
     }

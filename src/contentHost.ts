@@ -2,7 +2,7 @@ import { getNetwork, Network, Networkish } from '@ethersproject/networks';
 import { Wallet } from '@ethersproject/wallet';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { createJWT, ES256KSigner, Signer as JWTSigner } from 'did-jwt';
-import { SignedPost } from '.';
+import { SignedPost } from './farcaster';
 import { Directory } from './types';
 
 export interface ContentHost {
@@ -25,6 +25,7 @@ export class FarcasterGuardianContentHost implements ContentHost {
         if (!axiosInstance) {
             axiosInstance = axios.create({
                 baseURL: `https://${FarcasterGuardianContentHost.HOST}`,
+                validateStatus: (status) => status >= 200 && status < 300,
             });
         }
         this.axiosInstance = axiosInstance;
