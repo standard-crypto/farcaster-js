@@ -88,6 +88,9 @@ export class Farcaster {
         const userActivity = await this.getLatestActivityForUser(request.fromUsername);
         if (!userActivity) {
             const user = await this.usernameRegistry.lookupByUsername(request.fromUsername);
+            if (!user) {
+                throw new Error(`no such user with username ${request.fromUsername}`);
+            }
             address = user.address;
             prevMerkleRoot = keccak256(toUtf8Bytes(''));
             sequence = 0;
@@ -171,6 +174,9 @@ export class Farcaster {
 
     async getDirectory(username: string): Promise<Directory> {
         const user = await this.usernameRegistry.lookupByUsername(username);
+        if (!user) {
+            throw new Error(`no such user with username ${username}`);
+        }
         const directoryResp = await this.axiosInstance.get<Directory>(user.directoryUrl);
         return directoryResp.data;
     }
