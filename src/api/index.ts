@@ -3,7 +3,9 @@ import { keccak256 } from '@ethersproject/keccak256';
 import { toUtf8Bytes } from '@ethersproject/strings';
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
-import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, TokenCommunity, User } from './types';
+import { ContentHost } from './contentHost';
+import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, serializeAddressActivityBody, TokenCommunity, serializeDirectoryBody } from './types';
+import { UsernameRegistry, Web2UsernameRegistry } from './usernameRegistry';
 
 export const POST_CHARACTER_LIMIT = 280;
 
@@ -15,11 +17,13 @@ export interface PostRequest {
     tokenCommunities?: TokenCommunity[]
 }
 
+export type UpdateDirectoryRequest = Omit<Partial<DirectoryBody>, 'timestamp' | 'version'>
+
 export type SignedPost = Omit<AddressActivity, 'meta'>;
 
 export class Farcaster {
-    usernameRegistry: UsernameRegistry;
-    axiosInstance: AxiosInstance;
+    readonly usernameRegistry: UsernameRegistry;
+    readonly axiosInstance: AxiosInstance;
     constructor(usernameRegistry: UsernameRegistry = new Web2UsernameRegistry(), axiosInstance?: AxiosInstance) {
         this.usernameRegistry = usernameRegistry;
         if (!axiosInstance) {
@@ -30,13 +34,32 @@ export class Farcaster {
         this.axiosInstance = axiosInstance;
     }
 
-    // async createSignedPostSimple(text: string, replyTo?: AddressActivity | string): Promise<AddressActivity> {
-
+    // async postSimple(text: string, replyTo?: AddressActivity | string): Promise<SignedPost> {
+    //     const preparedPost = 
     // }
 
-    // async createSignedPost(signer: Signer, options: PostRequest): Promise<AddressActivity> {
-
-    // }
+    async updateDirectory(username: string, signer: Signer, contentHost: ContentHost, updates: UpdateDirectoryRequest): Promise<Directory> {
+        const user = await this.usernameRegistry.lookupUsername(username);
+        if (user.address !== await signer.getAddress()) {
+            throw new Error(`The registered address ${user.address} for user ${username} does not match the address of the provided signer: ${signer.getAddress()}`)
+        }
+        const currentDirectory = (await this.axiosInstance.get<Directory>(user.directoryUrl)).data;
+        const newDirectoryBody: DirectoryBody = {
+            ...currentDirectory.body,
+            ...updates,
+            timestamp: Date.now(),
+        };
+        const serializedDirectoryBody = serializeDirectoryBody(newDirectoryBody);
+        const merkleRoot = keccak256(toUtf8Bytes(serializedDirectoryBody));
+        const signature = await signer.signMessage(merkleRoot);
+        const newDirectory: Directory = {
+            body: newDirectoryBody,
+            merkleRoot,
+            signature,
+        }
+        await contentHost.updateDirectory(user.address, newDirectory);
+        return newDirectory;
+    }
 
     async preparePost(request: PostRequest): Promise<AddressActivityBody> {
         if (request.text.length >= POST_CHARACTER_LIMIT) {
@@ -84,13 +107,19 @@ export class Farcaster {
         }
     }
 
-    // async signPost(post: AddressActivityBody, signer: Signer): SignedPost {
-    //     const merkleRoot = keccak256(utils.toUtf8Bytes(stringToHash));
-    //     return {
-    //         body: post,
-
-    //     }
-    // }
+    async signPost(post: AddressActivityBody, signer: Signer): Promise<SignedPost> {
+        if (post.address !== await signer.getAddress()) {
+            throw new Error(`The address ${post.address} for user ${post.username} does not match the address of the provided signer: ${signer.getAddress()}`)
+        }
+        const serializedPost = serializeAddressActivityBody(post);
+        const merkleRoot = keccak256(toUtf8Bytes(serializedPost));
+        const signature = await signer.signMessage(merkleRoot);
+        return {
+            body: post,
+            merkleRoot,
+            signature,
+        };
+    }
 
     async getLatestActivityForUser(username: string): Promise<AddressActivity | undefined> {
         let lastActivity: AddressActivity | undefined;
@@ -99,13 +128,12 @@ export class Farcaster {
     }
 
     async* getAllActivityForUser(username: string, pageSize = 1000): AsyncGenerator<AddressActivity, void, undefined> {
-        const user = await this.usernameRegistry.lookupUsername(username);
-        const directoryResp = await this.axiosInstance.get<Directory>(user.directoryUrl);
+        const directory = await this.getDirectory(username);
         let currentPage: AddressActivity[] = [];
         let currentPageIdx = 1;
         do {
             const pageResp = await this.axiosInstance.get<AddressActivity[]>(
-                directoryResp.data.body.addressActivityUrl,
+                directory.body.addressActivityUrl,
                 {
                     params: {
                         per_page: pageSize,
@@ -118,26 +146,10 @@ export class Farcaster {
             yield* currentPage;
         } while (currentPage);
     }
-}
 
-export interface UsernameRegistry {
-    lookupUsername(username: string): Promise<User>
-}
-
-export class Web2UsernameRegistry implements UsernameRegistry {
-    static readonly DEFAULT_HOST = 'guardian.farcaster.xyz'
-    axiosInstance: AxiosInstance;
-    constructor(axiosInstance?: AxiosInstance) {
-        if (!axiosInstance) {
-            axiosInstance = axios.create({
-                baseURL: `https://${Web2UsernameRegistry.DEFAULT_HOST}/admin`,
-                adapter: setupCache({}).adapter,
-            });
-        }
-        this.axiosInstance = axiosInstance;
-    }
-    async lookupUsername(username: string): Promise<User> {
-        const resp = await this.axiosInstance.get<User>(`/usernames/${username}`);
-        return resp.data;
+    async getDirectory(username: string): Promise<Directory> {
+        const user = await this.usernameRegistry.lookupUsername(username);
+        const directoryResp = await this.axiosInstance.get<Directory>(user.directoryUrl);
+        return directoryResp.data;
     }
 }
