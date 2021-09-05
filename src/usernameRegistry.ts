@@ -9,6 +9,7 @@ export interface UserRegistry {
     lookupByAddress(address: string): Promise<User | undefined>;
     getAllUsers(): AsyncGenerator<User, void, undefined>;
     changeAddress(username: string, newAddress: string, signer: Signer): Promise<void>;
+    registerUsername(username: string, signer: Signer): Promise<void>;
 }
 
 export class Web2UserRegistry implements UserRegistry {
@@ -47,12 +48,16 @@ export class Web2UserRegistry implements UserRegistry {
         return undefined;
     }
 
-    async changeAddress(username: string, newAddress: string, signer: Signer): Promise<void> {
-        throw new Error("changing address not yet implemented");
-    }
-
     async* getAllUsers(): AsyncGenerator<User, void, undefined> {
         const allUsernamesResp = await this.axiosInstance.get<User[]>('usernames');
         yield* allUsernamesResp.data;
+    }
+
+    async changeAddress(username: string, newAddress: string, signer: Signer): Promise<void> {
+        throw new Error('Not yet implemented.');
+    }
+
+    async registerUsername(username: string, signer: Signer): Promise<void> {
+        throw new Error('Not yet implemented.');
     }
 }
