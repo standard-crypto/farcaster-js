@@ -7,7 +7,7 @@ import { setupCache } from 'axios-cache-adapter';
 import { ContentHost } from './contentHost';
 import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, TokenCommunity } from './types/api';
 import { serializeDirectoryBody, serializeAddressActivityBody } from "./serialization";
-import { UserRegistry, Web2UserRegistry } from './usernameRegistry';
+import { UserRegistry, Web2UserRegistry } from './userRegistry';
 
 export const POST_CHARACTER_LIMIT = 280;
 
