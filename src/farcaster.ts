@@ -5,7 +5,8 @@ import { verifyMessage } from '@ethersproject/wallet';
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 import { ContentHost } from './contentHost';
-import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, serializeAddressActivityBody, TokenCommunity, serializeDirectoryBody } from './types';
+import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, TokenCommunity } from './types/api';
+import { serializeDirectoryBody, serializeAddressActivityBody } from "./serialization";
 import { UserRegistry, Web2UserRegistry } from './usernameRegistry';
 
 export const POST_CHARACTER_LIMIT = 280;

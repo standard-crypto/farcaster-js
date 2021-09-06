@@ -10,7 +10,7 @@
       "es2020"
     ],
     "module": "commonjs",
-    "target": "ESNext",
+    "target": "ES6",
     "rootDir": "./src",
     "outDir": "build",
     "strict": true,

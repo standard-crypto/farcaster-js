@@ -15,7 +15,8 @@
   "ignorePatterns": [
     "scripts/*",
     "ava.config.js",
-    "esbuild-hook.js"
+    "esbuild-hook.js",
+    "src/types/contracts/*"
   ],
   "extends": [
     "eslint:recommended",
