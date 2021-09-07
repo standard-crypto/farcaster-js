@@ -1,6 +1,6 @@
 import test from "ava";
 import { Farcaster } from '../farcaster';
-import { AddressActivity, AddressActivityBodyType, Directory, ReactionType } from '../types/api';
+import { AddressActivity, AddressActivityBodyType, Directory, ReactionType } from '../api';
 
 
 test("isValidDirectorySignature()", async (t) => {

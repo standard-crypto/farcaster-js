@@ -5,7 +5,7 @@ import { verifyMessage } from '@ethersproject/wallet';
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 import { ContentHost } from './contentHost';
-import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, TokenCommunity } from './types/api';
+import { AddressActivity, AddressActivityBody, AddressActivityBodyType, Directory, DirectoryBody, TokenCommunity } from './api';
 import { serializeDirectoryBody, serializeAddressActivityBody } from "./serialization";
 import { UserRegistry, Web2UserRegistry } from './userRegistry';
 

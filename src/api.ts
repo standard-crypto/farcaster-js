@@ -1,4 +1,3 @@
-
 /**
  * Representation of a Farcaster user
  * @property username The user's username (without the leading '@')

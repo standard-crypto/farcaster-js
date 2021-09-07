@@ -1,13 +1,13 @@
 import { Signer } from '@ethersproject/abstract-signer';
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
-import { User } from './types/api';
+import { User } from './api';
 import { Provider } from '@ethersproject/providers';
 import { formatBytes32String, parseBytes32String } from '@ethersproject/strings';
 import { Networkish, getNetwork } from '@ethersproject/networks';
-import { RegistryV2__factory } from './types/contracts';
-import { RegistryV2 } from './types/contracts/RegistryV2';
-import { TypedEvent } from './types/contracts/commons';
+import { RegistryV2__factory } from './contracts';
+import { RegistryV2 } from './contracts/RegistryV2';
+import { TypedEvent } from './contracts/commons';
 
 
 export interface UserRegistry {

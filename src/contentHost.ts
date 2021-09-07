@@ -3,7 +3,7 @@ import { Wallet } from '@ethersproject/wallet';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { createJWT, ES256KSigner, Signer as JWTSigner } from 'did-jwt';
 import { SignedPost } from './farcaster';
-import { Directory } from './types/api';
+import { Directory } from './api';
 
 export interface ContentHost {
     publishPost(post: SignedPost): Promise<void>

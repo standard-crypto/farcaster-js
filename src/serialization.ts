@@ -1,4 +1,4 @@
-import { AddressActivityBody, DirectoryBody } from './types/api';
+import { AddressActivityBody, DirectoryBody } from './api';
 
 export function serializeAddressActivityBody(body: AddressActivityBody): string {
     const canonicalForm: AddressActivityBody = {

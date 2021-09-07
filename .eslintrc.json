@@ -16,7 +16,8 @@
     "scripts/*",
     "ava.config.js",
     "esbuild-hook.js",
-    "src/types/contracts/*"
+    "src/types/contracts/*",
+    "dist/*"
   ],
   "extends": [
     "eslint:recommended",

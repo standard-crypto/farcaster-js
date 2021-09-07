@@ -9,17 +9,19 @@
     "lib": [
       "es2020"
     ],
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "target": "ES6",
     "rootDir": "./src",
-    "outDir": "build",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist/types",
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
     "allowUnreachableCode": false,
-    "alwaysStrict": true
+    "alwaysStrict": true,
   }
 }

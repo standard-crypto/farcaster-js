@@ -1,7 +1,7 @@
 import { Wallet } from '@ethersproject/wallet';
 import { FarcasterGuardianContentHost } from './contentHost';
 import { Farcaster, SignedPost } from './farcaster';
-import { AddressActivity } from './types/api';
+import { AddressActivity } from './api';
 
 const _defaultFarcaster = new Farcaster();
 
