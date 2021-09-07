@@ -2,9 +2,6 @@
   "include": [
     "./src/**/*.ts"
   ],
-  "exclude": [
-    "./src/**/__tests__"
-  ],
   "compilerOptions": {
     "lib": [
       "es2020"
@@ -22,6 +19,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
-    "alwaysStrict": true,
+    "alwaysStrict": true
   }
 }
