@@ -11,7 +11,6 @@ import {
 describe("signature verification", function () {
   describe("#isValidDirectorySignature()", function () {
     const address = "0xC6C0b79d0034A9A44c01c7695EaE26c9A7d23e40";
-    let foo = 3;
     const correctlySignedDirectory: Directory = {
       body: {
         addressActivityUrl:

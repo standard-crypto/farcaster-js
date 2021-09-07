@@ -72,16 +72,16 @@ export class Web2UserRegistry implements UserRegistry {
   }
 
   async transferUsernameOwnership(
-    newAddress: string,
-    signer: Signer
+    newAddress: string, // eslint-disable-line @typescript-eslint/no-unused-vars
+    signer: Signer // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<void> {
     throw new Error("Not yet implemented.");
   }
 
   async registerUsername(
-    username: string,
-    signer: Signer,
-    directoryUrl?: string
+    username: string, // eslint-disable-line @typescript-eslint/no-unused-vars
+    signer: Signer, // eslint-disable-line @typescript-eslint/no-unused-vars
+    directoryUrl?: string // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<void> {
     throw new Error("Not yet implemented.");
   }
