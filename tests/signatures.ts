@@ -74,6 +74,7 @@ describe("signature verification", function () {
         username: "dwr",
         address: "0xC6C0b79d0034A9A44c01c7695EaE26c9A7d23e40",
         data: {
+          // spell-checker:disable-next-line
           text: "DAOs as next gen clans or guilds. cc @gubsheep\n\nhttps://medium.com/dfdao/the-crypto-gaming-governance-thesis-39b85b371e4e",
         },
         prevMerkleRoot:
@@ -97,7 +98,7 @@ describe("signature verification", function () {
         mentions: [
           {
             address: "0x1c12A092Ed9f2AA6Ac1A01e118C5903881Bc70Db",
-            username: "gubsheep",
+            username: "gubsheep", // spell-checker:disable-line
           },
         ],
       },

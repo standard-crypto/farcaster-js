@@ -28,6 +28,6 @@ If you encounter a problem with this library or if you have a new feature you'd 
 
 Please leverage the repository's own tools to make sure the code is aligned with our standards:
 
-1. Run all check commands before submitting the PR (`type:check`, `format:check`, `lint:check`, `test:coverage` and `spell:check`)
+1. Run all check commands before submitting the PR (`type:check`, `format:check`, `lint:check`, `test` and `spell:check`)
 2. Please commit your changes and run a `setup` command so you can actually check how would the template look like once cleaned up
 3. Always leverage the `cz` command to create a commit. We heavily rely on this for automatic releases.
