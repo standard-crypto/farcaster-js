@@ -304,7 +304,7 @@ export class Web3UserRegistry implements UserRegistry {
     const networkName = (await this.provider.getNetwork()).name;
     if (!(networkName in Web3UserRegistry._REGISTRY_CREATED_BLOCK_NUMBER)) {
       throw new Error(
-        `missing _REBISTRY_CREATED_BLOCK_NUMBER for network ${networkName}`
+        `missing _REGISTRY_CREATED_BLOCK_NUMBER for network ${networkName}`
       );
     }
     return Web3UserRegistry._REGISTRY_CREATED_BLOCK_NUMBER[networkName];

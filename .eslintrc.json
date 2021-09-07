@@ -16,7 +16,7 @@
     "scripts/*",
     "ava.config.js",
     "esbuild-hook.js",
-    "src/types/contracts/*",
+    "src/contracts/*",
     "dist/*"
   ],
   "extends": [

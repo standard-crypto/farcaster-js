@@ -34,7 +34,7 @@ export class FarcasterGuardianContentHost implements ContentHost {
     }
     this.axiosInstance = axiosInstance;
     this.axiosInstance.interceptors.request.use(
-      this._axiosIntercepter.bind(this)
+      this._axiosInterceptor.bind(this)
     );
   }
 
@@ -51,14 +51,15 @@ export class FarcasterGuardianContentHost implements ContentHost {
     });
   }
 
-  private async _axiosIntercepter(
+  private async _axiosInterceptor(
     request: AxiosRequestConfig
   ): Promise<AxiosRequestConfig> {
-    const timeinEpochSeconds = Math.floor(Date.now() / 1000);
-    const expiry = timeinEpochSeconds + 60;
+    const timeInEpochSeconds = Math.floor(Date.now() / 1000);
+    const expiry = timeInEpochSeconds + 60;
     const jwt = await createJWT(
       { exp: expiry },
       {
+        // cspell:disable-next-line
         issuer: `did:ethr:${this.canonicalNetwork.name}:${this.address}`,
         signer: this.jwtSigner,
       },

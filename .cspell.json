@@ -1,13 +1,25 @@
 {
   "version": "0.1",
   "language": "en",
-  "words": ["esbuild", "rmrf", "farcaster-js", "socio", "octocat"],
+  "words": [
+    "esbuild",
+    "rmrf",
+    "farcaster-js",
+    "socio",
+    "octocat",
+    "Networkish",
+    "farcaster",
+    "ethersproject",
+    "merkle",
+    "keccak"
+  ],
   "flagWords": [],
   "ignorePaths": [
     "package.json",
     "package-lock.json",
     "yarn.lock",
     "tsconfig.json",
-    "node_modules/**"
+    "node_modules/**",
+    "src/contracts/**"
   ]
 }
