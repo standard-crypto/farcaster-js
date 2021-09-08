@@ -11,6 +11,7 @@ import { Networkish, getNetwork } from "@ethersproject/networks";
 import { RegistryV2__factory } from "./contracts";
 import { RegistryV2 } from "./contracts/RegistryV2";
 import { TypedEvent } from "./contracts/commons";
+import { Overrides } from "@ethersproject/contracts";
 
 export interface UserRegistry {
   lookupByUsername(username: string): Promise<User | undefined>;
@@ -21,7 +22,7 @@ export interface UserRegistry {
   registerUsername(
     username: string,
     signer: Signer,
-    directoryUrl?: string
+    overrides?: Overrides & { directoryUrl?: string }
   ): Promise<void>;
 }
 
@@ -81,7 +82,7 @@ export class Web2UserRegistry implements UserRegistry {
   async registerUsername(
     username: string, // eslint-disable-line @typescript-eslint/no-unused-vars
     signer: Signer, // eslint-disable-line @typescript-eslint/no-unused-vars
-    directoryUrl?: string // eslint-disable-line @typescript-eslint/no-unused-vars
+    overrides?: Overrides & { directoryUrl?: string } // eslint-disable-line @typescript-eslint/no-unused-vars
   ): Promise<void> {
     throw new Error("Not yet implemented.");
   }
@@ -218,14 +219,15 @@ export class Web3UserRegistry implements UserRegistry {
   async registerUsername(
     username: string,
     signer: Signer,
-    directoryUrl?: string
+    overrides?: Overrides & { directoryUrl?: string }
   ): Promise<void> {
+    let directoryUrl = overrides?.directoryUrl;
     if (!directoryUrl) {
       directoryUrl = defaultDirectoryUrl(await signer.getAddress());
     }
     const transaction = await this.contract
       .connect(signer)
-      .register(formatBytes32String(username), directoryUrl);
+      .register(formatBytes32String(username), directoryUrl, overrides);
     await transaction.wait();
   }
 

@@ -28,3 +28,10 @@ export async function publishPost(
   await contentHost.publishPost(signedPost);
   return signedPost;
 }
+
+export default Farcaster;
+
+export * from "./api";
+export * from "./contentHost";
+export * from "./serialization";
+export * from "./userRegistry";

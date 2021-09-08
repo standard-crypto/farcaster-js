@@ -1,5 +1,5 @@
 {
-  "name": "farcaster-js",
+  "name": "farcaster",
   "version": "0.0.0-development",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -18,14 +18,15 @@
     "type:typechain": "rm -rf src/contracts && typechain --target=ethers-v5 --out-dir=./src/contracts ./abi/*.json",
     "type:check": "tsc --noEmit",
     "rollup": "rollup -c",
-    "format": "prettier 'src/**/*.ts' 'tests/**/*.ts' --write",
+    "format": "prettier 'src/**/*.ts' 'tests/**/*.ts' 'examples/**/*.ts' --write",
     "format:check": "prettier 'src/**/*.ts' 'tests/**/*.ts' --check",
     "lint": "eslint . --ext .ts --fix",
     "lint:check": "eslint . --ext .ts",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -p tsconfig.json tests/**/*.ts",
     "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts,tests/**/*.ts}\"",
     "cz": "cz",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "docs": "md-magic --path './README.md'"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
@@ -53,6 +54,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.23.4",
     "esm": "^3.2.25",
+    "markdown-magic": "^2.5.2",
     "mocha": "^9.1.1",
     "nyc": "^15.1.0",
     "prettier": "^2.3.2",

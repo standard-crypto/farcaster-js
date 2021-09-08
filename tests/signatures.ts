@@ -1,12 +1,11 @@
 import "mocha";
 import { expect } from "chai";
-import { Farcaster } from "../src/farcaster";
-import {
+import Farcaster, {
   AddressActivity,
   AddressActivityBodyType,
   Directory,
   ReactionType,
-} from "../src/api";
+} from "farcaster";
 
 describe("signature verification", function () {
   describe("#isValidDirectorySignature()", function () {

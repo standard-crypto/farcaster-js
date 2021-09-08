@@ -33,13 +33,13 @@ export default {
         commonjs(),
         copy({
             targets: [
-                { src: 'src/contracts/*.d.ts', dest: 'dist/types/contracts/' }
+                { src: 'src/contracts/*.d.ts', dest: 'dist/contracts/' }
             ]
         }),
         typescript({
             useTsconfigDeclarationDir: true,
             tsconfigOverride: {
-                exclude: ['**/*.stories.*'],
+                exclude: ['./examples/**', './tests/**'],
             },
         }),
         commonjs({

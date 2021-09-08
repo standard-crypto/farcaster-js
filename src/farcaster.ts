@@ -18,6 +18,7 @@ import {
   serializeAddressActivityBody,
 } from "./serialization";
 import { UserRegistry, Web2UserRegistry } from "./userRegistry";
+import { URL } from "url";
 
 export const POST_CHARACTER_LIMIT = 280;
 
@@ -222,9 +223,10 @@ export class Farcaster {
     const directory = await this.getDirectory(username);
     let currentPage: AddressActivity[] = [];
     let currentPageIdx = 1;
+    let directoryUrl = new URL(directory.body.addressActivityUrl);
     do {
       const pageResp = await this.axiosInstance.get<AddressActivity[]>(
-        directory.body.addressActivityUrl,
+        directoryUrl.toString(),
         {
           params: {
             per_page: pageSize,
@@ -233,9 +235,17 @@ export class Farcaster {
         }
       );
       currentPage = pageResp.data;
-      currentPageIdx++;
       yield* currentPage;
-    } while (currentPage);
+      currentPageIdx++;
+
+      // guardian responds to /origin/address_activity/<address> with a
+      // 302 redirect to /indexer/address_activity/<address>?per_page=1000&page=1
+      // In order to properly paginate the response, we need to pull out the
+      // updated URL from the 302 response and override its query parameters
+      directoryUrl = new URL(pageResp.request.path, directoryUrl);
+      directoryUrl.searchParams.delete("page");
+      directoryUrl.searchParams.delete("per_page");
+    } while (currentPage.length > 0);
   }
 
   async getDirectory(username: string): Promise<Directory> {

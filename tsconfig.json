@@ -1,6 +1,8 @@
 {
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./examples/**/*.ts",
+    "./tests/**/*.ts"
   ],
   "compilerOptions": {
     "lib": [
@@ -8,11 +10,17 @@
     ],
     "module": "ESNext",
     "moduleResolution": "node",
-    "target": "ES6",
+    "target": "es2017",
     "rootDirs": [
       "./src",
-      "./tests"
+      "./tests",
+      "./examples"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "farcaster": ["./src"],
+      "farcaster/*": ["./src/*"]
+    },
     "outDir": "dist",
     "declaration": true,
     "declarationDir": "dist",

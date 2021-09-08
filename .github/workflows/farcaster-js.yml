@@ -1,4 +1,4 @@
-name: farcaster-js
+name: farcaster
 
 on: [push]
 
@@ -6,7 +6,7 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
-  farcaster-js:
+  farcaster:
     runs-on: ubuntu-latest
 
     concurrency:
