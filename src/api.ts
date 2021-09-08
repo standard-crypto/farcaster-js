@@ -50,11 +50,7 @@ export interface AddressActivity {
 }
 
 /**
-<<<<<<< Updated upstream
- * @property publishedAt Timestamp in epoch milliseconds
-=======
  * Some activity published by a user, such as a short text post.
->>>>>>> Stashed changes
  */
 export interface AddressActivityBody {
   /** The type of activity this represents */
