@@ -10,7 +10,7 @@ export interface User {
   createdAt: string;
   /** Timestamp in epoch seconds */
   modifiedAt: string;
-  /** The user's currently registered Ethereum address, ex: `0x9B7A28F509C47A65bA44d2C08123334083f87a49` */
+  /** The user's currently registered Ethereum address */
   address: string;
 }
 
