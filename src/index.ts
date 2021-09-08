@@ -1,10 +1,15 @@
 import { Wallet } from "@ethersproject/wallet";
-import { FarcasterGuardianContentHost } from "./contentHost";
-import { Farcaster, SignedPost } from "./farcaster";
+import { FarcasterGuardianContentHost, SignedPost } from "./contentHost";
+import { Farcaster } from "./farcaster";
 import { AddressActivity } from "./api";
 
 const _defaultFarcaster = new Farcaster();
 
+/**
+ * Signs and publishes a simple text string.
+ * The post will be attributed to the username currently registered
+ * to the given private key's address.
+ */
 export async function publishPost(
   privateKey: string,
   text: string,

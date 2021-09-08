@@ -1,40 +1,39 @@
 /**
  * Representation of a Farcaster user
- * @property username The user's username (without the leading '@')
- * @property directoryUrl The location of this user's {@link Directory}
- * @property createdAt Timestamp in epoch seconds
- * @property modifiedAt Timestamp in epoch seconds
- * @property address The user's currently registered Ethereum address, ex: `0x9B7A28F509C47A65bA44d2C08123334083f87a49`
  */
 export interface User {
+  /** The user's username (without the leading '@') */
   username: string;
+  /** The location of this user's {@link Directory} */
   directoryUrl: string;
-  createdAt: string; // epoch seconds
-  modifiedAt: string; // epoch seconds
+  /** Timestamp in epoch seconds */
+  createdAt: string;
+  /** Timestamp in epoch seconds */
+  modifiedAt: string;
+  /** The user's currently registered Ethereum address, ex: `0x9B7A28F509C47A65bA44d2C08123334083f87a49` */
   address: string;
 }
 
 export interface Directory {
   body: DirectoryBody;
+  /** keccak256 hash of the JSON serialized `body` */
   merkleRoot: string;
   signature: string;
 }
 
 /**
  * Details of a {@link User}'s {@link Directory}
- *
- * @property addressActivityUrl Location of the record of this {@link User}'s activity
- * @property avatarUrl Location of this {@link User}'s avatar image
- * @property displayName {@link User}'s display name
- * @property proofUrl Location of the merkle proof for this {@link User}'s {@link Directory}
- * @property timestamp Timestamp in epoch milliseconds
- * @property version Directory version
  */
 export interface DirectoryBody {
+  /** Location of the record of this {@link User}'s activity */
   addressActivityUrl: string;
+  /** Location of this {@link User}'s avatar image */
   avatarUrl: string;
+  /** {@link User}'s display name */
   displayName: string;
+  /** Location of the merkle proof for this {@link User}'s {@link Directory} */
   proofUrl: string;
+  /** Timestamp in epoch milliseconds */
   timestamp: number;
   version: number;
 }
@@ -51,18 +50,27 @@ export interface AddressActivity {
 }
 
 /**
+<<<<<<< Updated upstream
  * @property publishedAt Timestamp in epoch milliseconds
+=======
+ * Some activity published by a user, such as a short text post.
+>>>>>>> Stashed changes
  */
 export interface AddressActivityBody {
+  /** The type of activity this represents */
   type: AddressActivityBodyType;
+  /** Timestamp in epoch milliseconds */
   publishedAt: number;
+  /** The index of this action in the sequence of all activity by this user. Zero-indexed. */
   sequence: number;
   username: string;
+  /** The address owning the user at the time this was published */
   address: string;
   data: {
     text: string;
     replyParentMerkleRoot?: string;
   };
+  /** The `merkleRoot` value of the previous action by this user */
   prevMerkleRoot: string;
   tokenCommunities?: TokenCommunity[];
 }

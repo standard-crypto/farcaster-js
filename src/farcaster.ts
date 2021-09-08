@@ -4,7 +4,7 @@ import { toUtf8Bytes } from "@ethersproject/strings";
 import { verifyMessage } from "@ethersproject/wallet";
 import axios, { AxiosInstance } from "axios";
 import { setupCache } from "axios-cache-adapter";
-import { ContentHost } from "./contentHost";
+import { ContentHost, SignedPost } from "./contentHost";
 import {
   AddressActivity,
   AddressActivityBody,
@@ -17,7 +17,7 @@ import {
   serializeDirectoryBody,
   serializeAddressActivityBody,
 } from "./serialization";
-import { UserRegistry, Web2UserRegistry } from "./userRegistry";
+import { UserRegistryReader, Web2UserRegistry } from "./userRegistry";
 import { URL } from "url";
 
 export const POST_CHARACTER_LIMIT = 280;
@@ -35,13 +35,14 @@ export type UpdateDirectoryRequest = Omit<
   "timestamp" | "version"
 >;
 
-export type SignedPost = Omit<AddressActivity, "meta">;
-
+/**
+ * High-level functionality for interacting with Farcaster
+ */
 export class Farcaster {
-  readonly usernameRegistry: UserRegistry;
+  readonly usernameRegistry: UserRegistryReader;
   readonly axiosInstance: AxiosInstance;
   constructor(
-    usernameRegistry: UserRegistry = new Web2UserRegistry(),
+    usernameRegistry: UserRegistryReader = new Web2UserRegistry(),
     axiosInstance?: AxiosInstance
   ) {
     this.usernameRegistry = usernameRegistry;
@@ -54,6 +55,9 @@ export class Farcaster {
     this.axiosInstance = axiosInstance;
   }
 
+  /**
+   * Signs and publishes the provided updates to the user's {@link Directory}
+   */
   async updateDirectory(
     username: string,
     signer: Signer,
@@ -87,6 +91,10 @@ export class Farcaster {
     return newDirectory;
   }
 
+  /**
+   * Signs a directory body.
+   * @see {@link Farcaster.updateDirectory}
+   */
   static async signDirectory(
     directoryBody: DirectoryBody,
     signer: Signer
@@ -101,6 +109,9 @@ export class Farcaster {
     };
   }
 
+  /**
+   * Validates a {@link PostRequest} and marshals it to an unsigned {@link AddressActivityBody}
+   */
   async preparePost(request: PostRequest): Promise<AddressActivityBody> {
     if (request.text.length >= POST_CHARACTER_LIMIT) {
       throw new Error(
@@ -156,6 +167,7 @@ export class Farcaster {
     };
   }
 
+  /** Signs a post. @see {@link ContentHost.publishPost} for publishing signed posts */
   static async signPost(
     post: AddressActivityBody,
     signer: Signer
@@ -177,6 +189,7 @@ export class Farcaster {
     };
   }
 
+  /** Validates {@link Directory.signature} and {@link Directory.merkleRoot}*/
   static async isValidDirectorySignature(
     address: string,
     directory: Directory
@@ -189,6 +202,7 @@ export class Farcaster {
     );
   }
 
+  /** Validates {@link AddressActivity.signature} and {@link AddressActivity.merkleRoot} */
   static async isValidAddressActivitySignature(
     address: string,
     addressActivity: AddressActivity | SignedPost
@@ -205,6 +219,7 @@ export class Farcaster {
     );
   }
 
+  /** Returns the most recent {@link AddressActivity} published by the given username, if any */
   async getLatestActivityForUser(
     username: string
   ): Promise<AddressActivity | undefined> {
@@ -216,6 +231,9 @@ export class Farcaster {
     return undefined;
   }
 
+  /**
+   * Yields all {@link AddressActivity} from the given username, in order from most to least recent.
+   */
   async *getAllActivityForUser(
     username: string,
     pageSize = 1000
@@ -248,6 +266,7 @@ export class Farcaster {
     } while (currentPage.length > 0);
   }
 
+  /** Fetches a user's {@link Directory} */
   async getDirectory(username: string): Promise<Directory> {
     const user = await this.usernameRegistry.lookupByUsername(username);
     if (!user) {

@@ -1,5 +1,9 @@
 import { AddressActivityBody, DirectoryBody } from "./api";
 
+/**
+ * Returns the canonical serialization of an {@link AddressActivityBody}.
+ * Required for producing and verifying signatures.
+ */
 export function serializeAddressActivityBody(
   body: AddressActivityBody
 ): string {
@@ -19,6 +23,10 @@ export function serializeAddressActivityBody(
   return JSON.stringify(canonicalForm);
 }
 
+/**
+ * Returns the canonical serialization of a {@link DirectoryBody}.
+ * Required for producing and verifying signatures.
+ */
 export function serializeDirectoryBody(body: DirectoryBody): string {
   const canonicalForm: DirectoryBody = {
     addressActivityUrl: body.addressActivityUrl,

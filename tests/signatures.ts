@@ -5,7 +5,7 @@ import Farcaster, {
   AddressActivityBodyType,
   Directory,
   ReactionType,
-} from "farcaster";
+} from "../src";
 
 describe("signature verification", function () {
   describe("#isValidDirectorySignature()", function () {

@@ -7,26 +7,47 @@ import {
   formatBytes32String,
   parseBytes32String,
 } from "@ethersproject/strings";
-import { Networkish, getNetwork } from "@ethersproject/networks";
 import { RegistryV2__factory } from "./contracts";
 import { RegistryV2 } from "./contracts/RegistryV2";
 import { TypedEvent } from "./contracts/commons";
-import { Overrides } from "@ethersproject/contracts";
+import { Overrides, ContractTransaction } from "@ethersproject/contracts";
 
-export interface UserRegistry {
+/**
+ * Registry of usernames and their corresponding owners, as well as the directory URL of each user.
+ */
+export interface UserRegistry extends UserRegistryReader, UserRegistryWriter {}
+
+export interface UserRegistryReader {
   lookupByUsername(username: string): Promise<User | undefined>;
   lookupByAddress(address: string): Promise<User | undefined>;
   getAllUsers(): AsyncGenerator<User, void, undefined>;
   getAllUsernames(): AsyncGenerator<string, void, undefined>;
-  transferUsernameOwnership(newAddress: string, signer: Signer): Promise<void>;
+}
+
+export interface UserRegistryWriter {
   registerUsername(
     username: string,
     signer: Signer,
     overrides?: Overrides & { directoryUrl?: string }
-  ): Promise<void>;
+  ): Promise<ContractTransaction>;
+  updateDirectoryUrl(
+    newUrl: string,
+    signer: Signer,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+  transferUsernameOwnership(
+    newAddress: string,
+    signer: Signer,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
 }
 
-export class Web2UserRegistry implements UserRegistry {
+/**
+ * Uses the indexers provided at guardian.farcaster.xyz to fetch details of registered Users.
+ * Does not support registering new users, transferring user ownership, or editing directory URLs.
+ * Improved efficiency over querying web3 directly, but not guaranteed to accurately reflect the most recent state.
+ */
+export class Web2UserRegistry implements UserRegistryReader {
   static readonly DEFAULT_HOST = "guardian.farcaster.xyz";
 
   readonly axiosInstance: AxiosInstance;
@@ -71,21 +92,6 @@ export class Web2UserRegistry implements UserRegistry {
       yield user.username;
     }
   }
-
-  async transferUsernameOwnership(
-    newAddress: string, // eslint-disable-line @typescript-eslint/no-unused-vars
-    signer: Signer // eslint-disable-line @typescript-eslint/no-unused-vars
-  ): Promise<void> {
-    throw new Error("Not yet implemented.");
-  }
-
-  async registerUsername(
-    username: string, // eslint-disable-line @typescript-eslint/no-unused-vars
-    signer: Signer, // eslint-disable-line @typescript-eslint/no-unused-vars
-    overrides?: Overrides & { directoryUrl?: string } // eslint-disable-line @typescript-eslint/no-unused-vars
-  ): Promise<void> {
-    throw new Error("Not yet implemented.");
-  }
 }
 
 type _UsernameRegisteredAndTransferredEvents = {
@@ -101,6 +107,10 @@ type _UsernameRegisteredAndTransferredEvents = {
   >[];
 };
 
+/**
+ * Reads and writes directly to the Farcaster Ethereum contract, which is the authoritative
+ * source for user registrations.
+ */
 export class Web3UserRegistry implements UserRegistry {
   static readonly RINKEBY_ADDRESS =
     "0xe3be01d99baa8db9905b33a3ca391238234b79d1";
@@ -108,25 +118,28 @@ export class Web3UserRegistry implements UserRegistry {
     rinkeby: 8562445,
   };
 
-  readonly contract: RegistryV2;
+  readonly contract: Promise<RegistryV2>;
   readonly provider: Provider;
 
-  constructor(provider: Provider, network: Networkish = "rinkeby") {
+  constructor(provider: Provider) {
     this.provider = provider;
-    const _network = getNetwork(network);
-    let contractAddress: string;
-    switch (_network.name) {
-      case "rinkeby":
-        contractAddress = Web3UserRegistry.RINKEBY_ADDRESS;
-        break;
-      default:
-        throw new Error(`network ${_network.name} not supported`);
-    }
-    this.contract = RegistryV2__factory.connect(contractAddress, provider);
+    this.contract = (async (): Promise<RegistryV2> => {
+      const network = await provider.getNetwork();
+      let contractAddress: string;
+      switch (network.name) {
+        case "rinkeby":
+          contractAddress = Web3UserRegistry.RINKEBY_ADDRESS;
+          break;
+        default:
+          throw new Error(`network ${network.name} not supported`);
+      }
+      return RegistryV2__factory.connect(contractAddress, provider);
+    })();
   }
 
   async lookupByUsername(username: string): Promise<User | undefined> {
-    const [directoryUrl, isInitialized] = await this.contract.usernameToUrl(
+    const contract = await this.contract;
+    const [directoryUrl, isInitialized] = await contract.usernameToUrl(
       formatBytes32String(username)
     );
     if (!isInitialized) {
@@ -151,10 +164,11 @@ export class Web3UserRegistry implements UserRegistry {
   }
 
   async lookupByAddress(address: string): Promise<User | undefined> {
+    const contract = await this.contract;
     const username = parseBytes32String(
-      await this.contract.addressToUsername(address)
+      await contract.addressToUsername(address)
     );
-    const directoryUrl = await this.contract.getDirectoryUrl(
+    const directoryUrl = await contract.getDirectoryUrl(
       formatBytes32String(username)
     );
     const { createdAt, modifiedAt } = await this._fetchUserCreatedAndModified(
@@ -179,8 +193,9 @@ export class Web3UserRegistry implements UserRegistry {
   }
 
   async *getAllUsernames(): AsyncGenerator<string, void, undefined> {
+    const contract = await this.contract;
     // Until the list of usernames is exposed in the contract, the only option is to iterate through the event log
-    const registerNameEventsFilter = await this.contract.filters.RegisterName(
+    const registerNameEventsFilter = await contract.filters.RegisterName(
       null /* owner */,
       null /* username */
     );
@@ -191,7 +206,7 @@ export class Web3UserRegistry implements UserRegistry {
     const blockWhenContractCreated = await this._blockWhenContractCreated();
     while (pageStart + blockPageSize >= blockWhenContractCreated) {
       const pageEnd = pageStart + blockPageSize;
-      const registerNameEvents = await this.contract.queryFilter(
+      const registerNameEvents = await contract.queryFilter(
         registerNameEventsFilter,
         pageStart,
         pageEnd
@@ -208,27 +223,35 @@ export class Web3UserRegistry implements UserRegistry {
 
   async transferUsernameOwnership(
     newAddress: string,
-    signer: Signer
-  ): Promise<void> {
-    const transaction = await this.contract
-      .connect(signer)
-      .transferOwnership(newAddress);
-    await transaction.wait();
+    signer: Signer,
+    overrides?: Overrides
+  ): Promise<ContractTransaction> {
+    const contract = await this.contract;
+    return contract.connect(signer).transferOwnership(newAddress, overrides);
+  }
+
+  async updateDirectoryUrl(
+    newUrl: string,
+    signer: Signer,
+    overrides?: Overrides
+  ): Promise<ContractTransaction> {
+    const contract = await this.contract;
+    return contract.connect(signer).modify(newUrl, overrides);
   }
 
   async registerUsername(
     username: string,
     signer: Signer,
     overrides?: Overrides & { directoryUrl?: string }
-  ): Promise<void> {
+  ): Promise<ContractTransaction> {
+    const contract = await this.contract;
     let directoryUrl = overrides?.directoryUrl;
     if (!directoryUrl) {
       directoryUrl = defaultDirectoryUrl(await signer.getAddress());
     }
-    const transaction = await this.contract
+    return contract
       .connect(signer)
       .register(formatBytes32String(username), directoryUrl, overrides);
-    await transaction.wait();
   }
 
   async getCurrentOwner(username: string): Promise<string | undefined> {
@@ -247,16 +270,17 @@ export class Web3UserRegistry implements UserRegistry {
   private async _fetchUsernameRegisteredAndTransferredEvents(
     username: string
   ): Promise<_UsernameRegisteredAndTransferredEvents> {
-    const registerNameEventsFilter = await this.contract.filters.RegisterName(
+    const contract = await this.contract;
+    const registerNameEventsFilter = await contract.filters.RegisterName(
       null /* owner */,
       formatBytes32String(username)
     );
-    const transferNameEventsFilter = await this.contract.filters.TransferName(
+    const transferNameEventsFilter = await contract.filters.TransferName(
       null /* from */,
       null /* to */,
       formatBytes32String(username)
     );
-    const registerNameEvents = await this.contract.queryFilter(
+    const registerNameEvents = await contract.queryFilter(
       registerNameEventsFilter,
       await this._blockWhenContractCreated()
     );
@@ -268,7 +292,7 @@ export class Web3UserRegistry implements UserRegistry {
     }
     const mostRecentlyRegistered =
       registerNameEvents[registerNameEvents.length - 1];
-    const transferNameEvents = await this.contract.queryFilter(
+    const transferNameEvents = await contract.queryFilter(
       transferNameEventsFilter,
       mostRecentlyRegistered.blockHash
     );
