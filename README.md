@@ -101,7 +101,7 @@ import { Wallet } from "@ethersproject/wallet";
 import Farcaster, { FarcasterGuardianContentHost } from "farcaster";
 
 const privateKey = "PRIVATE_KEY"; // 64 character hex string
-const username = "USERNAME"; // // do not include the leading `@`
+const username = "USERNAME"; // do not include the leading `@`
 
 const farcaster = new Farcaster();
 const provider = new InfuraProvider("rinkeby");
