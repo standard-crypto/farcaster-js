@@ -1,7 +1,6 @@
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { FarcasterGuardianContentHost } from "farcaster";
-import Farcaster from "farcaster";
+import Farcaster, { FarcasterGuardianContentHost } from "farcaster";
 
 const privateKey = "PRIVATE_KEY"; // 64 character hex string
 const username = "USERNAME"; // // do not include the leading `@`
