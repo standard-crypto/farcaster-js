@@ -11,6 +11,7 @@
   - [Reply to a Post](#reply-to-a-post)
   - [Lookup a User](#lookup-a-user)
   - [Register a New Username](#register-a-new-username)
+  - [Update Display Name](#update-display-name)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Examples
@@ -87,5 +88,28 @@ const tx = await userRegistry.registerUsername(newUsername, signer, {
 });
 await tx.wait();
 console.log(await userRegistry.lookupByUsername(newUsername));
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Update Display Name
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/updateDisplayName.ts) -->
+<!-- The below code snippet is automatically added from ./examples/updateDisplayName.ts -->
+```ts
+import { InfuraProvider } from "@ethersproject/providers";
+import { Wallet } from "@ethersproject/wallet";
+import { FarcasterGuardianContentHost } from "farcaster";
+import Farcaster from "farcaster";
+
+const privateKey = "PRIVATE_KEY"; // 64 character hex string
+const username = "USERNAME"; // // do not include the leading `@`
+
+const farcaster = new Farcaster();
+const provider = new InfuraProvider("rinkeby");
+const signer = new Wallet(privateKey, provider); // any Signer implementation accepted
+const contentHost = new FarcasterGuardianContentHost(privateKey);
+await farcaster.updateDirectory(username, signer, contentHost, {
+  displayName: "John Doe",
+});
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
