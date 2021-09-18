@@ -2,7 +2,7 @@ import { getNetwork, Network, Networkish } from "@ethersproject/networks";
 import { Wallet } from "@ethersproject/wallet";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { createJWT, ES256KSigner, Signer as JWTSigner } from "did-jwt";
-import { Directory, AddressActivity } from "./api";
+import { Directory, AddressActivity } from "../api";
 
 export type SignedPost = Omit<AddressActivity, "meta">;
 

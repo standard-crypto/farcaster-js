@@ -241,10 +241,10 @@ export class Farcaster {
     const directory = await this.getDirectory(username);
     let currentPage: AddressActivity[] = [];
     let currentPageIdx = 1;
-    let directoryUrl = new URL(directory.body.addressActivityUrl);
+    let addressActivityURL = new URL(directory.body.addressActivityUrl);
     do {
       const pageResp = await this.axiosInstance.get<AddressActivity[]>(
-        directoryUrl.toString(),
+        addressActivityURL.toString(),
         {
           params: {
             per_page: pageSize,
@@ -260,9 +260,9 @@ export class Farcaster {
       // 302 redirect to /indexer/address_activity/<address>?per_page=1000&page=1
       // In order to properly paginate the response, we need to pull out the
       // updated URL from the 302 response and override its query parameters
-      directoryUrl = new URL(pageResp.request.path, directoryUrl);
-      directoryUrl.searchParams.delete("page");
-      directoryUrl.searchParams.delete("per_page");
+      addressActivityURL = new URL(pageResp.request.path, addressActivityURL);
+      addressActivityURL.searchParams.delete("page");
+      addressActivityURL.searchParams.delete("per_page");
     } while (currentPage.length > 0);
   }
 
