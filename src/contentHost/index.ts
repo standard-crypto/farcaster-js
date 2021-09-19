@@ -12,7 +12,9 @@ export type SignedPost = Omit<AddressActivity, "meta">;
  */
 export interface ContentHost {
   publishPost(post: SignedPost): Promise<void>;
-  updateDirectory(address: string, newDirectory: Directory): Promise<void>;
+  updateDirectory(newDirectory: Directory): Promise<void>;
+  directoryUrl(): Promise<string>;
+  activityUrl(): Promise<string>;
 }
 
 /**
@@ -21,3 +23,4 @@ export interface ContentHost {
  */
 
 export * from "./guardian";
+export * from "./github";

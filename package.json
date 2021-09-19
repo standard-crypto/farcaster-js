@@ -78,6 +78,7 @@
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "did-jwt": "^5.7.0",
-    "ethers": "^5.4.6"
+    "ethers": "^5.4.6",
+    "simple-github-gist-api": "^1.0.1"
   }
 }

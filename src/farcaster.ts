@@ -87,7 +87,7 @@ export class Farcaster {
       newDirectoryBody,
       signer
     );
-    await contentHost.updateDirectory(user.address, newDirectory);
+    await contentHost.updateDirectory(newDirectory);
     return newDirectory;
   }
 
@@ -252,7 +252,21 @@ export class Farcaster {
           },
         }
       );
+
+      // While there's no set standard for pagination, we don't have a way for the content host
+      // we're talking to to communicate to us whether there's another page of data to fetch. Certain
+      // self-hosting solutions will just return all the data in one page and will ignore pagination
+      // parameters. This checks for that scenario and prevents requesting the same page of data forever.
+      if (
+        currentPage.length > 0 &&
+        pageResp.data.length > 0 &&
+        pageResp.data[0].merkleRoot === currentPage[0].merkleRoot
+      ) {
+        break;
+      }
+
       currentPage = pageResp.data;
+
       yield* currentPage;
       currentPageIdx++;
 

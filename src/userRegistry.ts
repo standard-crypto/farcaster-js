@@ -227,7 +227,9 @@ export class Web3UserRegistry implements UserRegistry {
     overrides?: Overrides
   ): Promise<ContractTransaction> {
     const contract = await this.contract;
-    return contract.connect(signer).transferOwnership(newAddress, overrides);
+    return contract
+      .connect(signer)
+      .transferOwnership(newAddress, { ...overrides });
   }
 
   async updateDirectoryUrl(
@@ -236,7 +238,7 @@ export class Web3UserRegistry implements UserRegistry {
     overrides?: Overrides
   ): Promise<ContractTransaction> {
     const contract = await this.contract;
-    return contract.connect(signer).modify(newUrl, overrides);
+    return contract.connect(signer).modify(newUrl, { ...overrides });
   }
 
   async registerUsername(
@@ -251,7 +253,7 @@ export class Web3UserRegistry implements UserRegistry {
     }
     return contract
       .connect(signer)
-      .register(formatBytes32String(username), directoryUrl, overrides);
+      .register(formatBytes32String(username), directoryUrl, { ...overrides });
   }
 
   async getCurrentOwner(username: string): Promise<string | undefined> {

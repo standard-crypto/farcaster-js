@@ -8,7 +8,8 @@ export class FarcasterGuardianContentHost implements ContentHost {
   readonly jwtSigner: JWTSigner;
   readonly canonicalNetwork: Network;
   readonly address: string;
-  readonly axiosInstance: AxiosInstance;
+
+  private axiosInstance: AxiosInstance;
 
   static readonly HOST = "guardian.farcaster.xyz";
 
@@ -33,15 +34,20 @@ export class FarcasterGuardianContentHost implements ContentHost {
     );
   }
 
+  async directoryUrl(): Promise<string> {
+    return `https://${FarcasterGuardianContentHost.HOST}/origin/directory/${this.address}`;
+  }
+
+  async activityUrl(): Promise<string> {
+    return `https://${FarcasterGuardianContentHost.HOST}/origin/address_activity/${this.address}`;
+  }
+
   async publishPost(post: SignedPost): Promise<void> {
     return this.axiosInstance.post("/indexer/activity", post);
   }
 
-  async updateDirectory(
-    address: string,
-    newDirectory: Directory
-  ): Promise<void> {
-    return this.axiosInstance.post(`/indexer/directory/${address}`, {
+  async updateDirectory(newDirectory: Directory): Promise<void> {
+    return this.axiosInstance.post(`/indexer/directory/${this.address}`, {
       directory: newDirectory,
     });
   }
