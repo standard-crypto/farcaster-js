@@ -2,7 +2,7 @@
 . "$(dirname "$0")/_/husky.sh"
 
 yarn test
-yarn format
-yarn lint
+yarn format:check
+yarn lint:check
 yarn spell:check
-yarn docs
+yarn docs; git add README.md
