@@ -4,7 +4,7 @@ import { toUtf8Bytes } from "@ethersproject/strings";
 import { verifyMessage } from "@ethersproject/wallet";
 import axios, { AxiosInstance } from "axios";
 import { setupCache } from "axios-cache-adapter";
-import { ContentHost, SignedPost } from "./contentHost";
+import { ContentHost, SignedCast } from "./contentHost";
 import {
   AddressActivity,
   AddressActivityBody,
@@ -20,9 +20,9 @@ import {
 import { UserRegistryReader, Web2UserRegistry } from "./userRegistry";
 import { URL } from "url";
 
-export const POST_CHARACTER_LIMIT = 280;
+export const CAST_CHARACTER_LIMIT = 280;
 
-export interface PostRequest {
+export interface CastRequest {
   text: string;
   fromUsername: string;
   sequence?: number;
@@ -110,12 +110,12 @@ export class Farcaster {
   }
 
   /**
-   * Validates a {@link PostRequest} and marshals it to an unsigned {@link AddressActivityBody}
+   * Validates a {@link CastRequest} and marshals it to an unsigned {@link AddressActivityBody}
    */
-  async preparePost(request: PostRequest): Promise<AddressActivityBody> {
-    if (request.text.length >= POST_CHARACTER_LIMIT) {
+  async prepareCast(request: CastRequest): Promise<AddressActivityBody> {
+    if (request.text.length >= CAST_CHARACTER_LIMIT) {
       throw new Error(
-        `Text length must be fewer than ${POST_CHARACTER_LIMIT} characters`
+        `Text length must be fewer than ${CAST_CHARACTER_LIMIT} characters`
       );
     }
 
@@ -167,23 +167,23 @@ export class Farcaster {
     };
   }
 
-  /** Signs a post. @see {@link ContentHost.publishPost} for publishing signed posts */
-  static async signPost(
-    post: AddressActivityBody,
+  /** Signs a cast. @see {@link ContentHost.publishCast} for publishing signed casts */
+  static async signCast(
+    cast: AddressActivityBody,
     signer: Signer
-  ): Promise<SignedPost> {
-    if (post.address !== (await signer.getAddress())) {
+  ): Promise<SignedCast> {
+    if (cast.address !== (await signer.getAddress())) {
       throw new Error(
-        `The address ${post.address} for user ${
-          post.username
+        `The address ${cast.address} for user ${
+          cast.username
         } does not match the address of the provided signer: ${signer.getAddress()}`
       );
     }
-    const serializedPost = serializeAddressActivityBody(post);
-    const merkleRoot = keccak256(toUtf8Bytes(serializedPost));
+    const serializedCast = serializeAddressActivityBody(cast);
+    const merkleRoot = keccak256(toUtf8Bytes(serializedCast));
     const signature = await signer.signMessage(merkleRoot);
     return {
-      body: post,
+      body: cast,
       merkleRoot,
       signature,
     };
@@ -205,10 +205,10 @@ export class Farcaster {
   /** Validates {@link AddressActivity.signature} and {@link AddressActivity.merkleRoot} */
   static async isValidAddressActivitySignature(
     address: string,
-    addressActivity: AddressActivity | SignedPost
+    addressActivity: AddressActivity | SignedCast
   ): Promise<boolean> {
-    const serializedPost = serializeAddressActivityBody(addressActivity.body);
-    const derivedMerkleRoot = keccak256(toUtf8Bytes(serializedPost));
+    const serializedCast = serializeAddressActivityBody(addressActivity.body);
+    const derivedMerkleRoot = keccak256(toUtf8Bytes(serializedCast));
     const signerAddress = verifyMessage(
       derivedMerkleRoot,
       addressActivity.signature

@@ -45,10 +45,10 @@ await userRegistry.updateDirectoryUrl(
   signer
 );
 
-// now, put a new post up on GitHub!
-const unsignedPost = await farcaster.preparePost({
+// now, put a new cast up on GitHub!
+const unsignedCast = await farcaster.prepareCast({
   fromUsername: user.username,
-  text: "Posting to my self-hosted GitHub content host!",
+  text: "Casting to my self-hosted GitHub content host!",
 });
-const signedPost = await Farcaster.signPost(unsignedPost, signer);
-await githubContentHost.publishPost(signedPost);
+const signedCast = await Farcaster.signCast(unsignedCast, signer);
+await githubContentHost.publishCast(signedCast);

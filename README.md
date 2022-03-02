@@ -6,9 +6,9 @@
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Examples](#examples)
-  - [Publish a Post](#publish-a-post)
+  - [Publish a Cast](#publish-a-cast)
   - [Fetch User Activity](#fetch-user-activity)
-  - [Reply to a Post](#reply-to-a-post)
+  - [Reply to a Cast](#reply-to-a-cast)
   - [Lookup a User](#lookup-a-user)
   - [Register a New Username](#register-a-new-username)
   - [Update Display Name](#update-display-name)
@@ -18,15 +18,15 @@
 
 ## Examples
 
-### Publish a Post
+### Publish a Cast
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishPost.ts) -->
-<!-- The below code snippet is automatically added from ./examples/publishPost.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/publishCast.ts -->
 ```ts
-import { publishPost } from "farcaster";
+import { publishCast } from "farcaster";
 
 const privateKey = "..."; // 64 character hex string
-await publishPost(privateKey, "Hello, Farcaster!");
+await publishCast(privateKey, "Hello, Farcaster!");
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -44,17 +44,17 @@ for await (const activity of farcaster.getAllActivityForUser("dwr")) {
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Reply to a Post
+### Reply to a Cast
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToPost.ts) -->
-<!-- The below code snippet is automatically added from ./examples/replyToPost.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/replyToCast.ts -->
 ```ts
-import Farcaster, { publishPost } from "farcaster";
+import Farcaster, { publishCast } from "farcaster";
 
 const farcaster = new Farcaster();
-const latestPost = await farcaster.getLatestActivityForUser("dwr");
+const latestCast = await farcaster.getLatestActivityForUser("dwr");
 const privateKey = "..."; // 64 character hex string
-publishPost(privateKey, "Replying to your post!", latestPost);
+publishCast(privateKey, "Replying to your cast!", latestCast);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -173,12 +173,12 @@ await userRegistry.updateDirectoryUrl(
   signer
 );
 
-// now, put a new post up on GitHub!
-const unsignedPost = await farcaster.preparePost({
+// now, put a new cast up on GitHub!
+const unsignedCast = await farcaster.prepareCast({
   fromUsername: user.username,
-  text: "Posting to my self-hosted GitHub content host!",
+  text: "Casting to my self-hosted GitHub content host!",
 });
-const signedPost = await Farcaster.signPost(unsignedPost, signer);
-await githubContentHost.publishPost(signedPost);
+const signedCast = await Farcaster.signCast(unsignedCast, signer);
+await githubContentHost.publishCast(signedCast);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->

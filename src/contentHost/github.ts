@@ -1,5 +1,5 @@
 import { AddressActivity, Directory } from "farcaster/api";
-import { ContentHost, SignedPost } from ".";
+import { ContentHost, SignedCast } from ".";
 import { GithubGistApi } from "simple-github-gist-api";
 import File from "simple-github-gist-api/dist/models/file";
 import { AxiosResponse } from "axios";
@@ -35,10 +35,10 @@ export class GithubGistContentHost implements ContentHost {
     );
   }
 
-  async publishPost(post: SignedPost): Promise<void> {
+  async publishCast(cast: SignedCast): Promise<void> {
     const activityFile = await this._getOrCreateActivityFile();
-    const allActivity: SignedPost[] = JSON.parse(activityFile.getContent());
-    allActivity.unshift(post);
+    const allActivity: SignedCast[] = JSON.parse(activityFile.getContent());
+    allActivity.unshift(cast);
     activityFile.overwrite(JSON.stringify(allActivity));
     await activityFile.save();
   }
@@ -75,7 +75,7 @@ export class GithubGistContentHost implements ContentHost {
 
   async bulkUpload(activity: AsyncIterable<AddressActivity>): Promise<void> {
     const activityFile = await this._getOrCreateActivityFile();
-    const activityList: SignedPost[] = [];
+    const activityList: SignedCast[] = [];
     for await (const a of activity) {
       activityList.push({
         body: a.body,

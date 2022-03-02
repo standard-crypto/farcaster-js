@@ -50,7 +50,7 @@ export interface AddressActivity {
 }
 
 /**
- * Some activity published by a user, such as a short text post.
+ * Some activity published by a user, such as a short text cast.
  */
 export interface AddressActivityBody {
   /** The type of activity this represents */

@@ -1,6 +1,6 @@
 import { Directory, AddressActivity } from "../api";
 
-export type SignedPost = Omit<AddressActivity, "meta">;
+export type SignedCast = Omit<AddressActivity, "meta">;
 
 /**
  * An interface for publishing updates to a user's directory or for publishing new activity for a user.
@@ -11,7 +11,7 @@ export type SignedPost = Omit<AddressActivity, "meta">;
  * as guardian.farcaster.xyz
  */
 export interface ContentHost {
-  publishPost(post: SignedPost): Promise<void>;
+  publishCast(cast: SignedCast): Promise<void>;
   updateDirectory(newDirectory: Directory): Promise<void>;
   directoryUrl(): Promise<string>;
   activityUrl(): Promise<string>;

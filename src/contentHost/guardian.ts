@@ -2,7 +2,7 @@ import { getNetwork, Network, Networkish } from "@ethersproject/networks";
 import { Wallet } from "@ethersproject/wallet";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { createJWT, ES256KSigner, Signer as JWTSigner } from "did-jwt";
-import { ContentHost, SignedPost, Directory } from "farcaster";
+import { ContentHost, SignedCast, Directory } from "farcaster";
 
 export class FarcasterGuardianContentHost implements ContentHost {
   readonly jwtSigner: JWTSigner;
@@ -42,8 +42,8 @@ export class FarcasterGuardianContentHost implements ContentHost {
     return `https://${FarcasterGuardianContentHost.HOST}/origin/address_activity/${this.address}`;
   }
 
-  async publishPost(post: SignedPost): Promise<void> {
-    return this.axiosInstance.post("/indexer/activity", post);
+  async publishCast(cast: SignedCast): Promise<void> {
+    return this.axiosInstance.post("/indexer/activity", cast);
   }
 
   async updateDirectory(newDirectory: Directory): Promise<void> {
