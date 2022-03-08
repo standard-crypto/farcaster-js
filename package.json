@@ -12,6 +12,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/standard-crypto/farcaster-js.git"
+  },
+  "author": "Gavi Galloway",
   "scripts": {
     "build": "yarn clean && yarn type:typechain && yarn rollup",
     "clean": "rm -rf dist",
