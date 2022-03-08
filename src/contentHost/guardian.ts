@@ -2,7 +2,11 @@ import { getNetwork, Network, Networkish } from "@ethersproject/networks";
 import { Wallet } from "@ethersproject/wallet";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { createJWT, ES256KSigner, Signer as JWTSigner } from "did-jwt";
-import { ContentHost, SignedCast, Directory } from "farcaster";
+import {
+  ContentHost,
+  SignedCast,
+  Directory,
+} from "@standard-crypto/farcaster-js";
 
 export class FarcasterGuardianContentHost implements ContentHost {
   readonly jwtSigner: JWTSigner;

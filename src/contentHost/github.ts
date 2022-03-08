@@ -1,4 +1,4 @@
-import { AddressActivity, Directory } from "farcaster/api";
+import { AddressActivity, Directory } from "@standard-crypto/farcaster-js/api";
 import { ContentHost, SignedCast } from ".";
 import { GithubGistApi } from "simple-github-gist-api";
 import File from "simple-github-gist-api/dist/models/file";

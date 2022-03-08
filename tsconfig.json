@@ -18,8 +18,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "farcaster": ["./src"],
-      "farcaster/*": ["./src/*"]
+      "@standard-crypto/farcaster-js": ["./src"],
+      "@standard-crypto/farcaster-js/*": ["./src/*"]
     },
     "outDir": "dist",
     "declaration": true,

@@ -1,5 +1,5 @@
 {
-  "name": "farcaster-js",
+  "name": "@standard-crypto/farcaster-js",
   "version": "0.0.1-development",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -18,11 +18,10 @@
   },
   "author": "Gavi Galloway",
   "scripts": {
-    "build": "yarn clean && yarn type:typechain && yarn rollup",
+    "build": "yarn clean && yarn type:typechain && yarn tsc --build tsconfig-build.json && cp ./src/contracts/*.d.ts ./dist/contracts/",
     "clean": "rm -rf dist",
     "type:typechain": "rm -rf src/contracts && typechain --target=ethers-v5 --out-dir=./src/contracts ./abi/*.json",
     "type:check": "tsc --noEmit",
-    "rollup": "rollup -c",
     "format": "prettier 'src/**/*.ts' 'tests/**/*.ts' 'examples/**/*.ts' --write",
     "format:check": "prettier 'src/**/*.ts' 'tests/**/*.ts' --check",
     "lint": "eslint . --ext .ts --fix",

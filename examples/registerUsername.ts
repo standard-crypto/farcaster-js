@@ -1,6 +1,6 @@
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Web3UserRegistry } from "farcaster";
+import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
 
 const provider = new InfuraProvider("rinkeby");
 const userRegistry = new Web3UserRegistry(provider);

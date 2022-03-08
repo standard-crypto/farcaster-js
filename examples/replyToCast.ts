@@ -1,4 +1,4 @@
-import Farcaster, { publishCast } from "farcaster";
+import Farcaster, { publishCast } from "@standard-crypto/farcaster-js";
 
 const farcaster = new Farcaster();
 const latestCast = await farcaster.getLatestActivityForUser("dwr");

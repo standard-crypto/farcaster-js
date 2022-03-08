@@ -35,7 +35,7 @@ npm install farcaster-js
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishCast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/publishCast.ts -->
 ```ts
-import { publishCast } from "farcaster";
+import { publishCast } from "@standard-crypto/farcaster-js";
 
 const privateKey = "..."; // 64 character hex string
 await publishCast(privateKey, "Hello, Farcaster!");
@@ -47,7 +47,7 @@ await publishCast(privateKey, "Hello, Farcaster!");
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/fetchUserActivity.ts) -->
 <!-- The below code snippet is automatically added from ./examples/fetchUserActivity.ts -->
 ```ts
-import Farcaster from "farcaster";
+import Farcaster from "@standard-crypto/farcaster-js";
 
 const farcaster = new Farcaster();
 for await (const activity of farcaster.getAllActivityForUser("dwr")) {
@@ -61,7 +61,7 @@ for await (const activity of farcaster.getAllActivityForUser("dwr")) {
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToCast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/replyToCast.ts -->
 ```ts
-import Farcaster, { publishCast } from "farcaster";
+import Farcaster, { publishCast } from "@standard-crypto/farcaster-js";
 
 const farcaster = new Farcaster();
 const latestCast = await farcaster.getLatestActivityForUser("dwr");
@@ -76,7 +76,7 @@ publishCast(privateKey, "Replying to your cast!", latestCast);
 <!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
 ```ts
 import { InfuraProvider } from "@ethersproject/providers";
-import { Web3UserRegistry } from "farcaster";
+import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
 
 const provider = new InfuraProvider("rinkeby");
 const userRegistry = new Web3UserRegistry(provider);
@@ -91,7 +91,7 @@ console.log(await userRegistry.lookupByUsername("dwr"));
 ```ts
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Web3UserRegistry } from "farcaster";
+import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
 
 const provider = new InfuraProvider("rinkeby");
 const userRegistry = new Web3UserRegistry(provider);
@@ -112,7 +112,9 @@ console.log(await userRegistry.lookupByUsername(newUsername));
 ```ts
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import Farcaster, { FarcasterGuardianContentHost } from "farcaster";
+import Farcaster, {
+  FarcasterGuardianContentHost,
+} from "@standard-crypto/farcaster-js";
 
 const privateKey = "PRIVATE_KEY"; // 64 character hex string
 const username = "USERNAME"; // do not include the leading `@`
@@ -149,7 +151,7 @@ import Farcaster, {
   Directory,
   GithubGistContentHost,
   Web3UserRegistry,
-} from "farcaster";
+} from "@standard-crypto/farcaster-js";
 
 // See https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token
 const githubPersonalAccessToken = "ghp_XXXXXXXXXXXXXX";

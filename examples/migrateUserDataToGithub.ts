@@ -5,7 +5,7 @@ import Farcaster, {
   Directory,
   GithubGistContentHost,
   Web3UserRegistry,
-} from "farcaster";
+} from "@standard-crypto/farcaster-js";
 
 // See https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token
 const githubPersonalAccessToken = "ghp_XXXXXXXXXXXXXX";
