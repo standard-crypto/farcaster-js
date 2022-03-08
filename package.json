@@ -1,9 +1,13 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "0.0.0-development",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "version": "0.0.3-development",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "import": "./dist/esm/index.mjs"
+  },
+  "types": "./types/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": "> 14"
@@ -18,8 +22,9 @@
   },
   "author": "Gavi Galloway",
   "scripts": {
-    "build": "yarn clean && yarn type:typechain && yarn tsc --build tsconfig-build.json && cp ./src/contracts/*.d.ts ./dist/contracts/",
-    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn type:typechain && yarn rollup",
+    "clean": "rm -rf dist types",
+    "rollup": "rollup -c",
     "type:typechain": "rm -rf src/contracts && typechain --target=ethers-v5 --out-dir=./src/contracts ./abi/*.json",
     "type:check": "tsc --noEmit",
     "format": "prettier 'src/**/*.ts' 'tests/**/*.ts' 'examples/**/*.ts' --write",
@@ -65,6 +70,7 @@
     "prettier": "^2.3.2",
     "rollup": "^2.56.3",
     "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.30.0",
     "semantic-release": "^17.4.4",
@@ -80,7 +86,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "axios-cache-adapter": "^2.7.3",
+    "axios-cache-interceptor": "^0.9.3",
     "did-jwt": "^5.7.0",
     "ethers": "^5.4.6",
     "simple-github-gist-api": "^1.0.1"
@@ -91,6 +97,7 @@
     "LICENSE.md",
     "CONTRIBUTING.md",
     "dist/**",
-    "src/**"
+    "src/**",
+    "types/**"
   ]
 }

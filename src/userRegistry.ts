@@ -1,6 +1,6 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import axios, { AxiosInstance } from "axios";
-import { setupCache } from "axios-cache-adapter";
+import { setupCache } from "axios-cache-interceptor";
 import { User } from "./api";
 import { Provider } from "@ethersproject/providers";
 import {
@@ -56,11 +56,10 @@ export class Web2UserRegistry implements UserRegistryReader {
     if (!axiosInstance) {
       axiosInstance = axios.create({
         baseURL: `https://${Web2UserRegistry.DEFAULT_HOST}/admin`,
-        adapter: setupCache({}).adapter,
         validateStatus: (status) => status >= 200 && status < 300,
       });
     }
-    this.axiosInstance = axiosInstance;
+    this.axiosInstance = setupCache(axiosInstance);
   }
 
   async lookupByUsername(username: string): Promise<User | undefined> {

@@ -3,7 +3,7 @@ import { keccak256 } from "@ethersproject/keccak256";
 import { toUtf8Bytes } from "@ethersproject/strings";
 import { verifyMessage } from "@ethersproject/wallet";
 import axios, { AxiosInstance } from "axios";
-import { setupCache } from "axios-cache-adapter";
+import { setupCache } from "axios-cache-interceptor";
 import { ContentHost, SignedCast } from "./contentHost";
 import {
   AddressActivity,
@@ -48,11 +48,11 @@ export class Farcaster {
     this.usernameRegistry = usernameRegistry;
     if (!axiosInstance) {
       axiosInstance = axios.create({
-        adapter: setupCache({}).adapter,
         validateStatus: (status) => status >= 200 && status < 300,
       });
     }
-    this.axiosInstance = axiosInstance;
+
+    this.axiosInstance = setupCache(axiosInstance);
   }
 
   /**

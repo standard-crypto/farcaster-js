@@ -16,7 +16,8 @@
     "scripts/*",
     "rollup.config.js",
     "src/contracts/*",
-    "dist/*"
+    "dist/*",
+    "types/*"
   ],
   "extends": [
     "eslint:recommended",

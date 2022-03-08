@@ -23,7 +23,7 @@
     },
     "outDir": "dist",
     "declaration": true,
-    "declarationDir": "dist",
+    "declarationDir": "types",
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,

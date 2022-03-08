@@ -37,6 +37,8 @@ export async function publishCast(
 export default Farcaster;
 
 export * from "./api";
+export * from "./farcaster";
 export * from "./contentHost";
+export * from "./contracts";
 export * from "./serialization";
 export * from "./userRegistry";
