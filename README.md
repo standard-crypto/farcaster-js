@@ -1,4 +1,4 @@
-# Farcaster
+# Farcaster.js
 
 ![NPM](https://img.shields.io/npm/l/farcaster-js)
 ![NPM](https://img.shields.io/npm/v/farcaster-js)
