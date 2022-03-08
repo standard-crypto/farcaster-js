@@ -1,6 +1,6 @@
 {
   "name": "farcaster-js",
-  "version": "0.0.0-development",
+  "version": "0.0.1-development",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
