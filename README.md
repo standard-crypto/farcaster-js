@@ -1,7 +1,7 @@
 # Farcaster
 
-![NPM](https://img.shields.io/npm/l/@standard-crypto/farcaster)
-![NPM](https://img.shields.io/npm/v/@standard-crypto/farcaster)
+![NPM](https://img.shields.io/npm/l/farcaster-js)
+![NPM](https://img.shields.io/npm/v/farcaster-js)
 ![GitHub Workflow Status](https://github.com/standard-crypto/farcaster-js/actions/workflows/farcaster-js.yml/badge.svg?branch=main)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
