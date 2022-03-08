@@ -1,5 +1,5 @@
 {
-  "name": "farcaster",
+  "name": "farcaster-js",
   "version": "0.0.0-development",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
