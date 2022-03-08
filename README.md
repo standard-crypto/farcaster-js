@@ -5,6 +5,8 @@
 ![GitHub Workflow Status](https://github.com/standard-crypto/farcaster-js/actions/workflows/farcaster-js.yml/badge.svg?branch=main)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
+- [About](#about)
+- [Setup](#setup)
 - [Examples](#examples)
   - [Publish a Cast](#publish-a-cast)
   - [Fetch User Activity](#fetch-user-activity)
@@ -15,6 +17,16 @@
 - [Self Hosting](#self-hosting)
   - [Github](#github)
 <!-- AUTO-GENERATED-CONTENT:END -->
+
+## About
+
+A tool for interacting with the Farcaster social network. Facilitates reading and writing content, creating accounts and managing the self-hosting of your own content.
+
+## Setup
+
+```bash
+npm install farcaster-js
+```
 
 ## Examples
 
@@ -117,11 +129,15 @@ await farcaster.updateDirectory(username, signer, contentHost, {
 
 ## Self Hosting
 
+Farcaster permits hosting user content at any source addressable by a public URL.
+
 ### Github
+
+Github Gists can be configured as publicly addressable and are a decent storage medium to consider as a backup for your content. The example below illustrates migrating a user's content from the default storage medium to the user's GitHub account, including appending new Casts to the user's activity stream after the migration.
 
 First generate a [Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token)
 
-An example script for migrating a user's data to a GitHub gist
+An example script for migrating a user's data to a GitHub gist:
 
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/migrateUserDataToGithub.ts) -->
 <!-- The below code snippet is automatically added from ./examples/migrateUserDataToGithub.ts -->
