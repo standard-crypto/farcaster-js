@@ -34,8 +34,6 @@ export async function publishCast(
   return signedCast;
 }
 
-export default Farcaster;
-
 export * from "./api";
 export * from "./farcaster";
 export * from "./contentHost";

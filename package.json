@@ -69,7 +69,6 @@
     "nyc": "^15.1.0",
     "prettier": "^2.3.2",
     "rollup": "^2.56.3",
-    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.31.2",

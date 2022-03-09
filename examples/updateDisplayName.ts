@@ -1,6 +1,7 @@
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import Farcaster, {
+import {
+  Farcaster,
   FarcasterGuardianContentHost,
 } from "@standard-crypto/farcaster-js";
 

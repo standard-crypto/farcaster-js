@@ -47,7 +47,7 @@ await publishCast(privateKey, "Hello, Farcaster!");
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/fetchUserActivity.ts) -->
 <!-- The below code snippet is automatically added from ./examples/fetchUserActivity.ts -->
 ```ts
-import Farcaster from "@standard-crypto/farcaster-js";
+import { Farcaster } from "@standard-crypto/farcaster-js";
 
 const farcaster = new Farcaster();
 for await (const activity of farcaster.getAllActivityForUser("dwr")) {
@@ -61,7 +61,7 @@ for await (const activity of farcaster.getAllActivityForUser("dwr")) {
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToCast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/replyToCast.ts -->
 ```ts
-import Farcaster, { publishCast } from "@standard-crypto/farcaster-js";
+import { Farcaster, publishCast } from "@standard-crypto/farcaster-js";
 
 const farcaster = new Farcaster();
 const latestCast = await farcaster.getLatestActivityForUser("dwr");
@@ -112,7 +112,8 @@ console.log(await userRegistry.lookupByUsername(newUsername));
 ```ts
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import Farcaster, {
+import {
+  Farcaster,
   FarcasterGuardianContentHost,
 } from "@standard-crypto/farcaster-js";
 
@@ -147,7 +148,8 @@ An example script for migrating a user's data to a GitHub gist:
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import axios from "axios";
-import Farcaster, {
+import {
+  Farcaster,
   Directory,
   GithubGistContentHost,
   Web3UserRegistry,

@@ -8,8 +8,11 @@ import {
   parseBytes32String,
 } from "@ethersproject/strings";
 import { RegistryV2__factory } from "./contracts";
-import { RegistryV2 } from "./contracts/RegistryV2";
-import { TypedEvent } from "./contracts/commons";
+import {
+  RegisterNameEvent,
+  RegistryV2,
+  TransferNameEvent,
+} from "./contracts/RegistryV2";
 import { Overrides, ContractTransaction } from "@ethersproject/contracts";
 
 /**
@@ -94,16 +97,8 @@ export class Web2UserRegistry implements UserRegistryReader {
 }
 
 type _UsernameRegisteredAndTransferredEvents = {
-  registered?: TypedEvent<
-    [string, string] & { owner: string; username: string }
-  >;
-  transferred: TypedEvent<
-    [string, string, string] & {
-      from: string;
-      to: string;
-      username: string;
-    }
-  >[];
+  registered?: RegisterNameEvent;
+  transferred: TransferNameEvent[];
 };
 
 /**

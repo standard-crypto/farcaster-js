@@ -1,7 +1,8 @@
 import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
 import axios from "axios";
-import Farcaster, {
+import {
+  Farcaster,
   Directory,
   GithubGistContentHost,
   Web3UserRegistry,

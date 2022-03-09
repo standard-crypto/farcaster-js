@@ -3,7 +3,6 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import json from '@rollup/plugin-json';
-import copy from 'rollup-plugin-copy';
 import excludeDependenciesFromBundle from "rollup-plugin-exclude-dependencies-from-bundle";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -34,12 +33,6 @@ export default {
         peerDepsExternal(),
         json(),
         resolve(),
-        // commonjs(),
-        copy({
-            targets: [
-                { src: 'src/contracts/*.d.ts', dest: 'types/contracts/' }
-            ]
-        }),
         typescript({
             useTsconfigDeclarationDir: true,
             tsconfigOverride: {

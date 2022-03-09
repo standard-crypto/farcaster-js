@@ -18,6 +18,9 @@ jobs:
       - uses: volta-cli/action@v1
       - run: yarn --frozen-lockfile
 
+      - name: Build
+        run: yarn build
+
       - name: Type check
         run: yarn type:check
 
@@ -32,6 +35,3 @@ jobs:
 
       - name: Test
         run: yarn test
-
-      - name: Build
-        run: yarn build
