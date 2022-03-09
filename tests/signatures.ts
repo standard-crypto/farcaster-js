@@ -1,6 +1,7 @@
 import "mocha";
 import { expect } from "chai";
-import Farcaster, {
+import {
+  Farcaster,
   AddressActivity,
   AddressActivityBodyType,
   Directory,
