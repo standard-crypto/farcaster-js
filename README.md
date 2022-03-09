@@ -4,8 +4,9 @@
 ![NPM](https://img.shields.io/npm/v/@standard-crypto/farcaster-js?no-cache)
 ![GitHub Workflow Status](https://github.com/standard-crypto/farcaster-js/actions/workflows/farcaster-js.yml/badge.svg?branch=main)
 
+A tool for interacting with the Farcaster social network. Facilitates reading and writing content, creating accounts and managing the self-hosting of your own content.
+
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
-- [About](#about)
 - [Setup](#setup)
 - [Examples](#examples)
   - [Publish a Cast](#publish-a-cast)
@@ -17,10 +18,6 @@
 - [Self Hosting](#self-hosting)
   - [Github](#github)
 <!-- AUTO-GENERATED-CONTENT:END -->
-
-## About
-
-A tool for interacting with the Farcaster social network. Facilitates reading and writing content, creating accounts and managing the self-hosting of your own content.
 
 ## Setup
 
