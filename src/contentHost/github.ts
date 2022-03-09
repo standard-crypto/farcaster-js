@@ -1,43 +1,43 @@
 import { AddressActivity, Directory } from "../api";
 import { ContentHost, SignedCast } from ".";
-import { GithubGistApi } from "simple-github-gist-api";
-import File from "simple-github-gist-api/dist/models/file";
+import GithubGist from "simple-github-gist-api";
 import { AxiosResponse } from "axios";
+import GistFile from "simple-github-gist-api/dist/models/GistFile";
 
 export class GithubGistContentHost implements ContentHost {
-  private readonly _gist: GithubGistApi;
+  private readonly _gist: GithubGist;
   private readonly _ready: Promise<void>;
 
   static readonly DIRECTORY_FILENAME = "directory.json";
   static readonly ACTIVITY_FILENAME = "activity.json";
 
   constructor(personalAccessToken: string) {
-    this._gist = new GithubGistApi(
+    this._gist = new GithubGist({
       personalAccessToken,
-      "farcaster-self-hosting"
-    );
+      appIdentifier: "farcaster-self-hosting",
+    });
     this._ready = this._gist.touch();
   }
 
   async directoryUrl(): Promise<string> {
     await this._ready;
     return (
-      `https://gist.githubusercontent.com/${this._gist.username}` +
-      `/${this._gist.gistId}/raw/${GithubGistContentHost.DIRECTORY_FILENAME}`
+      `https://gist.githubusercontent.com/${this._gist.ownerUsername}` +
+      `/${this._gist.id}/raw/${GithubGistContentHost.DIRECTORY_FILENAME}`
     );
   }
 
   async activityUrl(): Promise<string> {
     await this._ready;
     return (
-      `https://gist.githubusercontent.com/${this._gist.username}` +
-      `/${this._gist.gistId}/raw/${GithubGistContentHost.ACTIVITY_FILENAME}`
+      `https://gist.githubusercontent.com/${this._gist.ownerUsername}` +
+      `/${this._gist.id}/raw/${GithubGistContentHost.ACTIVITY_FILENAME}`
     );
   }
 
   async publishCast(cast: SignedCast): Promise<void> {
     const activityFile = await this._getOrCreateActivityFile();
-    const allActivity: SignedCast[] = JSON.parse(activityFile.getContent());
+    const allActivity: SignedCast[] = JSON.parse(activityFile.content);
     allActivity.unshift(cast);
     activityFile.overwrite(JSON.stringify(allActivity));
     await activityFile.save();
@@ -54,6 +54,11 @@ export class GithubGistContentHost implements ContentHost {
       const directory = this._gist.getFile(
         GithubGistContentHost.DIRECTORY_FILENAME
       );
+      if (directory === null) {
+        throw new Error(
+          `Github gist file ${GithubGistContentHost.DIRECTORY_FILENAME} not found`
+        );
+      }
       directory.overwrite(directoryJson);
       await directory.save();
     } else {
@@ -67,9 +72,16 @@ export class GithubGistContentHost implements ContentHost {
 
   async getDirectory(): Promise<Directory> {
     await this._ready;
-    const directoryAxiosResponse = this._gist
-      .getFile(GithubGistContentHost.DIRECTORY_FILENAME)
-      .getContent() as unknown as AxiosResponse<Directory>;
+    const directory = this._gist.getFile(
+      GithubGistContentHost.DIRECTORY_FILENAME
+    );
+    if (directory === null) {
+      throw new Error(
+        `Github gist file ${GithubGistContentHost.DIRECTORY_FILENAME} not found`
+      );
+    }
+    const directoryAxiosResponse =
+      directory.content as unknown as AxiosResponse<Directory>;
     return directoryAxiosResponse.data;
   }
 
@@ -88,7 +100,7 @@ export class GithubGistContentHost implements ContentHost {
     await activityFile.save();
   }
 
-  private async _getOrCreateActivityFile(): Promise<File> {
+  private async _getOrCreateActivityFile(): Promise<GistFile> {
     await this._ready;
     if (
       !this._gist
@@ -97,6 +109,14 @@ export class GithubGistContentHost implements ContentHost {
     ) {
       this._gist.createFile(GithubGistContentHost.ACTIVITY_FILENAME, "[]");
     }
-    return await this._gist.getFile(GithubGistContentHost.ACTIVITY_FILENAME);
+    const ret = await this._gist.getFile(
+      GithubGistContentHost.ACTIVITY_FILENAME
+    );
+    if (ret === null) {
+      throw new Error(
+        `Github gist file ${GithubGistContentHost.ACTIVITY_FILENAME} not found`
+      );
+    }
+    return ret;
   }
 }
