@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "exports": {
