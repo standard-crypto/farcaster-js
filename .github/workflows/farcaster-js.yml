@@ -18,8 +18,8 @@ jobs:
       - uses: volta-cli/action@v1
       - run: yarn --frozen-lockfile
 
-      - name: Build
-        run: yarn build
+      - name: Type check
+        run: yarn type:check
 
       - name: Format check
         run: yarn format:check
@@ -33,8 +33,5 @@ jobs:
       - name: Test
         run: yarn test
 
-      # - name: Release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #   run: yarn semantic-release
+      - name: Build
+        run: yarn build
