@@ -37,7 +37,20 @@ export class GithubGistContentHost implements ContentHost {
 
   async publishCast(cast: SignedCast): Promise<void> {
     const activityFile = await this._getOrCreateActivityFile();
-    const allActivity: SignedCast[] = JSON.parse(activityFile.getContent());
+    const maybeContent = activityFile.getContent();
+    let allActivity: SignedCast[];
+    if (
+      typeof maybeContent === "object" &&
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (maybeContent as any).data !== undefined
+    ) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      allActivity = (maybeContent as any).data;
+    } else if (typeof maybeContent === "string") {
+      allActivity = JSON.parse(maybeContent);
+    } else {
+      throw new Error(`invalid gist activity file response`);
+    }
     allActivity.unshift(cast);
     activityFile.overwrite(JSON.stringify(allActivity));
     await activityFile.save();
