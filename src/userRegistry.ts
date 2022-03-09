@@ -21,28 +21,28 @@ import { Overrides, ContractTransaction } from "@ethersproject/contracts";
 export interface UserRegistry extends UserRegistryReader, UserRegistryWriter {}
 
 export interface UserRegistryReader {
-  lookupByUsername(username: string): Promise<User | undefined>;
-  lookupByAddress(address: string): Promise<User | undefined>;
-  getAllUsers(): AsyncGenerator<User, void, undefined>;
-  getAllUsernames(): AsyncGenerator<string, void, undefined>;
+  lookupByUsername: (username: string) => Promise<User | undefined>;
+  lookupByAddress: (address: string) => Promise<User | undefined>;
+  getAllUsers: () => AsyncGenerator<User, void, undefined>;
+  getAllUsernames: () => AsyncGenerator<string, void, undefined>;
 }
 
 export interface UserRegistryWriter {
-  registerUsername(
+  registerUsername: (
     username: string,
     signer: Signer,
     overrides?: Overrides & { directoryUrl?: string }
-  ): Promise<ContractTransaction>;
-  updateDirectoryUrl(
+  ) => Promise<ContractTransaction>;
+  updateDirectoryUrl: (
     newUrl: string,
     signer: Signer,
     overrides?: Overrides
-  ): Promise<ContractTransaction>;
-  transferUsernameOwnership(
+  ) => Promise<ContractTransaction>;
+  transferUsernameOwnership: (
     newAddress: string,
     signer: Signer,
     overrides?: Overrides
-  ): Promise<ContractTransaction>;
+  ) => Promise<ContractTransaction>;
 }
 
 /**
@@ -56,7 +56,7 @@ export class Web2UserRegistry implements UserRegistryReader {
   readonly axiosInstance: AxiosInstance;
 
   constructor(axiosInstance?: AxiosInstance) {
-    if (!axiosInstance) {
+    if (axiosInstance == null) {
       axiosInstance = axios.create({
         baseURL: `https://${Web2UserRegistry.DEFAULT_HOST}/admin`,
         validateStatus: (status) => status >= 200 && status < 300,
@@ -69,7 +69,7 @@ export class Web2UserRegistry implements UserRegistryReader {
     const resp = await this.axiosInstance.get<User>(`/usernames/${username}`, {
       validateStatus: (status) => status === 200 || status === 404,
     });
-    if (resp.status == 404) {
+    if (resp.status === 404) {
       return undefined;
     }
     return resp.data;
@@ -96,10 +96,10 @@ export class Web2UserRegistry implements UserRegistryReader {
   }
 }
 
-type _UsernameRegisteredAndTransferredEvents = {
+interface _UsernameRegisteredAndTransferredEvents {
   registered?: RegisterNameEvent;
   transferred: TransferNameEvent[];
-};
+}
 
 /**
  * Reads and writes directly to the Farcaster Ethereum contract, which is the authoritative
@@ -108,7 +108,11 @@ type _UsernameRegisteredAndTransferredEvents = {
 export class Web3UserRegistry implements UserRegistry {
   static readonly RINKEBY_ADDRESS =
     "0xe3be01d99baa8db9905b33a3ca391238234b79d1";
-  private static _REGISTRY_CREATED_BLOCK_NUMBER: Record<string, number> = {
+
+  private static readonly _REGISTRY_CREATED_BLOCK_NUMBER: Record<
+    string,
+    number
+  > = {
     rinkeby: 8562445,
   };
 
@@ -140,7 +144,7 @@ export class Web3UserRegistry implements UserRegistry {
       return undefined;
     }
     const address = await this.getCurrentOwner(username);
-    if (!address) {
+    if (address === undefined) {
       throw new Error(
         `username ${username} is initialized but has no corresponding RegisterName events logged`
       );
@@ -162,6 +166,9 @@ export class Web3UserRegistry implements UserRegistry {
     const username = parseBytes32String(
       await contract.addressToUsername(address)
     );
+    if (username === "") {
+      return undefined;
+    }
     const directoryUrl = await contract.getDirectoryUrl(
       formatBytes32String(username)
     );
@@ -180,7 +187,7 @@ export class Web3UserRegistry implements UserRegistry {
   async *getAllUsers(): AsyncGenerator<User, void, undefined> {
     for await (const username of this.getAllUsernames()) {
       const user = await this.lookupByUsername(username);
-      if (user) {
+      if (user != null) {
         yield user;
       }
     }
@@ -221,7 +228,7 @@ export class Web3UserRegistry implements UserRegistry {
     overrides?: Overrides
   ): Promise<ContractTransaction> {
     const contract = await this.contract;
-    return contract
+    return await contract
       .connect(signer)
       .transferOwnership(newAddress, { ...overrides });
   }
@@ -232,7 +239,7 @@ export class Web3UserRegistry implements UserRegistry {
     overrides?: Overrides
   ): Promise<ContractTransaction> {
     const contract = await this.contract;
-    return contract.connect(signer).modify(newUrl, { ...overrides });
+    return await contract.connect(signer).modify(newUrl, { ...overrides });
   }
 
   async registerUsername(
@@ -242,10 +249,10 @@ export class Web3UserRegistry implements UserRegistry {
   ): Promise<ContractTransaction> {
     const contract = await this.contract;
     let directoryUrl = overrides?.directoryUrl;
-    if (!directoryUrl) {
+    if (directoryUrl === undefined) {
       directoryUrl = defaultDirectoryUrl(await signer.getAddress());
     }
-    return contract
+    return await contract
       .connect(signer)
       .register(formatBytes32String(username), directoryUrl, { ...overrides });
   }
@@ -253,7 +260,7 @@ export class Web3UserRegistry implements UserRegistry {
   async getCurrentOwner(username: string): Promise<string | undefined> {
     const { registered, transferred } =
       await this._fetchUsernameRegisteredAndTransferredEvents(username);
-    if (!registered) {
+    if (registered == null) {
       return undefined;
     }
     if (transferred.length > 0) {
@@ -280,7 +287,7 @@ export class Web3UserRegistry implements UserRegistry {
       registerNameEventsFilter,
       await this._blockWhenContractCreated()
     );
-    if (!registerNameEvents) {
+    if (registerNameEvents.length === 0) {
       return {
         registered: undefined,
         transferred: [],
@@ -303,7 +310,7 @@ export class Web3UserRegistry implements UserRegistry {
   ): Promise<{ createdAt: string; modifiedAt: string }> {
     const { registered, transferred } =
       await this._fetchUsernameRegisteredAndTransferredEvents(username);
-    if (!registered) {
+    if (registered == null) {
       throw new Error(`no RegisterName events logged for username ${username}`);
     }
     const blockRegisteredIn = await registered.getBlock();
@@ -334,7 +341,7 @@ export class Web3UserRegistry implements UserRegistry {
 }
 
 export function defaultDirectoryUrl(ownerAddress: string): string {
-  if (!ownerAddress.match(/^0x[a-fA-F0-9]{40}$/)) {
+  if (ownerAddress.match(/^0x[a-fA-F0-9]{40}$/) == null) {
     throw new Error(`${ownerAddress} is not a valid Ethereum address`);
   }
   return `https://guardian.farcaster.xyz/origin/directory/${ownerAddress}`;

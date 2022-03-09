@@ -21,7 +21,7 @@ const farcaster = new Farcaster();
 
 // lookup the existing Directory
 const user = await userRegistry.lookupByAddress(signer.address);
-if (!user) {
+if (user == null) {
   throw new Error(`No user for address ${signer.address}`);
 }
 const oldDirectory = (await axios.get<Directory>(user.directoryUrl)).data;

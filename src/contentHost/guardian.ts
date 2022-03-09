@@ -9,7 +9,7 @@ export class FarcasterGuardianContentHost implements ContentHost {
   readonly canonicalNetwork: Network;
   readonly address: string;
 
-  private axiosInstance: AxiosInstance;
+  private readonly axiosInstance: AxiosInstance;
 
   static readonly HOST = "guardian.farcaster.xyz";
 
@@ -22,7 +22,7 @@ export class FarcasterGuardianContentHost implements ContentHost {
     this.jwtSigner = ES256KSigner(privateKey);
     this.canonicalNetwork = getNetwork(network);
     this.address = new Wallet(privateKey).address;
-    if (!axiosInstance) {
+    if (axiosInstance == null) {
       axiosInstance = axios.create({
         baseURL: `https://${FarcasterGuardianContentHost.HOST}`,
         validateStatus: (status) => status >= 200 && status < 300,
@@ -43,11 +43,11 @@ export class FarcasterGuardianContentHost implements ContentHost {
   }
 
   async publishCast(cast: SignedCast): Promise<void> {
-    return this.axiosInstance.post("/indexer/activity", cast);
+    return await this.axiosInstance.post("/indexer/activity", cast);
   }
 
   async updateDirectory(newDirectory: Directory): Promise<void> {
-    return this.axiosInstance.post(`/indexer/directory/${this.address}`, {
+    return await this.axiosInstance.post(`/indexer/directory/${this.address}`, {
       directory: newDirectory,
     });
   }

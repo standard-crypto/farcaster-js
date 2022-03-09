@@ -63,7 +63,7 @@ import { Farcaster, publishCast } from "@standard-crypto/farcaster-js";
 const farcaster = new Farcaster();
 const latestCast = await farcaster.getLatestActivityForUser("dwr");
 const privateKey = "..."; // 64 character hex string
-publishCast(privateKey, "Replying to your cast!", latestCast);
+await publishCast(privateKey, "Replying to your cast!", latestCast);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -165,7 +165,7 @@ const farcaster = new Farcaster();
 
 // lookup the existing Directory
 const user = await userRegistry.lookupByAddress(signer.address);
-if (!user) {
+if (user == null) {
   throw new Error(`No user for address ${signer.address}`);
 }
 const oldDirectory = (await axios.get<Directory>(user.directoryUrl)).data;

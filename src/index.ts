@@ -21,7 +21,7 @@ export async function publishCast(
   const user = await _defaultFarcaster.usernameRegistry.lookupByAddress(
     address
   );
-  if (!user) {
+  if (user == null) {
     throw new Error(`no username registered for address ${address}`);
   }
   const unsignedCast = await _defaultFarcaster.prepareCast({

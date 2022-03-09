@@ -11,10 +11,10 @@ export type SignedCast = Omit<AddressActivity, "meta">;
  * as guardian.farcaster.xyz
  */
 export interface ContentHost {
-  publishCast(cast: SignedCast): Promise<void>;
-  updateDirectory(newDirectory: Directory): Promise<void>;
-  directoryUrl(): Promise<string>;
-  activityUrl(): Promise<string>;
+  publishCast: (cast: SignedCast) => Promise<void>;
+  updateDirectory: (newDirectory: Directory) => Promise<void>;
+  directoryUrl: () => Promise<string>;
+  activityUrl: () => Promise<string>;
 }
 
 /**

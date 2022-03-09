@@ -26,7 +26,8 @@ export interface CastRequest {
   text: string;
   fromUsername: string;
   sequence?: number;
-  replyTo?: AddressActivity | string;
+  // replyTo may be a the merkle-hash of a Cast, or the Cast object itself
+  replyTo?: Pick<AddressActivity, "merkleRoot"> | string;
   tokenCommunities?: TokenCommunity[];
 }
 
@@ -46,7 +47,7 @@ export class Farcaster {
     axiosInstance?: AxiosInstance
   ) {
     this.usernameRegistry = usernameRegistry;
-    if (!axiosInstance) {
+    if (axiosInstance == null) {
       axiosInstance = axios.create({
         validateStatus: (status) => status >= 200 && status < 300,
       });
@@ -65,14 +66,14 @@ export class Farcaster {
     updates: UpdateDirectoryRequest
   ): Promise<Directory> {
     const user = await this.usernameRegistry.lookupByUsername(username);
-    if (!user) {
+    if (user == null) {
       throw new Error(`no such user with username ${username}`);
     }
     if (user.address !== (await signer.getAddress())) {
       throw new Error(
         `The registered address ${
           user.address
-        } for user ${username} does not match the address of the provided signer: ${signer.getAddress()}`
+        } for user ${username} does not match the address of the provided signer: ${await signer.getAddress()}`
       );
     }
     const currentDirectory = (
@@ -120,7 +121,7 @@ export class Farcaster {
     }
 
     let replyParentMerkleRoot: string | undefined;
-    if (request.replyTo) {
+    if (request.replyTo !== undefined) {
       if (typeof request.replyTo === "string") {
         replyParentMerkleRoot = request.replyTo;
       } else {
@@ -136,11 +137,11 @@ export class Farcaster {
     const userActivity = await this.getLatestActivityForUser(
       request.fromUsername
     );
-    if (!userActivity) {
+    if (userActivity == null) {
       const user = await this.usernameRegistry.lookupByUsername(
         request.fromUsername
       );
-      if (!user) {
+      if (user == null) {
         throw new Error(`no such user with username ${request.fromUsername}`);
       }
       address = user.address;
@@ -176,7 +177,7 @@ export class Farcaster {
       throw new Error(
         `The address ${cast.address} for user ${
           cast.username
-        } does not match the address of the provided signer: ${signer.getAddress()}`
+        } does not match the address of the provided signer: ${await signer.getAddress()}`
       );
     }
     const serializedCast = serializeAddressActivityBody(cast);
@@ -189,7 +190,7 @@ export class Farcaster {
     };
   }
 
-  /** Validates {@link Directory.signature} and {@link Directory.merkleRoot}*/
+  /** Validates {@link Directory.signature} and {@link Directory.merkleRoot} */
   static async isValidDirectorySignature(
     address: string,
     directory: Directory
@@ -215,7 +216,7 @@ export class Farcaster {
     );
     return (
       signerAddress === address &&
-      derivedMerkleRoot == addressActivity.merkleRoot
+      derivedMerkleRoot === addressActivity.merkleRoot
     );
   }
 
@@ -223,6 +224,7 @@ export class Farcaster {
   async getLatestActivityForUser(
     username: string
   ): Promise<AddressActivity | undefined> {
+    // eslint-disable-next-line no-unreachable-loop
     for await (const activity of this.getAllActivityForUser(username)) {
       // return first result
       return activity;
@@ -283,7 +285,7 @@ export class Farcaster {
   /** Fetches a user's {@link Directory} */
   async getDirectory(username: string): Promise<Directory> {
     const user = await this.usernameRegistry.lookupByUsername(username);
-    if (!user) {
+    if (user == null) {
       throw new Error(`no such user with username ${username}`);
     }
     const directoryResp = await this.axiosInstance.get<Directory>(
