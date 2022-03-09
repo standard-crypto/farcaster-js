@@ -22,7 +22,7 @@ A tool for interacting with the Farcaster social network. Facilitates reading an
 ## Setup
 
 ```bash
-npm install farcaster-js
+npm install @standard-crypto/farcaster-js
 ```
 
 ## Examples
