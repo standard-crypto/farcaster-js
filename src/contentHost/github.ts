@@ -4,6 +4,16 @@ import GithubGist from "simple-github-gist-api";
 import File from "simple-github-gist-api/dist/models/GistFile";
 import { AxiosResponse } from "axios";
 
+function _gistContentIsAxiosResponse(
+  gistContent: any // eslint-disable-line @typescript-eslint/no-explicit-any
+): gistContent is AxiosResponse<SignedCast[]> {
+  return (
+    typeof gistContent === "object" &&
+    gistContent.data !== undefined &&
+    Array.isArray(gistContent.data)
+  );
+}
+
 export class GithubGistContentHost implements ContentHost {
   private readonly _gist: GithubGist;
   private readonly _ready: Promise<void>;
@@ -40,20 +50,28 @@ export class GithubGistContentHost implements ContentHost {
     if (activityFile === null) {
       return;
     }
-    const maybeContent = activityFile.fetchLatest();
+    await activityFile.fetchLatest();
+    const maybeContent = activityFile.content;
     let allActivity: SignedCast[];
-    if (
-      typeof maybeContent === "object" &&
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (maybeContent as any).data !== undefined
-    ) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      allActivity = (maybeContent as any).data;
+
+    // Github gist library has had issues with inconsistent use of its AxiosResponses.
+    // This is meant to handle the different forms of responses we might get back
+    // when the library claims to return the file content as a string
+    if (_gistContentIsAxiosResponse(maybeContent)) {
+      // Library gave us an AxiosResponse
+      allActivity = maybeContent.data;
     } else if (typeof maybeContent === "string") {
+      // Library gave us the file content as a string
       allActivity = JSON.parse(maybeContent);
+    } else if (Array.isArray(maybeContent)) {
+      // Library parsed the file content as JSON and returned the resultant object
+      allActivity = maybeContent;
     } else {
-      throw new Error(`invalid gist activity file response`);
+      throw new Error(
+        `invalid gist activity file response: ${JSON.stringify(maybeContent)}`
+      );
     }
+
     allActivity.unshift(cast);
     activityFile.overwrite(JSON.stringify(allActivity));
     await activityFile.save();
