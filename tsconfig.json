@@ -16,7 +16,6 @@
       "./tests",
       "./examples"
     ],
-    "baseUrl": ".",
     "paths": {
       "@standard-crypto/farcaster-js": ["./src"],
       "@standard-crypto/farcaster-js/*": ["./src/*"]
