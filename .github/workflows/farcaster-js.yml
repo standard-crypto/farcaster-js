@@ -1,6 +1,6 @@
 name: farcaster
 
-on: [push]
+on: [push, pull_request]
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
