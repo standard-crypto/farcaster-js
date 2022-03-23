@@ -93,7 +93,7 @@
     "axios-cache-interceptor": "^0.10.1",
     "did-jwt": "^5.7.0",
     "ethers": "^5.6.1",
-    "simple-github-gist-api": "^2.0.56"
+    "simple-github-gist-api": "^2.0.57"
   },
   "files": [
     "package.json",
