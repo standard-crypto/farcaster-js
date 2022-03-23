@@ -9,3 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      include: scope
+      prefix: build
+      prefix-development: chore
