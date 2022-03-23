@@ -16,7 +16,12 @@
   ],
   "repositoryUrl": "https://github.com/standard-crypto/farcaster-js.git",
   "plugins": [
-    "@semantic-release/commit-analyzer",
+    ["@semantic-release/commit-analyzer", {
+      "releaseRules": [
+        {"type": "docs", "release": "patch"},
+        {"scope": "no-release", "release": false}
+      ]
+    }],
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     "@semantic-release/npm",

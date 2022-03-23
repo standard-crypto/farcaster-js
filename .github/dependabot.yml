@@ -11,5 +11,5 @@ updates:
       interval: "daily"
     commit-message:
       include: scope
-      prefix: build
+      prefix: fix
       prefix-development: chore
