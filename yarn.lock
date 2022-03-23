@@ -2217,10 +2217,10 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-axios-cache-interceptor@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/axios-cache-interceptor/-/axios-cache-interceptor-0.9.3.tgz#4e95130f3f94af8dc390ff70d7ae387a7c1d957f"
-  integrity sha512-2gftpDWH8yajxjl9gBOD2ZvLaavaLM2uoLvgalwOPlLpr8KOriKO58UYJBZnuTei4rFAl40w4KQjcgtwEU0jXw==
+axios-cache-interceptor@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/axios-cache-interceptor/-/axios-cache-interceptor-0.10.1.tgz#d5efcf2495a528241baf0105097bf89f5ed5adac"
+  integrity sha512-DvMYUHm+EWqmYhi0PkFnoJIzjjr6yHQ5pbpD4mH9qsR25rY16H7B1aFpM29xxSIkFN7Q9/SqupWANVzrGQfhmg==
   dependencies:
     cache-parser "^1.2.2"
     fast-defer "^1.1.5"
