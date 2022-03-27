@@ -72,7 +72,7 @@
     "markdown-magic": "^2.5.2",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
-    "prettier": "^2.6.0",
+    "prettier": "^2.6.1",
     "rollup": "^2.70.1",
     "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
     "rollup-plugin-peer-deps-external": "^2.2.4",
