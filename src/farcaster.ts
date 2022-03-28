@@ -53,7 +53,9 @@ export class Farcaster {
       });
     }
 
-    this.axiosInstance = setupCache(axiosInstance);
+    this.axiosInstance = setupCache(axiosInstance, {
+      ttl: 5 * 1000,
+    });
   }
 
   /**
