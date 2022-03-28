@@ -1,6 +1,5 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import axios, { AxiosInstance } from "axios";
-import { setupCache } from "axios-cache-interceptor";
 import { User } from "./api";
 import { Provider } from "@ethersproject/providers";
 import {
@@ -62,7 +61,7 @@ export class Web2UserRegistry implements UserRegistryReader {
         validateStatus: (status) => status >= 200 && status < 300,
       });
     }
-    this.axiosInstance = setupCache(axiosInstance);
+    this.axiosInstance = axiosInstance;
   }
 
   async lookupByUsername(username: string): Promise<User | undefined> {

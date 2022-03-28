@@ -3,7 +3,6 @@ import { keccak256 } from "@ethersproject/keccak256";
 import { toUtf8Bytes } from "@ethersproject/strings";
 import { verifyMessage } from "@ethersproject/wallet";
 import axios, { AxiosInstance } from "axios";
-import { setupCache } from "axios-cache-interceptor";
 import { ContentHost, SignedCast } from "./contentHost";
 import {
   AddressActivity,
@@ -53,9 +52,7 @@ export class Farcaster {
       });
     }
 
-    this.axiosInstance = setupCache(axiosInstance, {
-      ttl: 5 * 1000,
-    });
+    this.axiosInstance = axiosInstance;
   }
 
   /**
