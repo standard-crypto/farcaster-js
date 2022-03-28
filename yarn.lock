@@ -2183,14 +2183,14 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-axios-cache-interceptor@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/axios-cache-interceptor/-/axios-cache-interceptor-0.10.1.tgz#d5efcf2495a528241baf0105097bf89f5ed5adac"
-  integrity sha512-DvMYUHm+EWqmYhi0PkFnoJIzjjr6yHQ5pbpD4mH9qsR25rY16H7B1aFpM29xxSIkFN7Q9/SqupWANVzrGQfhmg==
+axios-cache-interceptor@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/axios-cache-interceptor/-/axios-cache-interceptor-0.10.2.tgz#e2550a5e181cd91ea5185ecc2d2a20327566ef32"
+  integrity sha512-lhsT3euGTMRlNf7DZA3QFuVvp4DQ8Ig2krTJStULdf5235KS9VKLMFMVylza82asYbg4mzErvMUujuJf2uGndQ==
   dependencies:
-    cache-parser "^1.2.2"
-    fast-defer "^1.1.5"
-    object-code "^1.2.0"
+    cache-parser "^1.2.4"
+    fast-defer "^1.1.7"
+    object-code "^1.2.2"
 
 axios@^0.26.0, axios@^0.26.1:
   version "0.26.1"
@@ -2333,10 +2333,10 @@ cacache@^15.0.3, cacache@^15.3.0:
     tar "^6.0.2"
     unique-filename "^1.1.1"
 
-cache-parser@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/cache-parser/-/cache-parser-1.2.2.tgz#bd92b28c14d84716e96d55ea8bcad8fe19328eff"
-  integrity sha512-fYyjfGESPFxpiWyfkuC4Ox7GargvOohtKmGnXMIID1WBfFIxMkwwfNH5xavwwn3jMCuge/krb2nXzAvQ5dHlvQ==
+cache-parser@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/cache-parser/-/cache-parser-1.2.4.tgz#60975135ef2330e6a1d60895279d7237a2a9b398"
+  integrity sha512-O0KwuHuJnbHUrghHi2kGp0SxnWSIBXTYt7M8WVhW0kbPRUNUKoE/Of6e1rRD6AAxmfxFunKnt90yEK09D+sc5g==
 
 cachedir@2.2.0:
   version "2.2.0"
@@ -3633,10 +3633,10 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
-fast-defer@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/fast-defer/-/fast-defer-1.1.5.tgz#0103cb248483e9b6cb931ffd9f56edf1ee1b62f3"
-  integrity sha512-5URGfQbNb+IJXv4AWvFldxvaMHXQdfvKVQGIrJ5PaJq+s9fFWtDSB+EhuCpvH608kXIxuulHkwrsWH33ONplnw==
+fast-defer@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/fast-defer/-/fast-defer-1.1.7.tgz#943bc3c7a876d437360318ab1e1f269a29f31ba4"
+  integrity sha512-tJ01ulDWT2WhqxMKS20nXX6wyX2iInBYpbN3GO7yjKwXMY4qvkdBRxak9IFwBLlFDESox+SwSvqMCZDfe1tqeg==
 
 fast-equals@^3.0.0:
   version "3.0.0"
@@ -5949,10 +5949,10 @@ nyc@^15.1.0:
     test-exclude "^6.0.0"
     yargs "^15.0.2"
 
-object-code@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/object-code/-/object-code-1.2.0.tgz#aaa1ddc9bb69c1bbd9d2102e3553c541a099076e"
-  integrity sha512-VFYjh8+8Bfk5AuvVsqhoi36033g0NJ7/V4YS/RjhMFtfUdCrO5SjS57yUsDeGjKff8qKnJvdYYXBDSEI2eOIAQ==
+object-code@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/object-code/-/object-code-1.2.2.tgz#ac0133813ae570555c51e47b9beee73494a39a6a"
+  integrity sha512-ZSbEQdei4ElzuDM4BmazKSwINacocBf3/8rte25aNqXzvT/8dSaNVY9egsjAaBL/UhW55JNxAvXOKPIsL2MwWQ==
 
 object-inspect@^1.11.0, object-inspect@^1.9.0:
   version "1.12.0"
