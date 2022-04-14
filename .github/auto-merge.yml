@@ -4,3 +4,4 @@ requiredLabels:
   - dependencies
 updateBranch: true
 mergeMethod: rebase
+reportStatus: true
