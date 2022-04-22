@@ -92,7 +92,7 @@
     "axios": "^0.26.1",
     "did-jwt": "^5.7.0",
     "ethers": "^5.6.4",
-    "simple-github-gist-api": "^2.0.69"
+    "simple-github-gist-api": "^2.0.70"
   },
   "files": [
     "package.json",
