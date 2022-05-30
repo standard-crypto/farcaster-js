@@ -6847,10 +6847,10 @@ signale@^1.2.1:
     figures "^2.0.0"
     pkg-conf "^2.1.0"
 
-simple-github-gist-api@^2.0.85:
-  version "2.0.85"
-  resolved "https://registry.yarnpkg.com/simple-github-gist-api/-/simple-github-gist-api-2.0.85.tgz#76a27c904158e424d99b01f8975c710d4cfe02de"
-  integrity sha512-llhlG4CGp2w67dE8UT+U/POLJWbgm/pkSkAwmObVblD1gIO26iiwWTtW8uDkLb7Aio5sD+2qYljR8ptIN/I8hA==
+simple-github-gist-api@^2.0.86:
+  version "2.0.86"
+  resolved "https://registry.yarnpkg.com/simple-github-gist-api/-/simple-github-gist-api-2.0.86.tgz#c94e95c0b5e70c010fe441f06394729c0a9b382d"
+  integrity sha512-oz3/2vG+p5lqt5mNlrF/qeUvHo2i84BPnBrcmfQgnR9wzKznbn1hoR6EUyerYpNfm01048m5jihGSu6OkE1rfQ==
   dependencies:
     axios "^0.27.1"
 
