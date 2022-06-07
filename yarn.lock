@@ -6800,10 +6800,10 @@ rollup-plugin-peer-deps-external@^2.2.4:
   resolved "https://registry.yarnpkg.com/rollup-plugin-peer-deps-external/-/rollup-plugin-peer-deps-external-2.2.4.tgz#8a420bbfd6dccc30aeb68c9bf57011f2f109570d"
   integrity sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==
 
-rollup-plugin-typescript2@^0.32.0:
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.32.0.tgz#eb5da04c69e1bb7d98fbb7a134df938b37c7e94b"
-  integrity sha512-sIiCObzETQagImlNa/xVZY2aKB/7w77EzKAzpmVkXZbDuso6PrW2hdQv6m4/UuMqnzqTFWGF4FPLbVuQISeYZw==
+rollup-plugin-typescript2@^0.32.1:
+  version "0.32.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.32.1.tgz#470ded8e1965efac02043cc0ef4a7fa36bed83b9"
+  integrity sha512-RanO8bp1WbeMv0bVlgcbsFNCn+Y3rX7wF97SQLDxf0fMLsg0B/QFF005t4AsGUcDgF3aKJHoqt4JF2xVaABeKw==
   dependencies:
     "@rollup/pluginutils" "^4.1.2"
     find-cache-dir "^3.3.2"
