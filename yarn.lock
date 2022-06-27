@@ -7013,10 +7013,10 @@ signale@^1.2.1:
     figures "^2.0.0"
     pkg-conf "^2.1.0"
 
-simple-github-gist-api@^2.0.97:
-  version "2.0.97"
-  resolved "https://registry.yarnpkg.com/simple-github-gist-api/-/simple-github-gist-api-2.0.97.tgz#ebf0a52f6f936e1f8dd8f08e4720b22bcc8c4c16"
-  integrity sha512-MVrSUkGwactKCJyqvFPT7kZdBN+SBhsXx+hXwjAnpNTqSUGdN0c4r/nK9nbaukdiFeil4Fu4z8Yzpqz3f11fWA==
+simple-github-gist-api@^2.0.98:
+  version "2.0.98"
+  resolved "https://registry.yarnpkg.com/simple-github-gist-api/-/simple-github-gist-api-2.0.98.tgz#19ffe5f1fec272e1a95786840b1c51eac9488c20"
+  integrity sha512-tOi2I9DuNLZV9M+wt70z2yIJFlAQH3uzT3qBiSaFayHNF9dEe10L6YX1LzQ6eLDMxDS8pNCKomFB7hh26wlkhg==
   dependencies:
     axios "^0.27.1"
 
