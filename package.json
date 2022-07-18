@@ -54,7 +54,7 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.4",
     "@types/prompts": "^2.0.13",
-    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.6",
     "chai": "^4.3.4",
     "commitizen": "^4.2.4",
