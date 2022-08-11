@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v2.0.0
       - run: yarn --frozen-lockfile
 
       - name: Build
