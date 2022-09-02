@@ -69,7 +69,7 @@
     "eslint-plugin-promise": "^6.0.1",
     "esm": "^3.2.25",
     "husky": "^8.0.1",
-    "markdown-magic": "^2.5.2",
+    "markdown-magic": "^2.6.1",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
