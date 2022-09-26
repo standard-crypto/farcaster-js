@@ -72,12 +72,12 @@ await publishCast(privateKey, "Replying to your cast!", latestCast);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/lookupUser.ts) -->
 <!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
 ```ts
-import { InfuraProvider } from "@ethersproject/providers";
-import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
+// import { InfuraProvider } from "@ethersproject/providers";
+// import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
 
-const provider = new InfuraProvider("rinkeby");
-const userRegistry = new Web3UserRegistry(provider);
-console.log(await userRegistry.lookupByUsername("dwr"));
+// const provider = new InfuraProvider("rinkeby");
+// const userRegistry = new Web3UserRegistry(provider);
+// console.log(await userRegistry.lookupByUsername("dwr"));
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -86,19 +86,19 @@ console.log(await userRegistry.lookupByUsername("dwr"));
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/registerUsername.ts) -->
 <!-- The below code snippet is automatically added from ./examples/registerUsername.ts -->
 ```ts
-import { InfuraProvider } from "@ethersproject/providers";
-import { Wallet } from "@ethersproject/wallet";
-import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
+// import { InfuraProvider } from "@ethersproject/providers";
+// import { Wallet } from "@ethersproject/wallet";
+// import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
 
-const provider = new InfuraProvider("rinkeby");
-const userRegistry = new Web3UserRegistry(provider);
-const signer = new Wallet("<private key>", provider); // any Signer implementation accepted
-const newUsername = "MyNewUsername"; // do not include the leading `@`
-const tx = await userRegistry.registerUsername(newUsername, signer, {
-  gasLimit: 400000,
-});
-await tx.wait();
-console.log(await userRegistry.lookupByUsername(newUsername));
+// const provider = new InfuraProvider("rinkeby");
+// const userRegistry = new Web3UserRegistry(provider);
+// const signer = new Wallet("<private key>", provider); // any Signer implementation accepted
+// const newUsername = "MyNewUsername"; // do not include the leading `@`
+// const tx = await userRegistry.registerUsername(newUsername, signer, {
+//   gasLimit: 400000,
+// });
+// await tx.wait();
+// console.log(await userRegistry.lookupByUsername(newUsername));
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -107,23 +107,20 @@ console.log(await userRegistry.lookupByUsername(newUsername));
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/updateDisplayName.ts) -->
 <!-- The below code snippet is automatically added from ./examples/updateDisplayName.ts -->
 ```ts
-import { InfuraProvider } from "@ethersproject/providers";
-import { Wallet } from "@ethersproject/wallet";
-import {
-  Farcaster,
-  FarcasterGuardianContentHost,
-} from "@standard-crypto/farcaster-js";
+// import { InfuraProvider } from "@ethersproject/providers";
+// import { Wallet } from "@ethersproject/wallet";
+// import { Farcaster, FarcasterContentHost } from "@standard-crypto/farcaster-js";
 
-const privateKey = "PRIVATE_KEY"; // 64 character hex string
-const username = "USERNAME"; // do not include the leading `@`
+// const privateKey = "PRIVATE_KEY"; // 64 character hex string
+// const username = "USERNAME"; // do not include the leading `@`
 
-const farcaster = new Farcaster();
-const provider = new InfuraProvider("rinkeby");
-const signer = new Wallet(privateKey, provider); // any Signer implementation accepted
-const contentHost = new FarcasterGuardianContentHost(privateKey);
-await farcaster.updateDirectory(username, signer, contentHost, {
-  displayName: "John Doe",
-});
+// const farcaster = new Farcaster();
+// const provider = new InfuraProvider("rinkeby");
+// const signer = new Wallet(privateKey, provider); // any Signer implementation accepted
+// const contentHost = new FarcasterContentHost(privateKey);
+// await farcaster.updateDirectory(username, signer, contentHost, {
+//   displayName: "John Doe",
+// });
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -142,60 +139,60 @@ An example script for migrating a user's data to a GitHub gist:
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/migrateUserDataToGithub.ts) -->
 <!-- The below code snippet is automatically added from ./examples/migrateUserDataToGithub.ts -->
 ```ts
-import { InfuraProvider } from "@ethersproject/providers";
-import { Wallet } from "@ethersproject/wallet";
-import axios from "axios";
-import {
-  Farcaster,
-  Directory,
-  GithubGistContentHost,
-  Web3UserRegistry,
-} from "@standard-crypto/farcaster-js";
+// import { InfuraProvider } from "@ethersproject/providers";
+// import { Wallet } from "@ethersproject/wallet";
+// import axios from "axios";
+// import {
+//   Farcaster,
+//   Directory,
+//   GithubGistContentHost,
+//   Web3UserRegistry,
+// } from "@standard-crypto/farcaster-js";
 
-// See https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token
-const githubPersonalAccessToken = "ghp_XXXXXXXXXXXXXX";
-const privateKey = "..."; // 64 character hex string
+// // See https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token
+// const githubPersonalAccessToken = "ghp_XXXXXXXXXXXXXX";
+// const privateKey = "..."; // 64 character hex string
 
-// setup
-const provider = new InfuraProvider("rinkeby");
-const userRegistry = new Web3UserRegistry(provider);
-const githubContentHost = new GithubGistContentHost(githubPersonalAccessToken);
-const signer = new Wallet(privateKey, provider);
-const farcaster = new Farcaster();
+// // setup
+// const provider = new InfuraProvider("rinkeby");
+// const userRegistry = new Web3UserRegistry(provider);
+// const githubContentHost = new GithubGistContentHost(githubPersonalAccessToken);
+// const signer = new Wallet(privateKey, provider);
+// const farcaster = new Farcaster();
 
-// lookup the existing Directory
-const user = await userRegistry.lookupByAddress(signer.address);
-if (user == null) {
-  throw new Error(`No user for address ${signer.address}`);
-}
-const oldDirectory = (await axios.get<Directory>(user.directoryUrl)).data;
+// // lookup the existing Directory
+// const user = await userRegistry.lookupByAddress(signer.address);
+// if (user == null) {
+//   throw new Error(`No user for address ${signer.address}`);
+// }
+// const oldDirectory = (await axios.get<Directory>(user.directoryUrl)).data;
 
-// construct a new Directory with an updated `addressActivityUrl` that will point to the new Github gist
-const newDirectoryBody = {
-  ...oldDirectory.body,
-  addressActivityUrl: await githubContentHost.activityUrl(),
-};
-const newDirectory = await Farcaster.signDirectory(newDirectoryBody, signer);
+// // construct a new Directory with an updated `addressActivityUrl` that will point to the new Github gist
+// const newDirectoryBody = {
+//   ...oldDirectory.body,
+//   addressActivityUrl: await githubContentHost.activityUrl(),
+// };
+// const newDirectory = await Farcaster.signDirectory(newDirectoryBody, signer);
 
-// upload the new directory to Github
-await githubContentHost.updateDirectory(newDirectory);
+// // upload the new directory to Github
+// await githubContentHost.updateDirectory(newDirectory);
 
-// now migrate all the User's existing activity over to GitHub, too
-const existingActivity = farcaster.getAllActivityForUser(user.username);
-await githubContentHost.bulkUpload(existingActivity);
+// // now migrate all the User's existing activity over to GitHub, too
+// const existingActivity = farcaster.getAllActivityForUser(user.username);
+// await githubContentHost.bulkUpload(existingActivity);
 
-// last step is to update the UserRegistry contract state to point to GitHub for this user instead of Guardian
-await userRegistry.updateDirectoryUrl(
-  await githubContentHost.directoryUrl(),
-  signer
-);
+// // last step is to update the UserRegistry contract state to point to GitHub for this user instead of Guardian
+// await userRegistry.updateDirectoryUrl(
+//   await githubContentHost.directoryUrl(),
+//   signer
+// );
 
-// now, put a new cast up on GitHub!
-const unsignedCast = await farcaster.prepareCast({
-  fromUsername: user.username,
-  text: "Casting to my self-hosted GitHub content host!",
-});
-const signedCast = await Farcaster.signCast(unsignedCast, signer);
-await githubContentHost.publishCast(signedCast);
+// // now, put a new cast up on GitHub!
+// const unsignedCast = await farcaster.prepareCast({
+//   fromUsername: user.username,
+//   text: "Casting to my self-hosted GitHub content host!",
+// });
+// const signedCast = await Farcaster.signCast(unsignedCast, signer);
+// await githubContentHost.publishCast(signedCast);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->

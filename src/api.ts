@@ -2,16 +2,32 @@
  * Representation of a Farcaster user
  */
 export interface User {
-  /** The user's username (without the leading '@') */
-  username: string;
-  /** The location of this user's {@link Directory} */
-  directoryUrl: string;
-  /** Timestamp in epoch seconds */
-  createdAt: string;
-  /** Timestamp in epoch seconds */
-  modifiedAt: string;
   /** The user's currently registered Ethereum address */
   address: string;
+  /** The user's username (without the leading '@') */
+  username: string;
+  /** The user's full display name */
+  displayName: string;
+  /** Details for the user's avatar */
+  avatar: {
+    url: string;
+    isVerified: boolean;
+  };
+  followerCount: number;
+  followingCount: number;
+  isViewerFollowing: boolean;
+  isFollowingViewer: boolean;
+  profile: {
+    bio: {
+      text: string;
+      mentions: string[];
+    };
+    directMessageTargets?: {
+      telegram?: string; // format is https://t.me/USERNAME
+    };
+  };
+  referrerUsername: string;
+  viewerCanSendDirectCasts: boolean;
 }
 
 export interface Directory {
