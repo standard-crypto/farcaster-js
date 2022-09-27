@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 jobs:
   release:
     name: Release
