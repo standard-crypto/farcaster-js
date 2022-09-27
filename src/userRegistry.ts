@@ -2,7 +2,7 @@ import { Signer } from "@ethersproject/abstract-signer";
 import axios, { AxiosInstance } from "axios";
 import { APIResult, User } from "./api";
 import { Overrides, ContractTransaction } from "@ethersproject/contracts";
-import { Provider, InfuraProvider } from "@ethersproject/providers";
+import { Provider, AlchemyProvider } from "@ethersproject/providers";
 import {
   IdRegistry,
   IdRegistry__factory,
@@ -39,7 +39,7 @@ export class UserRegistry {
    */
   constructor({
     axiosInstance,
-    web3Provider = new InfuraProvider("goerli"),
+    web3Provider = new AlchemyProvider("goerli"),
   }: {
     axiosInstance?: AxiosInstance;
     web3Provider?: Provider;
@@ -295,7 +295,7 @@ export class UserRegistry {
     overrides?: Overrides
   ): Promise<{ tx: ContractTransaction; nonce: Uint8Array }> {
     const nameRegistry = await this.nameRegistry;
-    signer = signer.connect(new InfuraProvider("goerli"));
+    signer = signer.connect(new AlchemyProvider("goerli"));
 
     // check that the contract currently allows self-registration of usernames
     const trustedOnly = await nameRegistry.trustedOnly();
@@ -350,7 +350,7 @@ export class UserRegistry {
     overrides?: Omit<Overrides, "value">
   ): Promise<ContractTransaction> {
     const nameRegistry = await this.nameRegistry;
-    signer = signer.connect(new InfuraProvider("goerli"));
+    signer = signer.connect(new AlchemyProvider("goerli"));
 
     // check that the contract currently allows self-registration of usernames
     const trustedOnly = await nameRegistry.trustedOnly();
