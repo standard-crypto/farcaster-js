@@ -1,7 +1,7 @@
 import { MessageBody } from "./api";
 
 /**
- * Returns the canonical serialization of an {@link MessageBody}.
+ * Returns the canonical serialization of a {@link MessageBody}.
  * Required for producing and verifying signatures.
  */
 export function serializeMessageBody(body: MessageBody): string {

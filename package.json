@@ -35,7 +35,7 @@
     "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts,tests/**/*.ts}\"",
     "cz": "cz",
     "semantic-release": "semantic-release",
-    "docs": "md-magic --path './README.md'",
+    "docs": "yarn md-magic --path './README.md' && yarn typedoc",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -82,6 +82,7 @@
     "source-map-support": "^0.5.19",
     "ts-mocha": "^9.0.2",
     "typechain": "^7.0.1",
+    "typedoc": "^0.23.15",
     "typescript": "^4.6.3"
   },
   "volta": {

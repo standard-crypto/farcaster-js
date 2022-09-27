@@ -9,6 +9,9 @@ const _defaultFarcaster = new Farcaster();
  * Signs and publishes a simple text string.
  * The cast will be attributed to the username currently registered
  * to the given private key's address.
+ * @param wallet A Wallet derived from a private key or mnemonic phrase
+ * @param text The text to be cast
+ * @param replyTo A complete {@link Message}, or the {@link Message.merkleRoot} of a message, that this cast will reply to. Omit if not replying to any casts.
  */
 export async function publishCast(
   wallet: Wallet,

@@ -25,12 +25,9 @@ export class Farcaster {
   readonly userRegistry: UserRegistry;
   readonly contentHost: FarcasterContentHost;
 
-  constructor(
-    userRegistry: UserRegistry = new UserRegistry(),
-    contentHost: FarcasterContentHost = new FarcasterContentHost()
-  ) {
-    this.userRegistry = userRegistry;
-    this.contentHost = contentHost;
+  constructor() {
+    this.userRegistry = new UserRegistry();
+    this.contentHost = new FarcasterContentHost();
   }
 
   /**
@@ -126,7 +123,10 @@ export class Farcaster {
     );
   }
 
-  /** Returns the most recent {@link Message} published by the given username, if any */
+  /**
+   * Returns the most recent {@link Message} published by the given username, if any
+   * @param username Username to query, excluding any leading @
+   */
   async getLatestActivityForUser(
     username: string
   ): Promise<Message | undefined> {
@@ -138,7 +138,9 @@ export class Farcaster {
   }
 
   /**
-   * Yields all {@link Message}s from the given username, in order from most to least recent.
+   * Yields all {@link Message Messages} from the given username, in order from most to least recent.
+   * @param username Username to query, excluding any leading @
+   * @param options.includeRecasts True if recasts should be returned, which will be presented as casts from other users
    */
   async *getAllActivityForUser(
     username: string,

@@ -1,0 +1,135 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@standard-crypto/farcaster-js</title><meta name="description" content="Documentation for @standard-crypto/farcaster-js"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@standard-crypto/farcaster-js</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>@standard-crypto/farcaster-js</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#farcasterjs" id="farcasterjs" style="color: inherit; text-decoration: none;">
+  <h1>Farcaster.js</h1>
+</a>
+<p><img src="https://img.shields.io/npm/l/@standard-crypto/farcaster-js?no-cache" alt="NPM">
+<img src="https://img.shields.io/npm/v/@standard-crypto/farcaster-js?no-cache" alt="NPM">
+<img src="https://github.com/standard-crypto/farcaster-js/actions/workflows/farcaster-js.yml/badge.svg?branch=main" alt="GitHub Workflow Status"></p>
+<p>A tool for interacting with the Farcaster social network. Facilitates reading and writing content, creating accounts and managing the self-hosting of your own content.</p>
+<!-- AUTO-GENERATED-CONTENT:START (TOC) -->
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#examples">Examples</a><ul>
+<li><a href="#publish-a-cast">Publish a Cast</a></li>
+<li><a href="#fetch-user-activity">Fetch User Activity</a></li>
+<li><a href="#reply-to-a-cast">Reply to a Cast</a></li>
+<li><a href="#lookup-a-user">Lookup a User</a></li>
+<li><a href="#register-a-new-username">Register a New Username</a><!-- AUTO-GENERATED-CONTENT:END --></li>
+</ul>
+</li>
+</ul>
+
+<a href="#setup" id="setup" style="color: inherit; text-decoration: none;">
+  <h2>Setup</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-0">npm install @standard-crypto/farcaster-js</span>
+</code></pre>
+
+<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+  <h2>Examples</h2>
+</a>
+
+<a href="#publish-a-cast" id="publish-a-cast" style="color: inherit; text-decoration: none;">
+  <h3>Publish a Cast</h3>
+</a>
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/publishCast.ts -->
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">publishCast</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;@standard-crypto/farcaster-js&quot;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Wallet</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;ethers&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">wallet</span><span class="hl-0"> = </span><span class="hl-2">Wallet</span><span class="hl-0">.</span><span class="hl-6">fromMnemonic</span><span class="hl-0">(</span><span class="hl-3">&quot;twelve words here&quot;</span><span class="hl-0">);</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-6">publishCast</span><span class="hl-0">(</span><span class="hl-2">wallet</span><span class="hl-0">, </span><span class="hl-3">&quot;Hello, Farcaster!&quot;</span><span class="hl-0">);</span>
+</code></pre>
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+
+<a href="#fetch-user-activity" id="fetch-user-activity" style="color: inherit; text-decoration: none;">
+  <h3>Fetch User Activity</h3>
+</a>
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/fetchUserActivity.ts) -->
+<!-- The below code snippet is automatically added from ./examples/fetchUserActivity.ts -->
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Farcaster</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;@standard-crypto/farcaster-js&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">farcaster</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Farcaster</span><span class="hl-0">();</span><br/><span class="hl-1">for</span><span class="hl-0"> </span><span class="hl-1">await</span><span class="hl-0"> (</span><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">activity</span><span class="hl-0"> </span><span class="hl-4">of</span><span class="hl-0"> </span><span class="hl-2">farcaster</span><span class="hl-0">.</span><span class="hl-6">getAllActivityForUser</span><span class="hl-0">(</span><span class="hl-3">&quot;dwr&quot;</span><span class="hl-0">, {</span><br/><span class="hl-0">  </span><span class="hl-2">includeRecasts:</span><span class="hl-0"> </span><span class="hl-4">false</span><span class="hl-0">,</span><br/><span class="hl-0">})) {</span><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-6">log</span><span class="hl-0">(</span><span class="hl-2">activity</span><span class="hl-0">.</span><span class="hl-2">body</span><span class="hl-0">.</span><span class="hl-2">data</span><span class="hl-0">.</span><span class="hl-2">text</span><span class="hl-0">);</span><br/><span class="hl-0">}</span>
+</code></pre>
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+
+<a href="#reply-to-a-cast" id="reply-to-a-cast" style="color: inherit; text-decoration: none;">
+  <h3>Reply to a Cast</h3>
+</a>
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/replyToCast.ts -->
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Farcaster</span><span class="hl-0">, </span><span class="hl-2">publishCast</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;@standard-crypto/farcaster-js&quot;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Wallet</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;ethers&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">farcaster</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">Farcaster</span><span class="hl-0">();</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">latestCast</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">farcaster</span><span class="hl-0">.</span><span class="hl-6">getLatestActivityForUser</span><span class="hl-0">(</span><span class="hl-3">&quot;dwr&quot;</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">wallet</span><span class="hl-0"> = </span><span class="hl-2">Wallet</span><span class="hl-0">.</span><span class="hl-6">fromMnemonic</span><span class="hl-0">(</span><span class="hl-3">&quot;twelve words here&quot;</span><span class="hl-0">);</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-6">publishCast</span><span class="hl-0">(</span><span class="hl-2">wallet</span><span class="hl-0">, </span><span class="hl-3">&quot;Replying to your cast!&quot;</span><span class="hl-0">, </span><span class="hl-2">latestCast</span><span class="hl-0">);</span>
+</code></pre>
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+
+<a href="#lookup-a-user" id="lookup-a-user" style="color: inherit; text-decoration: none;">
+  <h3>Lookup a User</h3>
+</a>
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/lookupUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">UserRegistry</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;@standard-crypto/farcaster-js&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">userRegistry</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">UserRegistry</span><span class="hl-0">();</span><br/><br/><span class="hl-7">// by username</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">userRegistry</span><span class="hl-0">.</span><span class="hl-6">lookupByUsername</span><span class="hl-0">(</span><span class="hl-3">&quot;dwr&quot;</span><span class="hl-0">);</span><br/><br/><span class="hl-7">// by address</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">userRegistry</span><span class="hl-0">.</span><span class="hl-6">lookupByAddress</span><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-3">&quot;0xEfCbF0a3C475780A4eD25158E35F528d929C9A23&quot;</span><br/><span class="hl-0">);</span>
+</code></pre>
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+
+<a href="#register-a-new-username" id="register-a-new-username" style="color: inherit; text-decoration: none;">
+  <h3>Register a New Username</h3>
+</a>
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/registerUsername.ts) -->
+<!-- The below code snippet is automatically added from ./examples/registerUsername.ts -->
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Wallet</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;@ethersproject/wallet&quot;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">UserRegistry</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;@standard-crypto/farcaster-js&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">ownerWallet</span><span class="hl-0"> = </span><span class="hl-2">Wallet</span><span class="hl-0">.</span><span class="hl-6">fromMnemonic</span><span class="hl-0">(</span><span class="hl-3">&quot;twelve words here&quot;</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">recoveryWalletAddress</span><span class="hl-0"> = </span><span class="hl-3">&quot;0x...&quot;</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">userRegistry</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">UserRegistry</span><span class="hl-0">();</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">usernameToRegister</span><span class="hl-0"> = </span><span class="hl-3">&quot;new-username&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-7">// Send transaction to pre-commit to this username</span><br/><span class="hl-4">const</span><span class="hl-0"> { </span><span class="hl-5">tx</span><span class="hl-0">, </span><span class="hl-5">nonce</span><span class="hl-0"> } = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">userRegistry</span><span class="hl-0">.</span><span class="hl-6">commitToUsername</span><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-2">usernameToRegister</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">ownerWallet</span><span class="hl-0">.</span><span class="hl-2">address</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">recoveryWalletAddress</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">ownerWallet</span><br/><span class="hl-0">);</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">tx</span><span class="hl-0">.</span><span class="hl-2">wait</span><span class="hl-0">;</span><br/><br/><span class="hl-7">// Transaction mined. Waiting at least 60s for eligibility to register</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-8">Promise</span><span class="hl-0">((</span><span class="hl-2">resolve</span><span class="hl-0">) </span><span class="hl-4">=&gt;</span><span class="hl-0"> </span><span class="hl-6">setTimeout</span><span class="hl-0">(</span><span class="hl-2">resolve</span><span class="hl-0">, </span><span class="hl-9">75000</span><span class="hl-0">));</span><br/><br/><span class="hl-7">// Attempt to claim reserved username</span><br/><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">userRegistry</span><span class="hl-0">.</span><span class="hl-6">registerUsername</span><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-2">usernameToRegister</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">ownerWallet</span><span class="hl-0">.</span><span class="hl-2">address</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">recoveryWalletAddress</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">nonce</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">ownerWallet</span><br/><span class="hl-0">);</span>
+</code></pre>
+<!-- AUTO-GENERATED-CONTENT:END --></div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">@standard-<wbr/>crypto/farcaster-<wbr/>js</a>
+<ul></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="tsd-kind-enum"><a href="enums/MessageBodyType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-enum)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-8-path"></rect><path d="M9.45 16V7.24H14.49V8.224H10.518V10.936H14.07V11.908H10.518V15.016H14.49V16H9.45Z" fill="var(--color-text)" id="icon-8-text"></path></svg>Message<wbr/>Body<wbr/>Type</a></li>
+<li class="tsd-kind-enum"><a href="enums/ReactionType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-8-path"></use><use href="#icon-8-text"></use></svg>Reaction<wbr/>Type</a></li>
+<li class="tsd-kind-class"><a href="classes/Farcaster.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg>Farcaster</a></li>
+<li class="tsd-kind-class"><a href="classes/FarcasterContentHost.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>Farcaster<wbr/>Content<wbr/>Host</a></li>
+<li class="tsd-kind-class"><a href="classes/UserRegistry.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>User<wbr/>Registry</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/APIResult.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg>APIResult</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/CastRequest.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Cast<wbr/>Request</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/Message.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Message</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/MessageBody.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Message<wbr/>Body</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/Meta.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Meta</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/Reactions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Reactions</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/ReplyParentUsername.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Reply<wbr/>Parent<wbr/>Username</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/TokenCommunity.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Token<wbr/>Community</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/User.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>User</a></li>
+<li class="tsd-kind-type-alias"><a href="types/SignedCast.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg>Signed<wbr/>Cast</a></li>
+<li class="tsd-kind-variable"><a href="variables/CAST_CHARACTER_LIMIT.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-variable)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-32-path"></rect><path d="M11.106 16L8.85 7.24H9.966L11.454 13.192C11.558 13.608 11.646 13.996 11.718 14.356C11.79 14.708 11.842 14.976 11.874 15.16C11.906 14.976 11.954 14.708 12.018 14.356C12.09 13.996 12.178 13.608 12.282 13.192L13.758 7.24H14.85L12.582 16H11.106Z" fill="var(--color-text)" id="icon-32-text"></path></svg>CAST_<wbr/>CHARACTER_<wbr/>LIMIT</a></li>
+<li class="tsd-kind-function"><a href="functions/publishCast.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>publish<wbr/>Cast</a></li>
+<li class="tsd-kind-function"><a href="functions/serializeMessageBody.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>serialize<wbr/>Message<wbr/>Body</a></li></ul></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

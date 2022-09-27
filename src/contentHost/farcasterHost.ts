@@ -6,8 +6,9 @@ import { Message, SignedCast } from "..";
 import { APIResult, User } from "../api";
 
 /**
- * The default ContentHost for all users. To publish new activity, the
- * host enforces JWT auth signed by the user's Ethereum private key.
+ * The default Web2 endpoint where all users casts and metadata are recorded.
+ * To publish new activity, the host enforces JWT auth signed by the user's
+ * Ethereum private key.
  */
 export class FarcasterContentHost {
   readonly jwtSigner?: JWTSigner;
@@ -29,6 +30,10 @@ export class FarcasterContentHost {
     this.axiosInstance = axiosInstance;
   }
 
+  /**
+   * @param userOrAddress A full {@link User} object or an address hex string
+   * @returns The most recent {@link Message} posted by this user, if any
+   */
   async getLatestActivityForUser(
     userOrAddress: User | string
   ): Promise<Message | undefined> {
@@ -44,7 +49,9 @@ export class FarcasterContentHost {
   }
 
   /**
-   * Yields all {@link Message}s from the given username, in order from most to least recent.
+   * Yields all {@link Message Messages} from the given username, in order from most to least recent.
+   * @param userOrAddress
+   * @param __namedParameters.includeRecasts True if recasts should be returned, which will be presented as casts from other users
    */
   async *getAllActivityForUser(
     userOrAddress: User | string,
@@ -68,6 +75,10 @@ export class FarcasterContentHost {
     }
   }
 
+  /**
+   * @param cast A signed cast. @see {@link Farcaster.signCast} for building this parameter
+   * @param wallet The same wallet used to sign the cast
+   */
   async publishCast(cast: SignedCast, wallet: Wallet): Promise<void> {
     const authHeader = await this._authHeader(wallet);
     return await this.axiosInstance.post("/indexer/activity", cast, {

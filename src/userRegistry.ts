@@ -27,11 +27,16 @@ export class UserRegistry {
 
   static readonly REVEAL_DELAY = 60; // 60 seconds
 
-  readonly axiosInstance: AxiosInstance;
   readonly nameRegistry: Promise<NameRegistry>;
   readonly idRegistry: Promise<IdRegistry>;
   readonly provider: Provider;
 
+  private readonly axiosInstance: AxiosInstance;
+
+  /**
+   * @param __namedParameters.axiosInstance Override for improved caching, rate-limiting, etcetera
+   * @param __namedParameters.web3Provider Override to provide Infura/Alchemy/etc with an API key (and better performance)
+   */
   constructor({
     axiosInstance,
     web3Provider = new InfuraProvider("goerli"),
@@ -75,6 +80,11 @@ export class UserRegistry {
     })();
   }
 
+  /**
+   * Verifies that the given username is acceptable by the NameRegistry contract.
+   * @see https://goerli.etherscan.io/address/0xf73bc3fa2f6f774d4b6791414b1092a40cd83831#code#F1#L1085
+   * @param username
+   */
   static validateUsername(username: string): void {
     const unameBytes = utils.toUtf8Bytes(username);
     if (unameBytes.length > 16) {
@@ -133,17 +143,33 @@ export class UserRegistry {
     });
   }
 
+  /**
+   * @see https://goerli.etherscan.io/address/0xf73bc3fa2f6f774d4b6791414b1092a40cd83831#code#F1#L440
+   * @param username
+   * @returns UInt256 representation of the given username
+   */
   static usernameToTokenId(username: string): BigNumber {
     this.validateUsername(username);
     const unameBytes = formatBytes32String(username);
     return BigNumber.from(unameBytes);
   }
 
+  /**
+   * Fetches the "Farcaster ID" of a user, which is the permanent, immutable ID associated with that
+   * user (compared to usernames, which may be transferred and changed)
+   * @param address
+   * @returns FarcasterID or 0 if user is not registered to one
+   */
   async getFarcasterID(address: string): Promise<BigNumber> {
     const idRegistry = await this.idRegistry;
     return await idRegistry.idOf(address);
   }
 
+  /**
+   * Fetches a full {@link User} by username, if any exists. Undefined otherwise.
+   * @param username
+   * @returns
+   */
   async lookupByUsername(username: string): Promise<User | undefined> {
     const nameRegistry = await this.nameRegistry;
 
@@ -169,6 +195,11 @@ export class UserRegistry {
     return await this.lookupByAddress(ownerAddr);
   }
 
+  /**
+   * Fetches a full {@link User} by address, if any exists. Undefined otherwise.
+   * @param address
+   * @returns
+   */
   async lookupByAddress(address: string): Promise<User | undefined> {
     // lookup user profile
     const resp = await this.axiosInstance.get<
@@ -189,6 +220,9 @@ export class UserRegistry {
     };
   }
 
+  /**
+   * Yields all registered users, in no particular order
+   */
   async *getAllUsers(): AsyncGenerator<User, void, undefined> {
     let pageNum = 1;
     while (true) {
@@ -207,12 +241,23 @@ export class UserRegistry {
     }
   }
 
+  /**
+   * Yields all registered usernames, in no particular order
+   */
   async *getAllUsernames(): AsyncGenerator<string, void, undefined> {
     for await (const user of this.getAllUsers()) {
       yield user.username;
     }
   }
 
+  /**
+   * Transfers ownership of a username to a new address. The Signer must be the current owner of the given username.
+   * @param username
+   * @param newAddress
+   * @param signer
+   * @param overrides
+   * @returns
+   */
   async transferUsernameOwnership(
     username: string,
     newAddress: string,
@@ -240,6 +285,7 @@ export class UserRegistry {
    * @param ownerAddress The address that will own the username
    * @param recoveryAddress The address which can recovery the fname if the custody address is lost
    * @param signer The Signer that will pay the gas
+   * @param overrides ethers transaction overrides
    */
   async commitToUsername(
     username: string,
@@ -293,7 +339,7 @@ export class UserRegistry {
    * @param recoveryAddress The address which can recovery the fname if the custody address is lost
    * @param nonce Random nonce used when committing to the username
    * @param signer The Signer that will pay both the gas and the registration fee
-   * @param overrides
+   * @param overrides ethers transaction overrides
    */
   async registerUsername(
     username: string,
