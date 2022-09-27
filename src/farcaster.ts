@@ -2,6 +2,7 @@ import { Signer } from "@ethersproject/abstract-signer";
 import { keccak256 } from "@ethersproject/keccak256";
 import { toUtf8Bytes } from "@ethersproject/strings";
 import { verifyMessage } from "@ethersproject/wallet";
+import { Provider } from "@ethersproject/providers";
 import { FarcasterContentHost, SignedCast } from "./contentHost";
 import { Message, MessageBody, MessageBodyType, TokenCommunity } from "./api";
 import { serializeMessageBody } from "./serialization";
@@ -25,8 +26,8 @@ export class Farcaster {
   readonly userRegistry: UserRegistry;
   readonly contentHost: FarcasterContentHost;
 
-  constructor() {
-    this.userRegistry = new UserRegistry();
+  constructor({ web3Provider }: { web3Provider?: Provider } = {}) {
+    this.userRegistry = new UserRegistry({ web3Provider });
     this.contentHost = new FarcasterContentHost();
   }
 
