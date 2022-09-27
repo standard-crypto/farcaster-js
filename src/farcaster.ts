@@ -26,8 +26,8 @@ export class Farcaster {
   readonly userRegistry: UserRegistry;
   readonly contentHost: FarcasterContentHost;
 
-  constructor({ web3Provider }: { web3Provider?: Provider } = {}) {
-    this.userRegistry = new UserRegistry({ web3Provider });
+  constructor(web3Provider: Provider) {
+    this.userRegistry = new UserRegistry(web3Provider);
     this.contentHost = new FarcasterContentHost();
   }
 

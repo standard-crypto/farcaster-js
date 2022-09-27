@@ -58,13 +58,13 @@
 
 #### Defined in
 
-[farcaster.ts:10](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L10)
+[farcaster.ts:11](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L11)
 
 ## Functions
 
 ### publishCast
 
-▸ **publishCast**(`wallet`, `text`, `replyTo?`): `Promise`<[`SignedCast`](modules.md#signedcast)\>
+▸ **publishCast**(`wallet`, `web3Provider`, `text`, `replyTo?`): `Promise`<[`SignedCast`](modules.md#signedcast)\>
 
 Signs and publishes a simple text string.
 The cast will be attributed to the username currently registered
@@ -75,6 +75,7 @@ to the given private key's address.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `wallet` | `Wallet` | A Wallet derived from a private key or mnemonic phrase |
+| `web3Provider` | `Provider` | A Provider instance (Infura/Alchemy/etc) |
 | `text` | `string` | The text to be cast |
 | `replyTo?` | `string` \| [`Message`](interfaces/Message.md) | A complete [Message](interfaces/Message.md), or the [merkleRoot](interfaces/Message.md#merkleroot) of a message, that this cast will reply to. Omit if not replying to any casts. |
 

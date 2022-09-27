@@ -37,15 +37,15 @@ Registry of usernames and their corresponding owners, as well as the directory U
 
 ### constructor
 
-• **new UserRegistry**(`__namedParameters?`)
+• **new UserRegistry**(`web3Provider`, `__namedParameters?`)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `web3Provider` | `Provider` | Provide Infura/Alchemy/etc |
 | `__namedParameters` | `Object` | - |
 | `__namedParameters.axiosInstance?` | `AxiosInstance` | Override for improved caching, rate-limiting, etcetera |
-| `__namedParameters.web3Provider?` | `Provider` | Override to provide Infura/Alchemy/etc with an API key (and better performance) |
 
 #### Defined in
 
@@ -156,7 +156,7 @@ username
 
 #### Defined in
 
-[userRegistry.ts:290](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L290)
+[userRegistry.ts:291](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L291)
 
 ___
 
@@ -172,7 +172,7 @@ Yields all registered usernames, in no particular order
 
 #### Defined in
 
-[userRegistry.ts:247](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L247)
+[userRegistry.ts:248](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L248)
 
 ___
 
@@ -188,7 +188,7 @@ Yields all registered users, in no particular order
 
 #### Defined in
 
-[userRegistry.ts:226](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L226)
+[userRegistry.ts:227](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L227)
 
 ___
 
@@ -213,7 +213,7 @@ FarcasterID or 0 if user is not registered to one
 
 #### Defined in
 
-[userRegistry.ts:163](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L163)
+[userRegistry.ts:164](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L164)
 
 ___
 
@@ -235,7 +235,7 @@ Fetches a full [User](../interfaces/User.md) by address, if any exists. Undefine
 
 #### Defined in
 
-[userRegistry.ts:203](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L203)
+[userRegistry.ts:204](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L204)
 
 ___
 
@@ -257,7 +257,7 @@ Fetches a full [User](../interfaces/User.md) by username, if any exists. Undefin
 
 #### Defined in
 
-[userRegistry.ts:173](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L173)
+[userRegistry.ts:174](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L174)
 
 ___
 
@@ -284,7 +284,7 @@ Registers a username after it was pre-committed via `commitToUsername`.
 
 #### Defined in
 
-[userRegistry.ts:344](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L344)
+[userRegistry.ts:345](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L345)
 
 ___
 
@@ -309,7 +309,7 @@ Transfers ownership of a username to a new address. The Signer must be the curre
 
 #### Defined in
 
-[userRegistry.ts:261](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L261)
+[userRegistry.ts:262](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L262)
 
 ___
 
@@ -335,7 +335,7 @@ UInt256 representation of the given username
 
 #### Defined in
 
-[userRegistry.ts:151](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L151)
+[userRegistry.ts:152](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L152)
 
 ___
 
@@ -361,4 +361,4 @@ https://goerli.etherscan.io/address/0xf73bc3fa2f6f774d4b6791414b1092a40cd83831#c
 
 #### Defined in
 
-[userRegistry.ts:88](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L88)
+[userRegistry.ts:89](https://github.com/standard-crypto/farcaster-js/blob/main/src/userRegistry.ts#L89)

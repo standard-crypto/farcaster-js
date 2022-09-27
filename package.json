@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "2.0.2",
+  "version": "3.0.3",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "exports": {
@@ -94,8 +94,7 @@
   "dependencies": {
     "axios": "^0.27.0",
     "did-jwt": "^5.7.0",
-    "ethers": "^5.7.1",
-    "simple-github-gist-api": "^2.0.123"
+    "ethers": "^5.7.1"
   },
   "files": [
     "package.json",

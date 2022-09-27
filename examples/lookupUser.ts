@@ -1,6 +1,7 @@
 import { UserRegistry } from "@standard-crypto/farcaster-js";
+import { AlchemyProvider } from "@ethersproject/providers";
 
-const userRegistry = new UserRegistry();
+const userRegistry = new UserRegistry(new AlchemyProvider("goerli"));
 
 // by username
 await userRegistry.lookupByUsername("dwr");

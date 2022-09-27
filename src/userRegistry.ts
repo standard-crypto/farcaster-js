@@ -2,7 +2,7 @@ import { Signer } from "@ethersproject/abstract-signer";
 import axios, { AxiosInstance } from "axios";
 import { APIResult, User } from "./api";
 import { Overrides, ContractTransaction } from "@ethersproject/contracts";
-import { Provider, AlchemyProvider } from "@ethersproject/providers";
+import { Provider } from "@ethersproject/providers";
 import {
   IdRegistry,
   IdRegistry__factory,
@@ -34,17 +34,18 @@ export class UserRegistry {
   private readonly axiosInstance: AxiosInstance;
 
   /**
+   * @param web3Provider Provide Infura/Alchemy/etc
    * @param __namedParameters.axiosInstance Override for improved caching, rate-limiting, etcetera
-   * @param __namedParameters.web3Provider Override to provide Infura/Alchemy/etc with an API key (and better performance)
    */
-  constructor({
-    axiosInstance,
-    web3Provider = new AlchemyProvider("goerli"),
-  }: {
-    axiosInstance?: AxiosInstance;
-    web3Provider?: Provider;
-  } = {}) {
-    if (axiosInstance == null) {
+  constructor(
+    web3Provider: Provider,
+    {
+      axiosInstance,
+    }: {
+      axiosInstance?: AxiosInstance;
+    } = {}
+  ) {
+    if (axiosInstance === undefined) {
       axiosInstance = axios.create({
         baseURL: `https://${UserRegistry.DEFAULT_WEB2_HOST}/`,
         validateStatus: (status) => status >= 200 && status < 300,
@@ -295,7 +296,7 @@ export class UserRegistry {
     overrides?: Overrides
   ): Promise<{ tx: ContractTransaction; nonce: Uint8Array }> {
     const nameRegistry = await this.nameRegistry;
-    signer = signer.connect(new AlchemyProvider("goerli"));
+    signer = signer.connect(this.provider);
 
     // check that the contract currently allows self-registration of usernames
     const trustedOnly = await nameRegistry.trustedOnly();
@@ -350,7 +351,7 @@ export class UserRegistry {
     overrides?: Omit<Overrides, "value">
   ): Promise<ContractTransaction> {
     const nameRegistry = await this.nameRegistry;
-    signer = signer.connect(new AlchemyProvider("goerli"));
+    signer = signer.connect(this.provider);
 
     // check that the contract currently allows self-registration of usernames
     const trustedOnly = await nameRegistry.trustedOnly();

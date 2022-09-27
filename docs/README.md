@@ -33,9 +33,11 @@ npm install @standard-crypto/farcaster-js
 ```ts
 import { publishCast } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
+import { AlchemyProvider } from "@ethersproject/providers";
 
+const provider = new AlchemyProvider("goerli");
 const wallet = Wallet.fromMnemonic("twelve words here");
-await publishCast(wallet, "Hello, Farcaster!");
+await publishCast(wallet, provider, "Hello, Farcaster!");
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -45,8 +47,9 @@ await publishCast(wallet, "Hello, Farcaster!");
 <!-- The below code snippet is automatically added from ./examples/fetchUserActivity.ts -->
 ```ts
 import { Farcaster } from "@standard-crypto/farcaster-js";
+import { AlchemyProvider } from "@ethersproject/providers";
 
-const farcaster = new Farcaster();
+const farcaster = new Farcaster(new AlchemyProvider("goerli"));
 for await (const activity of farcaster.getAllActivityForUser("dwr", {
   includeRecasts: false,
 })) {
@@ -62,11 +65,13 @@ for await (const activity of farcaster.getAllActivityForUser("dwr", {
 ```ts
 import { Farcaster, publishCast } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
+import { AlchemyProvider } from "@ethersproject/providers";
 
-const farcaster = new Farcaster();
+const provider = new AlchemyProvider("goerli");
+const farcaster = new Farcaster(provider);
 const latestCast = await farcaster.getLatestActivityForUser("dwr");
 const wallet = Wallet.fromMnemonic("twelve words here");
-await publishCast(wallet, "Replying to your cast!", latestCast);
+await publishCast(wallet, provider, "Replying to your cast!", latestCast);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -76,8 +81,9 @@ await publishCast(wallet, "Replying to your cast!", latestCast);
 <!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
 ```ts
 import { UserRegistry } from "@standard-crypto/farcaster-js";
+import { AlchemyProvider } from "@ethersproject/providers";
 
-const userRegistry = new UserRegistry();
+const userRegistry = new UserRegistry(new AlchemyProvider("goerli"));
 
 // by username
 await userRegistry.lookupByUsername("dwr");
@@ -96,10 +102,12 @@ await userRegistry.lookupByAddress(
 ```ts
 import { Wallet } from "@ethersproject/wallet";
 import { UserRegistry } from "@standard-crypto/farcaster-js";
+import { AlchemyProvider } from "@ethersproject/providers";
 
+const provider = new AlchemyProvider("goerli");
 const ownerWallet = Wallet.fromMnemonic("twelve words here");
 const recoveryWalletAddress = "0x...";
-const userRegistry = new UserRegistry();
+const userRegistry = new UserRegistry(provider);
 const usernameToRegister = "new-username";
 
 // Send transaction to pre-commit to this username

@@ -3,12 +3,13 @@ import { expect } from "chai";
 import { UserRegistry } from "../src/userRegistry";
 import { expectDefined } from "./utils";
 import { BigNumber } from "@ethersproject/bignumber";
+import { AlchemyProvider } from "@ethersproject/providers";
 
 describe("UserRegistry", function () {
   let userRegistry: UserRegistry;
 
   beforeEach("initialize UserRegistry", function () {
-    userRegistry = new UserRegistry();
+    userRegistry = new UserRegistry(new AlchemyProvider("goerli"));
   });
 
   describe("#usernameToTokenId", function () {

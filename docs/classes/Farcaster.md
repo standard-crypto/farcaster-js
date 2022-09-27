@@ -27,11 +27,17 @@ High-level functionality for interacting with Farcaster
 
 ### constructor
 
-• **new Farcaster**()
+• **new Farcaster**(`web3Provider`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `web3Provider` | `Provider` |
 
 #### Defined in
 
-[farcaster.ts:28](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L28)
+[farcaster.ts:29](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L29)
 
 ## Properties
 
@@ -41,7 +47,7 @@ High-level functionality for interacting with Farcaster
 
 #### Defined in
 
-[farcaster.ts:26](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L26)
+[farcaster.ts:27](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L27)
 
 ___
 
@@ -51,7 +57,7 @@ ___
 
 #### Defined in
 
-[farcaster.ts:25](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L25)
+[farcaster.ts:26](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L26)
 
 ## Methods
 
@@ -75,7 +81,7 @@ Yields all [Messages](../interfaces/Message.md) from the given username, in orde
 
 #### Defined in
 
-[farcaster.ts:145](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L145)
+[farcaster.ts:146](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L146)
 
 ___
 
@@ -97,7 +103,7 @@ Returns the most recent [Message](../interfaces/Message.md) published by the giv
 
 #### Defined in
 
-[farcaster.ts:130](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L130)
+[farcaster.ts:131](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L131)
 
 ___
 
@@ -119,7 +125,7 @@ Validates a [CastRequest](../interfaces/CastRequest.md) and marshals it to an un
 
 #### Defined in
 
-[farcaster.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L36)
+[farcaster.ts:37](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L37)
 
 ___
 
@@ -142,7 +148,7 @@ Validates [signature](../interfaces/Message.md#signature) and [merkleRoot](../in
 
 #### Defined in
 
-[farcaster.ts:114](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L114)
+[farcaster.ts:115](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L115)
 
 ___
 
@@ -169,4 +175,4 @@ Signs a cast.
 
 #### Defined in
 
-[farcaster.ts:92](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L92)
+[farcaster.ts:93](https://github.com/standard-crypto/farcaster-js/blob/main/src/farcaster.ts#L93)

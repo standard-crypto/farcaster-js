@@ -2247,7 +2247,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-axios@^0.27.0, axios@^0.27.1:
+axios@^0.27.0:
   version "0.27.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
   integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
@@ -7059,13 +7059,6 @@ signale@^1.2.1:
     chalk "^2.3.2"
     figures "^2.0.0"
     pkg-conf "^2.1.0"
-
-simple-github-gist-api@^2.0.123:
-  version "2.0.123"
-  resolved "https://registry.yarnpkg.com/simple-github-gist-api/-/simple-github-gist-api-2.0.123.tgz#accff337f280ca72d75917db29e8dec714cd3fe2"
-  integrity sha512-SLPABqE2MXG5jxCQ+iuxEJkEn1KRFhfgHQKqsVtscyD/bHYu+8MOXg8+oiZcptIPaAPizGrucaq2FP/SS9a1+w==
-  dependencies:
-    axios "^0.27.1"
 
 slash@^3.0.0:
   version "3.0.0"
