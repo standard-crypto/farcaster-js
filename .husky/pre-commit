@@ -6,4 +6,4 @@ yarn test
 yarn format:check
 yarn lint:check
 yarn spell:check
-yarn docs; git add README.md
+yarn docs; git add README.template.md
