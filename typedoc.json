@@ -4,5 +4,5 @@
     "exclude": "./src/contracts/**/*.ts",
     "gitRevision": "main",
     "theme": "markdown",
-    "readme": "./README.template.md"
+    "readme": "./README.md"
 }
