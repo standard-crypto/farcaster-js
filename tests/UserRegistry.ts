@@ -1,13 +1,34 @@
 import "mocha";
 import { expect } from "chai";
-import { UserRegistryReader, Web2UserRegistry } from "../src/userRegistry";
+import { UserRegistry } from "../src/userRegistry";
 import { expectDefined } from "./utils";
+import { BigNumber } from "@ethersproject/bignumber";
 
-describe("Web2UserRegistry", function () {
-  let userRegistry: UserRegistryReader;
+describe("UserRegistry", function () {
+  let userRegistry: UserRegistry;
 
   beforeEach("initialize UserRegistry", function () {
-    userRegistry = new Web2UserRegistry();
+    userRegistry = new UserRegistry();
+  });
+
+  describe("#usernameToTokenId", function () {
+    it("should work for valid username", function () {
+      const tokenId = UserRegistry.usernameToTokenId("gavi");
+      expect(tokenId.toString()).to.eq(
+        "46760424806223262619766064098389671347438971293572136199061927810946666856448"
+      );
+    });
+
+    it("should throw for username > 16 chars", function () {
+      const invalidCall = (): BigNumber =>
+        UserRegistry.usernameToTokenId("1234567890abcdefg");
+      expect(invalidCall).to.throw();
+    });
+
+    it("should fail for non-ASCII characters in username", function () {
+      const invalidCall = (): BigNumber => UserRegistry.usernameToTokenId("");
+      expect(invalidCall).to.throw();
+    });
   });
 
   describe("#lookupByUsername", function () {
@@ -15,10 +36,11 @@ describe("Web2UserRegistry", function () {
       const user = await userRegistry.lookupByUsername("gavi");
       expectDefined(user);
       expect(user.displayName).to.eq("Gavi Galloway");
+      expect(user.farcasterId.toString()).to.eq("69");
     });
 
     it("should return undefined when username not found", async function () {
-      const user = await userRegistry.lookupByUsername("zzzzzzzzabcabcab");
+      const user = await userRegistry.lookupByUsername("zzzzzzzzabcabcab"); // cSpell:disable-line
       expect(user).to.be.undefined;
     });
   });

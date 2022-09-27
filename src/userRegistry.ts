@@ -1,87 +1,192 @@
 import { Signer } from "@ethersproject/abstract-signer";
 import axios, { AxiosInstance } from "axios";
-import { User } from "./api";
+import { APIResult, User } from "./api";
 import { Overrides, ContractTransaction } from "@ethersproject/contracts";
+import { Provider, InfuraProvider } from "@ethersproject/providers";
+import {
+  IdRegistry,
+  IdRegistry__factory,
+  NameRegistry,
+  NameRegistry__factory,
+} from "./contracts";
+import { formatBytes32String } from "@ethersproject/strings";
+import { BigNumber } from "@ethersproject/bignumber";
+import { utils } from "ethers";
+import { arrayify } from "ethers/lib/utils";
 
 /**
  * Registry of usernames and their corresponding owners, as well as the directory URL of each user.
  */
-export interface UserRegistry extends UserRegistryReader, UserRegistryWriter {}
+export class UserRegistry {
+  static readonly DEFAULT_WEB2_HOST = "api.farcaster.xyz";
 
-export interface UserRegistryReader {
-  lookupByUsername: (username: string) => Promise<User | undefined>;
-  lookupByAddress: (address: string) => Promise<User | undefined>;
-  getAllUsers: () => AsyncGenerator<User, void, undefined>;
-  getAllUsernames: () => AsyncGenerator<string, void, undefined>;
-}
+  static readonly GOERLI_ADDRESSES = {
+    nameRegistry: "0xe3Be01D99bAa8dB9905b33a3cA391238234B79D1",
+    idRegistry: "0xDA107A1CAf36d198B12c16c7B6a1d1C795978C42",
+  };
 
-export interface UserRegistryWriter {
-  registerUsername: (
-    username: string,
-    signer: Signer,
-    overrides?: Overrides & { directoryUrl?: string }
-  ) => Promise<ContractTransaction>;
-  updateDirectoryUrl: (
-    newUrl: string,
-    signer: Signer,
-    overrides?: Overrides
-  ) => Promise<ContractTransaction>;
-  transferUsernameOwnership: (
-    newAddress: string,
-    signer: Signer,
-    overrides?: Overrides
-  ) => Promise<ContractTransaction>;
-}
-
-type APIResult<DataType> = {
-  result: DataType;
-};
-
-/**
- * Uses the indexers provided at api.farcaster.xyz to fetch details of registered Users.
- * Does not support registering new users, transferring user ownership, or editing directory URLs.
- * Improved efficiency over querying web3 directly, but not guaranteed to accurately reflect the most recent state.
- */
-export class Web2UserRegistry implements UserRegistryReader {
-  static readonly DEFAULT_HOST = "api.farcaster.xyz";
+  static readonly REVEAL_DELAY = 60; // 60 seconds
 
   readonly axiosInstance: AxiosInstance;
+  readonly nameRegistry: Promise<NameRegistry>;
+  readonly idRegistry: Promise<IdRegistry>;
+  readonly provider: Provider;
 
-  constructor(axiosInstance?: AxiosInstance) {
+  constructor({
+    axiosInstance,
+    web3Provider = new InfuraProvider("goerli"),
+  }: {
+    axiosInstance?: AxiosInstance;
+    web3Provider?: Provider;
+  } = {}) {
     if (axiosInstance == null) {
       axiosInstance = axios.create({
-        baseURL: `https://${Web2UserRegistry.DEFAULT_HOST}/`,
+        baseURL: `https://${UserRegistry.DEFAULT_WEB2_HOST}/`,
         validateStatus: (status) => status >= 200 && status < 300,
       });
     }
     this.axiosInstance = axiosInstance;
+    this.provider = web3Provider;
+
+    this.nameRegistry = (async (): Promise<NameRegistry> => {
+      const network = await web3Provider.getNetwork();
+      let contractAddress: string;
+      switch (network.name) {
+        case "goerli":
+          contractAddress = UserRegistry.GOERLI_ADDRESSES.nameRegistry;
+          break;
+        default:
+          throw new Error(`network ${network.name} not supported`);
+      }
+      return NameRegistry__factory.connect(contractAddress, web3Provider);
+    })();
+
+    this.idRegistry = (async (): Promise<IdRegistry> => {
+      const network = await web3Provider.getNetwork();
+      let contractAddress: string;
+      switch (network.name) {
+        case "goerli":
+          contractAddress = UserRegistry.GOERLI_ADDRESSES.idRegistry;
+          break;
+        default:
+          throw new Error(`network ${network.name} not supported`);
+      }
+      return IdRegistry__factory.connect(contractAddress, web3Provider);
+    })();
+  }
+
+  static validateUsername(username: string): void {
+    const unameBytes = utils.toUtf8Bytes(username);
+    if (unameBytes.length > 16) {
+      throw new Error("username cannot be greater than 16 characters");
+    }
+    if (unameBytes.length === 0) {
+      throw new Error("username cannot be empty string");
+    }
+    let nameEnded = false;
+
+    /**
+     * Iterate over the bytes16 fname one char at a time, ensuring that:
+     *   1. The name begins with [a-z 0-9] or the ascii numbers [48-57, 97-122] inclusive
+     *   2. The name can contain [a-z 0-9 -] or the ascii numbers [45, 48-57, 97-122] inclusive
+     *   3. Once the name is ended with a NULL char (0), the follows character must also be NULLs
+     */
+
+    // If the name begins with a hyphen, reject it
+    if (unameBytes[0] === 45) throw new Error("invalid name");
+
+    unameBytes.forEach((charInt, index) => {
+      if (nameEnded) {
+        // Only NULL characters are allowed after a name has ended
+        if (charInt !== 0) {
+          throw new Error("invalid name");
+        }
+      } else {
+        // Only valid ASCII characters [45, 48-57, 97-122] are allowed before the name ends
+
+        // Check if the character is a-z
+        if (charInt >= 97 && charInt <= 122) {
+          return;
+        }
+
+        // Check if the character is 0-9
+        if (charInt >= 48 && charInt <= 57) {
+          return;
+        }
+
+        // Check if the character is a hyphen
+        if (charInt === 45) {
+          return;
+        }
+
+        // On seeing the first NULL char in the name, revert if is the first char in the
+        // name, otherwise mark the name as ended
+        if (charInt === 0) {
+          // We check i==1 instead of i==0 because i is incremented before the check
+          if (index === 1) throw new Error("invalid name");
+          nameEnded = true;
+          return;
+        }
+
+        throw new Error("invalid name");
+      }
+    });
+  }
+
+  static usernameToTokenId(username: string): BigNumber {
+    this.validateUsername(username);
+    const unameBytes = formatBytes32String(username);
+    return BigNumber.from(unameBytes);
+  }
+
+  async getFarcasterID(address: string): Promise<BigNumber> {
+    const idRegistry = await this.idRegistry;
+    return await idRegistry.idOf(address);
   }
 
   async lookupByUsername(username: string): Promise<User | undefined> {
-    const resp = await this.axiosInstance.get<{ address: string }>(
-      `admin/usernames/${username}`,
-      {
-        validateStatus: (status) => status === 200 || status === 404,
+    const nameRegistry = await this.nameRegistry;
+
+    // look up owning address
+    let ownerAddr: string;
+    try {
+      ownerAddr = await nameRegistry.ownerOf(
+        UserRegistry.usernameToTokenId(username)
+      );
+    } catch (error) {
+      if (
+        error !== null &&
+        typeof error === "object" &&
+        (error as Record<string, string>).reason === "ERC721: invalid token ID"
+      ) {
+        // username was not registered
+        return undefined;
       }
-    );
-    if (resp.status === 404) {
-      return undefined;
+      throw error;
     }
-    const address = resp.data.address;
-    return await this.lookupByAddress(address);
+
+    // fetch user's full profile
+    return await this.lookupByAddress(ownerAddr);
   }
 
   async lookupByAddress(address: string): Promise<User | undefined> {
-    const resp = await this.axiosInstance.get<APIResult<{ user: User }>>(
-      `v1/profiles/${address}`,
-      {
-        validateStatus: (status) => status === 200 || status === 404,
-      }
-    );
+    // lookup user profile
+    const resp = await this.axiosInstance.get<
+      APIResult<{ user: Omit<User, "farcasterId"> }>
+    >(`v1/profiles/${address}`, {
+      validateStatus: (status) => status === 200 || status === 404,
+    });
     if (resp.status === 404) {
       return undefined;
     }
-    return resp.data.result.user;
+    const userWithoutFID = resp.data.result.user;
+
+    // need to add the user's Farcaster ID
+    const farcasterId = await this.getFarcasterID(address);
+    return {
+      ...userWithoutFID,
+      farcasterId,
+    };
   }
 
   async *getAllUsers(): AsyncGenerator<User, void, undefined> {
@@ -107,255 +212,155 @@ export class Web2UserRegistry implements UserRegistryReader {
       yield user.username;
     }
   }
+
+  async transferUsernameOwnership(
+    username: string,
+    newAddress: string,
+    signer: Signer,
+    overrides?: Overrides
+  ): Promise<ContractTransaction> {
+    const nameRegistry = await this.nameRegistry;
+    signer = signer.connect(this.provider);
+    const oldAddress = await signer.getAddress();
+    const tokenId = UserRegistry.usernameToTokenId(username);
+    return await nameRegistry
+      .connect(signer)
+      .transferFrom(oldAddress, newAddress, tokenId, {
+        ...overrides,
+      });
+  }
+
+  /**
+   * Publishes an on-chain commitment to a username, as a prerequisite
+   * to ultimately registering that username. Returns an on-chain
+   * transaction and the random nonce used in registering that username.
+   * The same random nonce must be provided when finally registering the
+   * username
+   * @param username The name to register
+   * @param ownerAddress The address that will own the username
+   * @param recoveryAddress The address which can recovery the fname if the custody address is lost
+   * @param signer The Signer that will pay the gas
+   */
+  async commitToUsername(
+    username: string,
+    ownerAddress: string,
+    recoveryAddress: string,
+    signer: Signer,
+    overrides?: Overrides
+  ): Promise<{ tx: ContractTransaction; nonce: Uint8Array }> {
+    const nameRegistry = await this.nameRegistry;
+    signer = signer.connect(new InfuraProvider("goerli"));
+
+    // check that the contract currently allows self-registration of usernames
+    const trustedOnly = await nameRegistry.trustedOnly();
+    if (trustedOnly.eq(1)) {
+      throw new Error(
+        "nameRegistry not currently permitting self-registration of usernames"
+      );
+    }
+
+    // check that username isn't already registered
+    const existingRegistration = await this.lookupByUsername(username);
+    if (existingRegistration !== undefined) {
+      throw new Error(`username ${username} already registered`);
+    }
+
+    // validate username
+    UserRegistry.validateUsername(username);
+
+    // construct commit hash
+    const unameBytes = arrayify(formatBytes32String(username)).slice(0, 16);
+    const nonce = utils.randomBytes(32);
+    const commitHash = await nameRegistry.generateCommit(
+      unameBytes,
+      ownerAddress,
+      nonce,
+      recoveryAddress
+    );
+
+    // publish commit hash
+    const tx = await nameRegistry
+      .connect(signer)
+      .makeCommit(commitHash, { ...overrides });
+
+    return { tx, nonce };
+  }
+
+  /**
+   * Registers a username after it was pre-committed via `commitToUsername`.
+   * @param username The name to register
+   * @param ownerAddress The address that will own the username
+   * @param recoveryAddress The address which can recovery the fname if the custody address is lost
+   * @param nonce Random nonce used when committing to the username
+   * @param signer The Signer that will pay both the gas and the registration fee
+   * @param overrides
+   */
+  async registerUsername(
+    username: string,
+    ownerAddress: string,
+    recoveryAddress: string,
+    nonce: Uint8Array,
+    signer: Signer,
+    overrides?: Omit<Overrides, "value">
+  ): Promise<ContractTransaction> {
+    const nameRegistry = await this.nameRegistry;
+    signer = signer.connect(new InfuraProvider("goerli"));
+
+    // check that the contract currently allows self-registration of usernames
+    const trustedOnly = await nameRegistry.trustedOnly();
+    if (trustedOnly.eq(1)) {
+      throw new Error(
+        "nameRegistry not currently permitting self-registration of usernames"
+      );
+    }
+
+    // check that username isn't already registered
+    const existingRegistration = await this.lookupByUsername(username);
+    if (existingRegistration !== undefined) {
+      throw new Error(`username ${username} already registered`);
+    }
+
+    // validate username
+    UserRegistry.validateUsername(username);
+
+    // construct commit hash
+    const unameBytes = utils.toUtf8Bytes(username);
+    const commitHash = await nameRegistry.generateCommit(
+      unameBytes,
+      ownerAddress,
+      nonce,
+      recoveryAddress
+    );
+
+    // check for existence of commit hash
+    const commitTs = await nameRegistry.timestampOf(commitHash);
+    if (commitTs.isZero()) {
+      throw new Error("existing commit hash not found");
+    }
+
+    // check for enough time elapsed since commit hash
+    const now = BigNumber.from(Math.round(new Date().getTime() / 1000));
+    const revealDelay = UserRegistry.REVEAL_DELAY;
+    if (now.lt(commitTs.add(revealDelay))) {
+      throw new Error("not enough time elapsed since commit hash");
+    }
+
+    // check for enough balance to pay registration fee
+    const fee = await nameRegistry.fee();
+    const signerBalance = await signer.getBalance();
+    if (signerBalance.lt(fee)) {
+      const feeEther = utils.formatEther(fee);
+      throw new Error(
+        `insufficient signer balance to pay registration fee (${feeEther} ETH)`
+      );
+    }
+
+    // register on-chain
+    return await nameRegistry
+      .connect(signer)
+      .register(unameBytes, ownerAddress, nonce, recoveryAddress, {
+        ...overrides,
+        value: fee,
+      });
+  }
 }
-
-// interface _UsernameRegisteredAndTransferredEvents {
-//   registered?: RegisterNameEvent;
-//   transferred: TransferNameEvent[];
-// }
-
-// /**
-//  * Reads and writes directly to the Farcaster Ethereum contract, which is the authoritative
-//  * source for user registrations.
-//  */
-// export class Web3UserRegistry implements UserRegistry {
-//   static readonly RINKEBY_ADDRESS =
-//     "0xe3be01d99baa8db9905b33a3ca391238234b79d1";
-
-//   private static readonly _REGISTRY_CREATED_BLOCK_NUMBER: Record<
-//     string,
-//     number
-//   > = {
-//     rinkeby: 8562445,
-//   };
-
-//   readonly contract: Promise<RegistryV2>;
-//   readonly provider: Provider;
-
-//   constructor(provider: Provider) {
-//     this.provider = provider;
-//     this.contract = (async (): Promise<RegistryV2> => {
-//       const network = await provider.getNetwork();
-//       let contractAddress: string;
-//       switch (network.name) {
-//         case "rinkeby":
-//           contractAddress = Web3UserRegistry.RINKEBY_ADDRESS;
-//           break;
-//         default:
-//           throw new Error(`network ${network.name} not supported`);
-//       }
-//       return RegistryV2__factory.connect(contractAddress, provider);
-//     })();
-//   }
-
-//   async lookupByUsername(username: string): Promise<User | undefined> {
-//     const contract = await this.contract;
-//     const [directoryUrl, isInitialized] = await contract.usernameToUrl(
-//       formatBytes32String(username)
-//     );
-//     if (!isInitialized) {
-//       return undefined;
-//     }
-//     const address = await this.getCurrentOwner(username);
-//     if (address === undefined) {
-//       throw new Error(
-//         `username ${username} is initialized but has no corresponding RegisterName events logged`
-//       );
-//     }
-//     const { createdAt, modifiedAt } = await this._fetchUserCreatedAndModified(
-//       username
-//     );
-//     return {
-//       username,
-//       directoryUrl,
-//       address,
-//       createdAt,
-//       modifiedAt,
-//     };
-//   }
-
-//   async lookupByAddress(address: string): Promise<User | undefined> {
-//     const contract = await this.contract;
-//     const username = parseBytes32String(
-//       await contract.addressToUsername(address)
-//     );
-//     if (username === "") {
-//       return undefined;
-//     }
-//     const directoryUrl = await contract.getDirectoryUrl(
-//       formatBytes32String(username)
-//     );
-//     const { createdAt, modifiedAt } = await this._fetchUserCreatedAndModified(
-//       username
-//     );
-//     return {
-//       username,
-//       directoryUrl,
-//       address,
-//       createdAt,
-//       modifiedAt,
-//     };
-//   }
-
-//   async *getAllUsers(): AsyncGenerator<User, void, undefined> {
-//     for await (const username of this.getAllUsernames()) {
-//       const user = await this.lookupByUsername(username);
-//       if (user != null) {
-//         yield user;
-//       }
-//     }
-//   }
-
-//   async *getAllUsernames(): AsyncGenerator<string, void, undefined> {
-//     const contract = await this.contract;
-//     // Until the list of usernames is exposed in the contract, the only option is to iterate through the event log
-//     const registerNameEventsFilter = await contract.filters.RegisterName(
-//       null /* owner */,
-//       null /* username */
-//     );
-//     const currentBlockNumber = await this.provider.getBlockNumber();
-//     const seenUsernames = new Set<string>();
-//     const blockPageSize = 10000;
-//     let pageStart = currentBlockNumber - blockPageSize;
-//     const blockWhenContractCreated = await this._blockWhenContractCreated();
-//     while (pageStart + blockPageSize >= blockWhenContractCreated) {
-//       const pageEnd = pageStart + blockPageSize;
-//       const registerNameEvents = await contract.queryFilter(
-//         registerNameEventsFilter,
-//         pageStart,
-//         pageEnd
-//       );
-//       for (const event of registerNameEvents) {
-//         const username = parseBytes32String(event.args.username);
-//         if (seenUsernames.has(username)) continue;
-//         yield username;
-//         seenUsernames.add(username);
-//       }
-//       pageStart -= blockPageSize;
-//     }
-//   }
-
-//   async transferUsernameOwnership(
-//     newAddress: string,
-//     signer: Signer,
-//     overrides?: Overrides
-//   ): Promise<ContractTransaction> {
-//     const contract = await this.contract;
-//     return await contract
-//       .connect(signer)
-//       .transferOwnership(newAddress, { ...overrides });
-//   }
-
-//   async updateDirectoryUrl(
-//     newUrl: string,
-//     signer: Signer,
-//     overrides?: Overrides
-//   ): Promise<ContractTransaction> {
-//     const contract = await this.contract;
-//     return await contract.connect(signer).modify(newUrl, { ...overrides });
-//   }
-
-//   async registerUsername(
-//     username: string,
-//     signer: Signer,
-//     overrides?: Overrides & { directoryUrl?: string }
-//   ): Promise<ContractTransaction> {
-//     const contract = await this.contract;
-//     let directoryUrl = overrides?.directoryUrl;
-//     if (directoryUrl === undefined) {
-//       directoryUrl = defaultDirectoryUrl(await signer.getAddress());
-//     }
-//     return await contract
-//       .connect(signer)
-//       .register(formatBytes32String(username), directoryUrl, { ...overrides });
-//   }
-
-//   async getCurrentOwner(username: string): Promise<string | undefined> {
-//     const { registered, transferred } =
-//       await this._fetchUsernameRegisteredAndTransferredEvents(username);
-//     if (registered == null) {
-//       return undefined;
-//     }
-//     if (transferred.length > 0) {
-//       const lastTransferred = transferred[transferred.length - 1];
-//       return lastTransferred.args.to;
-//     }
-//     return registered.args.owner;
-//   }
-
-//   private async _fetchUsernameRegisteredAndTransferredEvents(
-//     username: string
-//   ): Promise<_UsernameRegisteredAndTransferredEvents> {
-//     const contract = await this.contract;
-//     const registerNameEventsFilter = await contract.filters.RegisterName(
-//       null /* owner */,
-//       formatBytes32String(username)
-//     );
-//     const transferNameEventsFilter = await contract.filters.TransferName(
-//       null /* from */,
-//       null /* to */,
-//       formatBytes32String(username)
-//     );
-//     const registerNameEvents = await contract.queryFilter(
-//       registerNameEventsFilter,
-//       await this._blockWhenContractCreated()
-//     );
-//     if (registerNameEvents.length === 0) {
-//       return {
-//         registered: undefined,
-//         transferred: [],
-//       };
-//     }
-//     const mostRecentlyRegistered =
-//       registerNameEvents[registerNameEvents.length - 1];
-//     const transferNameEvents = await contract.queryFilter(
-//       transferNameEventsFilter,
-//       mostRecentlyRegistered.blockHash
-//     );
-//     return {
-//       registered: mostRecentlyRegistered,
-//       transferred: transferNameEvents,
-//     };
-//   }
-
-//   private async _fetchUserCreatedAndModified(
-//     username: string
-//   ): Promise<{ createdAt: string; modifiedAt: string }> {
-//     const { registered, transferred } =
-//       await this._fetchUsernameRegisteredAndTransferredEvents(username);
-//     if (registered == null) {
-//       throw new Error(`no RegisterName events logged for username ${username}`);
-//     }
-//     const blockRegisteredIn = await registered.getBlock();
-
-//     // timestamp is in epoch seconds
-//     // https://docs.soliditylang.org/en/latest/units-and-global-variables.html?highlight=block#block-and-transaction-properties
-//     const createdAt = `${blockRegisteredIn.timestamp}`;
-//     let modifiedAt = createdAt;
-
-//     if (transferred.length > 0) {
-//       const blockUpdatedIn = await transferred[
-//         transferred.length - 1
-//       ].getBlock();
-//       modifiedAt = `${blockUpdatedIn.timestamp}`;
-//     }
-//     return { createdAt, modifiedAt };
-//   }
-
-//   private async _blockWhenContractCreated(): Promise<number> {
-//     const networkName = (await this.provider.getNetwork()).name;
-//     if (!(networkName in Web3UserRegistry._REGISTRY_CREATED_BLOCK_NUMBER)) {
-//       throw new Error(
-//         `missing _REGISTRY_CREATED_BLOCK_NUMBER for network ${networkName}`
-//       );
-//     }
-//     return Web3UserRegistry._REGISTRY_CREATED_BLOCK_NUMBER[networkName];
-//   }
-// }
-
-// export function defaultDirectoryUrl(ownerAddress: string): string {
-//   if (ownerAddress.match(/^0x[a-fA-F0-9]{40}$/) == null) {
-//     throw new Error(`${ownerAddress} is not a valid Ethereum address`);
-//   }
-//   return `https://guardian.farcaster.xyz/origin/directory/${ownerAddress}`;
-// }

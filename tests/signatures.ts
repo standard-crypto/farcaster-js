@@ -1,74 +1,13 @@
 import "mocha";
 import { expect } from "chai";
-import {
-  Farcaster,
-  AddressActivity,
-  AddressActivityBodyType,
-  Directory,
-  ReactionType,
-} from "../src";
+import { Farcaster, Message, MessageBodyType, ReactionType } from "../src";
 
 describe("signature verification", function () {
-  describe("#isValidDirectorySignature()", function () {
-    const address = "0xC6C0b79d0034A9A44c01c7695EaE26c9A7d23e40";
-    const correctlySignedDirectory: Directory = {
-      body: {
-        addressActivityUrl:
-          "https://guardian.farcaster.xyz/origin/address_activity/0xC6C0b79d0034A9A44c01c7695EaE26c9A7d23e40",
-        avatarUrl:
-          "https://lh3.googleusercontent.com/MyUBL0xHzMeBu7DXQAqv0bM9y6s4i4qjnhcXz5fxZKS3gwWgtamxxmxzCJX7m2cuYeGalyseCA2Y6OBKDMR06TWg2uwknnhdkDA1AA",
-        displayName: "Dan Romero",
-        proofUrl:
-          "https://guardian.farcaster.xyz/origin/proof/0xC6C0b79d0034A9A44c01c7695EaE26c9A7d23e40",
-        timestamp: 1630619056003,
-        version: 1,
-      },
-      merkleRoot:
-        "0xb1661819a968f0bd4ea727add2d49f4799b43a5dd189ec7004de91263079577d",
-      signature:
-        "0xfe487ba982022b39310708fc95af654ca45b708d72e3e4dc02d07fed904859920d7f4ff27ad8ac4a833e3df98ddfe5d4375a067f21a0462a37030122b0c637551c",
-    };
-
-    it("should accept a known valid signature", async function () {
-      expect(
-        await Farcaster.isValidDirectorySignature(
-          address,
-          correctlySignedDirectory
-        )
-      ).to.be.true;
-    });
-
-    it("should reject an invalid signature", async function () {
-      const withInvalidSignature = {
-        ...correctlySignedDirectory,
-        signature:
-          "0xda120282bf3ff6ffff7b079c27a9479d5ec7cf31e270d9700c1f1e2c0db5583b1a04ea324b6ff4bb6551b88b5176271f5db60727be63b434b0b5c31565a1e12d1c",
-      };
-      expect(
-        await Farcaster.isValidDirectorySignature(address, withInvalidSignature)
-      ).to.be.false;
-    });
-
-    it("should reject a valid signature with an incorrect merkle root", async function () {
-      const withInvalidMerkleRoot = {
-        ...correctlySignedDirectory,
-        merkleRoot:
-          "0x2ef0c4ce20ce44d86b06418509135ac5a15b14e4a569bbd002d276c4596706ac",
-      };
-      expect(
-        await Farcaster.isValidDirectorySignature(
-          address,
-          withInvalidMerkleRoot
-        )
-      ).to.be.false;
-    });
-  });
-
   describe("#isValidAddressActivitySignature()", function () {
     const address = "0xC6C0b79d0034A9A44c01c7695EaE26c9A7d23e40";
-    const correctlySignedActivity: AddressActivity = {
+    const correctlySignedActivity: Message = {
       body: {
-        type: AddressActivityBodyType.TextShort,
+        type: MessageBodyType.TextShort,
         publishedAt: 1630800202200,
         sequence: 883,
         username: "dwr",
@@ -106,7 +45,7 @@ describe("signature verification", function () {
 
     it("should accept a known valid signature", async function () {
       expect(
-        await Farcaster.isValidAddressActivitySignature(
+        await Farcaster.isValidMessageSignature(
           address,
           correctlySignedActivity
         )
@@ -120,10 +59,7 @@ describe("signature verification", function () {
           "0xfe487ba982022b39310708fc95af654ca45b708d72e3e4dc02d07fed904859920d7f4ff27ad8ac4a833e3df98ddfe5d4375a067f21a0462a37030122b0c637551c",
       };
       expect(
-        await Farcaster.isValidAddressActivitySignature(
-          address,
-          withInvalidSignature
-        )
+        await Farcaster.isValidMessageSignature(address, withInvalidSignature)
       ).to.be.false;
     });
 
@@ -134,10 +70,7 @@ describe("signature verification", function () {
           "0xb1661819a968f0bd4ea727add2d49f4799b43a5dd189ec7004de91263079577d",
       };
       expect(
-        await Farcaster.isValidAddressActivitySignature(
-          address,
-          withInvalidMerkleRoot
-        )
+        await Farcaster.isValidMessageSignature(address, withInvalidMerkleRoot)
       ).to.be.false;
     });
   });

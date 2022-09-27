@@ -1,4 +1,5 @@
 import { publishCast } from "@standard-crypto/farcaster-js";
+import { Wallet } from "ethers";
 
-const privateKey = "..."; // 64 character hex string
-await publishCast(privateKey, "Hello, Farcaster!");
+const wallet = Wallet.fromMnemonic("twelve words here");
+await publishCast(wallet, "Hello, Farcaster!");

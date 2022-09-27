@@ -2,16 +2,19 @@
   "version": "0.1",
   "language": "en",
   "words": [
+    "arrayify",
+    "bignumber",
     "esbuild",
-    "rmrf",
-    "farcaster",
-    "socio",
-    "octocat",
-    "Networkish",
-    "farcaster",
     "ethersproject",
+    "farcaster",
+    "gavi",
+    "keccak",
     "merkle",
-    "keccak"
+    "Networkish",
+    "octocat",
+    "recasters",
+    "rmrf",
+    "socio"
   ],
   "flagWords": [],
   "ignorePaths": [

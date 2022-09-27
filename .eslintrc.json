@@ -32,13 +32,19 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",
-    "no-only-tests/no-only-tests": "error"
+    "no-only-tests/no-only-tests": "error",
+    "no-console": "error"
   },
   "overrides": [
     {
       "files": ["tests/**.ts"],
       "rules": {
         "@typescript-eslint/no-unused-expressions": "off"
+      }
+    }, {
+      "files": ["examples/**.ts"],
+      "rules": {
+        "no-console": "off"
       }
     }
   ]

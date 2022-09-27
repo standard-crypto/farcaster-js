@@ -1,13 +1,28 @@
-import { InfuraProvider } from "@ethersproject/providers";
 import { Wallet } from "@ethersproject/wallet";
-import { Web3UserRegistry } from "@standard-crypto/farcaster-js";
+import { UserRegistry } from "@standard-crypto/farcaster-js";
 
-const provider = new InfuraProvider("rinkeby");
-const userRegistry = new Web3UserRegistry(provider);
-const signer = new Wallet("<private key>", provider); // any Signer implementation accepted
-const newUsername = "MyNewUsername"; // do not include the leading `@`
-const tx = await userRegistry.registerUsername(newUsername, signer, {
-  gasLimit: 400000,
-});
-await tx.wait();
-console.log(await userRegistry.lookupByUsername(newUsername));
+const ownerWallet = Wallet.fromMnemonic("twelve words here");
+const recoveryWalletAddress = "0x...";
+const userRegistry = new UserRegistry();
+const usernameToRegister = "new-username";
+
+// Send transaction to pre-commit to this username
+const { tx, nonce } = await userRegistry.commitToUsername(
+  usernameToRegister,
+  ownerWallet.address,
+  recoveryWalletAddress,
+  ownerWallet
+);
+await tx.wait;
+
+// Transaction mined. Waiting at least 60s for eligibility to register
+await new Promise((resolve) => setTimeout(resolve, 75000));
+
+// Attempt to claim reserved username
+await userRegistry.registerUsername(
+  usernameToRegister,
+  ownerWallet.address,
+  recoveryWalletAddress,
+  nonce,
+  ownerWallet
+);

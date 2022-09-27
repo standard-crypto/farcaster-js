@@ -1,13 +1,11 @@
-import { AddressActivityBody, DirectoryBody } from "./api";
+import { MessageBody } from "./api";
 
 /**
- * Returns the canonical serialization of an {@link AddressActivityBody}.
+ * Returns the canonical serialization of an {@link MessageBody}.
  * Required for producing and verifying signatures.
  */
-export function serializeAddressActivityBody(
-  body: AddressActivityBody
-): string {
-  const canonicalForm: AddressActivityBody = {
+export function serializeMessageBody(body: MessageBody): string {
+  const canonicalForm: MessageBody = {
     type: body.type,
     publishedAt: body.publishedAt,
     sequence: body.sequence,
@@ -19,22 +17,6 @@ export function serializeAddressActivityBody(
     },
     prevMerkleRoot: body.prevMerkleRoot,
     tokenCommunities: body.tokenCommunities,
-  };
-  return JSON.stringify(canonicalForm);
-}
-
-/**
- * Returns the canonical serialization of a {@link DirectoryBody}.
- * Required for producing and verifying signatures.
- */
-export function serializeDirectoryBody(body: DirectoryBody): string {
-  const canonicalForm: DirectoryBody = {
-    addressActivityUrl: body.addressActivityUrl,
-    avatarUrl: body.avatarUrl,
-    displayName: body.displayName,
-    proofUrl: body.proofUrl,
-    timestamp: body.timestamp,
-    version: body.version,
   };
   return JSON.stringify(canonicalForm);
 }
