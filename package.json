@@ -35,7 +35,7 @@
     "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts,tests/**/*.ts}\"",
     "cz": "cz",
     "semantic-release": "semantic-release",
-    "docs": "yarn md-magic --path './README.md' && yarn typedoc",
+    "docs": "yarn md-magic --path './README.template.md' && yarn typedoc",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -1,7 +1,8 @@
 {
     "entryPoints": ["./src/index.ts"],
-    "out": "doc",
+    "out": "docs",
     "exclude": "./src/contracts/**/*.ts",
     "gitRevision": "main",
-    "theme": "markdown"
+    "theme": "markdown",
+    "readme": "./README.template.md"
 }
