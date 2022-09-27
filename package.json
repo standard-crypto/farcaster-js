@@ -52,7 +52,7 @@
     "@typechain/ethers-v5": "^9.0.0",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^18.7.19",
+    "@types/node": "^18.7.23",
     "@types/prompts": "^2.0.13",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.1",
