@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "exports": {
@@ -35,7 +35,7 @@
     "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts,tests/**/*.ts}\"",
     "cz": "cz",
     "semantic-release": "semantic-release",
-    "docs": "md-magic --path './README.md'",
+    "docs": "yarn md-magic --path './README.md' && yarn typedoc",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -64,6 +64,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-no-only-tests": "^3.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.1",
@@ -81,6 +82,7 @@
     "source-map-support": "^0.5.19",
     "ts-mocha": "^10.0.0",
     "typechain": "^7.0.1",
+    "typedoc": "^0.23.15",
     "typescript": "^4.8.3"
   },
   "volta": {

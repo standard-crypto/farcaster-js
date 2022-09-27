@@ -1,63 +1,72 @@
+import { BigNumber } from "@ethersproject/bignumber";
+
 /**
- * Representation of a Farcaster user
+ * Generic response type returned by requests to api.farcaster.xyz
+ */
+export interface APIResult<DataType> {
+  result: DataType;
+  meta?: {
+    next?: string;
+  };
+}
+
+/**
+ * Rich representation of a Farcaster user, including metadata
  */
 export interface User {
-  /** The user's username (without the leading '@') */
-  username: string;
-  /** The location of this user's {@link Directory} */
-  directoryUrl: string;
-  /** Timestamp in epoch seconds */
-  createdAt: string;
-  /** Timestamp in epoch seconds */
-  modifiedAt: string;
-  /** The user's currently registered Ethereum address */
+  /** The user's registered Ethereum address */
   address: string;
-}
-
-export interface Directory {
-  body: DirectoryBody;
-  /** keccak256 hash of the JSON serialized `body` */
-  merkleRoot: string;
-  signature: string;
-}
-
-/**
- * Details of a {@link User}'s {@link Directory}
- */
-export interface DirectoryBody {
-  /** Location of the record of this {@link User}'s activity */
-  addressActivityUrl: string;
-  /** Location of this {@link User}'s avatar image */
-  avatarUrl: string;
-  /** {@link User}'s display name */
+  /** The user's currently assigned username (without the leading '@') */
+  username: string;
+  /** The user's full display name */
   displayName: string;
-  /** Location of the merkle proof for this {@link User}'s {@link Directory} */
-  proofUrl: string;
-  /** Timestamp in epoch milliseconds */
-  timestamp: number;
-  version: number;
+  /**
+   * The permanent ID associated with a user
+   * (as opposed to usernames, which can be transferred and changed)
+   */
+  farcasterId: BigNumber;
+  /** Details for the user's avatar */
+  avatar: {
+    url: string;
+    isVerified: boolean;
+  };
+  followerCount: number;
+  followingCount: number;
+  isViewerFollowing: boolean;
+  isFollowingViewer: boolean;
+  profile: {
+    bio: {
+      text: string;
+      mentions: string[];
+    };
+    directMessageTargets?: {
+      telegram?: string; // format is https://t.me/USERNAME
+    };
+  };
+  referrerUsername: string;
+  viewerCanSendDirectCasts: boolean;
 }
 
-export enum AddressActivityBodyType {
+export enum MessageBodyType {
   TextShort = "text-short",
 }
 
-export interface AddressActivity {
-  body: AddressActivityBody;
+export interface Message {
+  body: MessageBody;
   merkleRoot: string;
   signature: string;
   meta: Meta;
 }
 
 /**
- * Some activity published by a user, such as a short text cast.
+ * A message published by a user, such as a short text cast.
  */
-export interface AddressActivityBody {
-  /** The type of activity this represents */
-  type: AddressActivityBodyType;
+export interface MessageBody {
+  /** The type of message this represents */
+  type: MessageBodyType;
   /** Timestamp in epoch milliseconds */
   publishedAt: number;
-  /** The index of this action in the sequence of all activity by this user. Zero-indexed. */
+  /** The index of this action in the sequence of all messages by this user. Zero-indexed. */
   sequence: number;
   username: string;
   /** The address owning the user at the time this was published */
@@ -83,6 +92,16 @@ export interface Meta {
   reactions: Reactions;
   mentions?: ReplyParentUsername[];
   replyParentUsername?: ReplyParentUsername;
+  recasters?: Omit<User, "farcasterId">;
+  recasts?: {
+    count: number;
+    self: boolean;
+  };
+  watches?: {
+    count: number;
+    self: boolean;
+  };
+  recast?: boolean;
 }
 
 export interface ReplyParentUsername {

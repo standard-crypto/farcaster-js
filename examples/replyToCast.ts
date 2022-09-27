@@ -1,6 +1,7 @@
 import { Farcaster, publishCast } from "@standard-crypto/farcaster-js";
+import { Wallet } from "ethers";
 
 const farcaster = new Farcaster();
 const latestCast = await farcaster.getLatestActivityForUser("dwr");
-const privateKey = "..."; // 64 character hex string
-await publishCast(privateKey, "Replying to your cast!", latestCast);
+const wallet = Wallet.fromMnemonic("twelve words here");
+await publishCast(wallet, "Replying to your cast!", latestCast);
