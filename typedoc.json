@@ -1,5 +1,6 @@
 {
     "entryPoints": ["./src/index.ts"],
     "out": "doc",
-    "exclude": "./src/contracts/**/*.ts"
+    "exclude": "./src/contracts/**/*.ts",
+    "gitRevision": "main"
 }
