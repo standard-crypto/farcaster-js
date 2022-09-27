@@ -1,6 +1,9 @@
-minApprovals:
-  NONE: 0
+rules:
+- requiredAuthor: app/dependabot
+  minApprovals:
+    NONE: 0
 requiredLabels:
   - dependencies
 updateBranch: true
 mergeMethod: rebase
+reportStatus: true
