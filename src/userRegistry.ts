@@ -12,7 +12,6 @@ import {
 import { formatBytes32String } from "@ethersproject/strings";
 import { BigNumber } from "@ethersproject/bignumber";
 import { utils } from "ethers";
-import { arrayify } from "ethers/lib/utils";
 
 /**
  * Registry of usernames and their corresponding owners, as well as the directory URL of each user.
@@ -316,7 +315,9 @@ export class UserRegistry {
     UserRegistry.validateUsername(username);
 
     // construct commit hash
-    const unameBytes = arrayify(formatBytes32String(username)).slice(0, 16);
+    const unameBytes = utils
+      .arrayify(formatBytes32String(username))
+      .slice(0, 16);
     const nonce = utils.randomBytes(32);
     const commitHash = await nameRegistry.generateCommit(
       unameBytes,
