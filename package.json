@@ -67,7 +67,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-no-only-tests": "^3.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-promise": "^6.1.0",
     "esm": "^3.2.25",
     "husky": "^8.0.1",
     "markdown-magic": "^2.6.1",
