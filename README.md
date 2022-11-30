@@ -29,13 +29,7 @@ npm install @standard-crypto/farcaster-js
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishCast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/publishCast.ts -->
 ```ts
-import { publishCast } from "@standard-crypto/farcaster-js";
-import { Wallet } from "ethers";
-import { AlchemyProvider } from "@ethersproject/providers";
-
-const provider = new AlchemyProvider("goerli");
-const wallet = Wallet.fromMnemonic("twelve words here");
-await publishCast(wallet, provider, "Hello, Farcaster!");
+// TODO
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -44,15 +38,7 @@ await publishCast(wallet, provider, "Hello, Farcaster!");
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/fetchUserActivity.ts) -->
 <!-- The below code snippet is automatically added from ./examples/fetchUserActivity.ts -->
 ```ts
-import { Farcaster } from "@standard-crypto/farcaster-js";
-import { AlchemyProvider } from "@ethersproject/providers";
-
-const farcaster = new Farcaster(new AlchemyProvider("goerli"));
-for await (const activity of farcaster.getAllActivityForUser("dwr", {
-  includeRecasts: false,
-})) {
-  console.log(activity.body.data.text);
-}
+// TODO
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -61,15 +47,7 @@ for await (const activity of farcaster.getAllActivityForUser("dwr", {
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToCast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/replyToCast.ts -->
 ```ts
-import { Farcaster, publishCast } from "@standard-crypto/farcaster-js";
-import { Wallet } from "ethers";
-import { AlchemyProvider } from "@ethersproject/providers";
-
-const provider = new AlchemyProvider("goerli");
-const farcaster = new Farcaster(provider);
-const latestCast = await farcaster.getLatestActivityForUser("dwr");
-const wallet = Wallet.fromMnemonic("twelve words here");
-await publishCast(wallet, provider, "Replying to your cast!", latestCast);
+// TODO
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -78,18 +56,18 @@ await publishCast(wallet, provider, "Replying to your cast!", latestCast);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/lookupUser.ts) -->
 <!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
 ```ts
-import { UserRegistry } from "@standard-crypto/farcaster-js";
-import { AlchemyProvider } from "@ethersproject/providers";
+import { MerkleAPIClient } from "@standard-crypto/farcaster-js/merkleAPI";
+import { Wallet } from "ethers";
 
-const userRegistry = new UserRegistry(new AlchemyProvider("goerli"));
+// TODO: by username
+// await userRegistry.lookupByUsername("dwr");
 
-// by username
-await userRegistry.lookupByUsername("dwr");
+const wallet = Wallet.fromMnemonic("twelve words here");
 
-// by address
-await userRegistry.lookupByAddress(
-  "0xEfCbF0a3C475780A4eD25158E35F528d929C9A23"
-);
+const client = new MerkleAPIClient(wallet);
+
+// by farcaster ID ('fid')
+await client.lookupUserByFid(69);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -98,35 +76,6 @@ await userRegistry.lookupByAddress(
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/registerUsername.ts) -->
 <!-- The below code snippet is automatically added from ./examples/registerUsername.ts -->
 ```ts
-import { Wallet } from "@ethersproject/wallet";
-import { UserRegistry } from "@standard-crypto/farcaster-js";
-import { AlchemyProvider } from "@ethersproject/providers";
-
-const provider = new AlchemyProvider("goerli");
-const ownerWallet = Wallet.fromMnemonic("twelve words here");
-const recoveryWalletAddress = "0x...";
-const userRegistry = new UserRegistry(provider);
-const usernameToRegister = "new-username";
-
-// Send transaction to pre-commit to this username
-const { tx, nonce } = await userRegistry.commitToUsername(
-  usernameToRegister,
-  ownerWallet.address,
-  recoveryWalletAddress,
-  ownerWallet
-);
-await tx.wait;
-
-// Transaction mined. Waiting at least 60s for eligibility to register
-await new Promise((resolve) => setTimeout(resolve, 75000));
-
-// Attempt to claim reserved username
-await userRegistry.registerUsername(
-  usernameToRegister,
-  ownerWallet.address,
-  recoveryWalletAddress,
-  nonce,
-  ownerWallet
-);
+// TODO
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->

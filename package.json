@@ -41,6 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^14.1.0",
@@ -93,7 +94,7 @@
   },
   "dependencies": {
     "axios": "^0.27.0",
-    "did-jwt": "^5.7.0",
+    "canonicalize": "^1.0.8",
     "ethers": "^5.7.1"
   },
   "files": [
