@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def12 } from "./def12";
 /**
  *
  * @export
@@ -23,5 +22,5 @@ export interface V2FollowsBody {
    * @type {Def12}
    * @memberof V2FollowsBody
    */
-  targetFid: Def12;
+  targetFid: number;
 }

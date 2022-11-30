@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def29 } from "./def29";
+import { AssetCollection } from "./AssetCollection";
 /**
  *
  * @export
@@ -20,8 +20,8 @@ import { Def29 } from "./def29";
 export interface InlineResponse20010Result {
   /**
    *
-   * @type {Def29}
+   * @type {AssetCollection}
    * @memberof InlineResponse20010Result
    */
-  collection: Def29;
+  collection: AssetCollection;
 }

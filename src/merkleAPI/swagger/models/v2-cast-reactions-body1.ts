@@ -11,9 +11,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def12 } from "./def12";
-import { Def6 } from "./def6";
-import { Def8 } from "./def8";
+
+import { CastReactionType } from "./CastReactionType";
+
 /**
  *
  * @export
@@ -25,17 +25,17 @@ export interface V2CastReactionsBody1 {
    * @type {Def8}
    * @memberof V2CastReactionsBody1
    */
-  type: Def8;
+  type: CastReactionType;
   /**
    *
    * @type {Def12}
    * @memberof V2CastReactionsBody1
    */
-  castFid: Def12;
+  castFid: number;
   /**
    *
    * @type {Def6}
    * @memberof V2CastReactionsBody1
    */
-  castHash: Def6;
+  castHash: string;
 }

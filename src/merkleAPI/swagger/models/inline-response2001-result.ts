@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def34 } from "./def34";
+import { AssetEvent } from "./AssetEvent";
 /**
  *
  * @export
@@ -20,8 +20,8 @@ import { Def34 } from "./def34";
 export interface InlineResponse2001Result {
   /**
    *
-   * @type {Array<Def34>}
+   * @type {Array<AssetEvent>}
    * @memberof InlineResponse2001Result
    */
-  events: Array<Def34>;
+  events: Array<AssetEvent>;
 }

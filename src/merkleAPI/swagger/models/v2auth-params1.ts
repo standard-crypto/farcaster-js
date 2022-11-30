@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def2 } from "./def2";
 /**
  *
  * @export
@@ -23,5 +22,5 @@ export interface V2authParams1 {
    * @type {Def2}
    * @memberof V2authParams1
    */
-  timestamp: Def2;
+  timestamp: number;
 }

@@ -11,8 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def2 } from "./def2";
-import { Def41 } from "./def41";
+import { Recaster } from "./Recaster";
 /**
  *
  * @export
@@ -24,11 +23,11 @@ export interface CastRecasts {
    * @type {Def2}
    * @memberof Def42Recasts
    */
-  count: Def2;
+  count: number;
   /**
    *
-   * @type {Array<Def41>}
+   * @type {Array<Recaster>}
    * @memberof Def42Recasts
    */
-  recasters?: Array<Def41>;
+  recasters?: Array<Recaster>;
 }

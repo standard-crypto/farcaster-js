@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def2 } from "./def2";
 /**
  *
  * @export
@@ -23,5 +22,5 @@ export interface CastReactions {
    * @type {Def2}
    * @memberof Def42Reactions
    */
-  count: Def2;
+  count: number;
 }

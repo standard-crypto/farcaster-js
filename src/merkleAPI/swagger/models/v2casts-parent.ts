@@ -11,8 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def12 } from "./def12";
-import { Def6 } from "./def6";
 /**
  *
  * @export
@@ -24,11 +22,11 @@ export interface V2castsParent {
    * @type {Def12}
    * @memberof V2castsParent
    */
-  fid: Def12;
+  fid: number;
   /**
    *
    * @type {Def6}
    * @memberof V2castsParent
    */
-  hash: Def6;
+  hash: string;
 }

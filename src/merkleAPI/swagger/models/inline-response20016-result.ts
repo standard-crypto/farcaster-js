@@ -11,7 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def36 } from "./def36";
+import { ApiAssetEventFeedItem } from "./ApiAssetEventFeedItem";
+import { Verification } from "./Verification";
 /**
  *
  * @export
@@ -20,8 +21,8 @@ import { Def36 } from "./def36";
 export interface InlineResponse20016Result {
   /**
    *
-   * @type {Array<Def36>}
+   * @type {Array<Verification>
    * @memberof InlineResponse20016Result
    */
-  verifications: Array<Def36>;
+  verifications: Array<Verification>;
 }

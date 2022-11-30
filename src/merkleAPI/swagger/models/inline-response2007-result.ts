@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def37 } from "./def37";
+import { CastReaction } from "./CastReaction";
 /**
  *
  * @export
@@ -20,8 +20,8 @@ import { Def37 } from "./def37";
 export interface InlineResponse2007Result {
   /**
    *
-   * @type {Array<Def37>}
+   * @type {Array<CastReaction>
    * @memberof InlineResponse2007Result
    */
-  reactions: Array<Def37>;
+  reactions: Array<CastReaction>;
 }

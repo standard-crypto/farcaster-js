@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def23 } from "./def23";
+import { ApiOpenGraphMetadata } from "./ApiOpenGraphMetadata";
 /**
  *
  * @export
@@ -20,8 +20,8 @@ import { Def23 } from "./def23";
 export interface CastAttachments {
   /**
    *
-   * @type {Array<Def23>}
+   * @type {Array<ApiOpenGraphMetadata>}
    * @memberof Def42Attachments
    */
-  openGraph?: Array<Def23>;
+  openGraph?: Array<ApiOpenGraphMetadata>;
 }

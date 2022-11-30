@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def6 } from "./def6";
 /**
  *
  * @export
@@ -23,5 +22,5 @@ export interface V2RecastsBody {
    * @type {Def6}
    * @memberof V2RecastsBody
    */
-  castHash: Def6;
+  castHash: string;
 }

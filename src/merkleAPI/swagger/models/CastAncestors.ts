@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def2 } from "./def2";
 import { Cast } from "./Cast";
 /**
  *
@@ -24,7 +23,7 @@ export interface CastAncestors {
    * @type {Def2}
    * @memberof Def42Ancestors
    */
-  count: Def2;
+  count: number;
   /**
    *
    * @type {Array<Cast>}

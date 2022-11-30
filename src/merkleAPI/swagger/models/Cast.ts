@@ -11,15 +11,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def15 } from "./def15";
-import { Def18 } from "./def18";
 import { User } from "./User";
 import { CastAncestors } from "./CastAncestors";
 import { CastAttachments } from "./CastAttachments";
 import { CastReactions } from "./CastReactions";
 import { CastRecasts } from "./CastRecasts";
 import { CastViewerContext } from "./CastViewerContext";
-import { Def6 } from "./def6";
 /**
  *
  * @export
@@ -31,19 +28,19 @@ export interface Cast {
    * @type {Def6}
    * @memberof Def42
    */
-  hash: Def6;
+  hash: string;
   /**
    *
    * @type {Def6}
    * @memberof Def42
    */
-  threadHash: Def6;
+  threadHash: string;
   /**
    *
    * @type {Def6}
    * @memberof Def42
    */
-  parentHash?: Def6;
+  parentHash?: string;
   /**
    *
    * @type {User}
@@ -61,13 +58,13 @@ export interface Cast {
    * @type {Def15}
    * @memberof Def42
    */
-  text: Def15;
+  text: string;
   /**
    *
    * @type {Def18}
    * @memberof Def42
    */
-  publishedAt: Def18;
+  publishedAt: number;
   /**
    *
    * @type {Array<User>}

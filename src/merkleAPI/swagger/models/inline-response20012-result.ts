@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def4 } from "./def4";
 /**
  *
  * @export
@@ -23,5 +22,5 @@ export interface InlineResponse20012Result {
    * @type {Def4}
    * @memberof InlineResponse20012Result
    */
-  custodyAddress: Def4;
+  custodyAddress: string;
 }

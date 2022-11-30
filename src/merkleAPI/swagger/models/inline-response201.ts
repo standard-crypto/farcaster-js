@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Def48Content } from "./def48-content";
+import { NotificationCastMentionContent } from "./NotificationCastMentionContent";
 /**
  *
  * @export
@@ -20,8 +20,8 @@ import { Def48Content } from "./def48-content";
 export interface InlineResponse201 {
   /**
    *
-   * @type {Def48Content}
+   * @type {NotificationCastMentionContent}
    * @memberof InlineResponse201
    */
-  result: Def48Content;
+  result: NotificationCastMentionContent;
 }
