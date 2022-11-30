@@ -27,8 +27,8 @@ import {
   RequiredError,
 } from "../base";
 import { InlineResponse2004 } from "../models";
-import { V2WatchedcastsBody } from "../models";
-import { V2WatchedcastsBody1 } from "../models";
+import { V2WatchedCastsBody } from "../models";
+import { V2WatchedCastsBody1 } from "../models";
 /**
  * WatchesApi - axios parameter creator
  * @export
@@ -40,13 +40,13 @@ export const WatchesApiAxiosParamCreator = function (
     /**
      * Unwatch a cast.
      * @param {string} authorization
-     * @param {V2WatchedcastsBody1} [body]
+     * @param {V2WatchedCastsBody1} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     v2WatchedCastsDelete: async (
       authorization: string,
-      body?: V2WatchedcastsBody1,
+      body?: V2WatchedCastsBody1,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'authorization' is not null or undefined
@@ -108,13 +108,13 @@ export const WatchesApiAxiosParamCreator = function (
     /**
      * Watch a cast.
      * @param {string} authorization
-     * @param {V2WatchedcastsBody} [body]
+     * @param {V2WatchedCastsBody} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     v2WatchedCastsPut: async (
       authorization: string,
-      body?: V2WatchedcastsBody,
+      body?: V2WatchedCastsBody,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'authorization' is not null or undefined
@@ -185,13 +185,13 @@ export const WatchesApiFp = function (configuration?: Configuration) {
     /**
      * Unwatch a cast.
      * @param {string} authorization
-     * @param {V2WatchedcastsBody1} [body]
+     * @param {V2WatchedCastsBody1} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2WatchedCastsDelete(
       authorization: string,
-      body?: V2WatchedcastsBody1,
+      body?: V2WatchedCastsBody1,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -216,13 +216,13 @@ export const WatchesApiFp = function (configuration?: Configuration) {
     /**
      * Watch a cast.
      * @param {string} authorization
-     * @param {V2WatchedcastsBody} [body]
+     * @param {V2WatchedCastsBody} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2WatchedCastsPut(
       authorization: string,
-      body?: V2WatchedcastsBody,
+      body?: V2WatchedCastsBody,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -260,13 +260,13 @@ export const WatchesApiFactory = function (
     /**
      * Unwatch a cast.
      * @param {string} authorization
-     * @param {V2WatchedcastsBody1} [body]
+     * @param {V2WatchedCastsBody1} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2WatchedCastsDelete(
       authorization: string,
-      body?: V2WatchedcastsBody1,
+      body?: V2WatchedCastsBody1,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2004>> {
       return WatchesApiFp(configuration)
@@ -276,13 +276,13 @@ export const WatchesApiFactory = function (
     /**
      * Watch a cast.
      * @param {string} authorization
-     * @param {V2WatchedcastsBody} [body]
+     * @param {V2WatchedCastsBody} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2WatchedCastsPut(
       authorization: string,
-      body?: V2WatchedcastsBody,
+      body?: V2WatchedCastsBody,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2004>> {
       return WatchesApiFp(configuration)
@@ -302,14 +302,14 @@ export class WatchesApi extends BaseAPI {
   /**
    * Unwatch a cast.
    * @param {string} authorization
-   * @param {V2WatchedcastsBody1} [body]
+   * @param {V2WatchedCastsBody1} [body]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof WatchesApi
    */
   public async v2WatchedCastsDelete(
     authorization: string,
-    body?: V2WatchedcastsBody1,
+    body?: V2WatchedCastsBody1,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2004>> {
     return WatchesApiFp(this.configuration)
@@ -319,14 +319,14 @@ export class WatchesApi extends BaseAPI {
   /**
    * Watch a cast.
    * @param {string} authorization
-   * @param {V2WatchedcastsBody} [body]
+   * @param {V2WatchedCastsBody} [body]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof WatchesApi
    */
   public async v2WatchedCastsPut(
     authorization: string,
-    body?: V2WatchedcastsBody,
+    body?: V2WatchedCastsBody,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2004>> {
     return WatchesApiFp(this.configuration)

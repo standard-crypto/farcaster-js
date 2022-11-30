@@ -48,9 +48,9 @@ if (privateKey !== undefined && privateKey !== "") {
         expect(foundCast).to.be.true;
       });
 
-      it("can fetch multiple pages worth of casts", async function () {
+      it.skip("can fetch multiple pages worth of casts", async function () {
         let castCount = 0;
-        const fid = 1; // @dwromero
+        const fid = 1; // @dwr
         const castCountBiggerThanPageSize = 150;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for await (const _ of client.fetchCastsForUser({ fid }, false)) {

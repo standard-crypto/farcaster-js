@@ -132,7 +132,9 @@ export class MerkleAPIClient {
   }
 
   private async _authHeader(params: V2AuthBody): Promise<string> {
-    const payload = canonicalize(params)!;
+    const payload = canonicalize(params);
+    if (payload === undefined)
+      throw new Error("failed to canonicalize auth params");
 
     const signature = Buffer.from(
       utils.arrayify(await this.wallet.signMessage(payload))

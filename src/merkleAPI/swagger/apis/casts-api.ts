@@ -33,8 +33,8 @@ import { InlineResponse2007 } from "../models";
 import { InlineResponse2008 } from "../models";
 import { InlineResponse2009 } from "../models";
 import { InlineResponse201 } from "../models";
-import { V2CastreactionsBody } from "../models";
-import { V2CastreactionsBody1 } from "../models";
+import { V2CastReactionsBody } from "../models";
+import { V2CastReactionsBody1 } from "../models";
 import { V2CastsBody } from "../models";
 import { V2CastsBody1 } from "../models";
 import { V2RecastsBody } from "../models";
@@ -50,13 +50,13 @@ export const CastsApiAxiosParamCreator = function (
     /**
      * Remove a reaction from a cast.
      * @param {string} authorization
-     * @param {V2CastreactionsBody1} [body]
+     * @param {V2CastReactionsBody1} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     v2CastReactionsDelete: async (
       authorization: string,
-      body?: V2CastreactionsBody1,
+      body?: V2CastReactionsBody1,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'authorization' is not null or undefined
@@ -195,13 +195,13 @@ export const CastsApiAxiosParamCreator = function (
     /**
      * Create a reaction to a cast.
      * @param {string} authorization
-     * @param {V2CastreactionsBody} [body]
+     * @param {V2CastReactionsBody} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     v2CastReactionsPut: async (
       authorization: string,
-      body?: V2CastreactionsBody,
+      body?: V2CastReactionsBody,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'authorization' is not null or undefined
@@ -723,13 +723,13 @@ export const CastsApiFp = function (configuration?: Configuration) {
     /**
      * Remove a reaction from a cast.
      * @param {string} authorization
-     * @param {V2CastreactionsBody1} [body]
+     * @param {V2CastReactionsBody1} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2CastReactionsDelete(
       authorization: string,
-      body?: V2CastreactionsBody1,
+      body?: V2CastReactionsBody1,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -787,13 +787,13 @@ export const CastsApiFp = function (configuration?: Configuration) {
     /**
      * Create a reaction to a cast.
      * @param {string} authorization
-     * @param {V2CastreactionsBody} [body]
+     * @param {V2CastReactionsBody} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2CastReactionsPut(
       authorization: string,
-      body?: V2CastreactionsBody,
+      body?: V2CastReactionsBody,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -1031,13 +1031,13 @@ export const CastsApiFactory = function (
     /**
      * Remove a reaction from a cast.
      * @param {string} authorization
-     * @param {V2CastreactionsBody1} [body]
+     * @param {V2CastReactionsBody1} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2CastReactionsDelete(
       authorization: string,
-      body?: V2CastreactionsBody1,
+      body?: V2CastReactionsBody1,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2004>> {
       return CastsApiFp(configuration)
@@ -1065,13 +1065,13 @@ export const CastsApiFactory = function (
     /**
      * Create a reaction to a cast.
      * @param {string} authorization
-     * @param {V2CastreactionsBody} [body]
+     * @param {V2CastReactionsBody} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async v2CastReactionsPut(
       authorization: string,
-      body?: V2CastreactionsBody,
+      body?: V2CastReactionsBody,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2008>> {
       return CastsApiFp(configuration)
@@ -1201,14 +1201,14 @@ export class CastsApi extends BaseAPI {
   /**
    * Remove a reaction from a cast.
    * @param {string} authorization
-   * @param {V2CastreactionsBody1} [body]
+   * @param {V2CastReactionsBody1} [body]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastsApi
    */
   public async v2CastReactionsDelete(
     authorization: string,
-    body?: V2CastreactionsBody1,
+    body?: V2CastReactionsBody1,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2004>> {
     return CastsApiFp(this.configuration)
@@ -1237,14 +1237,14 @@ export class CastsApi extends BaseAPI {
   /**
    * Create a reaction to a cast.
    * @param {string} authorization
-   * @param {V2CastreactionsBody} [body]
+   * @param {V2CastReactionsBody} [body]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastsApi
    */
   public async v2CastReactionsPut(
     authorization: string,
-    body?: V2CastreactionsBody,
+    body?: V2CastReactionsBody,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2008>> {
     return CastsApiFp(this.configuration)

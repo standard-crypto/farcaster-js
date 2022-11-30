@@ -13,22 +13,29 @@
  */
 import { Def12 } from "./def12";
 import { Def6 } from "./def6";
+import { Def8 } from "./def8";
 /**
  *
  * @export
- * @interface V2WatchedcastsBody1
+ * @interface V2CastReactionsBody1
  */
-export interface V2WatchedcastsBody1 {
+export interface V2CastReactionsBody1 {
+  /**
+   *
+   * @type {Def8}
+   * @memberof V2CastReactionsBody1
+   */
+  type: Def8;
   /**
    *
    * @type {Def12}
-   * @memberof V2WatchedcastsBody1
+   * @memberof V2CastReactionsBody1
    */
   castFid: Def12;
   /**
    *
    * @type {Def6}
-   * @memberof V2WatchedcastsBody1
+   * @memberof V2CastReactionsBody1
    */
   castHash: Def6;
 }

@@ -14,7 +14,12 @@
     "octocat",
     "recasters",
     "rmrf",
-    "socio"
+    "socio",
+    "canonicalize",
+    "millis",
+    "recasted",
+    "unfollow",
+    "healthcheck"
   ],
   "flagWords": [],
   "ignorePaths": [

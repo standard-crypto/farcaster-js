@@ -17,6 +17,7 @@
     "scripts/*",
     "rollup.config.js",
     "src/contracts/*",
+    "src/merkleAPI/swagger/*",
     "dist/*",
     "types/*"
   ],

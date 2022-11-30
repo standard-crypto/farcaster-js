@@ -17,25 +17,25 @@ import { Def8 } from "./def8";
 /**
  *
  * @export
- * @interface V2CastreactionsBody
+ * @interface V2CastReactionsBody
  */
-export interface V2CastreactionsBody {
+export interface V2CastReactionsBody {
   /**
    *
    * @type {Def8}
-   * @memberof V2CastreactionsBody
+   * @memberof V2CastReactionsBody
    */
   type: Def8;
   /**
    *
    * @type {Def12}
-   * @memberof V2CastreactionsBody
+   * @memberof V2CastReactionsBody
    */
   castFid: Def12;
   /**
    *
    * @type {Def6}
-   * @memberof V2CastreactionsBody
+   * @memberof V2CastReactionsBody
    */
   castHash: Def6;
 }

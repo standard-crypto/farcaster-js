@@ -16,19 +16,19 @@ import { Def6 } from "./def6";
 /**
  *
  * @export
- * @interface V2WatchedcastsBody
+ * @interface V2WatchedCastsBody1
  */
-export interface V2WatchedcastsBody {
+export interface V2WatchedCastsBody1 {
   /**
    *
    * @type {Def12}
-   * @memberof V2WatchedcastsBody
+   * @memberof V2WatchedCastsBody1
    */
   castFid: Def12;
   /**
    *
    * @type {Def6}
-   * @memberof V2WatchedcastsBody
+   * @memberof V2WatchedCastsBody1
    */
   castHash: Def6;
 }
