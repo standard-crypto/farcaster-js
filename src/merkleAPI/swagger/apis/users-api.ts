@@ -82,6 +82,75 @@ export const UsersApiAxiosParamCreator = function (
       };
     },
     /**
+     * Gets the specified user via their username.
+     * @param {string} authorization
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    v2UserByUsernameGet: async (
+      username: string,
+      authorization: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'username' is not null or undefined
+      if (username === null || username === undefined) {
+        throw new RequiredError(
+          "username",
+          "Required parameter username was null or undefined when calling v2UserByUsernameGet."
+        );
+      }
+      // verify required parameter 'authorization' is not null or undefined
+      if (authorization === null || authorization === undefined) {
+        throw new RequiredError(
+          "authorization",
+          "Required parameter authorization was null or undefined when calling v2UserByUsernameGet."
+        );
+      }
+      const localVarPath = `/v2/user-by-username`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, "https://example.com");
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (username !== undefined && username !== null) {
+        localVarQueryParameter["username"] = String(username);
+      }
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter["authorization"] = String(authorization);
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search);
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key]);
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key]);
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString();
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Gets the specified user via their FID or fname (username).
      * @param {string} authorization
      * @param {*} [options] Override http request option.
@@ -187,6 +256,36 @@ export const UsersApiFp = function (configuration?: Configuration) {
       };
     },
     /**
+     * Gets the specified user via their username.
+     * @param {string} authorization
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async v2UserByUsernameGet(
+      username: string,
+      authorization: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => Promise<AxiosResponse<InlineResponse20013>>
+    > {
+      const localVarAxiosArgs = await UsersApiAxiosParamCreator(
+        configuration
+      ).v2UserByUsernameGet(username, authorization, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs: AxiosRequestConfig = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * Gets the specified user via their FID or fname (username).
      * @param {string} authorization
      * @param {*} [options] Override http request option.
@@ -242,6 +341,21 @@ export const UsersApiFactory = function (
         .then((request) => request(axios, basePath));
     },
     /**
+     * Gets the specified user via their username.
+     * @param {string} authorization
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async v2UserByUsernameGet(
+      username: string,
+      authorization: string,
+      options?: AxiosRequestConfig
+    ): Promise<AxiosResponse<InlineResponse20013>> {
+      return UsersApiFp(configuration)
+        .v2UserByUsernameGet(username, authorization, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Gets the specified user via their FID or fname (username).
      * @param {string} authorization
      * @param {*} [options] Override http request option.
@@ -277,6 +391,22 @@ export class UsersApi extends BaseAPI {
   ): Promise<AxiosResponse<InlineResponse20012>> {
     return UsersApiFp(this.configuration)
       .v2FnameGet(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+  /**
+   * Gets the specified user via their username.
+   * @param {string} authorization
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UsersApi
+   */
+  public async v2UserByUsernameGet(
+    username: string,
+    authorization: string,
+    options?: AxiosRequestConfig
+  ): Promise<AxiosResponse<InlineResponse20013>> {
+    return UsersApiFp(this.configuration)
+      .v2UserByUsernameGet(username, authorization, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**

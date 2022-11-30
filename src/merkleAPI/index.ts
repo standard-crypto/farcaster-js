@@ -103,6 +103,23 @@ export class MerkleAPIClient {
     return response.data.result.user;
   }
 
+  public async lookupUserByUsername(
+    username: string
+  ): Promise<User | undefined> {
+    const authToken = await this._getValidAuthToken();
+    const response = await this.apis.users.v2UserByUsernameGet(
+      username,
+      authToken.secret,
+      {
+        validateStatus: (status) => {
+          return status === 200 || status === 404;
+        },
+      }
+    );
+    if (response.status === 404) return undefined;
+    return response.data.result.user;
+  }
+
   private async _getValidAuthToken(): Promise<AuthToken> {
     if (
       this.authToken !== undefined &&

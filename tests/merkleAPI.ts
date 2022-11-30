@@ -74,5 +74,17 @@ if (privateKey !== undefined && privateKey !== "") {
         expect(user).to.be.undefined;
       });
     });
+
+    describe("#lookupUserByUsername", function () {
+      it("can find existing user", async function () {
+        const user = await client.lookupUserByUsername("dwr");
+        expect(user?.username).to.eq("dwr");
+      });
+
+      it("returns undefined if user not found", async function () {
+        const user = await client.lookupUserByUsername("nosuchusername11"); // cSpell:disable-line
+        expect(user).to.be.undefined;
+      });
+    });
   });
 }
