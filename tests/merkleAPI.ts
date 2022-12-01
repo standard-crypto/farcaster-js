@@ -303,6 +303,23 @@ if (privateKey !== undefined && privateKey !== "") {
           await client.revokeAuthToken(token);
         });
       });
+
+      describe("notifications", function () {
+        it("can fetch mention and reply notifications", async function () {
+          const notifications =
+            await client.fetchMentionAndReplyNotifications();
+
+          let notificationFound = false;
+          // eslint-disable-next-line no-unreachable-loop
+          for await (const notification of notifications) {
+            expectDefined(notification);
+            notificationFound = true;
+            break;
+          }
+
+          expect(notificationFound).to.be.true;
+        });
+      });
     });
   });
 } else {

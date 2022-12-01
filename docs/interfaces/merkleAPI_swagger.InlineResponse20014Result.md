@@ -20,7 +20,7 @@ InlineResponse20014Result
 
 ### notifications
 
-• **notifications**: `any`[]
+• **notifications**: `Notification`[]
 
 **`Memberof`**
 
@@ -28,4 +28,4 @@ InlineResponse20014Result
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/inline-response20014-result.ts:25](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response20014-result.ts#L25)
+[src/merkleAPI/swagger/models/inline-response20014-result.ts:28](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response20014-result.ts#L28)

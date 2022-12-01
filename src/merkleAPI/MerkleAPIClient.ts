@@ -26,10 +26,12 @@ import {
   InlineResponse2005,
   V2AuthBody1MethodEnum,
   V2AuthBody1,
+  NotificationsApi,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "./logger";
+import { Notification } from "./swagger/models/Notification";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
@@ -45,6 +47,7 @@ export class MerkleAPIClient {
     auth: AuthApi;
     casts: CastsApi;
     follows: FollowsApi;
+    notifications: NotificationsApi;
     user: UserApi;
     users: UsersApi;
     watches: WatchesApi;
@@ -78,6 +81,7 @@ export class MerkleAPIClient {
       auth: new AuthApi(config, undefined, axiosInstance),
       casts: new CastsApi(config, undefined, axiosInstance),
       follows: new FollowsApi(config, undefined, axiosInstance),
+      notifications: new NotificationsApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
       users: new UsersApi(config, undefined, axiosInstance),
       watches: new WatchesApi(config, undefined, axiosInstance),
@@ -235,6 +239,32 @@ export class MerkleAPIClient {
       return cast;
     }
     return undefined;
+  }
+
+  public async *fetchMentionAndReplyNotifications({
+    pageSize = 100,
+  } = {}): AsyncGenerator<Notification, void, undefined> {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of notifications
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response =
+        await this.apis.notifications.v2MentionAndReplyNotificationsGet(
+          pageSize,
+          authToken.secret,
+          cursor
+        );
+
+      // yield current page
+      yield* response.data.result.notifications;
+
+      // prep for next page
+      if (response.data.next === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
   }
 
   /**
