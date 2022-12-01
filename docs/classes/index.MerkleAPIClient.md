@@ -16,6 +16,7 @@
 
 ### Methods
 
+- [createAuthToken](index.MerkleAPIClient.md#createauthtoken)
 - [deleteCast](index.MerkleAPIClient.md#deletecast)
 - [deleteRecast](index.MerkleAPIClient.md#deleterecast)
 - [fetchCastsForUser](index.MerkleAPIClient.md#fetchcastsforuser)
@@ -27,13 +28,14 @@
 - [fetchUserFollowers](index.MerkleAPIClient.md#fetchuserfollowers)
 - [fetchUserFollowing](index.MerkleAPIClient.md#fetchuserfollowing)
 - [followUser](index.MerkleAPIClient.md#followuser)
-- [getValidAuthToken](index.MerkleAPIClient.md#getvalidauthtoken)
+- [getOrCreateValidAuthToken](index.MerkleAPIClient.md#getorcreatevalidauthtoken)
 - [lookupUserByFid](index.MerkleAPIClient.md#lookupuserbyfid)
 - [lookupUserByUsername](index.MerkleAPIClient.md#lookupuserbyusername)
 - [publishCast](index.MerkleAPIClient.md#publishcast)
 - [reactToCast](index.MerkleAPIClient.md#reacttocast)
 - [recast](index.MerkleAPIClient.md#recast)
 - [removeReactionToCast](index.MerkleAPIClient.md#removereactiontocast)
+- [revokeAuthToken](index.MerkleAPIClient.md#revokeauthtoken)
 - [unfollowUser](index.MerkleAPIClient.md#unfollowuser)
 - [unwatchCast](index.MerkleAPIClient.md#unwatchcast)
 - [watchCast](index.MerkleAPIClient.md#watchcast)
@@ -55,7 +57,7 @@
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:51](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L51)
+[src/merkleAPI/MerkleAPIClient.ts:53](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L53)
 
 ## Properties
 
@@ -77,9 +79,32 @@
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:41](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L41)
+[src/merkleAPI/MerkleAPIClient.ts:43](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L43)
 
 ## Methods
+
+### createAuthToken
+
+▸ **createAuthToken**(`expiryDurationMillis?`): `Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+
+Creates a new auth token from the signing key of the Wallet
+configured with this API client.
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `expiryDurationMillis` | `number` | `TEN_MINUTES_IN_MILLIS` |
+
+#### Returns
+
+`Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+
+#### Defined in
+
+[src/merkleAPI/MerkleAPIClient.ts:91](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L91)
+
+___
 
 ### deleteCast
 
@@ -99,7 +124,7 @@ Delete a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:124](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L124)
+[src/merkleAPI/MerkleAPIClient.ts:134](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L134)
 
 ___
 
@@ -121,7 +146,7 @@ Delete a recast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:138](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L138)
+[src/merkleAPI/MerkleAPIClient.ts:148](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L148)
 
 ___
 
@@ -151,7 +176,7 @@ client-side.
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:155](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L155)
+[src/merkleAPI/MerkleAPIClient.ts:165](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L165)
 
 ___
 
@@ -167,7 +192,7 @@ Gets the currently authenticated user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:191](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L191)
+[src/merkleAPI/MerkleAPIClient.ts:201](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L201)
 
 ___
 
@@ -187,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:197](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L197)
+[src/merkleAPI/MerkleAPIClient.ts:207](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L207)
 
 ___
 
@@ -211,7 +236,7 @@ Fetch the latest cast for the user, if there is one
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:216](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L216)
+[src/merkleAPI/MerkleAPIClient.ts:226](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L226)
 
 ___
 
@@ -236,7 +261,7 @@ Fetch all asset collections owned by the specified user.
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:233](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L233)
+[src/merkleAPI/MerkleAPIClient.ts:243](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L243)
 
 ___
 
@@ -262,7 +287,7 @@ Fetch all asset collections owned by the specified user.
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:264](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L264)
+[src/merkleAPI/MerkleAPIClient.ts:274](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L274)
 
 ___
 
@@ -287,7 +312,7 @@ Get all users that follow the specified user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:297](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L297)
+[src/merkleAPI/MerkleAPIClient.ts:307](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L307)
 
 ___
 
@@ -312,7 +337,7 @@ Get all users the specified user is following.
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:328](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L328)
+[src/merkleAPI/MerkleAPIClient.ts:338](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L338)
 
 ___
 
@@ -335,13 +360,13 @@ Follow a user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:359](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L359)
+[src/merkleAPI/MerkleAPIClient.ts:369](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L369)
 
 ___
 
-### getValidAuthToken
+### getOrCreateValidAuthToken
 
-▸ **getValidAuthToken**(): `Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+▸ **getOrCreateValidAuthToken**(): `Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
 
 Returns an existing valid auth token if one exists, otherwise provisions
 a new one from the signing key of the given Wallet.
@@ -354,7 +379,7 @@ Note that provisioning a new auth token requires an API round trip.
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:91](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L91)
+[src/merkleAPI/MerkleAPIClient.ts:116](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L116)
 
 ___
 
@@ -376,7 +401,7 @@ Gets the specified user via their FID (if found)
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:369](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L369)
+[src/merkleAPI/MerkleAPIClient.ts:379](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L379)
 
 ___
 
@@ -398,7 +423,7 @@ Gets the specified user via their username (if found)
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:383](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L383)
+[src/merkleAPI/MerkleAPIClient.ts:393](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L393)
 
 ___
 
@@ -421,7 +446,7 @@ Publishes a cast for the currently authenticated user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:403](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L403)
+[src/merkleAPI/MerkleAPIClient.ts:413](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L413)
 
 ___
 
@@ -444,7 +469,7 @@ React to a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:430](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L430)
+[src/merkleAPI/MerkleAPIClient.ts:440](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L440)
 
 ___
 
@@ -466,7 +491,7 @@ Recast a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:459](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L459)
+[src/merkleAPI/MerkleAPIClient.ts:469](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L469)
 
 ___
 
@@ -489,7 +514,27 @@ Remove a reaction to a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:475](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L475)
+[src/merkleAPI/MerkleAPIClient.ts:485](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L485)
+
+___
+
+### revokeAuthToken
+
+▸ **revokeAuthToken**(`authToken`): `Promise`<`void`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `authToken` | [`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md) |
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Defined in
+
+[src/merkleAPI/MerkleAPIClient.ts:507](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L507)
 
 ___
 
@@ -512,7 +557,7 @@ Unfollow a user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:500](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L500)
+[src/merkleAPI/MerkleAPIClient.ts:521](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L521)
 
 ___
 
@@ -534,7 +579,7 @@ Unwatch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:510](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L510)
+[src/merkleAPI/MerkleAPIClient.ts:531](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L531)
 
 ___
 
@@ -556,4 +601,4 @@ Watch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:533](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L533)
+[src/merkleAPI/MerkleAPIClient.ts:554](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L554)

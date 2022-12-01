@@ -24,6 +24,8 @@ import {
   AssetCollection,
   Asset,
   InlineResponse2005,
+  V2AuthBody1MethodEnum,
+  V2AuthBody1,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
@@ -83,12 +85,35 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Creates a new auth token from the signing key of the Wallet
+   * configured with this API client.
+   */
+  public async createAuthToken(
+    expiryDurationMillis = TEN_MINUTES_IN_MILLIS
+  ): Promise<AuthToken> {
+    this.logger.debug("fetching new authToken...");
+    const now = Date.now();
+    const params: V2AuthBody = {
+      method: V2AuthBodyMethodEnum.GenerateToken,
+      params: {
+        timestamp: now,
+        expiresAt: now + expiryDurationMillis,
+      },
+    };
+    const authHeader = await this._authHeader(params);
+    const response = await this.apis.auth.v2AuthPut(params, {
+      headers: { Authorization: authHeader },
+    });
+    return response.data.result.token;
+  }
+
+  /**
    * Returns an existing valid auth token if one exists, otherwise provisions
    * a new one from the signing key of the given Wallet.
    *
    * Note that provisioning a new auth token requires an API round trip.
    */
-  public async getValidAuthToken(): Promise<AuthToken> {
+  public async getOrCreateValidAuthToken(): Promise<AuthToken> {
     if (
       this.authToken !== undefined &&
       !_isAuthTokenExpired(await this.authToken)
@@ -98,22 +123,7 @@ export class MerkleAPIClient {
     }
 
     // queue up a request for a new auth token
-    this.authToken = (async (): Promise<AuthToken> => {
-      this.logger.debug("fetching new authToken...");
-      const now = Date.now();
-      const params: V2AuthBody = {
-        method: V2AuthBodyMethodEnum.GenerateToken,
-        params: {
-          timestamp: now,
-          expiresAt: now + TEN_MINUTES_IN_MILLIS,
-        },
-      };
-      const authHeader = await this._authHeader(params);
-      const response = await this.apis.auth.v2AuthPut(params, {
-        headers: { Authorization: authHeader },
-      });
-      return response.data.result.token;
-    })();
+    this.authToken = this.createAuthToken();
 
     return await this.authToken;
   }
@@ -122,7 +132,7 @@ export class MerkleAPIClient {
    * Delete a cast
    */
   public async deleteCast(castOrCastHash: Cast | string): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castHash: string;
     if (typeof castOrCastHash === "string") {
       castHash = castOrCastHash;
@@ -136,7 +146,7 @@ export class MerkleAPIClient {
    * Delete a recast
    */
   public async deleteRecast(castOrCastHash: Cast | string): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castHash: string;
     if (typeof castOrCastHash === "string") {
       castHash = castOrCastHash;
@@ -161,7 +171,7 @@ export class MerkleAPIClient {
 
     while (true) {
       // fetch one page of casts (with refreshed auth if necessary)
-      const authToken = await this.getValidAuthToken();
+      const authToken = await this.getOrCreateValidAuthToken();
       response = await this.apis.casts.v2CastsGet(
         user.fid,
         includeDeletedCasts,
@@ -189,7 +199,7 @@ export class MerkleAPIClient {
    * Gets the currently authenticated user
    */
   public async fetchCurrentUser(): Promise<User> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     const response = await this.apis.user.v2MeGet(authToken.secret);
     return response.data.result.user;
   }
@@ -239,7 +249,7 @@ export class MerkleAPIClient {
 
     while (true) {
       // fetch one page of followers
-      const authToken = await this.getValidAuthToken();
+      const authToken = await this.getOrCreateValidAuthToken();
       response = await this.apis.assets.v2UserCollectionsGet(
         user.fid,
         pageSize,
@@ -271,7 +281,7 @@ export class MerkleAPIClient {
 
     while (true) {
       // fetch one page of followers
-      const authToken = await this.getValidAuthToken();
+      const authToken = await this.getOrCreateValidAuthToken();
       response = await this.apis.assets.v2CollectionAssetsGet(
         user.fid,
         collectionId,
@@ -303,7 +313,7 @@ export class MerkleAPIClient {
 
     while (true) {
       // fetch one page of followers
-      const authToken = await this.getValidAuthToken();
+      const authToken = await this.getOrCreateValidAuthToken();
       response = await this.apis.follows.v2FollowersGet(
         user.fid,
         pageSize,
@@ -334,7 +344,7 @@ export class MerkleAPIClient {
 
     while (true) {
       // fetch one page of followers
-      const authToken = await this.getValidAuthToken();
+      const authToken = await this.getOrCreateValidAuthToken();
       response = await this.apis.follows.v2FollowingGet(
         user.fid,
         pageSize,
@@ -357,7 +367,7 @@ export class MerkleAPIClient {
    * Follow a user
    */
   public async followUser(user: { fid: number }): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     await this.apis.follows.v2FollowsPut(authToken.secret, {
       targetFid: user.fid,
     });
@@ -367,7 +377,7 @@ export class MerkleAPIClient {
    * Gets the specified user via their FID (if found)
    */
   public async lookupUserByFid(fid: number): Promise<User | undefined> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     const response = await this.apis.users.v2UserGet(fid, authToken.secret, {
       validateStatus: (status) => {
         return status === 200 || status === 404;
@@ -383,7 +393,7 @@ export class MerkleAPIClient {
   public async lookupUserByUsername(
     username: string
   ): Promise<User | undefined> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     const response = await this.apis.users.v2UserByUsernameGet(
       username,
       authToken.secret,
@@ -404,7 +414,7 @@ export class MerkleAPIClient {
     text: string,
     replyTo?: Cast | { fid: number; hash: string }
   ): Promise<Cast> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     const body: V2CastsBody = {
       text,
     };
@@ -431,7 +441,7 @@ export class MerkleAPIClient {
     reaction: CastReactionType,
     cast: Cast | { casterFid: number; castHash: string }
   ): Promise<CastReaction> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castFid: number;
     let castHash: string;
     if ("author" in cast) {
@@ -457,7 +467,7 @@ export class MerkleAPIClient {
    * Recast a cast
    */
   public async recast(castOrCastHash: Cast | string): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castHash: string;
     if (typeof castOrCastHash === "string") {
       castHash = castOrCastHash;
@@ -476,7 +486,7 @@ export class MerkleAPIClient {
     reaction: CastReactionType,
     cast: Cast | { casterFid: number; castHash: string }
   ): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castFid: number;
     let castHash: string;
     if ("author" in cast) {
@@ -494,11 +504,22 @@ export class MerkleAPIClient {
     await this.apis.casts.v2CastReactionsDelete(authToken.secret, body);
   }
 
+  public async revokeAuthToken(authToken: AuthToken): Promise<void> {
+    const params: V2AuthBody1 = {
+      method: V2AuthBody1MethodEnum.RevokeToken,
+      params: {
+        timestamp: authToken.expiresAt,
+      },
+    };
+
+    await this.apis.auth.v2AuthDelete(`Bearer ${authToken.secret}`, params);
+  }
+
   /**
    * Unfollow a user
    */
   public async unfollowUser(user: { fid: number }): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     await this.apis.follows.v2FollowsDelete(authToken.secret, {
       targetFid: user.fid,
     });
@@ -510,7 +531,7 @@ export class MerkleAPIClient {
   public async unwatchCast(
     cast: Cast | { casterFid: number; castHash: string }
   ): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castFid: number;
     let castHash: string;
     if ("author" in cast) {
@@ -533,7 +554,7 @@ export class MerkleAPIClient {
   public async watchCast(
     cast: Cast | { casterFid: number; castHash: string }
   ): Promise<void> {
-    const authToken = await this.getValidAuthToken();
+    const authToken = await this.getOrCreateValidAuthToken();
     let castFid: number;
     let castHash: string;
     if ("author" in cast) {
@@ -550,7 +571,7 @@ export class MerkleAPIClient {
     await this.apis.watches.v2WatchedCastsPut(authToken.secret, body);
   }
 
-  private async _authHeader(params: V2AuthBody): Promise<string> {
+  private async _authHeader(params: V2AuthBody | V2AuthBody1): Promise<string> {
     const payload = canonicalize(params);
     if (payload === undefined)
       throw new Error("failed to canonicalize auth params");

@@ -3,7 +3,7 @@ import { Wallet } from "ethers";
 import { expect } from "chai";
 import { Logger, silentLogger } from "../src/merkleAPI/logger";
 import { expectDefined } from "./utils";
-import { Cast, CastReaction } from "./merkleAPI/swagger";
+import { AuthToken, Cast, CastReaction } from "./merkleAPI/swagger";
 
 const privateKey = process.env.INTEGRATION_TEST_USER_MNEMONIC;
 
@@ -289,6 +289,18 @@ if (privateKey !== undefined && privateKey !== "") {
             "0x74232bf61e994655592747e20bdf6fa9b9476f79";
           const custodyAddr = await client.fetchCustodyAddressForUser("dwr");
           expect(custodyAddr).to.eq(expectedCustodyAddr);
+        });
+      });
+
+      describe("auth", function () {
+        let token: AuthToken;
+        it("can create an auth token", async function () {
+          token = await client.createAuthToken();
+          expectDefined(token);
+        });
+        it("can revoke an auth token", async function () {
+          expectDefined(token);
+          await client.revokeAuthToken(token);
         });
       });
     });
