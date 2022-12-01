@@ -11,6 +11,15 @@ import {
   V2AuthBodyMethodEnum,
   ApiErrorResponse,
   UsersApi,
+  V2castsParent,
+  V2CastsBody,
+  V2CastReactionsBody,
+  CastReaction,
+  CastReactionType,
+  FollowsApi,
+  InlineResponse2009,
+  WatchesApi,
+  V2WatchedCastsBody,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosResponse } from "axios";
@@ -27,8 +36,10 @@ export class MerkleAPIClient {
   public readonly apis: {
     auth: AuthApi;
     casts: CastsApi;
+    follows: FollowsApi;
     user: UserApi;
     users: UsersApi;
+    watches: WatchesApi;
   };
 
   constructor(
@@ -48,12 +59,37 @@ export class MerkleAPIClient {
         throw error;
       }
     );
+    const config = { basePath: BASE_PATH };
     this.apis = {
-      auth: new AuthApi({ basePath: BASE_PATH }, undefined, axiosInstance),
-      casts: new CastsApi({ basePath: BASE_PATH }, undefined, axiosInstance),
-      user: new UserApi({ basePath: BASE_PATH }, undefined, axiosInstance),
-      users: new UsersApi({ basePath: BASE_PATH }, undefined, axiosInstance),
+      auth: new AuthApi(config, undefined, axiosInstance),
+      casts: new CastsApi(config, undefined, axiosInstance),
+      follows: new FollowsApi(config, undefined, axiosInstance),
+      user: new UserApi(config, undefined, axiosInstance),
+      users: new UsersApi(config, undefined, axiosInstance),
+      watches: new WatchesApi(config, undefined, axiosInstance),
     };
+  }
+
+  public async deleteCast(castOrCastHash: Cast | string): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    await this.apis.casts.v2CastsDelete(authToken.secret, { castHash });
+  }
+
+  public async deleteRecast(castOrCastHash: Cast | string): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    await this.apis.casts.v2RecastsDelete(authToken.secret, { castHash });
   }
 
   public async fetchCurrentUser(): Promise<User> {
@@ -64,9 +100,8 @@ export class MerkleAPIClient {
 
   public async *fetchCastsForUser(
     user: { fid: number },
-    includeDeletedCasts: boolean
+    { includeDeletedCasts = false, includeRecasts = false, pageSize = 100 } = {}
   ): AsyncGenerator<Cast, void, undefined> {
-    const pageSize = 100;
     let cursor: string | undefined;
     let response: AxiosResponse<InlineResponse2006>;
 
@@ -81,15 +116,96 @@ export class MerkleAPIClient {
         cursor
       );
 
-      // return current page of casts
-      yield* response.data.result.casts;
+      // yield current page of casts
+      for (const cast of response.data.result.casts) {
+        if (includeRecasts || cast.author.fid === user.fid) {
+          yield cast;
+        }
+      }
 
-      // pagination and recurse
+      // prep for next page
       if (response.data.next === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
     }
+  }
+
+  public async *fetchUserFollowers(
+    user: { fid: number },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<User, void, undefined> {
+    let cursor: string | undefined;
+    let response: AxiosResponse<InlineResponse2009>;
+
+    while (true) {
+      // fetch one page of followers
+      const authToken = await this._getValidAuthToken();
+      response = await this.apis.follows.v2FollowersGet(
+        user.fid,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.users;
+
+      // prep for next page
+      if (response.data.next === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  public async *fetchUserFollowing(
+    user: { fid: number },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<User, void, undefined> {
+    let cursor: string | undefined;
+    let response: AxiosResponse<InlineResponse2009>;
+
+    while (true) {
+      // fetch one page of followers
+      const authToken = await this._getValidAuthToken();
+      response = await this.apis.follows.v2FollowingGet(
+        user.fid,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.users;
+
+      // prep for next page
+      if (response.data.next === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  public async fetchLatestCastForUser(
+    user: { fid: number },
+    includeRecasts = false
+  ): Promise<Cast | undefined> {
+    // eslint-disable-next-line no-unreachable-loop
+    for await (const cast of this.fetchCastsForUser(user, {
+      pageSize: 5,
+      includeRecasts,
+    })) {
+      return cast;
+    }
+    return undefined;
+  }
+
+  public async followUser(user: { fid: number }): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    await this.apis.follows.v2FollowsPut(authToken.secret, {
+      targetFid: user.fid,
+    });
   }
 
   public async lookupUserByFid(fid: number): Promise<User | undefined> {
@@ -120,14 +236,148 @@ export class MerkleAPIClient {
     return response.data.result.user;
   }
 
+  public async publishCast(
+    text: string,
+    replyTo?: Cast | V2castsParent
+  ): Promise<Cast> {
+    const authToken = await this._getValidAuthToken();
+    const body: V2CastsBody = {
+      text,
+    };
+    if (replyTo !== undefined) {
+      let parentFid: number;
+      if ("author" in replyTo) {
+        parentFid = replyTo.author.fid;
+      } else {
+        parentFid = replyTo.fid;
+      }
+      body.parent = {
+        fid: parentFid,
+        hash: replyTo.hash,
+      };
+    }
+    const response = await this.apis.casts.v2CastsPost(authToken.secret, body);
+    return response.data.result.cast;
+  }
+
+  public async reactToCast(
+    reaction: CastReactionType,
+    cast: Cast | { casterFid: number; castHash: string }
+  ): Promise<CastReaction> {
+    const authToken = await this._getValidAuthToken();
+    let castFid: number;
+    let castHash: string;
+    if ("author" in cast) {
+      castFid = cast.author.fid;
+      castHash = cast.hash;
+    } else {
+      castFid = cast.casterFid;
+      castHash = cast.castHash;
+    }
+    const body: V2CastReactionsBody = {
+      type: reaction,
+      castFid,
+      castHash,
+    };
+    const response = await this.apis.casts.v2CastReactionsPut(
+      authToken.secret,
+      body
+    );
+    return response.data.result.reaction;
+  }
+
+  public async recast(castOrCastHash: Cast | string): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    await this.apis.casts.v2RecastsPut(authToken.secret, {
+      castHash,
+    });
+  }
+
+  public async removeReactionToCast(
+    reaction: CastReactionType,
+    cast: Cast | { casterFid: number; castHash: string }
+  ): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    let castFid: number;
+    let castHash: string;
+    if ("author" in cast) {
+      castFid = cast.author.fid;
+      castHash = cast.hash;
+    } else {
+      castFid = cast.casterFid;
+      castHash = cast.castHash;
+    }
+    const body: V2CastReactionsBody = {
+      type: reaction,
+      castFid,
+      castHash,
+    };
+    await this.apis.casts.v2CastReactionsDelete(authToken.secret, body);
+  }
+
+  public async unfollowUser(user: { fid: number }): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    await this.apis.follows.v2FollowsDelete(authToken.secret, {
+      targetFid: user.fid,
+    });
+  }
+
+  public async unwatchCast(
+    cast: Cast | { casterFid: number; castHash: string }
+  ): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    let castFid: number;
+    let castHash: string;
+    if ("author" in cast) {
+      castFid = cast.author.fid;
+      castHash = cast.hash;
+    } else {
+      castFid = cast.casterFid;
+      castHash = cast.castHash;
+    }
+    const body: V2WatchedCastsBody = {
+      castFid,
+      castHash,
+    };
+    await this.apis.watches.v2WatchedCastsDelete(authToken.secret, body);
+  }
+
+  public async watchCast(
+    cast: Cast | { casterFid: number; castHash: string }
+  ): Promise<void> {
+    const authToken = await this._getValidAuthToken();
+    let castFid: number;
+    let castHash: string;
+    if ("author" in cast) {
+      castFid = cast.author.fid;
+      castHash = cast.hash;
+    } else {
+      castFid = cast.casterFid;
+      castHash = cast.castHash;
+    }
+    const body: V2WatchedCastsBody = {
+      castFid,
+      castHash,
+    };
+    await this.apis.watches.v2WatchedCastsPut(authToken.secret, body);
+  }
+
   private async _getValidAuthToken(): Promise<AuthToken> {
     if (
       this.authToken !== undefined &&
       !_isAuthTokenExpired(await this.authToken)
     ) {
+      // existing auth token is still valid
       return await this.authToken;
     }
 
+    // queue up a request for a new auth token
     this.authToken = (async (): Promise<AuthToken> => {
       this.logger.debug("fetching new authToken...");
       const now = Date.now();

@@ -14,6 +14,7 @@
 import { User } from "./User";
 import { Asset } from "./Asset";
 import { AssetEventType } from "./AssetEventType";
+import { AssetEventVerb } from "./AssetEventVerb";
 /**
  *
  * @export
@@ -43,7 +44,7 @@ export interface AssetEvent {
    * @type {Def33}
    * @memberof Def34
    */
-  verb: "bought" | "minted" | "sold" | "sent" | "received" | "used";
+  verb: AssetEventVerb;
   /**
    *
    * @type {Asset}
