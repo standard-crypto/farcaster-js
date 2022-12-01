@@ -22,10 +22,9 @@
   },
   "author": "Gavi Galloway",
   "scripts": {
-    "build": "yarn clean && yarn type:typechain && yarn rollup",
-    "clean": "rm -rf dist types",
+    "build": "yarn clean && yarn rollup",
+    "clean": "rm -rf dist",
     "rollup": "rollup -c",
-    "type:typechain": "rm -rf src/contracts && typechain --target=ethers-v5 --out-dir=./src/contracts ./abi/*.json",
     "type:check": "tsc --noEmit",
     "format": "prettier 'src/**/*.ts' 'tests/**/*.ts' 'examples/**/*.ts' --write",
     "format:check": "prettier 'src/**/*.ts' 'tests/**/*.ts' --check",
@@ -41,6 +40,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-commonjs": "^23.0.0",
     "@rollup/plugin-json": "^5.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
@@ -92,8 +92,8 @@
     "npm": "7.19.1"
   },
   "dependencies": {
-    "axios": "^1.1.3",
-    "did-jwt": "^5.7.0",
+    "axios": "~1.1.3",
+    "canonicalize": "^1.0.8",
     "ethers": "^5.7.1"
   },
   "files": [

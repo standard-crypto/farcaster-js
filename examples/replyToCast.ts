@@ -1,9 +1,15 @@
-import { Farcaster, publishCast } from "@standard-crypto/farcaster-js";
+import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
-import { AlchemyProvider } from "@ethersproject/providers";
 
-const provider = new AlchemyProvider("goerli");
-const farcaster = new Farcaster(provider);
-const latestCast = await farcaster.getLatestActivityForUser("dwr");
+// init
 const wallet = Wallet.fromMnemonic("twelve words here");
-await publishCast(wallet, provider, "Replying to your cast!", latestCast);
+const apiClient = new MerkleAPIClient(wallet);
+
+// fetch cast to reply to
+const user = await apiClient.lookupUserByUsername("dwr");
+if (user === undefined) throw new Error("no such user");
+const replyTo = await apiClient.fetchLatestCastForUser(user);
+if (replyTo === undefined) throw new Error("no such user");
+
+// post a reply
+await apiClient.publishCast("Replying to your cast!", replyTo);
