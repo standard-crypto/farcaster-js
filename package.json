@@ -22,10 +22,9 @@
   },
   "author": "Gavi Galloway",
   "scripts": {
-    "build": "yarn clean && yarn type:typechain && yarn rollup",
-    "clean": "rm -rf dist types",
+    "build": "yarn clean && yarn rollup",
+    "clean": "rm -rf dist",
     "rollup": "rollup -c",
-    "type:typechain": "rm -rf src/contracts && typechain --target=ethers-v5 --out-dir=./src/contracts ./abi/*.json",
     "type:check": "tsc --noEmit",
     "format": "prettier 'src/**/*.ts' 'tests/**/*.ts' 'examples/**/*.ts' --write",
     "format:check": "prettier 'src/**/*.ts' 'tests/**/*.ts' --check",
