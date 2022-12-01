@@ -100,7 +100,7 @@ ___
 
 ### v2FnameGet
 
-▸ **v2FnameGet**(`options?`): `Promise`<`AxiosResponse`<[`InlineResponse20012`](../interfaces/merkleAPI_swagger.InlineResponse20012.md), `any`\>\>
+▸ **v2FnameGet**(`fname`, `options?`): `Promise`<`AxiosResponse`<[`InlineResponse20012`](../interfaces/merkleAPI_swagger.InlineResponse20012.md), `any`\>\>
 
 Get information about a Farcaster username (fname).
 
@@ -114,6 +114,7 @@ UsersApi
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `fname` | `string` | - |
 | `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
 
 #### Returns
@@ -122,7 +123,7 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:389](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L389)
+[src/merkleAPI/swagger/apis/users-api.ts:403](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L403)
 
 ___
 
@@ -152,7 +153,7 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:403](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L403)
+[src/merkleAPI/swagger/apis/users-api.ts:418](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L418)
 
 ___
 
@@ -182,4 +183,4 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:419](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L419)
+[src/merkleAPI/swagger/apis/users-api.ts:434](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L434)

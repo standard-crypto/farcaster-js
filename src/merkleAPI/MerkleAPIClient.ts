@@ -147,15 +147,6 @@ export class MerkleAPIClient {
   }
 
   /**
-   * Gets the currently authenticated user
-   */
-  public async fetchCurrentUser(): Promise<User> {
-    const authToken = await this.getValidAuthToken();
-    const response = await this.apis.user.v2MeGet(authToken.secret);
-    return response.data.result.user;
-  }
-
-  /**
    * Gets all casts (including replies and recasts) created by the specified user.
    *
    * @Note: Deleted cast filtering is applied server-side while recast filtering is applied
@@ -192,6 +183,31 @@ export class MerkleAPIClient {
       }
       cursor = response.data.next.cursor;
     }
+  }
+
+  /**
+   * Gets the currently authenticated user
+   */
+  public async fetchCurrentUser(): Promise<User> {
+    const authToken = await this.getValidAuthToken();
+    const response = await this.apis.user.v2MeGet(authToken.secret);
+    return response.data.result.user;
+  }
+
+  public async fetchCustodyAddressForUser(
+    userOrUsername: User | string
+  ): Promise<string> {
+    let username: string;
+    if (typeof userOrUsername === "string") {
+      username = userOrUsername;
+    } else {
+      if (userOrUsername.username === undefined) {
+        throw new Error(`User ${userOrUsername.fid} has no username`);
+      }
+      username = userOrUsername.username;
+    }
+    const response = await this.apis.users.v2FnameGet(username);
+    return response.data.result.custodyAddress;
   }
 
   /**

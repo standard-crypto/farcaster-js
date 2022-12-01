@@ -42,9 +42,17 @@ export const UsersApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     v2FnameGet: async (
+      fname: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/v2/fname`;
+      if (fname === null || fname === undefined) {
+        throw new RequiredError(
+          "fname",
+          "Required parameter fname was null or undefined when calling v2UserByUsernameGet."
+        );
+      }
+
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, "https://example.com");
       let baseOptions;
@@ -58,6 +66,10 @@ export const UsersApiAxiosParamCreator = function (
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      if (fname !== undefined && fname !== null) {
+        localVarQueryParameter["fname"] = String(fname);
+      }
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {
@@ -234,6 +246,7 @@ export const UsersApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async v2FnameGet(
+      fname: string,
       options?: AxiosRequestConfig
     ): Promise<
       (
@@ -243,7 +256,7 @@ export const UsersApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await UsersApiAxiosParamCreator(
         configuration
-      ).v2FnameGet(options);
+      ).v2FnameGet(fname, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -334,10 +347,11 @@ export const UsersApiFactory = function (
      * @throws {RequiredError}
      */
     async v2FnameGet(
+      fname: string,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse20012>> {
       return UsersApiFp(configuration)
-        .v2FnameGet(options)
+        .v2FnameGet(fname, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -387,10 +401,11 @@ export class UsersApi extends BaseAPI {
    * @memberof UsersApi
    */
   public async v2FnameGet(
+    fname: string,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse20012>> {
     return UsersApiFp(this.configuration)
-      .v2FnameGet(options)
+      .v2FnameGet(fname, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**
