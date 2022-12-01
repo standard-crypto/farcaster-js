@@ -119,7 +119,7 @@ The Merkle API is a collection of publicly exposed API endpoints provided by Mer
 for Farcaster V2. `farcaster-js` provides a set of typescript bindings for those endpoints, as well
 as exposing the raw swagger bindings directly if needed.
 
-See [/docs/classes/index.MerkleAPIClient.md] for full list of the methods supported.
+See [here](/docs/classes/index.MerkleAPIClient.md) for full list of the methods supported.
 
 ### Hubs
 
