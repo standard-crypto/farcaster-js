@@ -288,12 +288,20 @@ export const AssetsApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     v2CollectionAssetsGet: async (
+      fid: number,
       collectionId: string,
       limit: number,
       authorization: string,
       cursor?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'fid' is not null or undefined
+      if (fid === null || fid === undefined) {
+        throw new RequiredError(
+          "fid",
+          "Required parameter fid was null or undefined when calling v2CollectionAssetsGet."
+        );
+      }
       // verify required parameter 'collectionId' is not null or undefined
       if (collectionId === null || collectionId === undefined) {
         throw new RequiredError(
@@ -329,6 +337,10 @@ export const AssetsApiAxiosParamCreator = function (
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      if (fid !== undefined) {
+        localVarQueryParameter["ownerFid"] = fid;
+      }
 
       if (collectionId !== undefined) {
         localVarQueryParameter["collectionId"] = collectionId;
@@ -538,11 +550,19 @@ export const AssetsApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     v2UserCollectionsGet: async (
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'fid' is not null or undefined
+      if (fid === null || fid === undefined) {
+        throw new RequiredError(
+          "fid",
+          "Required parameter fid was null or undefined when calling v2UserCollectionsGet."
+        );
+      }
       // verify required parameter 'limit' is not null or undefined
       if (limit === null || limit === undefined) {
         throw new RequiredError(
@@ -571,6 +591,10 @@ export const AssetsApiAxiosParamCreator = function (
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      if (fid !== undefined) {
+        localVarQueryParameter["ownerFid"] = fid;
+      }
 
       if (cursor !== undefined) {
         localVarQueryParameter["cursor"] = cursor;
@@ -730,6 +754,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async v2CollectionAssetsGet(
+      fid: number,
       collectionId: string,
       limit: number,
       authorization: string,
@@ -744,6 +769,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs = await AssetsApiAxiosParamCreator(
         configuration
       ).v2CollectionAssetsGet(
+        fid,
         collectionId,
         limit,
         authorization,
@@ -842,6 +868,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async v2UserCollectionsGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
@@ -854,7 +881,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await AssetsApiAxiosParamCreator(
         configuration
-      ).v2UserCollectionsGet(limit, authorization, cursor, options);
+      ).v2UserCollectionsGet(fid, limit, authorization, cursor, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -949,6 +976,7 @@ export const AssetsApiFactory = function (
      * @throws {RequiredError}
      */
     async v2CollectionAssetsGet(
+      fid: number,
       collectionId: string,
       limit: number,
       authorization: string,
@@ -957,6 +985,7 @@ export const AssetsApiFactory = function (
     ): Promise<AxiosResponse<InlineResponse2005>> {
       return AssetsApiFp(configuration)
         .v2CollectionAssetsGet(
+          fid,
           collectionId,
           limit,
           authorization,
@@ -1016,13 +1045,14 @@ export const AssetsApiFactory = function (
      * @throws {RequiredError}
      */
     async v2UserCollectionsGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse20011>> {
       return AssetsApiFp(configuration)
-        .v2UserCollectionsGet(limit, authorization, cursor, options)
+        .v2UserCollectionsGet(fid, limit, authorization, cursor, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -1109,6 +1139,7 @@ export class AssetsApi extends BaseAPI {
    * @memberof AssetsApi
    */
   public async v2CollectionAssetsGet(
+    fid: number,
     collectionId: string,
     limit: number,
     authorization: string,
@@ -1117,6 +1148,7 @@ export class AssetsApi extends BaseAPI {
   ): Promise<AxiosResponse<InlineResponse2005>> {
     return AssetsApiFp(this.configuration)
       .v2CollectionAssetsGet(
+        fid,
         collectionId,
         limit,
         authorization,
@@ -1179,13 +1211,14 @@ export class AssetsApi extends BaseAPI {
    * @memberof AssetsApi
    */
   public async v2UserCollectionsGet(
+    fid: number,
     limit: number,
     authorization: string,
     cursor?: string,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse20011>> {
     return AssetsApiFp(this.configuration)
-      .v2UserCollectionsGet(limit, authorization, cursor, options)
+      .v2UserCollectionsGet(fid, limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

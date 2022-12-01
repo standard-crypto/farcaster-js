@@ -19,7 +19,9 @@
     "millis",
     "recasted",
     "unfollow",
-    "healthcheck"
+    "healthcheck",
+    "recaster",
+    "unwatch"
   ],
   "flagWords": [],
   "ignorePaths": [

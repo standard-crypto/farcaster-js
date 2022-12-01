@@ -1,16 +1,16 @@
 import { MerkleAPIClient } from "../src/merkleAPI";
 import { Wallet } from "ethers";
 import { expect } from "chai";
-import { Logger, dummyLogger } from "../src/merkleAPI/logger";
+import { Logger, silentLogger } from "../src/merkleAPI/logger";
 import { expectDefined } from "./utils";
 import { Cast, CastReaction } from "./merkleAPI/swagger";
 
 const privateKey = process.env.MNEMONIC;
 
 const testLogger: Logger = {
-  info: dummyLogger.info,
-  debug: dummyLogger.debug,
-  trace: dummyLogger.trace,
+  info: silentLogger.info,
+  debug: silentLogger.debug,
+  trace: silentLogger.trace,
 
   /* eslint-disable no-console */
   warn: console.warn,
@@ -30,7 +30,7 @@ if (privateKey !== undefined && privateKey !== "") {
 
     before("create client", function () {
       const wallet = Wallet.fromMnemonic(privateKey);
-      client = new MerkleAPIClient(wallet, testLogger);
+      client = new MerkleAPIClient(wallet, { logger: testLogger });
     });
 
     it("#fetchCurrentUser", async function () {

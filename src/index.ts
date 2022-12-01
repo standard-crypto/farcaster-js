@@ -1,45 +1,29 @@
-import { Wallet } from "@ethersproject/wallet";
-import { SignedCast } from "./contentHost";
-import { Farcaster } from "./farcaster";
-import { Message } from "./api";
-import { Provider } from "@ethersproject/providers";
+import { Wallet } from "ethers";
+import { MerkleAPIClient } from "./merkleAPI";
+import { Cast } from "./merkleAPI/swagger";
 
 /**
- * Signs and publishes a simple text string.
+ * Publishes a cast with a simple text body.
+ *
  * The cast will be attributed to the username currently registered
- * to the given private key's address.
+ * to the given wallet's address.
+ *
+ * This function provided as a shorthand to skip initialization of a MerkleAPIClient instance.
+ *
+ * Note that by doing so, this function circumvents any efficient reuse of auth tokens and any
+ * caching or rate limit behaviors that may be implemented by MerkleAPIClient.
+ *
  * @param wallet A Wallet derived from a private key or mnemonic phrase
- * @param web3Provider A Provider instance (Infura/Alchemy/etc)
  * @param text The text to be cast
- * @param replyTo A complete {@link Message}, or the {@link Message.merkleRoot} of a message, that this cast will reply to. Omit if not replying to any casts.
+ * @param replyTo A complete Cast (or its hash and author fid) that this cast will reply to. Omit if not replying.
  */
 export async function publishCast(
   wallet: Wallet,
-  web3Provider: Provider,
   text: string,
-  replyTo?: Message | string
-): Promise<SignedCast> {
-  const farcaster = new Farcaster(web3Provider);
-  const contentHost = farcaster.contentHost;
-
-  const address = wallet.address;
-  const user = await farcaster.userRegistry.lookupByAddress(address);
-  if (user == null) {
-    throw new Error(`no username registered for address ${address}`);
-  }
-  const unsignedCast = await farcaster.prepareCast({
-    fromUsername: user.username,
-    text,
-    replyTo,
-  });
-  const signedCast = await Farcaster.signCast(unsignedCast, wallet);
-  await contentHost.publishCast(signedCast, wallet);
-  return signedCast;
+  replyTo?: Cast | { fid: number; hash: string }
+): Promise<Cast> {
+  const merkleAPI = new MerkleAPIClient(wallet);
+  return await merkleAPI.publishCast(text, replyTo);
 }
 
-export * from "./api";
-export * from "./farcaster";
-export * from "./contentHost";
-export * from "./contracts";
-export * from "./serialization";
-export * from "./userRegistry";
+export * from "./merkleAPI";

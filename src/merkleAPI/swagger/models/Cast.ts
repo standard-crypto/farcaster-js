@@ -18,20 +18,15 @@ import { CastReactions } from "./CastReactions";
 import { CastRecasts } from "./CastRecasts";
 import { CastViewerContext } from "./CastViewerContext";
 /**
- *
- * @export
- * @interface Def42
  */
 export interface Cast {
   /**
    *
-   * @type {Def6}
    * @memberof Def42
    */
   hash: string;
   /**
    *
-   * @type {Def6}
    * @memberof Def42
    */
   threadHash: string;

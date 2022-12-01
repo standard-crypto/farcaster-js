@@ -1,8 +1,9 @@
 {
-    "entryPoints": ["./src/index.ts"],
+    "entryPoints": ["./src/index.ts", "./src/merkleAPI/swagger/index.ts"],
     "out": "docs",
-    "exclude": "./src/contracts/**/*.ts",
+    "exclude": [],
     "gitRevision": "main",
     "theme": "markdown",
-    "readme": "./README.md"
+    "readme": "./README.md",
+    "excludePrivate": true
 }

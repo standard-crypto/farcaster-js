@@ -10,7 +10,7 @@ export interface Logger {
   [x: string]: any;
 }
 
-export const dummyLogger: Logger = {
+export const silentLogger: Logger = {
   trace: (_message?: any, ..._optionalParams: any[]) => {},
   debug: (_message?: any, ..._optionalParams: any[]) => {},
   info: (_message?: any, ..._optionalParams: any[]) => {},

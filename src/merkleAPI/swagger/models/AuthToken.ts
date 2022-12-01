@@ -13,8 +13,6 @@
  */
 /**
  *
- * @export
- * @interface Def21
  */
 export interface AuthToken {
   /**

@@ -12,5 +12,6 @@
  * Do not edit the class manually.
  */
 export * from "./api";
+export * from "./base";
 export * from "./configuration";
 export * from "./models";
