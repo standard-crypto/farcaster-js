@@ -5,7 +5,7 @@ import { Logger, silentLogger } from "../src/merkleAPI/logger";
 import { expectDefined } from "./utils";
 import { Cast, CastReaction } from "./merkleAPI/swagger";
 
-const privateKey = process.env.MNEMONIC;
+const privateKey = process.env.INTEGRATION_TEST_USER_MNEMONIC;
 
 const testLogger: Logger = {
   info: silentLogger.info,
@@ -284,4 +284,9 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
   });
+} else {
+  // eslint-disable-next-line no-console
+  console.warn(
+    "Skipping MerkleAPI integration tests. Env var INTEGRATION_TEST_USER_MNEMONIC is unset."
+  );
 }

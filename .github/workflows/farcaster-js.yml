@@ -37,6 +37,8 @@ jobs:
 
       - name: Test
         run: yarn test
+        env:
+          INTEGRATION_TEST_USER_MNEMONIC: ${{ secrets.INTEGRATION_TEST_USER_MNEMONIC }}
 
       - name: Release
         env:
