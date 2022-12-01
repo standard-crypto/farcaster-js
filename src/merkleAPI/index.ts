@@ -20,9 +20,14 @@ import {
   InlineResponse2009,
   WatchesApi,
   V2WatchedCastsBody,
+  AssetsApi,
+  InlineResponse20011,
+  AssetCollection,
+  Asset,
+  InlineResponse2005,
 } from "./swagger";
 import canonicalize from "canonicalize";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { dummyLogger, Logger } from "./logger";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
@@ -30,10 +35,36 @@ const TEN_MINUTES_IN_MILLIS = 600000;
 
 const BASE_PATH = "https://api.farcaster.xyz";
 
+interface PaginatedResponseResult<ElemT> {
+  [key: string]: ElemT[];
+}
+
+type PaginatedResponse<ElemT> = Promise<
+  AxiosResponse<{
+    result: PaginatedResponseResult<ElemT>;
+    next?: {
+      cursor?: string;
+    };
+  }>
+>;
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type PaginatedApiMethod<Args extends any[], ElemT> = (
+  ...args: [
+    ...Args,
+    number, // pageLimit
+    string, // authorization
+    string | undefined, // cursor
+    AxiosRequestConfig<any> | undefined
+  ]
+) => PaginatedResponse<ElemT>;
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
 export class MerkleAPIClient {
   private authToken?: Promise<AuthToken>;
 
   public readonly apis: {
+    assets: AssetsApi;
     auth: AuthApi;
     casts: CastsApi;
     follows: FollowsApi;
@@ -61,6 +92,7 @@ export class MerkleAPIClient {
     );
     const config = { basePath: BASE_PATH };
     this.apis = {
+      assets: new AssetsApi(config, undefined, axiosInstance),
       auth: new AuthApi(config, undefined, axiosInstance),
       casts: new CastsApi(config, undefined, axiosInstance),
       follows: new FollowsApi(config, undefined, axiosInstance),
@@ -70,6 +102,9 @@ export class MerkleAPIClient {
     };
   }
 
+  /**
+   * Delete a cast
+   */
   public async deleteCast(castOrCastHash: Cast | string): Promise<void> {
     const authToken = await this._getValidAuthToken();
     let castHash: string;
@@ -81,6 +116,9 @@ export class MerkleAPIClient {
     await this.apis.casts.v2CastsDelete(authToken.secret, { castHash });
   }
 
+  /**
+   * Delete a recast
+   */
   public async deleteRecast(castOrCastHash: Cast | string): Promise<void> {
     const authToken = await this._getValidAuthToken();
     let castHash: string;
@@ -92,12 +130,21 @@ export class MerkleAPIClient {
     await this.apis.casts.v2RecastsDelete(authToken.secret, { castHash });
   }
 
+  /**
+   * Gets the currently authenticated user
+   */
   public async fetchCurrentUser(): Promise<User> {
     const authToken = await this._getValidAuthToken();
     const response = await this.apis.user.v2MeGet(authToken.secret);
     return response.data.result.user;
   }
 
+  /**
+   * Gets all casts (including replies and recasts) created by the specified user.
+   *
+   * @Note: Deleted cast filtering is applied server-side while recast filtering is applied
+   * client-side.
+   */
   public async *fetchCastsForUser(
     user: { fid: number },
     { includeDeletedCasts = false, includeRecasts = false, pageSize = 100 } = {}
@@ -131,6 +178,73 @@ export class MerkleAPIClient {
     }
   }
 
+  /**
+   * Fetch all asset collections owned by the specified user.
+   */
+  public async *fetchUserAssetCollections(
+    user: { fid: number },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<AssetCollection, void, undefined> {
+    let cursor: string | undefined;
+    let response: AxiosResponse<InlineResponse20011>;
+
+    while (true) {
+      // fetch one page of followers
+      const authToken = await this._getValidAuthToken();
+      response = await this.apis.assets.v2UserCollectionsGet(
+        user.fid,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.collections;
+
+      // prep for next page
+      if (response.data.next === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * Fetch all asset collections owned by the specified user.
+   */
+  public async *fetchUserAssetsInCollection(
+    user: { fid: number },
+    collectionId: string,
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Asset, void, undefined> {
+    let cursor: string | undefined;
+    let response: AxiosResponse<InlineResponse2005>;
+
+    while (true) {
+      // fetch one page of followers
+      const authToken = await this._getValidAuthToken();
+      response = await this.apis.assets.v2CollectionAssetsGet(
+        user.fid,
+        collectionId,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.assets;
+
+      // prep for next page
+      if (response.data.next === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * Get all users that follow the specified user
+   */
   public async *fetchUserFollowers(
     user: { fid: number },
     { pageSize = 100 } = {}
@@ -159,6 +273,9 @@ export class MerkleAPIClient {
     }
   }
 
+  /**
+   * Get all users the specified user is following.
+   */
   public async *fetchUserFollowing(
     user: { fid: number },
     { pageSize = 100 } = {}
@@ -187,6 +304,9 @@ export class MerkleAPIClient {
     }
   }
 
+  /**
+   * Fetch the latest cast for the user, if there is one
+   */
   public async fetchLatestCastForUser(
     user: { fid: number },
     includeRecasts = false
@@ -201,6 +321,9 @@ export class MerkleAPIClient {
     return undefined;
   }
 
+  /**
+   * Follow a user
+   */
   public async followUser(user: { fid: number }): Promise<void> {
     const authToken = await this._getValidAuthToken();
     await this.apis.follows.v2FollowsPut(authToken.secret, {
@@ -208,6 +331,9 @@ export class MerkleAPIClient {
     });
   }
 
+  /**
+   * Gets the specified user via their FID (if found)
+   */
   public async lookupUserByFid(fid: number): Promise<User | undefined> {
     const authToken = await this._getValidAuthToken();
     const response = await this.apis.users.v2UserGet(fid, authToken.secret, {
@@ -219,6 +345,9 @@ export class MerkleAPIClient {
     return response.data.result.user;
   }
 
+  /**
+   * Gets the specified user via their username (if found)
+   */
   public async lookupUserByUsername(
     username: string
   ): Promise<User | undefined> {
@@ -236,6 +365,9 @@ export class MerkleAPIClient {
     return response.data.result.user;
   }
 
+  /**
+   * Publishes a cast for the currently authenticated user
+   */
   public async publishCast(
     text: string,
     replyTo?: Cast | V2castsParent
@@ -260,6 +392,9 @@ export class MerkleAPIClient {
     return response.data.result.cast;
   }
 
+  /**
+   * React to a cast
+   */
   public async reactToCast(
     reaction: CastReactionType,
     cast: Cast | { casterFid: number; castHash: string }
@@ -286,6 +421,9 @@ export class MerkleAPIClient {
     return response.data.result.reaction;
   }
 
+  /**
+   * Recast a cast
+   */
   public async recast(castOrCastHash: Cast | string): Promise<void> {
     const authToken = await this._getValidAuthToken();
     let castHash: string;
@@ -299,6 +437,9 @@ export class MerkleAPIClient {
     });
   }
 
+  /**
+   * Remove a reaction to a cast
+   */
   public async removeReactionToCast(
     reaction: CastReactionType,
     cast: Cast | { casterFid: number; castHash: string }
@@ -321,6 +462,9 @@ export class MerkleAPIClient {
     await this.apis.casts.v2CastReactionsDelete(authToken.secret, body);
   }
 
+  /**
+   * Unfollow a user
+   */
   public async unfollowUser(user: { fid: number }): Promise<void> {
     const authToken = await this._getValidAuthToken();
     await this.apis.follows.v2FollowsDelete(authToken.secret, {
@@ -328,6 +472,9 @@ export class MerkleAPIClient {
     });
   }
 
+  /**
+   * Unwatch a cast
+   */
   public async unwatchCast(
     cast: Cast | { casterFid: number; castHash: string }
   ): Promise<void> {
@@ -348,6 +495,9 @@ export class MerkleAPIClient {
     await this.apis.watches.v2WatchedCastsDelete(authToken.secret, body);
   }
 
+  /**
+   * Watch a cast
+   */
   public async watchCast(
     cast: Cast | { casterFid: number; castHash: string }
   ): Promise<void> {
@@ -408,6 +558,36 @@ export class MerkleAPIClient {
     ).toString("base64");
 
     return `Bearer eip191:${signature}`;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private async *_paginate<Args extends any[], ElemT>(
+    apiMethod: PaginatedApiMethod<Args, ElemT>,
+    args: Args,
+    keyInResult: keyof Awaited<ReturnType<typeof apiMethod>>["data"]["result"],
+    pageSize: number
+  ): AsyncGenerator<ElemT, void, undefined> {
+    let cursor: string | undefined;
+    while (true) {
+      // fetch one page of data
+      const authToken = await this._getValidAuthToken();
+      const response = await apiMethod.apply(apiMethod, [
+        ...args,
+        pageSize,
+        authToken.secret,
+        cursor,
+        undefined,
+      ]);
+
+      // yield current page's elements
+      yield* response.data.result[keyInResult];
+
+      // prep for next page
+      if (response.data.next === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
   }
 }
 

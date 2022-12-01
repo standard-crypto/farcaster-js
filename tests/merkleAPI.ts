@@ -268,5 +268,20 @@ if (privateKey !== undefined && privateKey !== "") {
         await client.unwatchCast(cast);
       });
     });
+
+    describe("assets", function () {
+      it("can fetch a list of collections owned by a user", async function () {
+        let assetFound = false;
+        // eslint-disable-next-line no-unreachable-loop
+        for await (const assetCollection of client.fetchUserAssetCollections({
+          fid: userDwrFid,
+        })) {
+          expectDefined(assetCollection);
+          assetFound = true;
+          break;
+        }
+        expect(assetFound).to.be.true;
+      });
+    });
   });
 }

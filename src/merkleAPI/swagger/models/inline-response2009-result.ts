@@ -17,11 +17,11 @@ import { User } from "./User";
  * @export
  * @interface InlineResponse2009Result
  */
-export interface InlineResponse2009Result {
+export type InlineResponse2009Result = {
   /**
    *
    * @type {Array<User>}
    * @memberof InlineResponse2009Result
    */
   users: Array<User>;
-}
+};

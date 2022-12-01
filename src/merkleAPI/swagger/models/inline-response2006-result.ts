@@ -17,11 +17,11 @@ import { Cast } from "./Cast";
  * @export
  * @interface InlineResponse2006Result
  */
-export interface InlineResponse2006Result {
+export type InlineResponse2006Result = {
   /**
    *
    * @type {Array<Cast>}
    * @memberof InlineResponse2006Result
    */
   casts: Array<Cast>;
-}
+};
