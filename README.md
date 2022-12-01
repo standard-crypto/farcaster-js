@@ -52,7 +52,7 @@ console.log(`New cast hash: ${cast.hash}`);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/lookupUser.ts) -->
 <!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
 ```ts
-import { MerkleAPIClient } from "@standard-crypto/farcaster-js/merkleAPI";
+import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
 
 const wallet = Wallet.fromMnemonic("twelve words here");

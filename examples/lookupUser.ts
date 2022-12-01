@@ -1,4 +1,4 @@
-import { MerkleAPIClient } from "@standard-crypto/farcaster-js/merkleAPI";
+import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
 
 const wallet = Wallet.fromMnemonic("twelve words here");
