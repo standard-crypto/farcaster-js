@@ -24,6 +24,8 @@ const userGaviBotFid = 1; // @gavi-bot
 
 if (privateKey !== undefined && privateKey !== "") {
   describe("MerkleAPI", function () {
+    this.timeout("10000");
+
     let client: MerkleAPIClient;
 
     before("create client", function () {
@@ -64,7 +66,6 @@ if (privateKey !== undefined && privateKey !== "") {
       });
 
       it("supports filtering recasts in/out", async function () {
-        this.timeout("5000");
         // filter recasts in
         let recastFound = false;
         for await (const cast of client.fetchCastsForUser(
@@ -161,6 +162,7 @@ if (privateKey !== undefined && privateKey !== "") {
         await client.deleteCast(publishedCast);
       });
 
+      // Skipped: server currently returns 500 error
       it.skip("cannot delete a cast from a different author", async function () {
         // hash of a cast posted by @dwr
         await client.deleteCast(

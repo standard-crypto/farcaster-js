@@ -47,11 +47,19 @@ export const FollowsApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     v2FollowersGet: async (
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'fid' is not null or undefined
+      if (fid === null || fid === undefined) {
+        throw new RequiredError(
+          "fid",
+          "Required parameter fid was null or undefined when calling v2FollowersGet."
+        );
+      }
       // verify required parameter 'limit' is not null or undefined
       if (limit === null || limit === undefined) {
         throw new RequiredError(
@@ -83,6 +91,10 @@ export const FollowsApiAxiosParamCreator = function (
 
       if (cursor !== undefined) {
         localVarQueryParameter["cursor"] = cursor;
+      }
+
+      if (fid !== undefined) {
+        localVarQueryParameter["fid"] = fid;
       }
 
       if (limit !== undefined) {
@@ -124,11 +136,19 @@ export const FollowsApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     v2FollowingGet: async (
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'fid' is not null or undefined
+      if (fid === null || fid === undefined) {
+        throw new RequiredError(
+          "fid",
+          "Required parameter fid was null or undefined when calling v2FollowingGet."
+        );
+      }
       // verify required parameter 'limit' is not null or undefined
       if (limit === null || limit === undefined) {
         throw new RequiredError(
@@ -157,6 +177,10 @@ export const FollowsApiAxiosParamCreator = function (
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      if (fid !== undefined) {
+        localVarQueryParameter["fid"] = fid;
+      }
 
       if (cursor !== undefined) {
         localVarQueryParameter["cursor"] = cursor;
@@ -346,6 +370,7 @@ export const FollowsApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async v2FollowersGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
@@ -358,7 +383,7 @@ export const FollowsApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await FollowsApiAxiosParamCreator(
         configuration
-      ).v2FollowersGet(limit, authorization, cursor, options);
+      ).v2FollowersGet(fid, limit, authorization, cursor, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -379,6 +404,7 @@ export const FollowsApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async v2FollowingGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
@@ -391,7 +417,7 @@ export const FollowsApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await FollowsApiAxiosParamCreator(
         configuration
-      ).v2FollowingGet(limit, authorization, cursor, options);
+      ).v2FollowingGet(fid, limit, authorization, cursor, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -487,13 +513,14 @@ export const FollowsApiFactory = function (
      * @throws {RequiredError}
      */
     async v2FollowersGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2009>> {
       return FollowsApiFp(configuration)
-        .v2FollowersGet(limit, authorization, cursor, options)
+        .v2FollowersGet(fid, limit, authorization, cursor, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -505,13 +532,14 @@ export const FollowsApiFactory = function (
      * @throws {RequiredError}
      */
     async v2FollowingGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2009>> {
       return FollowsApiFp(configuration)
-        .v2FollowingGet(limit, authorization, cursor, options)
+        .v2FollowingGet(fid, limit, authorization, cursor, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -566,13 +594,14 @@ export class FollowsApi extends BaseAPI {
    * @memberof FollowsApi
    */
   public async v2FollowersGet(
+    fid: number,
     limit: number,
     authorization: string,
     cursor?: string,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2009>> {
     return FollowsApiFp(this.configuration)
-      .v2FollowersGet(limit, authorization, cursor, options)
+      .v2FollowersGet(fid, limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**
@@ -585,13 +614,14 @@ export class FollowsApi extends BaseAPI {
    * @memberof FollowsApi
    */
   public async v2FollowingGet(
+    fid: number,
     limit: number,
     authorization: string,
     cursor?: string,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2009>> {
     return FollowsApiFp(this.configuration)
-      .v2FollowingGet(limit, authorization, cursor, options)
+      .v2FollowingGet(fid, limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**
