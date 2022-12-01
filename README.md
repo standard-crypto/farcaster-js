@@ -13,6 +13,7 @@ A tool for interacting with the Farcaster social network.
   - [Lookup a User](#lookup-a-user)
   - [Fetch User Activity](#fetch-user-activity)
   - [Reply to a Cast](#reply-to-a-cast)
+  - [Follow a User](#follow-a-user)
 - [Documentation](#documentation)
   - [Merkle API Client](#merkle-api-client)
   - [Hubs](#hubs)
@@ -108,6 +109,25 @@ if (replyTo === undefined) throw new Error("no such user");
 
 // post a reply
 await apiClient.publishCast("Replying to your cast!", replyTo);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Follow a User
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/followUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/followUser.ts -->
+```ts
+import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
+import { Wallet } from "ethers";
+
+// init
+const wallet = Wallet.fromMnemonic("twelve words here");
+const apiClient = new MerkleAPIClient(wallet);
+const user = await apiClient.lookupUserByUsername("dwr");
+if (user === undefined) throw new Error("no such user");
+
+// follow an existing user
+await apiClient.followUser(user);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
