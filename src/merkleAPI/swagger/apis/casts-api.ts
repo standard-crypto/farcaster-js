@@ -85,7 +85,7 @@ export const CastsApiAxiosParamCreator = function (
         localVarHeaderParameter["authorization"] = String(authorization);
       }
 
-      localVarHeaderParameter["Content-Type"] = "*/*";
+      localVarHeaderParameter["Content-Type"] = "application/json";
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {
@@ -230,7 +230,7 @@ export const CastsApiAxiosParamCreator = function (
         localVarHeaderParameter["authorization"] = String(authorization);
       }
 
-      localVarHeaderParameter["Content-Type"] = "*/*";
+      localVarHeaderParameter["Content-Type"] = "application/json";
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {
@@ -375,7 +375,7 @@ export const CastsApiAxiosParamCreator = function (
         localVarHeaderParameter["authorization"] = String(authorization);
       }
 
-      localVarHeaderParameter["Content-Type"] = "*/*";
+      localVarHeaderParameter["Content-Type"] = "application/json";
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {
@@ -545,7 +545,7 @@ export const CastsApiAxiosParamCreator = function (
         localVarHeaderParameter["authorization"] = String(authorization);
       }
 
-      localVarHeaderParameter["Content-Type"] = "*/*";
+      localVarHeaderParameter["Content-Type"] = "application/json";
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {
@@ -613,7 +613,7 @@ export const CastsApiAxiosParamCreator = function (
         localVarHeaderParameter["authorization"] = String(authorization);
       }
 
-      localVarHeaderParameter["Content-Type"] = "*/*";
+      localVarHeaderParameter["Content-Type"] = "application/json";
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {
@@ -681,7 +681,7 @@ export const CastsApiAxiosParamCreator = function (
         localVarHeaderParameter["authorization"] = String(authorization);
       }
 
-      localVarHeaderParameter["Content-Type"] = "*/*";
+      localVarHeaderParameter["Content-Type"] = "application/json";
 
       const query = new URLSearchParams(localVarUrlObj.search);
       for (const key in localVarQueryParameter) {

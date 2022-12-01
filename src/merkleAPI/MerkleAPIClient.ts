@@ -57,10 +57,9 @@ export class MerkleAPIClient {
   ) {
     this.logger = logger;
     if (axiosInstance === undefined) {
-      axiosInstance = axios.create({
-        headers: { "content-type": "application/json" },
-      });
+      axiosInstance = axios.create();
     }
+    axiosInstance.defaults.decompress = true;
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
