@@ -244,7 +244,7 @@ ___
 
 ### fetchMentionAndReplyNotifications
 
-▸ **fetchMentionAndReplyNotifications**(`__namedParameters?`): `AsyncGenerator`<`Notification`, `void`, `undefined`\>
+▸ **fetchMentionAndReplyNotifications**(`__namedParameters?`): `AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
 
 #### Parameters
 
@@ -255,7 +255,7 @@ ___
 
 #### Returns
 
-`AsyncGenerator`<`Notification`, `void`, `undefined`\>
+`AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
 
 #### Defined in
 

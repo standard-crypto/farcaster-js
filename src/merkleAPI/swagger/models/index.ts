@@ -45,6 +45,7 @@ export * from "./NotificationRecast";
 export * from "./NotificationRecastContent";
 export * from "./NotificationWatchedCastReply";
 export * from "./NotificationWatchedCastReplyContent";
+export * from "./Notification";
 export * from "./CastReactionNotificationGroup";
 export * from "./CastMentionNotificationGroup";
 export * from "./CastReplyNotificationGroup";

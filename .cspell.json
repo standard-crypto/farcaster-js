@@ -21,7 +21,8 @@
     "unfollow",
     "healthcheck",
     "recaster",
-    "unwatch"
+    "unwatch",
+    "openapi"
   ],
   "flagWords": [],
   "ignorePaths": [
