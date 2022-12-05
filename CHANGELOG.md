@@ -1,3 +1,18 @@
+# [5.0.0](https://github.com/standard-crypto/farcaster-js/compare/v4.0.0...v5.0.0) (2022-12-05)
+
+
+### Bug Fixes
+
+* matching server-side changes to MerkleAPI ([5b7d187](https://github.com/standard-crypto/farcaster-js/commit/5b7d187775ba11b47c3a4eb909df5f25b3513f97)), closes [#392](https://github.com/standard-crypto/farcaster-js/issues/392)
+
+
+### BREAKING CHANGES
+
+* casterFid removed from parameters for reactToCast and removeReactionToCast
+* `publishedAt` renamed to `timestamp` in `Cast` model
+* `displayName` made non-optional in `User` and `Recaster` models
+* `embeds` removed from request body for POST /v2/casts
+
 # [4.0.0](https://github.com/standard-crypto/farcaster-js/compare/v3.0.7...v4.0.0) (2022-12-01)
 
 
