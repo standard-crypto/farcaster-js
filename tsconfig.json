@@ -29,6 +29,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "resolveJsonModule": true
   }
 }

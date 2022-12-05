@@ -4,6 +4,8 @@ import { expect } from "chai";
 import { Logger, silentLogger } from "../src/merkleAPI/logger";
 import { expectDefined } from "./utils";
 import { AuthToken, Cast, CastReaction } from "./merkleAPI/swagger";
+import OpenAPIResponseValidator from "openapi-response-validator";
+import apiDefinitions from "../src/merkleAPI/swagger/spec.json";
 
 const privateKey = process.env.INTEGRATION_TEST_USER_MNEMONIC;
 
@@ -319,6 +321,51 @@ if (privateKey !== undefined && privateKey !== "") {
         }
 
         expect(notificationFound).to.be.true;
+      });
+    });
+
+    describe("api responses validator", function () {
+      let authToken: AuthToken;
+      before("get auth token", async function () {
+        authToken = await client.getOrCreateValidAuthToken();
+      });
+
+      after("revoke auth token", async function () {
+        await client.revokeAuthToken(authToken);
+      });
+
+      it("validates cast responses", async function () {
+        const response = await client.apis.casts.v2CastsGet(
+          userGaviFid,
+          false,
+          10,
+          authToken.secret
+        );
+        const validator = new OpenAPIResponseValidator({
+          responses: apiDefinitions.paths["/v2/casts"].get.responses,
+          definitions: apiDefinitions.definitions,
+        });
+        const errors = validator.validateResponse(
+          response.status,
+          response.data
+        );
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("validates user responses", async function () {
+        const response = await client.apis.users.v2UserGet(
+          userGaviFid,
+          authToken.secret
+        );
+        const validator = new OpenAPIResponseValidator({
+          responses: apiDefinitions.paths["/v2/user"].get.responses,
+          definitions: apiDefinitions.definitions,
+        });
+        const errors = validator.validateResponse(
+          response.status,
+          response.data
+        );
+        expect(errors, JSON.stringify(errors)).is.undefined;
       });
     });
   });
