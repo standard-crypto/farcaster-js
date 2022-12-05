@@ -59,7 +59,7 @@ export interface Cast {
    * @type {Def18}
    * @memberof Def42
    */
-  publishedAt: number;
+  timestamp: number;
   /**
    *
    * @type {Array<User>}

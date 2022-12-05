@@ -14,25 +14,10 @@ V2CastReactionsBody1
 
 ### Properties
 
-- [castFid](merkleAPI_swagger.V2CastReactionsBody1.md#castfid)
 - [castHash](merkleAPI_swagger.V2CastReactionsBody1.md#casthash)
 - [type](merkleAPI_swagger.V2CastReactionsBody1.md#type)
 
 ## Properties
-
-### castFid
-
-• **castFid**: `number`
-
-**`Memberof`**
-
-V2CastReactionsBody1
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/v2-cast-reactions-body1.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/v2-cast-reactions-body1.ts#L34)
-
-___
 
 ### castHash
 
@@ -44,7 +29,7 @@ V2CastReactionsBody1
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/v2-cast-reactions-body1.ts:40](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/v2-cast-reactions-body1.ts#L40)
+[src/merkleAPI/swagger/models/v2-cast-reactions-body1.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/v2-cast-reactions-body1.ts#L34)
 
 ___
 

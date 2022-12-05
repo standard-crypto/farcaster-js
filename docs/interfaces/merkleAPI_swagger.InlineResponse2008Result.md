@@ -14,13 +14,13 @@ InlineResponse2008Result
 
 ### Properties
 
-- [reaction](merkleAPI_swagger.InlineResponse2008Result.md#reaction)
+- [like](merkleAPI_swagger.InlineResponse2008Result.md#like)
 
 ## Properties
 
-### reaction
+### like
 
-• **reaction**: [`CastReaction`](merkleAPI_swagger.CastReaction.md)
+• **like**: [`CastReaction`](merkleAPI_swagger.CastReaction.md)
 
 **`Memberof`**
 

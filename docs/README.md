@@ -19,6 +19,7 @@ A tool for interacting with the Farcaster social network.
 - [Documentation](#documentation)
   - [Merkle API Client](#merkle-api-client)
   - [Hubs](#hubs)
+  - [User Registry](#user-registry)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Setup
@@ -146,3 +147,7 @@ See [here](/docs/classes/index.MerkleAPIClient.md) for full list of the methods 
 ### Hubs
 
 Support for direct interaction with Farcaster hubs coming soon.
+
+### User Registry
+
+Support for direct interaction with the on-chain user registry coming soon.

@@ -28,12 +28,6 @@ export interface V2CastReactionsBody1 {
   type: CastReactionType;
   /**
    *
-   * @type {Def12}
-   * @memberof V2CastReactionsBody1
-   */
-  castFid: number;
-  /**
-   *
    * @type {Def6}
    * @memberof V2CastReactionsBody1
    */

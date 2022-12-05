@@ -47,6 +47,7 @@ if (privateKey !== undefined && privateKey !== "") {
         })) {
           foundCast = true;
           expect(cast.author.fid).to.eq(userGaviFid);
+          expectDefined(cast.timestamp);
           break;
         }
         expect(foundCast).to.be.true;
@@ -282,43 +283,42 @@ if (privateKey !== undefined && privateKey !== "") {
         }
         expect(assetFound).to.be.true;
       });
+    });
 
-      describe("#fetchCustodyAddress", function () {
-        it("can lookup by fid", async function () {
-          const expectedCustodyAddr =
-            "0x74232bf61e994655592747e20bdf6fa9b9476f79";
-          const custodyAddr = await client.fetchCustodyAddressForUser("dwr");
-          expect(custodyAddr).to.eq(expectedCustodyAddr);
-        });
+    describe("#fetchCustodyAddress", function () {
+      it("can lookup by fid", async function () {
+        const expectedCustodyAddr =
+          "0x74232bf61e994655592747e20bdf6fa9b9476f79";
+        const custodyAddr = await client.fetchCustodyAddressForUser("dwr");
+        expect(custodyAddr).to.eq(expectedCustodyAddr);
       });
+    });
 
-      describe("auth", function () {
-        let token: AuthToken;
-        it("can create an auth token", async function () {
-          token = await client.createAuthToken();
-          expectDefined(token);
-        });
-        it("can revoke an auth token", async function () {
-          expectDefined(token);
-          await client.revokeAuthToken(token);
-        });
+    describe("auth", function () {
+      let token: AuthToken;
+      it("can create an auth token", async function () {
+        token = await client.createAuthToken();
+        expectDefined(token);
       });
+      it("can revoke an auth token", async function () {
+        expectDefined(token);
+        await client.revokeAuthToken(token);
+      });
+    });
 
-      describe("notifications", function () {
-        it("can fetch mention and reply notifications", async function () {
-          const notifications =
-            await client.fetchMentionAndReplyNotifications();
+    describe("notifications", function () {
+      it("can fetch mention and reply notifications", async function () {
+        const notifications = await client.fetchMentionAndReplyNotifications();
 
-          let notificationFound = false;
-          // eslint-disable-next-line no-unreachable-loop
-          for await (const notification of notifications) {
-            expectDefined(notification);
-            notificationFound = true;
-            break;
-          }
+        let notificationFound = false;
+        // eslint-disable-next-line no-unreachable-loop
+        for await (const notification of notifications) {
+          expectDefined(notification);
+          notificationFound = true;
+          break;
+        }
 
-          expect(notificationFound).to.be.true;
-        });
+        expect(notificationFound).to.be.true;
       });
     });
   });

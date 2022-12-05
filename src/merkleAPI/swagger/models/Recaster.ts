@@ -34,7 +34,7 @@ export interface Recaster {
    * @type {Def17}
    * @memberof Def41
    */
-  displayName?: string;
+  displayName: string;
   /**
    *
    * @type {Def6}

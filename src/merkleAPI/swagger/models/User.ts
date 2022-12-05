@@ -22,7 +22,7 @@ import { UserViewerContext } from "./UserViewerContext";
 export interface User {
   fid: number;
   username?: string;
-  displayName?: string;
+  displayName: string;
   registeredAt?: number;
   /**
    *

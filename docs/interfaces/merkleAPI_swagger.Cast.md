@@ -16,13 +16,13 @@
 - [mentions](merkleAPI_swagger.Cast.md#mentions)
 - [parentAuthor](merkleAPI_swagger.Cast.md#parentauthor)
 - [parentHash](merkleAPI_swagger.Cast.md#parenthash)
-- [publishedAt](merkleAPI_swagger.Cast.md#publishedat)
 - [reactions](merkleAPI_swagger.Cast.md#reactions)
 - [recast](merkleAPI_swagger.Cast.md#recast)
 - [recasts](merkleAPI_swagger.Cast.md#recasts)
 - [replies](merkleAPI_swagger.Cast.md#replies)
 - [text](merkleAPI_swagger.Cast.md#text)
 - [threadHash](merkleAPI_swagger.Cast.md#threadhash)
+- [timestamp](merkleAPI_swagger.Cast.md#timestamp)
 - [viewerContext](merkleAPI_swagger.Cast.md#viewercontext)
 - [watches](merkleAPI_swagger.Cast.md#watches)
 
@@ -140,20 +140,6 @@ Def42
 
 ___
 
-### publishedAt
-
-• **publishedAt**: `number`
-
-**`Memberof`**
-
-Def42
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/Cast.ts:62](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L62)
-
-___
-
 ### reactions
 
 • **reactions**: [`CastReactions`](merkleAPI_swagger.CastReactions.md)
@@ -235,6 +221,20 @@ Def42
 #### Defined in
 
 [src/merkleAPI/swagger/models/Cast.ts:32](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L32)
+
+___
+
+### timestamp
+
+• **timestamp**: `number`
+
+**`Memberof`**
+
+Def42
+
+#### Defined in
+
+[src/merkleAPI/swagger/models/Cast.ts:62](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L62)
 
 ___
 
