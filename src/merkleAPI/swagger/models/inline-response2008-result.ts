@@ -19,9 +19,10 @@ import { CastReaction } from "./CastReaction";
  */
 export interface InlineResponse2008Result {
   /**
-   *
-   * @type {CastReaction}
-   * @memberof InlineResponse2008Result
+   * Note that the server's response will be written to the key `like` and not
+   * `reaction`. MerkleAPIClient will attempt to copy the value of `like`
+   * into `reaction` for backward compatibility.
    */
   reaction: CastReaction;
+  like: CastReaction;
 }

@@ -187,7 +187,7 @@ export class MerkleAPIClient {
       // yield current page of casts
       for (const cast of response.data.result.casts) {
         if (includeRecasts || cast.author.fid === user.fid) {
-          yield cast;
+          yield _rewritePublishedAt(cast);
         }
       }
 
@@ -618,4 +618,19 @@ function _isAuthTokenExpired(authToken: AuthToken): boolean {
   const now = Date.now();
   const expires = new Date(authToken.expiresAt);
   return now + THIRTY_SECONDS_IN_MILLIS > expires.valueOf();
+}
+
+/**
+ * Edits Cast objects to include a `publishedAt` field which was renamed
+ * server-side to `timestamp`. This is done solely for backward-compatibility.
+ */
+function _rewritePublishedAt(cast: Cast): Cast {
+  if (cast.ancestors?.casts !== undefined) {
+    cast.ancestors.casts = cast.ancestors.casts.map(_rewritePublishedAt);
+  }
+  if (cast.replies.casts !== undefined) {
+    cast.replies.casts = cast.replies.casts.map(_rewritePublishedAt);
+  }
+  cast.publishedAt = (cast as unknown as { timestamp: number }).timestamp;
+  return cast;
 }

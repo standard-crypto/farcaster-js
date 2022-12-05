@@ -140,6 +140,7 @@
 - [CastReactionType](merkleAPI_swagger.md#castreactiontype)
 - [InlineResponse2006Result](merkleAPI_swagger.md#inlineresponse2006result)
 - [InlineResponse2009Result](merkleAPI_swagger.md#inlineresponse2009result)
+- [Notification](merkleAPI_swagger.md#notification)
 
 ### Variables
 
@@ -252,6 +253,16 @@ InlineResponse2009Result
 #### Defined in
 
 [src/merkleAPI/swagger/models/inline-response2009-result.ts:20](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response2009-result.ts#L20)
+
+___
+
+### Notification
+
+Ƭ **Notification**: [`NotificationCastMention`](../interfaces/merkleAPI_swagger.NotificationCastMention.md) \| [`NotificationCastReaction`](../interfaces/merkleAPI_swagger.NotificationCastReaction.md) \| [`NotificationCastReply`](../interfaces/merkleAPI_swagger.NotificationCastReply.md) \| [`NotificationFollow`](../interfaces/merkleAPI_swagger.NotificationFollow.md) \| [`NotificationRecast`](../interfaces/merkleAPI_swagger.NotificationRecast.md) \| [`NotificationWatchedCastReply`](../interfaces/merkleAPI_swagger.NotificationWatchedCastReply.md)
+
+#### Defined in
+
+[src/merkleAPI/swagger/models/Notification.ts:8](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Notification.ts#L8)
 
 ## Variables
 
