@@ -66,7 +66,7 @@ export const CastsApiAxiosParamCreator = function (
           "Required parameter authorization was null or undefined when calling v2CastReactionsDelete."
         );
       }
-      const localVarPath = `/v2/cast-reactions`;
+      const localVarPath = `/v2/cast-likes`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, "https://example.com");
       let baseOptions;
@@ -143,7 +143,7 @@ export const CastsApiAxiosParamCreator = function (
           "Required parameter authorization was null or undefined when calling v2CastReactionsGet."
         );
       }
-      const localVarPath = `/v2/cast-reactions`;
+      const localVarPath = `/v2/cast-likes`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, "https://example.com");
       let baseOptions;
@@ -211,7 +211,7 @@ export const CastsApiAxiosParamCreator = function (
           "Required parameter authorization was null or undefined when calling v2CastReactionsPut."
         );
       }
-      const localVarPath = `/v2/cast-reactions`;
+      const localVarPath = `/v2/cast-likes`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, "https://example.com");
       let baseOptions;

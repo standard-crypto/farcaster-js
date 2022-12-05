@@ -29,7 +29,7 @@ Def27
 
 ### displayName
 
-• `Optional` **displayName**: `string`
+• **displayName**: `string`
 
 #### Defined in
 

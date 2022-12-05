@@ -20,7 +20,7 @@ InlineResponse20014Result
 
 ### notifications
 
-• **notifications**: `Notification`[]
+• **notifications**: [`Notification`](../modules/merkleAPI_swagger.md#notification)[]
 
 **`Memberof`**
 

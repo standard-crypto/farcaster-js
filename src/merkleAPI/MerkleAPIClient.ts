@@ -469,28 +469,24 @@ export class MerkleAPIClient {
    */
   public async reactToCast(
     reaction: CastReactionType,
-    cast: Cast | { casterFid: number; castHash: string }
+    cast: Cast | { castHash: string }
   ): Promise<CastReaction> {
     const authToken = await this.getOrCreateValidAuthToken();
-    let castFid: number;
     let castHash: string;
     if ("author" in cast) {
-      castFid = cast.author.fid;
       castHash = cast.hash;
     } else {
-      castFid = cast.casterFid;
       castHash = cast.castHash;
     }
     const body: V2CastReactionsBody = {
       type: reaction,
-      castFid,
       castHash,
     };
     const response = await this.apis.casts.v2CastReactionsPut(
       authToken.secret,
       body
     );
-    return response.data.result.reaction;
+    return response.data.result.like;
   }
 
   /**
@@ -514,21 +510,17 @@ export class MerkleAPIClient {
    */
   public async removeReactionToCast(
     reaction: CastReactionType,
-    cast: Cast | { casterFid: number; castHash: string }
+    cast: Cast | { castHash: string }
   ): Promise<void> {
     const authToken = await this.getOrCreateValidAuthToken();
-    let castFid: number;
     let castHash: string;
     if ("author" in cast) {
-      castFid = cast.author.fid;
       castHash = cast.hash;
     } else {
-      castFid = cast.casterFid;
       castHash = cast.castHash;
     }
     const body: V2CastReactionsBody = {
       type: reaction,
-      castFid,
       castHash,
     };
     await this.apis.casts.v2CastReactionsDelete(authToken.secret, body);

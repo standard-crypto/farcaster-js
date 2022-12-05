@@ -26,12 +26,6 @@ export interface V2CastsBody {
   text: string;
   /**
    *
-   * @type {Array<string>}
-   * @memberof V2CastsBody
-   */
-  embeds?: Array<string>;
-  /**
-   *
    * @type {V2castsParent}
    * @memberof V2CastsBody
    */

@@ -23,7 +23,7 @@ Def41
 
 ### displayName
 
-• `Optional` **displayName**: `string`
+• **displayName**: `string`
 
 **`Memberof`**
 
