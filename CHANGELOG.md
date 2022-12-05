@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/standard-crypto/farcaster-js/compare/v4.0.0...v4.0.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* rewrite api client to mask some server-side changes to the API ([f7f38d6](https://github.com/standard-crypto/farcaster-js/commit/f7f38d692663ebb425a1dbe54c2cd42dc2017cf7)), closes [#392](https://github.com/standard-crypto/farcaster-js/issues/392)
+
 # [4.0.0](https://github.com/standard-crypto/farcaster-js/compare/v3.0.7...v4.0.0) (2022-12-01)
 
 
