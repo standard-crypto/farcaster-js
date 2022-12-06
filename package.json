@@ -57,7 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.45.1",
     "chai": "^4.3.4",
-    "commitizen": "^4.2.5",
+    "commitizen": "^4.2.6",
     "cspell": "^6.17.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.29.0",
