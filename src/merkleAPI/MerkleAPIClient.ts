@@ -535,6 +535,16 @@ export class MerkleAPIClient {
   }
 
   public async revokeAuthToken(authToken: AuthToken): Promise<void> {
+    // If caller requests to revoke the auth token that this API client was itself using,
+    // then we need to clear out the handle to that token so that the client will not attempt
+    // to reuse that revoked token for its next API call
+    if (
+      this.authToken !== undefined &&
+      (await this.authToken).secret === authToken.secret
+    ) {
+      this.authToken = undefined;
+    }
+
     const params: V2AuthBody1 = {
       method: V2AuthBody1MethodEnum.RevokeToken,
       params: {

@@ -304,6 +304,11 @@ if (privateKey !== undefined && privateKey !== "") {
         expectDefined(token);
         await client.revokeAuthToken(token);
       });
+      it("doesn't attempt to reuse revoked auth tokens", async function () {
+        const token = await client.getOrCreateValidAuthToken();
+        await client.revokeAuthToken(token);
+        await client.fetchCurrentUser();
+      });
     });
 
     describe("notifications", function () {

@@ -26,7 +26,7 @@
 
 #### Type declaration
 
-▸ (`message?`, ...`optionalParams`): `void`
+▸ (`message?`, `...optionalParams`): `void`
 
 ##### Parameters
 
@@ -51,7 +51,7 @@ ___
 
 #### Type declaration
 
-▸ (`message?`, ...`optionalParams`): `void`
+▸ (`message?`, `...optionalParams`): `void`
 
 ##### Parameters
 
@@ -76,7 +76,7 @@ ___
 
 #### Type declaration
 
-▸ (`message?`, ...`optionalParams`): `void`
+▸ (`message?`, `...optionalParams`): `void`
 
 ##### Parameters
 
@@ -101,7 +101,7 @@ ___
 
 #### Type declaration
 
-▸ (`message?`, ...`optionalParams`): `void`
+▸ (`message?`, `...optionalParams`): `void`
 
 ##### Parameters
 
@@ -126,7 +126,7 @@ ___
 
 #### Type declaration
 
-▸ (`message?`, ...`optionalParams`): `void`
+▸ (`message?`, `...optionalParams`): `void`
 
 ##### Parameters
 

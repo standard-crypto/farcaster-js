@@ -45,16 +45,16 @@
 
 ### constructor
 
-• **new MerkleAPIClient**(`wallet`, `__namedParameters?`)
+• **new MerkleAPIClient**(`wallet`, `«destructured»?`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `wallet` | `Wallet` |
-| `__namedParameters` | `Object` |
-| `__namedParameters.axiosInstance?` | `AxiosInstance` |
-| `__namedParameters.logger?` | [`Logger`](../interfaces/index.Logger.md) |
+| `«destructured»` | `Object` |
+| › `axiosInstance?` | `AxiosInstance` |
+| › `logger?` | [`Logger`](../interfaces/index.Logger.md) |
 
 #### Defined in
 
@@ -154,7 +154,7 @@ ___
 
 ### fetchCastsForUser
 
-▸ **fetchCastsForUser**(`user`, `__namedParameters?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+▸ **fetchCastsForUser**(`user`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
 
 Gets all casts (including replies and recasts) created by the specified user.
 
@@ -167,10 +167,10 @@ client-side.
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `__namedParameters` | `Object` |
-| `__namedParameters.includeDeletedCasts` | `undefined` \| `boolean` |
-| `__namedParameters.includeRecasts` | `undefined` \| `boolean` |
-| `__namedParameters.pageSize` | `undefined` \| `number` |
+| `«destructured»` | `Object` |
+| › `includeDeletedCasts` | `undefined` \| `boolean` |
+| › `includeRecasts` | `undefined` \| `boolean` |
+| › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -244,14 +244,14 @@ ___
 
 ### fetchMentionAndReplyNotifications
 
-▸ **fetchMentionAndReplyNotifications**(`__namedParameters?`): `AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
+▸ **fetchMentionAndReplyNotifications**(`«destructured»?`): `AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | `Object` |
-| `__namedParameters.pageSize` | `undefined` \| `number` |
+| `«destructured»` | `Object` |
+| › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -265,7 +265,7 @@ ___
 
 ### fetchUserAssetCollections
 
-▸ **fetchUserAssetCollections**(`user`, `__namedParameters?`): `AsyncGenerator`<[`AssetCollection`](../interfaces/merkleAPI_swagger.AssetCollection.md), `void`, `undefined`\>
+▸ **fetchUserAssetCollections**(`user`, `«destructured»?`): `AsyncGenerator`<[`AssetCollection`](../interfaces/merkleAPI_swagger.AssetCollection.md), `void`, `undefined`\>
 
 Fetch all asset collections owned by the specified user.
 
@@ -275,8 +275,8 @@ Fetch all asset collections owned by the specified user.
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `__namedParameters` | `Object` |
-| `__namedParameters.pageSize` | `undefined` \| `number` |
+| `«destructured»` | `Object` |
+| › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -290,7 +290,7 @@ ___
 
 ### fetchUserAssetsInCollection
 
-▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `__namedParameters?`): `AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
+▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `«destructured»?`): `AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
 
 Fetch all asset collections owned by the specified user.
 
@@ -301,8 +301,8 @@ Fetch all asset collections owned by the specified user.
 | `user` | `Object` |
 | `user.fid` | `number` |
 | `collectionId` | `string` |
-| `__namedParameters` | `Object` |
-| `__namedParameters.pageSize` | `undefined` \| `number` |
+| `«destructured»` | `Object` |
+| › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -316,7 +316,7 @@ ___
 
 ### fetchUserFollowers
 
-▸ **fetchUserFollowers**(`user`, `__namedParameters?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchUserFollowers**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
 
 Get all users that follow the specified user
 
@@ -326,8 +326,8 @@ Get all users that follow the specified user
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `__namedParameters` | `Object` |
-| `__namedParameters.pageSize` | `undefined` \| `number` |
+| `«destructured»` | `Object` |
+| › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -341,7 +341,7 @@ ___
 
 ### fetchUserFollowing
 
-▸ **fetchUserFollowing**(`user`, `__namedParameters?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchUserFollowing**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
 
 Get all users the specified user is following.
 
@@ -351,8 +351,8 @@ Get all users the specified user is following.
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `__namedParameters` | `Object` |
-| `__namedParameters.pageSize` | `undefined` \| `number` |
+| `«destructured»` | `Object` |
+| › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -580,7 +580,7 @@ Unfollow a user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:551](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L551)
+[src/merkleAPI/MerkleAPIClient.ts:561](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L561)
 
 ___
 
@@ -602,7 +602,7 @@ Unwatch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:561](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L561)
+[src/merkleAPI/MerkleAPIClient.ts:571](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L571)
 
 ___
 
@@ -624,4 +624,4 @@ Watch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:584](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L584)
+[src/merkleAPI/MerkleAPIClient.ts:594](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L594)
