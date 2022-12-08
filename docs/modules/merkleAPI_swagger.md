@@ -1065,7 +1065,7 @@ VerificationsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `v2VerificationsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
+| `v2VerificationsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 
 #### Defined in
 
@@ -1095,11 +1095,11 @@ VerificationsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `v2VerificationsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\> |
+| `v2VerificationsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\> |
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/verifications-api.ts:164](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L164)
+[src/merkleAPI/swagger/apis/verifications-api.ts:177](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L177)
 
 ___
 
@@ -1123,11 +1123,11 @@ VerificationsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `v2VerificationsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\>\> |
+| `v2VerificationsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\>\> |
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/verifications-api.ts:122](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L122)
+[src/merkleAPI/swagger/apis/verifications-api.ts:134](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L134)
 
 ___
 

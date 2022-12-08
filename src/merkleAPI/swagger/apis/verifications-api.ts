@@ -44,11 +44,19 @@ export const VerificationsApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     v2VerificationsGet: async (
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'fid' is not null or undefined
+      if (fid === null || fid === undefined) {
+        throw new RequiredError(
+          "fid",
+          "Required parameter fid was null or undefined when calling v2VerificationsGet."
+        );
+      }
       // verify required parameter 'limit' is not null or undefined
       if (limit === null || limit === undefined) {
         throw new RequiredError(
@@ -77,6 +85,10 @@ export const VerificationsApiAxiosParamCreator = function (
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      if (fid !== undefined) {
+        localVarQueryParameter["fid"] = fid;
+      }
 
       if (cursor !== undefined) {
         localVarQueryParameter["cursor"] = cursor;
@@ -130,6 +142,7 @@ export const VerificationsApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async v2VerificationsGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
@@ -142,7 +155,7 @@ export const VerificationsApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await VerificationsApiAxiosParamCreator(
         configuration
-      ).v2VerificationsGet(limit, authorization, cursor, options);
+      ).v2VerificationsGet(fid, limit, authorization, cursor, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -176,13 +189,14 @@ export const VerificationsApiFactory = function (
      * @throws {RequiredError}
      */
     async v2VerificationsGet(
+      fid: number,
       limit: number,
       authorization: string,
       cursor?: string,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse20016>> {
       return VerificationsApiFp(configuration)
-        .v2VerificationsGet(limit, authorization, cursor, options)
+        .v2VerificationsGet(fid, limit, authorization, cursor, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -205,13 +219,14 @@ export class VerificationsApi extends BaseAPI {
    * @memberof VerificationsApi
    */
   public async v2VerificationsGet(
+    fid: number,
     limit: number,
     authorization: string,
     cursor?: string,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse20016>> {
     return VerificationsApiFp(this.configuration)
-      .v2VerificationsGet(limit, authorization, cursor, options)
+      .v2VerificationsGet(fid, limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

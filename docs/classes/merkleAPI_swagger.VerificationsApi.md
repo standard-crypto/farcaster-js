@@ -98,7 +98,7 @@ ___
 
 ### v2VerificationsGet
 
-▸ **v2VerificationsGet**(`limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\>
+▸ **v2VerificationsGet**(`fid`, `limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\>
 
 Get all verifications for the authenticated user.
 
@@ -112,6 +112,7 @@ VerificationsApi
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `fid` | `number` | - |
 | `limit` | `number` |  |
 | `authorization` | `string` |  |
 | `cursor?` | `string` |  |
@@ -123,4 +124,4 @@ VerificationsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/verifications-api.ts:207](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L207)
+[src/merkleAPI/swagger/apis/verifications-api.ts:221](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L221)

@@ -27,6 +27,8 @@ import {
   V2AuthBody1MethodEnum,
   V2AuthBody1,
   NotificationsApi,
+  VerificationsApi,
+  Verification,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
@@ -50,6 +52,7 @@ export class MerkleAPIClient {
     notifications: NotificationsApi;
     user: UserApi;
     users: UsersApi;
+    verifications: VerificationsApi;
     watches: WatchesApi;
   };
 
@@ -84,6 +87,7 @@ export class MerkleAPIClient {
       notifications: new NotificationsApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
       users: new UsersApi(config, undefined, axiosInstance),
+      verifications: new VerificationsApi(config, undefined, axiosInstance),
       watches: new WatchesApi(config, undefined, axiosInstance),
     };
   }
@@ -192,7 +196,10 @@ export class MerkleAPIClient {
       }
 
       // prep for next page
-      if (response.data.next === undefined) {
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -260,7 +267,10 @@ export class MerkleAPIClient {
       yield* response.data.result.notifications;
 
       // prep for next page
-      if (response.data.next === undefined) {
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -291,7 +301,10 @@ export class MerkleAPIClient {
       yield* response.data.result.collections;
 
       // prep for next page
-      if (response.data.next === undefined) {
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -324,7 +337,10 @@ export class MerkleAPIClient {
       yield* response.data.result.assets;
 
       // prep for next page
-      if (response.data.next === undefined) {
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -355,7 +371,10 @@ export class MerkleAPIClient {
       yield* response.data.result.users;
 
       // prep for next page
-      if (response.data.next === undefined) {
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -386,7 +405,39 @@ export class MerkleAPIClient {
       yield* response.data.result.users;
 
       // prep for next page
-      if (response.data.next === undefined) {
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  public async *fetchUserVerifications(
+    user: {
+      fid: number;
+    },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Verification, void, undefined> {
+    let cursor: string | undefined;
+
+    while (true) {
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.verifications.v2VerificationsGet(
+        user.fid,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      yield* response.data.result.verifications;
+
+      if (
+        response.data.next === undefined ||
+        response.data.next.cursor === undefined
+      ) {
         break;
       }
       cursor = response.data.next.cursor;
