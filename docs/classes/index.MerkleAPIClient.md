@@ -605,7 +605,7 @@ Unfollow a user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:594](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L594)
+[src/merkleAPI/MerkleAPIClient.ts:604](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L604)
 
 ___
 
@@ -627,7 +627,7 @@ Unwatch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:604](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L604)
+[src/merkleAPI/MerkleAPIClient.ts:614](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L614)
 
 ___
 
@@ -649,4 +649,4 @@ Watch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:627](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L627)
+[src/merkleAPI/MerkleAPIClient.ts:637](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L637)
