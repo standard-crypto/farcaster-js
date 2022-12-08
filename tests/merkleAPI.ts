@@ -306,6 +306,11 @@ if (privateKey !== undefined && privateKey !== "") {
         expectDefined(token);
         await client.revokeAuthToken(token);
       });
+      it("doesn't attempt to reuse revoked auth tokens", async function () {
+        const token = await client.getOrCreateValidAuthToken();
+        await client.revokeAuthToken(token);
+        await client.fetchCurrentUser();
+      });
     });
 
     describe("notifications", function () {
@@ -366,6 +371,30 @@ if (privateKey !== undefined && privateKey !== "") {
           response.data
         );
         expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+    });
+
+    describe("verifications", function () {
+      it("can fetch a user's verifications", async function () {
+        let verificationFound = false;
+        for await (const verification of client.fetchUserVerifications({
+          fid: userDwrFid,
+        })) {
+          verificationFound = true;
+          expect(verification.fid).eq(userDwrFid);
+        }
+        expect(verificationFound).to.be.true;
+      });
+
+      it("returns empty generator for user with no verifications", async function () {
+        let verificationFound = false;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for await (const _ of client.fetchUserVerifications({
+          fid: userGaviBotFid,
+        })) {
+          verificationFound = true;
+        }
+        expect(verificationFound).to.be.false;
       });
     });
   });
