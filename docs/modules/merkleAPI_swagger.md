@@ -226,7 +226,7 @@ InlineResponse2006Result
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `casts` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)[] | **`Memberof`** InlineResponse2006Result |
+| `casts` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)[] | **`Memberof`**  InlineResponse2006Result |
 
 #### Defined in
 
@@ -248,7 +248,7 @@ InlineResponse2009Result
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `users` | [`User`](../interfaces/merkleAPI_swagger.User.md)[] | **`Memberof`** InlineResponse2009Result |
+| `users` | [`User`](../interfaces/merkleAPI_swagger.User.md)[] | **`Memberof`**  InlineResponse2009Result |
 
 #### Defined in
 

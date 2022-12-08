@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/standard-crypto/farcaster-js/compare/v4.0.1...v4.0.2) (2022-12-08)
+
+
+### Bug Fixes
+
+* merkleAPIClient no longer attempts to reuse a revoked API token ([6457134](https://github.com/standard-crypto/farcaster-js/commit/6457134effbbcaed91358cc463aa49d471088188))
+
 ## [4.0.1](https://github.com/standard-crypto/farcaster-js/compare/v4.0.0...v4.0.1) (2022-12-05)
 
 

@@ -45,16 +45,16 @@
 
 ### constructor
 
-• **new MerkleAPIClient**(`wallet`, `«destructured»?`)
+• **new MerkleAPIClient**(`wallet`, `__namedParameters?`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `wallet` | `Wallet` |
-| `«destructured»` | `Object` |
-| › `axiosInstance?` | `AxiosInstance` |
-| › `logger?` | [`Logger`](../interfaces/index.Logger.md) |
+| `__namedParameters` | `Object` |
+| `__namedParameters.axiosInstance?` | `AxiosInstance` |
+| `__namedParameters.logger?` | [`Logger`](../interfaces/index.Logger.md) |
 
 #### Defined in
 
@@ -154,7 +154,7 @@ ___
 
 ### fetchCastsForUser
 
-▸ **fetchCastsForUser**(`user`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+▸ **fetchCastsForUser**(`user`, `__namedParameters?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
 
 Gets all casts (including replies and recasts) created by the specified user.
 
@@ -167,10 +167,10 @@ client-side.
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `«destructured»` | `Object` |
-| › `includeDeletedCasts` | `undefined` \| `boolean` |
-| › `includeRecasts` | `undefined` \| `boolean` |
-| › `pageSize` | `undefined` \| `number` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.includeDeletedCasts` | `undefined` \| `boolean` |
+| `__namedParameters.includeRecasts` | `undefined` \| `boolean` |
+| `__namedParameters.pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -244,14 +244,14 @@ ___
 
 ### fetchMentionAndReplyNotifications
 
-▸ **fetchMentionAndReplyNotifications**(`«destructured»?`): `AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
+▸ **fetchMentionAndReplyNotifications**(`__namedParameters?`): `AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | `Object` |
-| › `pageSize` | `undefined` \| `number` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -265,7 +265,7 @@ ___
 
 ### fetchUserAssetCollections
 
-▸ **fetchUserAssetCollections**(`user`, `«destructured»?`): `AsyncGenerator`<[`AssetCollection`](../interfaces/merkleAPI_swagger.AssetCollection.md), `void`, `undefined`\>
+▸ **fetchUserAssetCollections**(`user`, `__namedParameters?`): `AsyncGenerator`<[`AssetCollection`](../interfaces/merkleAPI_swagger.AssetCollection.md), `void`, `undefined`\>
 
 Fetch all asset collections owned by the specified user.
 
@@ -275,8 +275,8 @@ Fetch all asset collections owned by the specified user.
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `«destructured»` | `Object` |
-| › `pageSize` | `undefined` \| `number` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -290,7 +290,7 @@ ___
 
 ### fetchUserAssetsInCollection
 
-▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `«destructured»?`): `AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
+▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `__namedParameters?`): `AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
 
 Fetch all asset collections owned by the specified user.
 
@@ -301,8 +301,8 @@ Fetch all asset collections owned by the specified user.
 | `user` | `Object` |
 | `user.fid` | `number` |
 | `collectionId` | `string` |
-| `«destructured»` | `Object` |
-| › `pageSize` | `undefined` \| `number` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -316,7 +316,7 @@ ___
 
 ### fetchUserFollowers
 
-▸ **fetchUserFollowers**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchUserFollowers**(`user`, `__namedParameters?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
 
 Get all users that follow the specified user
 
@@ -326,8 +326,8 @@ Get all users that follow the specified user
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `«destructured»` | `Object` |
-| › `pageSize` | `undefined` \| `number` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.pageSize` | `undefined` \| `number` |
 
 #### Returns
 
@@ -341,7 +341,7 @@ ___
 
 ### fetchUserFollowing
 
-▸ **fetchUserFollowing**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchUserFollowing**(`user`, `__namedParameters?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
 
 Get all users the specified user is following.
 
@@ -351,8 +351,8 @@ Get all users the specified user is following.
 | :------ | :------ |
 | `user` | `Object` |
 | `user.fid` | `number` |
-| `«destructured»` | `Object` |
-| › `pageSize` | `undefined` \| `number` |
+| `__namedParameters` | `Object` |
+| `__namedParameters.pageSize` | `undefined` \| `number` |
 
 #### Returns
 
