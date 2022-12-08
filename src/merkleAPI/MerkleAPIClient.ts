@@ -190,7 +190,7 @@ export class MerkleAPIClient {
 
       // yield current page of casts
       for (const cast of response.data.result.casts) {
-        if (includeRecasts || cast.author.fid === user.fid) {
+        if (includeRecasts || cast.recast === undefined || !cast.recast) {
           yield cast;
         }
       }
