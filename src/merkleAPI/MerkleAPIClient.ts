@@ -230,37 +230,6 @@ export class MerkleAPIClient {
   }
 
   /**
-   * A list of the latest casts across all users in reverse chronological order based on timestamp
-   */
-  public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
-    Cast,
-    void,
-    undefined
-  > {
-    let cursor: string | undefined;
-    let response: AxiosResponse<InlineResponse2006>;
-
-    while (true) {
-      // fetch one page of casts (with refreshed auth if necessary)
-      const authToken = await this.getOrCreateValidAuthToken();
-      response = await this.apis.casts.v2RecentCastsGet(
-        pageSize,
-        authToken.secret,
-        cursor
-      );
-
-      // yield current page of casts
-      yield* response.data.result.casts;
-
-      // prep for next page
-      if (response.data.next?.cursor === undefined) {
-        break;
-      }
-      cursor = response.data.next.cursor;
-    }
-  }
-
-  /**
    * Gets the currently authenticated user
    */
   public async fetchCurrentUser(): Promise<User> {
@@ -319,6 +288,67 @@ export class MerkleAPIClient {
 
       // yield current page
       yield* response.data.result.notifications;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * A list of the latest casts across all users in reverse chronological order based on timestamp
+   */
+  public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
+    Cast,
+    void,
+    undefined
+  > {
+    let cursor: string | undefined;
+    let response: AxiosResponse<InlineResponse2006>;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const authToken = await this.getOrCreateValidAuthToken();
+      response = await this.apis.casts.v2RecentCastsGet(
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.casts;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * A list of users in reverse chronological order based on sign up.
+   */
+  public async *fetchRecentUsers({ pageSize = 100 } = {}): AsyncGenerator<
+    User,
+    void,
+    undefined
+  > {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.users.v2RecentUsersGet(
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.users;
 
       // prep for next page
       if (response.data.next?.cursor === undefined) {

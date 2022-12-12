@@ -26,7 +26,7 @@ import {
   BaseAPI,
   RequiredError,
 } from "../base";
-import { InlineResponse20012 } from "../models";
+import { InlineResponse20012, RecentUsersGetResponse } from "../models";
 import { InlineResponse20013 } from "../models";
 /**
  * UsersApi - axios parameter creator
@@ -231,6 +231,76 @@ export const UsersApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       };
     },
+    /**
+     * A list of users in reverse chronological order based on sign up.
+     */
+    v2RecentUsersGet: async (
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'limit' is not null or undefined
+      if (limit === null || limit === undefined) {
+        throw new RequiredError(
+          "limit",
+          "Required parameter limit was null or undefined when calling v2RecentUsersGet."
+        );
+      }
+      // verify required parameter 'authorization' is not null or undefined
+      if (authorization === null || authorization === undefined) {
+        throw new RequiredError(
+          "authorization",
+          "Required parameter authorization was null or undefined when calling v2UserGet."
+        );
+      }
+      const localVarPath = `/v2/recent-users`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, "https://example.com");
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (limit !== undefined && limit !== null) {
+        localVarQueryParameter["limit"] = String(limit);
+      }
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter["authorization"] = String(authorization);
+      }
+      if (cursor !== undefined) {
+        localVarQueryParameter["cursor"] = cursor;
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search);
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key]);
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key]);
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString();
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -328,6 +398,34 @@ export const UsersApiFp = function (configuration?: Configuration) {
         return axios.request(axiosRequestArgs);
       };
     },
+    /**
+     * A list of users in reverse chronological order based on sign up.
+     */
+    async v2RecentUsersGet(
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => Promise<AxiosResponse<RecentUsersGetResponse>>
+    > {
+      const localVarAxiosArgs = await UsersApiAxiosParamCreator(
+        configuration
+      ).v2RecentUsersGet(limit, authorization, cursor, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs: AxiosRequestConfig = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
   };
 };
 
@@ -384,6 +482,20 @@ export const UsersApiFactory = function (
         .v2UserGet(fid, authorization, options)
         .then((request) => request(axios, basePath));
     },
+
+    /**
+     * A list of users in reverse chronological order based on sign up.
+     */
+    async v2RecentUsersGet(
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options?: AxiosRequestConfig
+    ): Promise<AxiosResponse<RecentUsersGetResponse>> {
+      return UsersApiFp(configuration)
+        .v2RecentUsersGet(limit, authorization, cursor, options)
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -438,6 +550,19 @@ export class UsersApi extends BaseAPI {
   ): Promise<AxiosResponse<InlineResponse20013>> {
     return UsersApiFp(this.configuration)
       .v2UserGet(fid, authorization, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+  /**
+   * A list of users in reverse chronological order based on sign up
+   */
+  public async v2RecentUsersGet(
+    limit: number,
+    authorization: string,
+    cursor?: string,
+    options?: AxiosRequestConfig
+  ): Promise<AxiosResponse<RecentUsersGetResponse>> {
+    return UsersApiFp(this.configuration)
+      .v2RecentUsersGet(limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

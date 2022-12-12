@@ -113,6 +113,19 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#fetchRecentUsers", function () {
+      it("can fetch multiple pages of users", async function () {
+        let userCount = 0;
+        for await (const user of client.fetchRecentUsers({ pageSize: 5 })) {
+          expectDefined(user);
+          expectDefined(user.username);
+          userCount++;
+          if (userCount === 10) break;
+        }
+        expect(userCount).to.eq(10);
+      });
+    });
+
     describe("#fetchCast", function () {
       it("can fetch an existing cast", async function () {
         const existingCastHash =

@@ -11,8 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse2001Next } from "./inline-response2001-next";
 import { InlineResponse2006Result } from "./inline-response2006-result";
+import { PaginationInfo } from "./PaginationInfo";
 /**
  *
  * @export
@@ -30,5 +30,5 @@ export interface InlineResponse2006 {
    * @type {InlineResponse2001Next}
    * @memberof InlineResponse2006
    */
-  next?: InlineResponse2001Next;
+  next?: PaginationInfo;
 }

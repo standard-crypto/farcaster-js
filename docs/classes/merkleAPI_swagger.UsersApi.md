@@ -29,6 +29,7 @@ UsersApi - object-oriented interface
 ### Methods
 
 - [v2FnameGet](merkleAPI_swagger.UsersApi.md#v2fnameget)
+- [v2RecentUsersGet](merkleAPI_swagger.UsersApi.md#v2recentusersget)
 - [v2UserByUsernameGet](merkleAPI_swagger.UsersApi.md#v2userbyusernameget)
 - [v2UserGet](merkleAPI_swagger.UsersApi.md#v2userget)
 
@@ -123,7 +124,32 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:403](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L403)
+[src/merkleAPI/swagger/apis/users-api.ts:515](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L515)
+
+___
+
+### v2RecentUsersGet
+
+▸ **v2RecentUsersGet**(`limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\>
+
+A list of users in reverse chronological order based on sign up
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `limit` | `number` |
+| `authorization` | `string` |
+| `cursor?` | `string` |
+| `options?` | `AxiosRequestConfig`<`any`\> |
+
+#### Returns
+
+`Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\>
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/users-api.ts:558](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L558)
 
 ___
 
@@ -153,7 +179,7 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:418](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L418)
+[src/merkleAPI/swagger/apis/users-api.ts:530](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L530)
 
 ___
 
@@ -183,4 +209,4 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:434](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L434)
+[src/merkleAPI/swagger/apis/users-api.ts:546](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L546)

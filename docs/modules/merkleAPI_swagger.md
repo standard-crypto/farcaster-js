@@ -76,7 +76,6 @@
 - [InlineResponse20015](../interfaces/merkleAPI_swagger.InlineResponse20015.md)
 - [InlineResponse20016](../interfaces/merkleAPI_swagger.InlineResponse20016.md)
 - [InlineResponse20016Result](../interfaces/merkleAPI_swagger.InlineResponse20016Result.md)
-- [InlineResponse2001Next](../interfaces/merkleAPI_swagger.InlineResponse2001Next.md)
 - [InlineResponse2001Result](../interfaces/merkleAPI_swagger.InlineResponse2001Result.md)
 - [InlineResponse2002](../interfaces/merkleAPI_swagger.InlineResponse2002.md)
 - [InlineResponse2002Result](../interfaces/merkleAPI_swagger.InlineResponse2002Result.md)
@@ -106,8 +105,11 @@
 - [NotificationWatchedCastReply](../interfaces/merkleAPI_swagger.NotificationWatchedCastReply.md)
 - [NotificationWatchedCastReplyContent](../interfaces/merkleAPI_swagger.NotificationWatchedCastReplyContent.md)
 - [PFP](../interfaces/merkleAPI_swagger.PFP.md)
+- [PaginationInfo](../interfaces/merkleAPI_swagger.PaginationInfo.md)
 - [RecastNotificationGroup](../interfaces/merkleAPI_swagger.RecastNotificationGroup.md)
 - [Recaster](../interfaces/merkleAPI_swagger.Recaster.md)
+- [RecentUsersGetResponse](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md)
+- [RecentUsersGetResponseResult](../interfaces/merkleAPI_swagger.RecentUsersGetResponseResult.md)
 - [RequestArgs](../interfaces/merkleAPI_swagger.RequestArgs.md)
 - [TopCollection](../interfaces/merkleAPI_swagger.TopCollection.md)
 - [TrendingCollection](../interfaces/merkleAPI_swagger.TrendingCollection.md)
@@ -982,6 +984,7 @@ UsersApi - axios parameter creator
 | Name | Type |
 | :------ | :------ |
 | `v2FnameGet` | (`fname`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
+| `v2RecentUsersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 | `v2UserByUsernameGet` | (`username`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 | `v2UserGet` | (`fid`: `number`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 
@@ -1014,12 +1017,13 @@ UsersApi - factory interface
 | Name | Type |
 | :------ | :------ |
 | `v2FnameGet` | (`fname`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20012`](../interfaces/merkleAPI_swagger.InlineResponse20012.md), `any`\>\> |
+| `v2RecentUsersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\> |
 | `v2UserByUsernameGet` | (`username`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\> |
 | `v2UserGet` | (`fid`: `number`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\> |
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:338](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L338)
+[src/merkleAPI/swagger/apis/users-api.ts:436](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L436)
 
 ___
 
@@ -1044,12 +1048,13 @@ UsersApi - functional programming interface
 | Name | Type |
 | :------ | :------ |
 | `v2FnameGet` | (`fname`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20012`](../interfaces/merkleAPI_swagger.InlineResponse20012.md), `any`\>\>\> |
+| `v2RecentUsersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\>\> |
 | `v2UserByUsernameGet` | (`username`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>\> |
 | `v2UserGet` | (`fid`: `number`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>\> |
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:241](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L241)
+[src/merkleAPI/swagger/apis/users-api.ts:311](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L311)
 
 ___
 

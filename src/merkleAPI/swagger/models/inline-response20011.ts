@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 import { InlineResponse20011Result } from "./inline-response20011-result";
-import { InlineResponse2001Next } from "./inline-response2001-next";
+import { PaginationInfo } from "./PaginationInfo";
 /**
  *
  * @export
@@ -30,5 +30,5 @@ export interface InlineResponse20011 {
    * @type {InlineResponse2001Next}
    * @memberof InlineResponse20011
    */
-  next?: InlineResponse2001Next;
+  next?: PaginationInfo;
 }
