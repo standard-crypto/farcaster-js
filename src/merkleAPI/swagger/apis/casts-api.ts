@@ -26,7 +26,7 @@ import {
   BaseAPI,
   RequiredError,
 } from "../base";
-import { InlineResponse20015 } from "../models";
+import { GetCastResponse, InlineResponse20015 } from "../models";
 import { InlineResponse2004 } from "../models";
 import { InlineResponse2006 } from "../models";
 import { InlineResponse2007 } from "../models";
@@ -398,6 +398,73 @@ export const CastsApiAxiosParamCreator = function (
       localVarRequestOptions.data = needsSerialization
         ? JSON.stringify(body !== undefined ? body : {})
         : body || "";
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Gets information about an individual cast
+     */
+    v2CastGet: async (
+      hash: string,
+      authorization: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'hash' is not null or undefined
+      if (hash === null || hash === undefined) {
+        throw new RequiredError(
+          "hash",
+          "Required parameter hash was null or undefined when calling v2CastGet."
+        );
+      }
+      // verify required parameter 'authorization' is not null or undefined
+      if (authorization === null || authorization === undefined) {
+        throw new RequiredError(
+          "authorization",
+          "Required parameter authorization was null or undefined when calling v2CastGet."
+        );
+      }
+      const localVarPath = `/v2/cast`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, "https://example.com");
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (hash !== undefined) {
+        localVarQueryParameter["hash"] = hash;
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter["authorization"] = String(authorization);
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search);
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key]);
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key]);
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString();
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
 
       return {
         url:
@@ -880,6 +947,33 @@ export const CastsApiFp = function (configuration?: Configuration) {
       };
     },
     /**
+     * Gets information about an individual cast
+     */
+    async v2CastGet(
+      hash: string,
+      authorization: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => Promise<AxiosResponse<GetCastResponse>>
+    > {
+      const localVarAxiosArgs = await CastsApiAxiosParamCreator(
+        configuration
+      ).v2CastGet(hash, authorization, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs: AxiosRequestConfig = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * Gets all casts created by the specified user.
      * @param {boolean} includeDeletedCasts
      * @param {number} limit
@@ -1113,6 +1207,18 @@ export const CastsApiFactory = function (
         .then((request) => request(axios, basePath));
     },
     /**
+     * Gets information about an individual cast
+     */
+    async v2CastGet(
+      hash: string,
+      authorization: string,
+      options?: AxiosRequestConfig
+    ): Promise<AxiosResponse<GetCastResponse>> {
+      return CastsApiFp(configuration)
+        .v2CastGet(hash, authorization, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Gets all casts created by the specified user.
      * @param {boolean} includeDeletedCasts
      * @param {number} limit
@@ -1285,6 +1391,18 @@ export class CastsApi extends BaseAPI {
   ): Promise<AxiosResponse<InlineResponse2004>> {
     return CastsApiFp(this.configuration)
       .v2CastsDelete(authorization, body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+  /**
+   * Gets information about an individual cast
+   */
+  public async v2CastGet(
+    hash: string,
+    authorization: string,
+    options?: AxiosRequestConfig
+  ): Promise<AxiosResponse<GetCastResponse>> {
+    return CastsApiFp(this.configuration)
+      .v2CastGet(hash, authorization, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**

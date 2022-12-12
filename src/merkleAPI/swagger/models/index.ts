@@ -57,6 +57,7 @@ export * from "./Verification";
 export * from "./AssetEventType";
 export * from "./CastReactionType";
 export * from "./AssetEventVerb";
+export * from "./GetCastResponse";
 export * from "./inline-response200";
 export * from "./inline-response2001";
 export * from "./inline-response20010";

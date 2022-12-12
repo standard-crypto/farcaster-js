@@ -100,6 +100,23 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#fetchCast", function () {
+      it("can fetch an existing cast", async function () {
+        const existingCastHash =
+          "0xc51b432e4c67a85208003ce2d8e015fe0966c00a7e62b4370e20db9d529770f0";
+        const cast = await client.fetchCast(existingCastHash);
+        expectDefined(cast);
+        expect(cast.hash).to.eq(existingCastHash);
+      });
+
+      it("returns undefined for nonexistent cast", async function () {
+        const nonexistentCastHash =
+          "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+        const cast = await client.fetchCast(nonexistentCastHash);
+        expect(cast).to.be.undefined;
+      });
+    });
+
     describe("#fetchLatestCastForUser", function () {
       it("returns latest cast for user", async function () {
         const cast = await client.fetchLatestCastForUser({

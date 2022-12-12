@@ -165,6 +165,32 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Gets information about an individual cast
+   */
+  public async fetchCast(
+    castOrCastHash: Cast | string
+  ): Promise<Cast | undefined> {
+    const authToken = await this.getOrCreateValidAuthToken();
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    const response = await this.apis.casts.v2CastGet(
+      castHash,
+      authToken.secret,
+      {
+        validateStatus: (status) => {
+          return status === 200 || status === 404;
+        },
+      }
+    );
+    if (response.status === 404) return undefined;
+    return response.data.result.cast;
+  }
+
+  /**
    * Gets all casts (including replies and recasts) created by the specified user.
    *
    * @Note: Deleted cast filtering is applied server-side while recast filtering is applied

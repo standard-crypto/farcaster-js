@@ -59,6 +59,8 @@
 - [DirectCastConversation](../interfaces/merkleAPI_swagger.DirectCastConversation.md)
 - [DirectCastViewerContext](../interfaces/merkleAPI_swagger.DirectCastViewerContext.md)
 - [FollowNotificationGroup](../interfaces/merkleAPI_swagger.FollowNotificationGroup.md)
+- [GetCastResponse](../interfaces/merkleAPI_swagger.GetCastResponse.md)
+- [GetCastResponseResult](../interfaces/merkleAPI_swagger.GetCastResponseResult.md)
 - [InlineResponse200](../interfaces/merkleAPI_swagger.InlineResponse200.md)
 - [InlineResponse2001](../interfaces/merkleAPI_swagger.InlineResponse2001.md)
 - [InlineResponse20010](../interfaces/merkleAPI_swagger.InlineResponse20010.md)
@@ -510,6 +512,7 @@ CastsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
+| `v2CastGet` | (`hash`: `string`, `authorization`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 | `v2CastReactionsDelete` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody1`](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 | `v2CastReactionsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
 | `v2CastReactionsPut` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody`](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
@@ -548,6 +551,7 @@ CastsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
+| `v2CastGet` | (`hash`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`GetCastResponse`](../interfaces/merkleAPI_swagger.GetCastResponse.md), `any`\>\> |
 | `v2CastReactionsDelete` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody1`](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
 | `v2CastReactionsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/merkleAPI_swagger.InlineResponse2007.md), `any`\>\> |
 | `v2CastReactionsPut` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody`](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2008`](../interfaces/merkleAPI_swagger.InlineResponse2008.md), `any`\>\> |
@@ -560,7 +564,7 @@ CastsApi - factory interface
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1025](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1025)
+[src/merkleAPI/swagger/apis/casts-api.ts:1119](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1119)
 
 ___
 
@@ -584,6 +588,7 @@ CastsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
+| `v2CastGet` | (`hash`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`GetCastResponse`](../interfaces/merkleAPI_swagger.GetCastResponse.md), `any`\>\>\> |
 | `v2CastReactionsDelete` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody1`](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
 | `v2CastReactionsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/merkleAPI_swagger.InlineResponse2007.md), `any`\>\>\> |
 | `v2CastReactionsPut` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody`](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2008`](../interfaces/merkleAPI_swagger.InlineResponse2008.md), `any`\>\>\> |
@@ -596,7 +601,7 @@ CastsApi - functional programming interface
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:721](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L721)
+[src/merkleAPI/swagger/apis/casts-api.ts:788](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L788)
 
 ___
 
