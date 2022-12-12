@@ -1,3 +1,15 @@
+# [5.2.0](https://github.com/standard-crypto/farcaster-js/compare/v5.1.0...v5.2.0) (2022-12-12)
+
+
+### Features
+
+* support `GET /v2/all-casts-in-thread` endpoint ([4e53a09](https://github.com/standard-crypto/farcaster-js/commit/4e53a090c642dd4c41a9e26b9f2bd77b23d44bbb)), closes [#413](https://github.com/standard-crypto/farcaster-js/issues/413)
+* support `GET /v2/cast` endpoint ([8e2787d](https://github.com/standard-crypto/farcaster-js/commit/8e2787ddb3b66343a94ae576194ac7d40c79d654)), closes [#412](https://github.com/standard-crypto/farcaster-js/issues/412)
+* support `GET /v2/recent-casts` endpoint ([cbe3a1f](https://github.com/standard-crypto/farcaster-js/commit/cbe3a1f9898968ed2a82e525c12d6e1916b4914b)), closes [#415](https://github.com/standard-crypto/farcaster-js/issues/415)
+* support `GET /v2/recent-users` endpoint ([1e1e30d](https://github.com/standard-crypto/farcaster-js/commit/1e1e30de0474adec8023b9c97393975b70ff1948)), closes [#414](https://github.com/standard-crypto/farcaster-js/issues/414)
+* support `GET /v2/user-by-verification` endpoint ([856a234](https://github.com/standard-crypto/farcaster-js/commit/856a234966a91bb59a70575e1673c4e28e842c7f)), closes [#416](https://github.com/standard-crypto/farcaster-js/issues/416)
+* support `GET /v2/user-cast-likes` endpoint ([25dddaa](https://github.com/standard-crypto/farcaster-js/commit/25dddaad6c33cb906477702dfd6d73f7d6518e54)), closes [#417](https://github.com/standard-crypto/farcaster-js/issues/417)
+
 # [5.1.0](https://github.com/standard-crypto/farcaster-js/compare/v5.0.0...v5.1.0) (2022-12-08)
 
 
