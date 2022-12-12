@@ -6215,18 +6215,18 @@ onetime@^5.1.0, onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-openapi-response-validator@^12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/openapi-response-validator/-/openapi-response-validator-12.0.2.tgz#1dc4c9883118fe10f918a61c0a10972ab875d54f"
-  integrity sha512-lzPo6c/rZGC30u6GOH2e9JP7mknCMd411mkgZAdjQGuY30l8hw8zFAXU4OrBSR6qGL+j0nlI7qfu5rTbwLOVqA==
+openapi-response-validator@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/openapi-response-validator/-/openapi-response-validator-12.1.0.tgz#644dc1069dc8c8c1a452751e46df1e5af891ee9f"
+  integrity sha512-GavGFToPoCt6iF5IZXfyXggmu4urNYmC0FN4CLJF5y8mbwWviI73Te5fybiUE2TmXvvaGSs9EKumSX7Ibxv6Sw==
   dependencies:
     ajv "^8.4.0"
-    openapi-types "^12.0.2"
+    openapi-types "^12.1.0"
 
-openapi-types@^12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/openapi-types/-/openapi-types-12.0.2.tgz#b752ab0a463c594fd7e3142e0e5983a9645503f6"
-  integrity sha512-GuTo7FyZjOIWVhIhQSWJVaws6A82sWIGyQogxxYBYKZ0NBdyP2CYSIgOwFfSB+UVoPExk/YzFpyYitHS8KVZtA==
+openapi-types@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/openapi-types/-/openapi-types-12.1.0.tgz#bd01acc937b73c9f6db2ac2031bf0231e21ebff0"
+  integrity sha512-XpeCy01X6L5EpP+6Hc3jWN7rMZJ+/k1lwki/kTmWzbVhdPie3jd5O2ZtedEx8Yp58icJ0osVldLMrTB/zslQXA==
 
 opener@^1.5.2:
   version "1.5.2"
