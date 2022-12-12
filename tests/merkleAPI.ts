@@ -199,6 +199,24 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#fetchUserCastLikes", function () {
+      it("can fetch multiple pages of likes", async function () {
+        let castCount = 0;
+        for await (const cast of client.fetchUserCastLikes(
+          { fid: userDwrFid },
+          {
+            pageSize: 5,
+          }
+        )) {
+          expectDefined(cast);
+          expectDefined(cast.hash);
+          castCount++;
+          if (castCount === 10) break;
+        }
+        expect(castCount).to.eq(10);
+      });
+    });
+
     describe("publish / delete casts", function () {
       let publishedCast: Cast | undefined;
       let reply: Cast | undefined;

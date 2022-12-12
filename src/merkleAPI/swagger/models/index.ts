@@ -75,6 +75,7 @@ export * from "./inline-response20015";
 export * from "./inline-response20016";
 export * from "./inline-response20016-result";
 export * from "./PaginationInfo";
+export * from "./UserCastLikesGetResponse";
 export * from "./inline-response2001-result";
 export * from "./inline-response2002";
 export * from "./inline-response2002-result";

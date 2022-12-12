@@ -423,6 +423,36 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Fetch the latest cast for the user, if there is one
+   */
+  public async *fetchUserCastLikes(
+    user: { fid: number },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Cast, void, undefined> {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of casts
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.casts.v2UserCastLikesGet(
+        user.fid,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.likes;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
    * Get all users that follow the specified user
    */
   public async *fetchUserFollowers(
