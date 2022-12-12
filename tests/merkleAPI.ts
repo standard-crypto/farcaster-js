@@ -113,6 +113,24 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#fetchCastsInThread", function () {
+      it("can fetch multiple pages of casts", async function () {
+        let castCount = 0;
+        const threadHash =
+          "0xc51b432e4c67a85208003ce2d8e015fe0966c00a7e62b4370e20db9d529770f0";
+        for await (const cast of client.fetchCastsInThread(
+          { hash: threadHash },
+          { pageSize: 1 }
+        )) {
+          expectDefined(cast);
+          expectDefined(cast.hash);
+          castCount++;
+          if (castCount === 2) break;
+        }
+        expect(castCount).to.eq(2);
+      });
+    });
+
     describe("#fetchRecentUsers", function () {
       it("can fetch multiple pages of users", async function () {
         let userCount = 0;

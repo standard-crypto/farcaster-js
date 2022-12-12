@@ -191,6 +191,37 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Fetches casts in a given thread.
+   * Note that the parent provided by the caller is included in the response.
+   */
+  public async *fetchCastsInThread(
+    threadParent: Cast | { hash: string },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Cast, void, undefined> {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.casts.v2AllCastsInThreadGet(
+        threadParent.hash,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.casts;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
    * Gets all casts (including replies and recasts) created by the specified user.
    *
    * @Note: Deleted cast filtering is applied server-side while recast filtering is applied
