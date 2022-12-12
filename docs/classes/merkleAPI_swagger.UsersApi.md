@@ -29,7 +29,9 @@ UsersApi - object-oriented interface
 ### Methods
 
 - [v2FnameGet](merkleAPI_swagger.UsersApi.md#v2fnameget)
+- [v2RecentUsersGet](merkleAPI_swagger.UsersApi.md#v2recentusersget)
 - [v2UserByUsernameGet](merkleAPI_swagger.UsersApi.md#v2userbyusernameget)
+- [v2UserByVerificationGet](merkleAPI_swagger.UsersApi.md#v2userbyverificationget)
 - [v2UserGet](merkleAPI_swagger.UsersApi.md#v2userget)
 
 ## Constructors
@@ -123,7 +125,32 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:403](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L403)
+[src/merkleAPI/swagger/apis/users-api.ts:629](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L629)
+
+___
+
+### v2RecentUsersGet
+
+▸ **v2RecentUsersGet**(`limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\>
+
+A list of users in reverse chronological order based on sign up
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `limit` | `number` |
+| `authorization` | `string` |
+| `cursor?` | `string` |
+| `options?` | `AxiosRequestConfig`<`any`\> |
+
+#### Returns
+
+`Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\>
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/users-api.ts:687](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L687)
 
 ___
 
@@ -153,7 +180,34 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:418](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L418)
+[src/merkleAPI/swagger/apis/users-api.ts:644](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L644)
+
+___
+
+### v2UserByVerificationGet
+
+▸ **v2UserByVerificationGet**(`address`, `authorization`, `options?`): `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>
+
+Checks if a given Ethereum address has a Farcaster user associated with it.
+Note: if an address is associated with multiple users, the API will return
+the user who most recently published a verification with the address
+(based on when Merkle received the proof, not a self-reported timestamp).
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `authorization` | `string` |
+| `options?` | `AxiosRequestConfig`<`any`\> |
+
+#### Returns
+
+`Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/users-api.ts:659](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L659)
 
 ___
 
@@ -183,4 +237,4 @@ UsersApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/users-api.ts:434](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L434)
+[src/merkleAPI/swagger/apis/users-api.ts:675](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L675)

@@ -21,7 +21,7 @@ InlineResponse2007
 
 ### next
 
-• `Optional` **next**: [`InlineResponse2001Next`](merkleAPI_swagger.InlineResponse2001Next.md)
+• `Optional` **next**: [`PaginationInfo`](merkleAPI_swagger.PaginationInfo.md)
 
 **`Memberof`**
 

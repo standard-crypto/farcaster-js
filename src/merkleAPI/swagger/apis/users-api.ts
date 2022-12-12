@@ -26,7 +26,7 @@ import {
   BaseAPI,
   RequiredError,
 } from "../base";
-import { InlineResponse20012 } from "../models";
+import { InlineResponse20012, RecentUsersGetResponse } from "../models";
 import { InlineResponse20013 } from "../models";
 /**
  * UsersApi - axios parameter creator
@@ -163,6 +163,75 @@ export const UsersApiAxiosParamCreator = function (
       };
     },
     /**
+     * Checks if a given Ethereum address has a Farcaster user associated with it.
+     * Note: if an address is associated with multiple users, the API will return
+     * the user who most recently published a verification with the address
+     * (based on when Merkle received the proof, not a self-reported timestamp).
+     */
+    v2UserByVerificationGet: async (
+      address: string,
+      authorization: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'address' is not null or undefined
+      if (address === null || address === undefined) {
+        throw new RequiredError(
+          "address",
+          "Required parameter address was null or undefined when calling v2UserByVerificationGet."
+        );
+      }
+      // verify required parameter 'authorization' is not null or undefined
+      if (authorization === null || authorization === undefined) {
+        throw new RequiredError(
+          "authorization",
+          "Required parameter authorization was null or undefined when calling v2UserByVerificationGet."
+        );
+      }
+      const localVarPath = `/v2/user-by-verification`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, "https://example.com");
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (address !== undefined && address !== null) {
+        localVarQueryParameter["address"] = String(address);
+      }
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter["authorization"] = String(authorization);
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search);
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key]);
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key]);
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString();
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Gets the specified user via their FID or fname (username).
      * @param {string} authorization
      * @param {*} [options] Override http request option.
@@ -207,6 +276,76 @@ export const UsersApiAxiosParamCreator = function (
       }
       if (authorization !== undefined && authorization !== null) {
         localVarHeaderParameter["authorization"] = String(authorization);
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search);
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key]);
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key]);
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString();
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * A list of users in reverse chronological order based on sign up.
+     */
+    v2RecentUsersGet: async (
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'limit' is not null or undefined
+      if (limit === null || limit === undefined) {
+        throw new RequiredError(
+          "limit",
+          "Required parameter limit was null or undefined when calling v2RecentUsersGet."
+        );
+      }
+      // verify required parameter 'authorization' is not null or undefined
+      if (authorization === null || authorization === undefined) {
+        throw new RequiredError(
+          "authorization",
+          "Required parameter authorization was null or undefined when calling v2UserGet."
+        );
+      }
+      const localVarPath = `/v2/recent-users`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, "https://example.com");
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (limit !== undefined && limit !== null) {
+        localVarQueryParameter["limit"] = String(limit);
+      }
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter["authorization"] = String(authorization);
+      }
+      if (cursor !== undefined) {
+        localVarQueryParameter["cursor"] = cursor;
       }
 
       const query = new URLSearchParams(localVarUrlObj.search);
@@ -299,6 +438,36 @@ export const UsersApiFp = function (configuration?: Configuration) {
       };
     },
     /**
+     * Checks if a given Ethereum address has a Farcaster user associated with it.
+     * Note: if an address is associated with multiple users, the API will return
+     * the user who most recently published a verification with the address
+     * (based on when Merkle received the proof, not a self-reported timestamp).
+     */
+    async v2UserByVerificationGet(
+      address: string,
+      authorization: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => Promise<AxiosResponse<InlineResponse20013>>
+    > {
+      const localVarAxiosArgs = await UsersApiAxiosParamCreator(
+        configuration
+      ).v2UserByVerificationGet(address, authorization, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs: AxiosRequestConfig = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * Gets the specified user via their FID or fname (username).
      * @param {string} authorization
      * @param {*} [options] Override http request option.
@@ -317,6 +486,34 @@ export const UsersApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs = await UsersApiAxiosParamCreator(
         configuration
       ).v2UserGet(fid, authorization, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs: AxiosRequestConfig = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     * A list of users in reverse chronological order based on sign up.
+     */
+    async v2RecentUsersGet(
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => Promise<AxiosResponse<RecentUsersGetResponse>>
+    > {
+      const localVarAxiosArgs = await UsersApiAxiosParamCreator(
+        configuration
+      ).v2RecentUsersGet(limit, authorization, cursor, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -370,6 +567,21 @@ export const UsersApiFactory = function (
         .then((request) => request(axios, basePath));
     },
     /**
+     * Checks if a given Ethereum address has a Farcaster user associated with it.
+     * Note: if an address is associated with multiple users, the API will return
+     * the user who most recently published a verification with the address
+     * (based on when Merkle received the proof, not a self-reported timestamp).
+     */
+    async v2UserByVerificationGet(
+      address: string,
+      authorization: string,
+      options?: AxiosRequestConfig
+    ): Promise<AxiosResponse<InlineResponse20013>> {
+      return UsersApiFp(configuration)
+        .v2UserByVerificationGet(address, authorization, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Gets the specified user via their FID or fname (username).
      * @param {string} authorization
      * @param {*} [options] Override http request option.
@@ -382,6 +594,20 @@ export const UsersApiFactory = function (
     ): Promise<AxiosResponse<InlineResponse20013>> {
       return UsersApiFp(configuration)
         .v2UserGet(fid, authorization, options)
+        .then((request) => request(axios, basePath));
+    },
+
+    /**
+     * A list of users in reverse chronological order based on sign up.
+     */
+    async v2RecentUsersGet(
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options?: AxiosRequestConfig
+    ): Promise<AxiosResponse<RecentUsersGetResponse>> {
+      return UsersApiFp(configuration)
+        .v2RecentUsersGet(limit, authorization, cursor, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -425,6 +651,21 @@ export class UsersApi extends BaseAPI {
       .then((request) => request(this.axios, this.basePath));
   }
   /**
+   * Checks if a given Ethereum address has a Farcaster user associated with it.
+   * Note: if an address is associated with multiple users, the API will return
+   * the user who most recently published a verification with the address
+   * (based on when Merkle received the proof, not a self-reported timestamp).
+   */
+  public async v2UserByVerificationGet(
+    address: string,
+    authorization: string,
+    options?: AxiosRequestConfig
+  ): Promise<AxiosResponse<InlineResponse20013>> {
+    return UsersApiFp(this.configuration)
+      .v2UserByVerificationGet(address, authorization, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+  /**
    * Gets the specified user via their FID or fname (username).
    * @param {string} authorization
    * @param {*} [options] Override http request option.
@@ -438,6 +679,19 @@ export class UsersApi extends BaseAPI {
   ): Promise<AxiosResponse<InlineResponse20013>> {
     return UsersApiFp(this.configuration)
       .v2UserGet(fid, authorization, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+  /**
+   * A list of users in reverse chronological order based on sign up
+   */
+  public async v2RecentUsersGet(
+    limit: number,
+    authorization: string,
+    cursor?: string,
+    options?: AxiosRequestConfig
+  ): Promise<AxiosResponse<RecentUsersGetResponse>> {
+    return UsersApiFp(this.configuration)
+      .v2RecentUsersGet(limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

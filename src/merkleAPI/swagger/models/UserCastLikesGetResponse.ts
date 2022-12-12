@@ -11,16 +11,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-/**
- *
- * @export
- * @interface InlineResponse2001Next
- */
-export interface InlineResponse2001Next {
-  /**
-   *
-   * @type {string}
-   * @memberof InlineResponse2001Next
-   */
-  cursor?: string;
+import { Cast } from "./Cast";
+import { PaginationInfo } from "./PaginationInfo";
+
+export interface UserCastLikesGetResponse {
+  result: UserCastLikesGetResponseResult;
+  next?: PaginationInfo;
+}
+
+export interface UserCastLikesGetResponseResult {
+  likes: Array<Cast>;
 }

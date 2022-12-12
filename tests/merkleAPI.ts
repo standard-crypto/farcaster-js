@@ -100,6 +100,67 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#fetchRecentCasts", function () {
+      it("can fetch multiple pages of casts", async function () {
+        let castCount = 0;
+        for await (const cast of client.fetchRecentCasts({ pageSize: 5 })) {
+          expectDefined(cast);
+          expectDefined(cast.hash);
+          castCount++;
+          if (castCount === 10) break;
+        }
+        expect(castCount).to.eq(10);
+      });
+    });
+
+    describe("#fetchCastsInThread", function () {
+      it("can fetch multiple pages of casts", async function () {
+        let castCount = 0;
+        const threadHash =
+          "0xc51b432e4c67a85208003ce2d8e015fe0966c00a7e62b4370e20db9d529770f0";
+        for await (const cast of client.fetchCastsInThread(
+          { hash: threadHash },
+          { pageSize: 1 }
+        )) {
+          expectDefined(cast);
+          expectDefined(cast.hash);
+          castCount++;
+          if (castCount === 2) break;
+        }
+        expect(castCount).to.eq(2);
+      });
+    });
+
+    describe("#fetchRecentUsers", function () {
+      it("can fetch multiple pages of users", async function () {
+        let userCount = 0;
+        for await (const user of client.fetchRecentUsers({ pageSize: 5 })) {
+          expectDefined(user);
+          expectDefined(user.username);
+          userCount++;
+          if (userCount === 10) break;
+        }
+        expect(userCount).to.eq(10);
+      });
+    });
+
+    describe("#fetchCast", function () {
+      it("can fetch an existing cast", async function () {
+        const existingCastHash =
+          "0xc51b432e4c67a85208003ce2d8e015fe0966c00a7e62b4370e20db9d529770f0";
+        const cast = await client.fetchCast(existingCastHash);
+        expectDefined(cast);
+        expect(cast.hash).to.eq(existingCastHash);
+      });
+
+      it("returns undefined for nonexistent cast", async function () {
+        const nonexistentCastHash =
+          "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+        const cast = await client.fetchCast(nonexistentCastHash);
+        expect(cast).to.be.undefined;
+      });
+    });
+
     describe("#fetchLatestCastForUser", function () {
       it("returns latest cast for user", async function () {
         const cast = await client.fetchLatestCastForUser({
@@ -137,6 +198,40 @@ if (privateKey !== undefined && privateKey !== "") {
       it("returns undefined if user not found", async function () {
         const user = await client.lookupUserByUsername("nosuchusername11"); // cSpell:disable-line
         expect(user).to.be.undefined;
+      });
+    });
+
+    describe("#lookupUserByVerification", function () {
+      it("can find existing user", async function () {
+        const user = await client.lookupUserByVerification(
+          "0xAA8b53BE5670d56bA9795AFCEdF6d39b96f5f1E2"
+        );
+        expect(user?.username).to.eq("gavi-bot");
+      });
+
+      it("returns undefined if address not found", async function () {
+        const user = await client.lookupUserByVerification(
+          "0x0000000000000000000000000000000000000000"
+        );
+        expect(user).to.be.undefined;
+      });
+    });
+
+    describe("#fetchUserCastLikes", function () {
+      it("can fetch multiple pages of likes", async function () {
+        let castCount = 0;
+        for await (const cast of client.fetchUserCastLikes(
+          { fid: userDwrFid },
+          {
+            pageSize: 5,
+          }
+        )) {
+          expectDefined(cast);
+          expectDefined(cast.hash);
+          castCount++;
+          if (castCount === 10) break;
+        }
+        expect(castCount).to.eq(10);
       });
     });
 

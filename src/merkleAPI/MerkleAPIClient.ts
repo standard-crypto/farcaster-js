@@ -165,6 +165,63 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Gets information about an individual cast
+   */
+  public async fetchCast(
+    castOrCastHash: Cast | string
+  ): Promise<Cast | undefined> {
+    const authToken = await this.getOrCreateValidAuthToken();
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    const response = await this.apis.casts.v2CastGet(
+      castHash,
+      authToken.secret,
+      {
+        validateStatus: (status) => {
+          return status === 200 || status === 404;
+        },
+      }
+    );
+    if (response.status === 404) return undefined;
+    return response.data.result.cast;
+  }
+
+  /**
+   * Fetches casts in a given thread.
+   * Note that the parent provided by the caller is included in the response.
+   */
+  public async *fetchCastsInThread(
+    threadParent: Cast | { hash: string },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Cast, void, undefined> {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.casts.v2AllCastsInThreadGet(
+        threadParent.hash,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.casts;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
    * Gets all casts (including replies and recasts) created by the specified user.
    *
    * @Note: Deleted cast filtering is applied server-side while recast filtering is applied
@@ -196,10 +253,7 @@ export class MerkleAPIClient {
       }
 
       // prep for next page
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -267,10 +321,68 @@ export class MerkleAPIClient {
       yield* response.data.result.notifications;
 
       // prep for next page
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * A list of the latest casts across all users in reverse chronological order based on timestamp
+   */
+  public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
+    Cast,
+    void,
+    undefined
+  > {
+    let cursor: string | undefined;
+    let response: AxiosResponse<InlineResponse2006>;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const authToken = await this.getOrCreateValidAuthToken();
+      response = await this.apis.casts.v2RecentCastsGet(
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.casts;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * A list of users in reverse chronological order based on sign up.
+   */
+  public async *fetchRecentUsers({ pageSize = 100 } = {}): AsyncGenerator<
+    User,
+    void,
+    undefined
+  > {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.users.v2RecentUsersGet(
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.users;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -301,10 +413,7 @@ export class MerkleAPIClient {
       yield* response.data.result.collections;
 
       // prep for next page
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -337,10 +446,37 @@ export class MerkleAPIClient {
       yield* response.data.result.assets;
 
       // prep for next page
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * Fetch the latest cast for the user, if there is one
+   */
+  public async *fetchUserCastLikes(
+    user: { fid: number },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Cast, void, undefined> {
+    let cursor: string | undefined;
+
+    while (true) {
+      // fetch one page of casts
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.casts.v2UserCastLikesGet(
+        user.fid,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      // yield current page of casts
+      yield* response.data.result.likes;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -371,10 +507,7 @@ export class MerkleAPIClient {
       yield* response.data.result.users;
 
       // prep for next page
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -405,10 +538,7 @@ export class MerkleAPIClient {
       yield* response.data.result.users;
 
       // prep for next page
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -434,10 +564,7 @@ export class MerkleAPIClient {
 
       yield* response.data.result.verifications;
 
-      if (
-        response.data.next === undefined ||
-        response.data.next.cursor === undefined
-      ) {
+      if (response.data.next?.cursor === undefined) {
         break;
       }
       cursor = response.data.next.cursor;
@@ -477,6 +604,29 @@ export class MerkleAPIClient {
     const authToken = await this.getOrCreateValidAuthToken();
     const response = await this.apis.users.v2UserByUsernameGet(
       username,
+      authToken.secret,
+      {
+        validateStatus: (status) => {
+          return status === 200 || status === 404;
+        },
+      }
+    );
+    if (response.status === 404) return undefined;
+    return response.data.result.user;
+  }
+
+  /**
+   * Checks if a given Ethereum address has a Farcaster user associated with it.
+   * Note: if an address is associated with multiple users, the API will return
+   * the user who most recently published a verification with the address
+   * (based on when Merkle received the proof, not a self-reported timestamp).
+   */
+  public async lookupUserByVerification(
+    address: string
+  ): Promise<User | undefined> {
+    const authToken = await this.getOrCreateValidAuthToken();
+    const response = await this.apis.users.v2UserByVerificationGet(
+      address,
       authToken.secret,
       {
         validateStatus: (status) => {

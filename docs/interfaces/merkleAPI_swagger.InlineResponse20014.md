@@ -21,15 +21,11 @@ InlineResponse20014
 
 ### next
 
-• `Optional` **next**: [`InlineResponse2001Next`](merkleAPI_swagger.InlineResponse2001Next.md)
-
-**`Memberof`**
-
-InlineResponse20014
+• `Optional` **next**: [`PaginationInfo`](merkleAPI_swagger.PaginationInfo.md)
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/inline-response20014.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response20014.ts#L33)
+[src/merkleAPI/swagger/models/inline-response20014.ts:28](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response20014.ts#L28)
 
 ___
 
