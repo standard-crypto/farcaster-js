@@ -71,7 +71,7 @@
     "esm": "^3.2.25",
     "husky": "^8.0.1",
     "markdown-magic": "^2.6.1",
-    "mocha": "^10.0.0",
+    "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "openapi-response-validator": "^12.0.2",
     "prettier": "^2.8.1",
