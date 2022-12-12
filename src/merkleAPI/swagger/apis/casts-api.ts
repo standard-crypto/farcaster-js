@@ -575,6 +575,78 @@ export const CastsApiAxiosParamCreator = function (
       };
     },
     /**
+     * A list of casts in reverse chronological order based on timestamp
+     */
+    v2RecentCastsGet: async (
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'limit' is not null or undefined
+      if (limit === null || limit === undefined) {
+        throw new RequiredError(
+          "limit",
+          "Required parameter limit was null or undefined when calling v2RecentCastsGet."
+        );
+      }
+      // verify required parameter 'authorization' is not null or undefined
+      if (authorization === null || authorization === undefined) {
+        throw new RequiredError(
+          "authorization",
+          "Required parameter authorization was null or undefined when calling v2RecentCastsGet."
+        );
+      }
+      const localVarPath = `/v2/recent-casts`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, "https://example.com");
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (cursor !== undefined) {
+        localVarQueryParameter["cursor"] = cursor;
+      }
+
+      if (limit !== undefined) {
+        localVarQueryParameter["limit"] = limit;
+      }
+
+      if (authorization !== undefined && authorization !== null) {
+        localVarHeaderParameter["authorization"] = String(authorization);
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search);
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key]);
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key]);
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString();
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Creates a cast for the currently authenticated user.
      * @param {string} authorization
      * @param {V2CastsBody} [body]
@@ -1017,6 +1089,34 @@ export const CastsApiFp = function (configuration?: Configuration) {
       };
     },
     /**
+     * A list of casts in reverse chronological order based on timestamp
+     */
+    async v2RecentCastsGet(
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => Promise<AxiosResponse<InlineResponse2006>>
+    > {
+      const localVarAxiosArgs = await CastsApiAxiosParamCreator(
+        configuration
+      ).v2RecentCastsGet(limit, authorization, cursor, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs: AxiosRequestConfig = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * Creates a cast for the currently authenticated user.
      * @param {string} authorization
      * @param {V2CastsBody} [body]
@@ -1247,6 +1347,19 @@ export const CastsApiFactory = function (
         .then((request) => request(axios, basePath));
     },
     /**
+     * A list of casts in reverse chronological order based on timestamp
+     */
+    async v2RecentCastsGet(
+      limit: number,
+      authorization: string,
+      cursor?: string,
+      options?: AxiosRequestConfig
+    ): Promise<AxiosResponse<InlineResponse2006>> {
+      return CastsApiFp(configuration)
+        .v2RecentCastsGet(limit, authorization, cursor, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Creates a cast for the currently authenticated user.
      * @param {string} authorization
      * @param {V2CastsBody} [body]
@@ -1432,6 +1545,19 @@ export class CastsApi extends BaseAPI {
         cursor,
         options
       )
+      .then((request) => request(this.axios, this.basePath));
+  }
+  /**
+   * A list of casts in reverse chronological order based on timestamp
+   */
+  public async v2RecentCastsGet(
+    limit: number,
+    authorization: string,
+    cursor?: string,
+    options?: AxiosRequestConfig
+  ): Promise<AxiosResponse<InlineResponse2006>> {
+    return CastsApiFp(this.configuration)
+      .v2RecentCastsGet(limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**

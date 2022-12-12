@@ -100,6 +100,19 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#fetchRecentCasts", function () {
+      it("can fetch multiple pages of casts", async function () {
+        let castCount = 0;
+        for await (const cast of client.fetchRecentCasts({ pageSize: 5 })) {
+          expectDefined(cast);
+          expectDefined(cast.hash);
+          castCount++;
+          if (castCount === 10) break;
+        }
+        expect(castCount).to.eq(10);
+      });
+    });
+
     describe("#fetchCast", function () {
       it("can fetch an existing cast", async function () {
         const existingCastHash =
