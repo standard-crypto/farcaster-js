@@ -555,6 +555,29 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Checks if a given Ethereum address has a Farcaster user associated with it.
+   * Note: if an address is associated with multiple users, the API will return
+   * the user who most recently published a verification with the address
+   * (based on when Merkle received the proof, not a self-reported timestamp).
+   */
+  public async lookupUserByVerification(
+    address: string
+  ): Promise<User | undefined> {
+    const authToken = await this.getOrCreateValidAuthToken();
+    const response = await this.apis.users.v2UserByVerificationGet(
+      address,
+      authToken.secret,
+      {
+        validateStatus: (status) => {
+          return status === 200 || status === 404;
+        },
+      }
+    );
+    if (response.status === 404) return undefined;
+    return response.data.result.user;
+  }
+
+  /**
    * Publishes a cast for the currently authenticated user
    */
   public async publishCast(

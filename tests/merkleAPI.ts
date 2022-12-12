@@ -183,6 +183,22 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
+    describe("#lookupUserByVerification", function () {
+      it("can find existing user", async function () {
+        const user = await client.lookupUserByVerification(
+          "0xAA8b53BE5670d56bA9795AFCEdF6d39b96f5f1E2"
+        );
+        expect(user?.username).to.eq("gavi-bot");
+      });
+
+      it("returns undefined if address not found", async function () {
+        const user = await client.lookupUserByVerification(
+          "0x0000000000000000000000000000000000000000"
+        );
+        expect(user).to.be.undefined;
+      });
+    });
+
     describe("publish / delete casts", function () {
       let publishedCast: Cast | undefined;
       let reply: Cast | undefined;
