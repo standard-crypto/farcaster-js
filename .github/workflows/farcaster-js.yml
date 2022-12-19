@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     concurrency:
-      group: ${{ github.workflow }}-${{ github.head_ref }}
-      cancel-in-progress: true
+      group: ci
 
     steps:
       - uses: actions/checkout@v3
