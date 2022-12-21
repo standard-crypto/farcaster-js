@@ -394,7 +394,7 @@ ___
 
 ▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `«destructured»?`): `AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
 
-Fetch all asset collections owned by the specified user.
+Fetch all assets owned by a given user for a specific collection.
 
 #### Parameters
 
@@ -420,7 +420,7 @@ ___
 
 ▸ **fetchUserCastLikes**(`user`, `«destructured»?`): `AsyncGenerator`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md), `void`, `undefined`\>
 
-Fetch the latest cast for the user, if there is one
+Fetch all likes by a given user.
 
 #### Parameters
 

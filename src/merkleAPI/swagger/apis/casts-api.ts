@@ -1896,7 +1896,7 @@ export class CastsApi extends BaseAPI {
       .then((request) => request(this.axios, this.basePath));
   }
   /**
-   * Returns all casts liked by a given user.
+   * Returns all likes by a given user.
    */
   public async v2UserCastLikesGet(
     fid: number,

@@ -437,7 +437,7 @@ export class MerkleAPIClient {
   }
 
   /**
-   * Fetch all asset collections owned by the specified user.
+   * Fetch all assets owned by a given user for a specific collection.
    */
   public async *fetchUserAssetsInCollection(
     user: { fid: number },
@@ -470,7 +470,7 @@ export class MerkleAPIClient {
   }
 
   /**
-   * Fetch the latest cast for the user, if there is one
+   * Fetch all likes by a given user.
    */
   public async *fetchUserCastLikes(
     user: { fid: number },
@@ -479,7 +479,7 @@ export class MerkleAPIClient {
     let cursor: string | undefined;
 
     while (true) {
-      // fetch one page of casts
+      // fetch one page of likes
       const authToken = await this.getOrCreateValidAuthToken();
       const response = await this.apis.casts.v2UserCastLikesGet(
         user.fid,
@@ -488,7 +488,7 @@ export class MerkleAPIClient {
         cursor
       );
 
-      // yield current page of casts
+      // yield current page of likes
       yield* response.data.result.likes;
 
       // prep for next page
