@@ -22,7 +22,8 @@ const testLogger: Logger = {
 
 const userDwrFid = 3;
 const userGaviFid = 69; // @gavi
-const userGaviBotFid = 1; // @gavi-bot
+const userGaviBotFid = 6365; // @gavi-bot
+const userFarcasterFid = 1; // @farcaster
 
 if (privateKey !== undefined && privateKey !== "") {
   describe("MerkleAPI", function () {
@@ -117,7 +118,7 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can fetch multiple pages of casts", async function () {
         let castCount = 0;
         const threadHash =
-          "0xc51b432e4c67a85208003ce2d8e015fe0966c00a7e62b4370e20db9d529770f0";
+          "0x832cfd5a2e54fc43c3f267c1ffdf4e63b0863cb0284a11ae0bafa7b0d0ef604a";
         for await (const cast of client.fetchCastsInThread(
           { hash: threadHash },
           { pageSize: 1 }
@@ -147,7 +148,7 @@ if (privateKey !== undefined && privateKey !== "") {
     describe("#fetchCast", function () {
       it("can fetch an existing cast", async function () {
         const existingCastHash =
-          "0xc51b432e4c67a85208003ce2d8e015fe0966c00a7e62b4370e20db9d529770f0";
+          "0x832cfd5a2e54fc43c3f267c1ffdf4e63b0863cb0284a11ae0bafa7b0d0ef604a";
         const cast = await client.fetchCast(existingCastHash);
         expectDefined(cast);
         expect(cast.hash).to.eq(existingCastHash);
@@ -486,7 +487,7 @@ if (privateKey !== undefined && privateKey !== "") {
         let verificationFound = false;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for await (const _ of client.fetchUserVerifications({
-          fid: userGaviBotFid,
+          fid: userFarcasterFid,
         })) {
           verificationFound = true;
         }
