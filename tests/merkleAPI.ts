@@ -1,4 +1,4 @@
-import { isApiErrorResponse, MerkleAPIClient } from "../src/merkleAPI";
+import { MerkleAPIClient } from "../src/merkleAPI";
 import { Wallet } from "ethers";
 import { expect } from "chai";
 import { Logger, silentLogger } from "../src/merkleAPI/logger";
@@ -501,7 +501,7 @@ if (privateKey !== undefined && privateKey !== "") {
         try {
           await client.deleteCast("SomeInvalidCastHash");
         } catch (error) {
-          if (isApiErrorResponse(error)) {
+          if (MerkleAPIClient.isApiErrorResponse(error)) {
             expect(error.response.status).to.eq(400);
 
             const apiErrors = error.response.data.errors;

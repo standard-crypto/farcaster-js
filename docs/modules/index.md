@@ -22,7 +22,6 @@
 
 ### Functions
 
-- [isApiErrorResponse](index.md#isapierrorresponse)
 - [publishCast](index.md#publishcast)
 
 ## Type Aliases
@@ -55,26 +54,6 @@ Typescript utility type to convert specific properties of a given type from opti
 [src/merkleAPI/logger.ts:13](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L13)
 
 ## Functions
-
-### isApiErrorResponse
-
-▸ **isApiErrorResponse**(`error`): error is WithRequired<AxiosError<ApiErrorResponse, any\>, "response"\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `error` | `any` |
-
-#### Returns
-
-error is WithRequired<AxiosError<ApiErrorResponse, any\>, "response"\>
-
-#### Defined in
-
-[src/merkleAPI/MerkleAPIClient.ts:44](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L44)
-
-___
 
 ### publishCast
 

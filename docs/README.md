@@ -140,10 +140,7 @@ await apiClient.followUser(user);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/errorParsing.ts) -->
 <!-- The below code snippet is automatically added from ./examples/errorParsing.ts -->
 ```ts
-import {
-  MerkleAPIClient,
-  isApiErrorResponse,
-} from "@standard-crypto/farcaster-js";
+import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
 
 // init
@@ -154,7 +151,7 @@ const apiClient = new MerkleAPIClient(wallet);
 try {
   await apiClient.deleteCast("SomeInvalidCastHash");
 } catch (error) {
-  if (isApiErrorResponse(error)) {
+  if (MerkleAPIClient.isApiErrorResponse(error)) {
     const apiErrors = error.response.data.errors;
     for (const apiError of apiErrors) {
       console.log(`API Error: ${apiError.message}`);

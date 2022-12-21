@@ -41,14 +41,6 @@ const TEN_MINUTES_IN_MILLIS = 600000;
 
 const BASE_PATH = "https://api.farcaster.xyz";
 
-export function isApiErrorResponse(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error: any
-): error is WithRequired<AxiosError<ApiErrorResponse>, "response"> {
-  if (!(error instanceof AxiosError)) return false;
-  return error.response?.data !== undefined && "errors" in error.response.data;
-}
-
 export class MerkleAPIClient {
   private authToken?: Promise<AuthToken>;
   private readonly logger: Logger;
@@ -80,7 +72,7 @@ export class MerkleAPIClient {
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (isApiErrorResponse(error)) {
+        if (MerkleAPIClient.isApiErrorResponse(error)) {
           const apiErrors = error.response.data;
           this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
         }
@@ -99,6 +91,21 @@ export class MerkleAPIClient {
       verifications: new VerificationsApi(config, undefined, axiosInstance),
       watches: new WatchesApi(config, undefined, axiosInstance),
     };
+  }
+
+  /**
+   * Utility for parsing errors returned by the Merkle API server. Returns true
+   * if the given error is caused by an error response from the server, and
+   * narrows the type of `error` accordingly.
+   */
+  public static isApiErrorResponse(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any
+  ): error is WithRequired<AxiosError<ApiErrorResponse>, "response"> {
+    if (!(error instanceof AxiosError)) return false;
+    return (
+      error.response?.data !== undefined && "errors" in error.response.data
+    );
   }
 
   /**
