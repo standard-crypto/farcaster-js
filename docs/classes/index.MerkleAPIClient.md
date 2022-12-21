@@ -417,7 +417,7 @@ ___
 
 ### fetchUserCastLikes
 
-▸ **fetchUserCastLikes**(`user`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+▸ **fetchUserCastLikes**(`user`, `«destructured»?`): `AsyncGenerator`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md), `void`, `undefined`\>
 
 Fetch the latest cast for the user, if there is one
 
@@ -432,7 +432,7 @@ Fetch the latest cast for the user, if there is one
 
 #### Returns
 
-`AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+`AsyncGenerator`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md), `void`, `undefined`\>
 
 #### Defined in
 

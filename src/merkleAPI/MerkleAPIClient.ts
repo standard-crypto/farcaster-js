@@ -459,7 +459,7 @@ export class MerkleAPIClient {
   public async *fetchUserCastLikes(
     user: { fid: number },
     { pageSize = 100 } = {}
-  ): AsyncGenerator<Cast, void, undefined> {
+  ): AsyncGenerator<CastReaction, void, undefined> {
     let cursor: string | undefined;
 
     while (true) {

@@ -228,6 +228,7 @@ if (privateKey !== undefined && privateKey !== "") {
         )) {
           expectDefined(cast);
           expectDefined(cast.hash);
+          expect(cast.type).to.eq("Like");
           castCount++;
           if (castCount === 10) break;
         }

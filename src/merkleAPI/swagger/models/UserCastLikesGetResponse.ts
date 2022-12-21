@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Cast } from "./Cast";
+import { CastReaction } from "./CastReaction";
 import { PaginationInfo } from "./PaginationInfo";
 
 export interface UserCastLikesGetResponse {
@@ -20,5 +20,5 @@ export interface UserCastLikesGetResponse {
 }
 
 export interface UserCastLikesGetResponseResult {
-  likes: Array<Cast>;
+  likes: Array<CastReaction>;
 }
