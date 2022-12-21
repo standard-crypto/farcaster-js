@@ -460,7 +460,7 @@ ___
 
 ▸ **v2UserCastLikesGet**(`fid`, `limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`UserCastLikesGetResponse`](../interfaces/merkleAPI_swagger.UserCastLikesGetResponse.md), `any`\>\>
 
-Returns all casts liked by a given user.
+Returns all likes by a given user.
 
 #### Parameters
 

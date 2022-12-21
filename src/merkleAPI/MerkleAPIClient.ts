@@ -31,9 +31,10 @@ import {
   Verification,
 } from "./swagger";
 import canonicalize from "canonicalize";
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "./logger";
 import { Notification } from "./swagger/models/Notification";
+import { WithRequired } from "../utils";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
@@ -71,9 +72,9 @@ export class MerkleAPIClient {
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if ("response" in error) {
-          const errorResponse = error.response.data as ApiErrorResponse;
-          this.logger.warn(`API errors: ${JSON.stringify(errorResponse)}`);
+        if (MerkleAPIClient.isApiErrorResponse(error)) {
+          const apiErrors = error.response.data;
+          this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
         }
         throw error;
       }
@@ -90,6 +91,21 @@ export class MerkleAPIClient {
       verifications: new VerificationsApi(config, undefined, axiosInstance),
       watches: new WatchesApi(config, undefined, axiosInstance),
     };
+  }
+
+  /**
+   * Utility for parsing errors returned by the Merkle API server. Returns true
+   * if the given error is caused by an error response from the server, and
+   * narrows the type of `error` accordingly.
+   */
+  public static isApiErrorResponse(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any
+  ): error is WithRequired<AxiosError<ApiErrorResponse>, "response"> {
+    if (!(error instanceof AxiosError)) return false;
+    return (
+      error.response?.data !== undefined && "errors" in error.response.data
+    );
   }
 
   /**
@@ -421,7 +437,7 @@ export class MerkleAPIClient {
   }
 
   /**
-   * Fetch all asset collections owned by the specified user.
+   * Fetch all assets owned by a given user for a specific collection.
    */
   public async *fetchUserAssetsInCollection(
     user: { fid: number },
@@ -454,16 +470,16 @@ export class MerkleAPIClient {
   }
 
   /**
-   * Fetch the latest cast for the user, if there is one
+   * Fetch all likes by a given user.
    */
   public async *fetchUserCastLikes(
     user: { fid: number },
     { pageSize = 100 } = {}
-  ): AsyncGenerator<Cast, void, undefined> {
+  ): AsyncGenerator<CastReaction, void, undefined> {
     let cursor: string | undefined;
 
     while (true) {
-      // fetch one page of casts
+      // fetch one page of likes
       const authToken = await this.getOrCreateValidAuthToken();
       const response = await this.apis.casts.v2UserCastLikesGet(
         user.fid,
@@ -472,7 +488,7 @@ export class MerkleAPIClient {
         cursor
       );
 
-      // yield current page of casts
+      // yield current page of likes
       yield* response.data.result.likes;
 
       // prep for next page

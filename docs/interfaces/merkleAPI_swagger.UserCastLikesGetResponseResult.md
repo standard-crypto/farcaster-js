@@ -14,7 +14,7 @@
 
 ### likes
 
-• **likes**: [`Cast`](merkleAPI_swagger.Cast.md)[]
+• **likes**: [`CastReaction`](merkleAPI_swagger.CastReaction.md)[]
 
 #### Defined in
 

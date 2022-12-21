@@ -12,6 +12,10 @@
 
 - [Logger](../interfaces/index.Logger.md)
 
+### Type Aliases
+
+- [WithRequired](index.md#withrequired)
+
 ### Variables
 
 - [silentLogger](index.md#silentlogger)
@@ -19,6 +23,25 @@
 ### Functions
 
 - [publishCast](index.md#publishcast)
+
+## Type Aliases
+
+### WithRequired
+
+Ƭ **WithRequired**<`T`, `K`\>: `T` & { [P in K]-?: T[P] }
+
+Typescript utility type to convert specific properties of a given type from optional to required
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `T` |
+| `K` | extends keyof `T` |
+
+#### Defined in
+
+[src/utils.ts:4](https://github.com/standard-crypto/farcaster-js/blob/main/src/utils.ts#L4)
 
 ## Variables
 
