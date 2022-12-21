@@ -31,14 +31,23 @@ import {
   Verification,
 } from "./swagger";
 import canonicalize from "canonicalize";
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "./logger";
 import { Notification } from "./swagger/models/Notification";
+import { WithRequired } from "../utils";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
 
 const BASE_PATH = "https://api.farcaster.xyz";
+
+export function isApiErrorResponse(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error: any
+): error is WithRequired<AxiosError<ApiErrorResponse>, "response"> {
+  if (!(error instanceof AxiosError)) return false;
+  return error.response?.data !== undefined && "errors" in error.response.data;
+}
 
 export class MerkleAPIClient {
   private authToken?: Promise<AuthToken>;
@@ -71,9 +80,9 @@ export class MerkleAPIClient {
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if ("response" in error) {
-          const errorResponse = error.response.data as ApiErrorResponse;
-          this.logger.warn(`API errors: ${JSON.stringify(errorResponse)}`);
+        if (isApiErrorResponse(error)) {
+          const apiErrors = error.response.data;
+          this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
         }
         throw error;
       }

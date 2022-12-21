@@ -1,4 +1,4 @@
-import { MerkleAPIClient } from "../src/merkleAPI";
+import { isApiErrorResponse, MerkleAPIClient } from "../src/merkleAPI";
 import { Wallet } from "ethers";
 import { expect } from "chai";
 import { Logger, silentLogger } from "../src/merkleAPI/logger";
@@ -13,9 +13,9 @@ const testLogger: Logger = {
   info: silentLogger.info,
   debug: silentLogger.debug,
   trace: silentLogger.trace,
+  warn: silentLogger.warn,
 
   /* eslint-disable no-console */
-  warn: console.warn,
   error: console.error,
   /* eslint-enable no-console */
 };
@@ -491,6 +491,26 @@ if (privateKey !== undefined && privateKey !== "") {
           verificationFound = true;
         }
         expect(verificationFound).to.be.false;
+      });
+    });
+
+    describe("error parsing", function () {
+      it("can parse an error response from the server", async function () {
+        let errorThrownAndParsedCorrectly = false;
+        try {
+          await client.deleteCast("SomeInvalidCastHash");
+        } catch (error) {
+          if (isApiErrorResponse(error)) {
+            expect(error.response.status).to.eq(400);
+
+            const apiErrors = error.response.data.errors;
+            expect(apiErrors).to.not.be.empty;
+            const apiError = apiErrors[0];
+            expect(apiError.message).to.not.be.empty;
+            errorThrownAndParsedCorrectly = true;
+          }
+        }
+        expect(errorThrownAndParsedCorrectly).to.be.true;
       });
     });
   });

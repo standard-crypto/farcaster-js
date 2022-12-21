@@ -16,6 +16,7 @@ A tool for interacting with the Farcaster social network.
   - [Fetch User Activity](#fetch-user-activity)
   - [Reply to a Cast](#reply-to-a-cast)
   - [Follow a User](#follow-a-user)
+  - [Parse an API Error Response](#parse-an-api-error-response)
 - [Documentation](#documentation)
   - [Merkle API Client](#merkle-api-client)
   - [Hubs](#hubs)
@@ -131,6 +132,37 @@ if (user === undefined) throw new Error("no such user");
 
 // follow an existing user
 await apiClient.followUser(user);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Parse an API Error Response
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/errorParsing.ts) -->
+<!-- The below code snippet is automatically added from ./examples/errorParsing.ts -->
+```ts
+import {
+  MerkleAPIClient,
+  isApiErrorResponse,
+} from "@standard-crypto/farcaster-js";
+import { Wallet } from "ethers";
+
+// init
+const wallet = Wallet.fromMnemonic("twelve words here");
+const apiClient = new MerkleAPIClient(wallet);
+
+// parse an error response from the API server
+try {
+  await apiClient.deleteCast("SomeInvalidCastHash");
+} catch (error) {
+  if (isApiErrorResponse(error)) {
+    const apiErrors = error.response.data.errors;
+    for (const apiError of apiErrors) {
+      console.log(`API Error: ${apiError.message}`);
+    }
+
+    console.log(`Status code: ${error.response.status}`);
+  }
+}
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
