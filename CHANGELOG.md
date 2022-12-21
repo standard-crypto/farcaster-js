@@ -1,3 +1,15 @@
+# [5.3.0](https://github.com/standard-crypto/farcaster-js/compare/v5.2.0...v5.3.0) (2022-12-21)
+
+
+### Bug Fixes
+
+* fix type returned by `fetchUserCastLikes` ([edacb1c](https://github.com/standard-crypto/farcaster-js/commit/edacb1c6e6271e4d7046c736b2c48681bc56ef18)), closes [#435](https://github.com/standard-crypto/farcaster-js/issues/435)
+
+
+### Features
+
+* add utility & docs for parsing Merkle API error responses ([098d4c2](https://github.com/standard-crypto/farcaster-js/commit/098d4c2a5bf66c4d4ff93c5bd55fecf14d57cb97)), closes [#435](https://github.com/standard-crypto/farcaster-js/issues/435)
+
 # [5.2.0](https://github.com/standard-crypto/farcaster-js/compare/v5.1.0...v5.2.0) (2022-12-12)
 
 
