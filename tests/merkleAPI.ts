@@ -1,11 +1,14 @@
 import { MerkleAPIClient } from "../src/merkleAPI";
 import { Wallet } from "ethers";
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
 import { Logger, silentLogger } from "../src/merkleAPI/logger";
 import { expectDefined } from "./utils";
 import { AuthToken, Cast, CastReaction } from "./merkleAPI/swagger";
 import OpenAPIResponseValidator from "openapi-response-validator";
 import apiDefinitions from "../src/merkleAPI/swagger/spec.json";
+
+chai.use(chaiAsPromised);
 
 const privateKey = process.env.INTEGRATION_TEST_USER_MNEMONIC;
 
@@ -395,18 +398,46 @@ if (privateKey !== undefined && privateKey !== "") {
 
     describe("auth", function () {
       let token: AuthToken;
+
       it("can create an auth token", async function () {
         token = await client.createAuthToken();
         expectDefined(token);
       });
+
       it("can revoke an auth token", async function () {
         expectDefined(token);
         await client.revokeAuthToken(token);
       });
+
       it("doesn't attempt to reuse revoked auth tokens", async function () {
         const token = await client.getOrCreateValidAuthToken();
         await client.revokeAuthToken(token);
         await client.fetchCurrentUser();
+      });
+
+      describe("user-supplied auth tokens", function () {
+        it("can be used to initialize an API client", async function () {
+          const token = await client.getOrCreateValidAuthToken();
+          const newClient = new MerkleAPIClient(token);
+          await newClient.fetchCurrentUser();
+        });
+
+        it("causes an error to be thrown if the token has expired", async function () {
+          const token = await client.createAuthToken(1);
+          const newClient = new MerkleAPIClient(token);
+          await expect(newClient.fetchCurrentUser()).to.be.rejectedWith(
+            "the AuthToken provided has expired"
+          );
+        });
+
+        it("causes an error to be thrown if the caller tries to mint new auth tokens", async function () {
+          const token = await client.getOrCreateValidAuthToken();
+          const newClient = new MerkleAPIClient(token);
+          await expect(newClient.getOrCreateValidAuthToken()).to.eventually.eq(
+            token
+          );
+          await expect(newClient.createAuthToken()).to.be.rejected;
+        });
       });
     });
 
