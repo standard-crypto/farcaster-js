@@ -433,9 +433,9 @@ if (privateKey !== undefined && privateKey !== "") {
         it("causes an error to be thrown if the caller tries to mint new auth tokens", async function () {
           const token = await client.getOrCreateValidAuthToken();
           const newClient = new MerkleAPIClient(token);
-          await expect(newClient.getOrCreateValidAuthToken()).to.eventually.eq(
-            token
-          );
+          const tokenCopy = await newClient.getOrCreateValidAuthToken();
+          expect(tokenCopy.secret).to.eq(token.secret);
+          expect(tokenCopy.expiresAt).to.eq(token.expiresAt);
           await expect(newClient.createAuthToken()).to.be.rejected;
         });
       });
