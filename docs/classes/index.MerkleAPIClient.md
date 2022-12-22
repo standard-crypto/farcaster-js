@@ -53,20 +53,24 @@
 
 ### constructor
 
-• **new MerkleAPIClient**(`wallet`, `«destructured»?`)
+• **new MerkleAPIClient**(`walletOrAuthToken`, `«destructured»?`)
+
+Instantiates a MerkleAPIClient
+
+Note: A Wallet must be provided if the API client is to mint new AuthTokens
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `wallet` | `Wallet` |
+| `walletOrAuthToken` | [`AuthToken`](../interfaces/index.AuthToken.md) \| `Wallet` |
 | `«destructured»` | `Object` |
 | › `axiosInstance?` | `AxiosInstance` |
 | › `logger?` | [`Logger`](../interfaces/index.Logger.md) |
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:60](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L60)
+[src/merkleAPI/MerkleAPIClient.ts:66](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L66)
 
 ## Properties
 
@@ -78,25 +82,25 @@
 
 | Name | Type |
 | :------ | :------ |
-| `assets` | [`AssetsApi`](merkleAPI_swagger.AssetsApi.md) |
-| `auth` | [`AuthApi`](merkleAPI_swagger.AuthApi.md) |
-| `casts` | [`CastsApi`](merkleAPI_swagger.CastsApi.md) |
-| `follows` | [`FollowsApi`](merkleAPI_swagger.FollowsApi.md) |
-| `notifications` | [`NotificationsApi`](merkleAPI_swagger.NotificationsApi.md) |
-| `user` | [`UserApi`](merkleAPI_swagger.UserApi.md) |
-| `users` | [`UsersApi`](merkleAPI_swagger.UsersApi.md) |
-| `verifications` | [`VerificationsApi`](merkleAPI_swagger.VerificationsApi.md) |
-| `watches` | [`WatchesApi`](merkleAPI_swagger.WatchesApi.md) |
+| `assets` | [`AssetsApi`](index.AssetsApi.md) |
+| `auth` | [`AuthApi`](index.AuthApi.md) |
+| `casts` | [`CastsApi`](index.CastsApi.md) |
+| `follows` | [`FollowsApi`](index.FollowsApi.md) |
+| `notifications` | [`NotificationsApi`](index.NotificationsApi.md) |
+| `user` | [`UserApi`](index.UserApi.md) |
+| `users` | [`UsersApi`](index.UsersApi.md) |
+| `verifications` | [`VerificationsApi`](index.VerificationsApi.md) |
+| `watches` | [`WatchesApi`](index.WatchesApi.md) |
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:48](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L48)
+[src/merkleAPI/MerkleAPIClient.ts:49](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L49)
 
 ## Methods
 
 ### createAuthToken
 
-▸ **createAuthToken**(`expiryDurationMillis?`): `Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+▸ **createAuthToken**(`expiryDurationMillis?`): `Promise`<[`AuthToken`](../interfaces/index.AuthToken.md)\>
 
 Creates a new auth token from the signing key of the Wallet
 configured with this API client.
@@ -109,11 +113,11 @@ configured with this API client.
 
 #### Returns
 
-`Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+`Promise`<[`AuthToken`](../interfaces/index.AuthToken.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:115](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L115)
+[src/merkleAPI/MerkleAPIClient.ts:129](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L129)
 
 ___
 
@@ -127,7 +131,7 @@ Delete a cast
 
 | Name | Type |
 | :------ | :------ |
-| `castOrCastHash` | `string` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) |
+| `castOrCastHash` | `string` \| [`Cast`](../interfaces/index.Cast.md) |
 
 #### Returns
 
@@ -135,7 +139,7 @@ Delete a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:158](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L158)
+[src/merkleAPI/MerkleAPIClient.ts:176](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L176)
 
 ___
 
@@ -149,7 +153,7 @@ Delete a recast
 
 | Name | Type |
 | :------ | :------ |
-| `castOrCastHash` | `string` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) |
+| `castOrCastHash` | `string` \| [`Cast`](../interfaces/index.Cast.md) |
 
 #### Returns
 
@@ -157,13 +161,13 @@ Delete a recast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:172](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L172)
+[src/merkleAPI/MerkleAPIClient.ts:190](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L190)
 
 ___
 
 ### fetchCast
 
-▸ **fetchCast**(`castOrCastHash`): `Promise`<`undefined` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)\>
+▸ **fetchCast**(`castOrCastHash`): `Promise`<`undefined` \| [`Cast`](../interfaces/index.Cast.md)\>
 
 Gets information about an individual cast
 
@@ -171,21 +175,21 @@ Gets information about an individual cast
 
 | Name | Type |
 | :------ | :------ |
-| `castOrCastHash` | `string` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) |
+| `castOrCastHash` | `string` \| [`Cast`](../interfaces/index.Cast.md) |
 
 #### Returns
 
-`Promise`<`undefined` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)\>
+`Promise`<`undefined` \| [`Cast`](../interfaces/index.Cast.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:186](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L186)
+[src/merkleAPI/MerkleAPIClient.ts:204](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L204)
 
 ___
 
 ### fetchCastsForUser
 
-▸ **fetchCastsForUser**(`user`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+▸ **fetchCastsForUser**(`user`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/index.Cast.md), `void`, `undefined`\>
 
 Gets all casts (including replies and recasts) created by the specified user.
 
@@ -205,17 +209,17 @@ client-side.
 
 #### Returns
 
-`AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+`AsyncGenerator`<[`Cast`](../interfaces/index.Cast.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:246](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L246)
+[src/merkleAPI/MerkleAPIClient.ts:264](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L264)
 
 ___
 
 ### fetchCastsInThread
 
-▸ **fetchCastsInThread**(`threadParent`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+▸ **fetchCastsInThread**(`threadParent`, `«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/index.Cast.md), `void`, `undefined`\>
 
 Fetches casts in a given thread.
 Note that the parent provided by the caller is included in the response.
@@ -224,33 +228,33 @@ Note that the parent provided by the caller is included in the response.
 
 | Name | Type |
 | :------ | :------ |
-| `threadParent` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) \| { `hash`: `string`  } |
+| `threadParent` | [`Cast`](../interfaces/index.Cast.md) \| { `hash`: `string`  } |
 | `«destructured»` | `Object` |
 | › `pageSize` | `undefined` \| `number` |
 
 #### Returns
 
-`AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+`AsyncGenerator`<[`Cast`](../interfaces/index.Cast.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:213](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L213)
+[src/merkleAPI/MerkleAPIClient.ts:231](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L231)
 
 ___
 
 ### fetchCurrentUser
 
-▸ **fetchCurrentUser**(): `Promise`<[`User`](../interfaces/merkleAPI_swagger.User.md)\>
+▸ **fetchCurrentUser**(): `Promise`<[`User`](../interfaces/index.User.md)\>
 
 Gets the currently authenticated user
 
 #### Returns
 
-`Promise`<[`User`](../interfaces/merkleAPI_swagger.User.md)\>
+`Promise`<[`User`](../interfaces/index.User.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:282](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L282)
+[src/merkleAPI/MerkleAPIClient.ts:300](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L300)
 
 ___
 
@@ -262,7 +266,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `userOrUsername` | `string` \| [`User`](../interfaces/merkleAPI_swagger.User.md) |
+| `userOrUsername` | `string` \| [`User`](../interfaces/index.User.md) |
 
 #### Returns
 
@@ -270,13 +274,13 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:288](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L288)
+[src/merkleAPI/MerkleAPIClient.ts:306](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L306)
 
 ___
 
 ### fetchLatestCastForUser
 
-▸ **fetchLatestCastForUser**(`user`, `includeRecasts?`): `Promise`<`undefined` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)\>
+▸ **fetchLatestCastForUser**(`user`, `includeRecasts?`): `Promise`<`undefined` \| [`Cast`](../interfaces/index.Cast.md)\>
 
 Fetch the latest cast for the user, if there is one
 
@@ -290,17 +294,17 @@ Fetch the latest cast for the user, if there is one
 
 #### Returns
 
-`Promise`<`undefined` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)\>
+`Promise`<`undefined` \| [`Cast`](../interfaces/index.Cast.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:307](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L307)
+[src/merkleAPI/MerkleAPIClient.ts:325](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L325)
 
 ___
 
 ### fetchMentionAndReplyNotifications
 
-▸ **fetchMentionAndReplyNotifications**(`«destructured»?`): `AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
+▸ **fetchMentionAndReplyNotifications**(`«destructured»?`): `AsyncGenerator`<[`Notification`](../modules/index.md#notification), `void`, `undefined`\>
 
 #### Parameters
 
@@ -311,17 +315,17 @@ ___
 
 #### Returns
 
-`AsyncGenerator`<[`Notification`](../modules/merkleAPI_swagger.md#notification), `void`, `undefined`\>
+`AsyncGenerator`<[`Notification`](../modules/index.md#notification), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:321](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L321)
+[src/merkleAPI/MerkleAPIClient.ts:339](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L339)
 
 ___
 
 ### fetchRecentCasts
 
-▸ **fetchRecentCasts**(`«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+▸ **fetchRecentCasts**(`«destructured»?`): `AsyncGenerator`<[`Cast`](../interfaces/index.Cast.md), `void`, `undefined`\>
 
 A list of the latest casts across all users in reverse chronological order based on timestamp
 
@@ -334,17 +338,17 @@ A list of the latest casts across all users in reverse chronological order based
 
 #### Returns
 
-`AsyncGenerator`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md), `void`, `undefined`\>
+`AsyncGenerator`<[`Cast`](../interfaces/index.Cast.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:350](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L350)
+[src/merkleAPI/MerkleAPIClient.ts:368](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L368)
 
 ___
 
 ### fetchRecentUsers
 
-▸ **fetchRecentUsers**(`«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchRecentUsers**(`«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/index.User.md), `void`, `undefined`\>
 
 A list of users in reverse chronological order based on sign up.
 
@@ -357,17 +361,17 @@ A list of users in reverse chronological order based on sign up.
 
 #### Returns
 
-`AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+`AsyncGenerator`<[`User`](../interfaces/index.User.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:381](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L381)
+[src/merkleAPI/MerkleAPIClient.ts:399](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L399)
 
 ___
 
 ### fetchUserAssetCollections
 
-▸ **fetchUserAssetCollections**(`user`, `«destructured»?`): `AsyncGenerator`<[`AssetCollection`](../interfaces/merkleAPI_swagger.AssetCollection.md), `void`, `undefined`\>
+▸ **fetchUserAssetCollections**(`user`, `«destructured»?`): `AsyncGenerator`<[`AssetCollection`](../interfaces/index.AssetCollection.md), `void`, `undefined`\>
 
 Fetch all asset collections owned by the specified user.
 
@@ -382,17 +386,17 @@ Fetch all asset collections owned by the specified user.
 
 #### Returns
 
-`AsyncGenerator`<[`AssetCollection`](../interfaces/merkleAPI_swagger.AssetCollection.md), `void`, `undefined`\>
+`AsyncGenerator`<[`AssetCollection`](../interfaces/index.AssetCollection.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:411](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L411)
+[src/merkleAPI/MerkleAPIClient.ts:429](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L429)
 
 ___
 
 ### fetchUserAssetsInCollection
 
-▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `«destructured»?`): `AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
+▸ **fetchUserAssetsInCollection**(`user`, `collectionId`, `«destructured»?`): `AsyncGenerator`<[`Asset`](../interfaces/index.Asset.md), `void`, `undefined`\>
 
 Fetch all assets owned by a given user for a specific collection.
 
@@ -408,17 +412,17 @@ Fetch all assets owned by a given user for a specific collection.
 
 #### Returns
 
-`AsyncGenerator`<[`Asset`](../interfaces/merkleAPI_swagger.Asset.md), `void`, `undefined`\>
+`AsyncGenerator`<[`Asset`](../interfaces/index.Asset.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:442](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L442)
+[src/merkleAPI/MerkleAPIClient.ts:460](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L460)
 
 ___
 
 ### fetchUserCastLikes
 
-▸ **fetchUserCastLikes**(`user`, `«destructured»?`): `AsyncGenerator`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md), `void`, `undefined`\>
+▸ **fetchUserCastLikes**(`user`, `«destructured»?`): `AsyncGenerator`<[`CastReaction`](../interfaces/index.CastReaction.md), `void`, `undefined`\>
 
 Fetch all likes by a given user.
 
@@ -433,17 +437,17 @@ Fetch all likes by a given user.
 
 #### Returns
 
-`AsyncGenerator`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md), `void`, `undefined`\>
+`AsyncGenerator`<[`CastReaction`](../interfaces/index.CastReaction.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:475](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L475)
+[src/merkleAPI/MerkleAPIClient.ts:493](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L493)
 
 ___
 
 ### fetchUserFollowers
 
-▸ **fetchUserFollowers**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchUserFollowers**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/index.User.md), `void`, `undefined`\>
 
 Get all users that follow the specified user
 
@@ -458,17 +462,17 @@ Get all users that follow the specified user
 
 #### Returns
 
-`AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+`AsyncGenerator`<[`User`](../interfaces/index.User.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:505](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L505)
+[src/merkleAPI/MerkleAPIClient.ts:523](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L523)
 
 ___
 
 ### fetchUserFollowing
 
-▸ **fetchUserFollowing**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+▸ **fetchUserFollowing**(`user`, `«destructured»?`): `AsyncGenerator`<[`User`](../interfaces/index.User.md), `void`, `undefined`\>
 
 Get all users the specified user is following.
 
@@ -483,17 +487,17 @@ Get all users the specified user is following.
 
 #### Returns
 
-`AsyncGenerator`<[`User`](../interfaces/merkleAPI_swagger.User.md), `void`, `undefined`\>
+`AsyncGenerator`<[`User`](../interfaces/index.User.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:536](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L536)
+[src/merkleAPI/MerkleAPIClient.ts:554](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L554)
 
 ___
 
 ### fetchUserVerifications
 
-▸ **fetchUserVerifications**(`user`, `«destructured»?`): `AsyncGenerator`<[`Verification`](../interfaces/merkleAPI_swagger.Verification.md), `void`, `undefined`\>
+▸ **fetchUserVerifications**(`user`, `«destructured»?`): `AsyncGenerator`<[`Verification`](../interfaces/index.Verification.md), `void`, `undefined`\>
 
 #### Parameters
 
@@ -506,11 +510,11 @@ ___
 
 #### Returns
 
-`AsyncGenerator`<[`Verification`](../interfaces/merkleAPI_swagger.Verification.md), `void`, `undefined`\>
+`AsyncGenerator`<[`Verification`](../interfaces/index.Verification.md), `void`, `undefined`\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:564](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L564)
+[src/merkleAPI/MerkleAPIClient.ts:582](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L582)
 
 ___
 
@@ -533,13 +537,13 @@ Follow a user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:593](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L593)
+[src/merkleAPI/MerkleAPIClient.ts:611](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L611)
 
 ___
 
 ### getOrCreateValidAuthToken
 
-▸ **getOrCreateValidAuthToken**(): `Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+▸ **getOrCreateValidAuthToken**(): `Promise`<[`AuthToken`](../interfaces/index.AuthToken.md)\>
 
 Returns an existing valid auth token if one exists, otherwise provisions
 a new one from the signing key of the given Wallet.
@@ -548,17 +552,17 @@ Note that provisioning a new auth token requires an API round trip.
 
 #### Returns
 
-`Promise`<[`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md)\>
+`Promise`<[`AuthToken`](../interfaces/index.AuthToken.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:140](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L140)
+[src/merkleAPI/MerkleAPIClient.ts:154](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L154)
 
 ___
 
 ### lookupUserByFid
 
-▸ **lookupUserByFid**(`fid`): `Promise`<`undefined` \| [`User`](../interfaces/merkleAPI_swagger.User.md)\>
+▸ **lookupUserByFid**(`fid`): `Promise`<`undefined` \| [`User`](../interfaces/index.User.md)\>
 
 Gets the specified user via their FID (if found)
 
@@ -570,17 +574,17 @@ Gets the specified user via their FID (if found)
 
 #### Returns
 
-`Promise`<`undefined` \| [`User`](../interfaces/merkleAPI_swagger.User.md)\>
+`Promise`<`undefined` \| [`User`](../interfaces/index.User.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:603](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L603)
+[src/merkleAPI/MerkleAPIClient.ts:621](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L621)
 
 ___
 
 ### lookupUserByUsername
 
-▸ **lookupUserByUsername**(`username`): `Promise`<`undefined` \| [`User`](../interfaces/merkleAPI_swagger.User.md)\>
+▸ **lookupUserByUsername**(`username`): `Promise`<`undefined` \| [`User`](../interfaces/index.User.md)\>
 
 Gets the specified user via their username (if found)
 
@@ -592,17 +596,17 @@ Gets the specified user via their username (if found)
 
 #### Returns
 
-`Promise`<`undefined` \| [`User`](../interfaces/merkleAPI_swagger.User.md)\>
+`Promise`<`undefined` \| [`User`](../interfaces/index.User.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:617](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L617)
+[src/merkleAPI/MerkleAPIClient.ts:635](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L635)
 
 ___
 
 ### lookupUserByVerification
 
-▸ **lookupUserByVerification**(`address`): `Promise`<`undefined` \| [`User`](../interfaces/merkleAPI_swagger.User.md)\>
+▸ **lookupUserByVerification**(`address`): `Promise`<`undefined` \| [`User`](../interfaces/index.User.md)\>
 
 Checks if a given Ethereum address has a Farcaster user associated with it.
 Note: if an address is associated with multiple users, the API will return
@@ -617,17 +621,17 @@ the user who most recently published a verification with the address
 
 #### Returns
 
-`Promise`<`undefined` \| [`User`](../interfaces/merkleAPI_swagger.User.md)\>
+`Promise`<`undefined` \| [`User`](../interfaces/index.User.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:640](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L640)
+[src/merkleAPI/MerkleAPIClient.ts:658](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L658)
 
 ___
 
 ### publishCast
 
-▸ **publishCast**(`text`, `replyTo?`): `Promise`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md)\>
+▸ **publishCast**(`text`, `replyTo?`): `Promise`<[`Cast`](../interfaces/index.Cast.md)\>
 
 Publishes a cast for the currently authenticated user
 
@@ -636,21 +640,21 @@ Publishes a cast for the currently authenticated user
 | Name | Type |
 | :------ | :------ |
 | `text` | `string` |
-| `replyTo?` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) \| { `fid`: `number` ; `hash`: `string`  } |
+| `replyTo?` | [`Cast`](../interfaces/index.Cast.md) \| { `fid`: `number` ; `hash`: `string`  } |
 
 #### Returns
 
-`Promise`<[`Cast`](../interfaces/merkleAPI_swagger.Cast.md)\>
+`Promise`<[`Cast`](../interfaces/index.Cast.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:660](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L660)
+[src/merkleAPI/MerkleAPIClient.ts:678](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L678)
 
 ___
 
 ### reactToCast
 
-▸ **reactToCast**(`reaction`, `cast`): `Promise`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md)\>
+▸ **reactToCast**(`reaction`, `cast`): `Promise`<[`CastReaction`](../interfaces/index.CastReaction.md)\>
 
 React to a cast
 
@@ -659,15 +663,15 @@ React to a cast
 | Name | Type |
 | :------ | :------ |
 | `reaction` | ``"Like"`` |
-| `cast` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) \| { `castHash`: `string`  } |
+| `cast` | [`Cast`](../interfaces/index.Cast.md) \| { `castHash`: `string`  } |
 
 #### Returns
 
-`Promise`<[`CastReaction`](../interfaces/merkleAPI_swagger.CastReaction.md)\>
+`Promise`<[`CastReaction`](../interfaces/index.CastReaction.md)\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:687](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L687)
+[src/merkleAPI/MerkleAPIClient.ts:705](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L705)
 
 ___
 
@@ -681,7 +685,7 @@ Recast a cast
 
 | Name | Type |
 | :------ | :------ |
-| `castOrCastHash` | `string` \| [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) |
+| `castOrCastHash` | `string` \| [`Cast`](../interfaces/index.Cast.md) |
 
 #### Returns
 
@@ -689,7 +693,7 @@ Recast a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:712](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L712)
+[src/merkleAPI/MerkleAPIClient.ts:730](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L730)
 
 ___
 
@@ -704,7 +708,7 @@ Remove a reaction to a cast
 | Name | Type |
 | :------ | :------ |
 | `reaction` | ``"Like"`` |
-| `cast` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) \| { `castHash`: `string`  } |
+| `cast` | [`Cast`](../interfaces/index.Cast.md) \| { `castHash`: `string`  } |
 
 #### Returns
 
@@ -712,7 +716,7 @@ Remove a reaction to a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:728](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L728)
+[src/merkleAPI/MerkleAPIClient.ts:746](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L746)
 
 ___
 
@@ -724,7 +728,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `authToken` | [`AuthToken`](../interfaces/merkleAPI_swagger.AuthToken.md) |
+| `authToken` | [`AuthToken`](../interfaces/index.AuthToken.md) |
 
 #### Returns
 
@@ -732,7 +736,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:746](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L746)
+[src/merkleAPI/MerkleAPIClient.ts:764](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L764)
 
 ___
 
@@ -755,7 +759,7 @@ Unfollow a user
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:770](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L770)
+[src/merkleAPI/MerkleAPIClient.ts:788](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L788)
 
 ___
 
@@ -769,7 +773,7 @@ Unwatch a cast
 
 | Name | Type |
 | :------ | :------ |
-| `cast` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) \| { `castHash`: `string` ; `casterFid`: `number`  } |
+| `cast` | [`Cast`](../interfaces/index.Cast.md) \| { `castHash`: `string` ; `casterFid`: `number`  } |
 
 #### Returns
 
@@ -777,7 +781,7 @@ Unwatch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:780](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L780)
+[src/merkleAPI/MerkleAPIClient.ts:798](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L798)
 
 ___
 
@@ -791,7 +795,7 @@ Watch a cast
 
 | Name | Type |
 | :------ | :------ |
-| `cast` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md) \| { `castHash`: `string` ; `casterFid`: `number`  } |
+| `cast` | [`Cast`](../interfaces/index.Cast.md) \| { `castHash`: `string` ; `casterFid`: `number`  } |
 
 #### Returns
 
@@ -799,7 +803,7 @@ Watch a cast
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:803](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L803)
+[src/merkleAPI/MerkleAPIClient.ts:821](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L821)
 
 ___
 
@@ -823,4 +827,4 @@ error is WithRequired<AxiosError<ApiErrorResponse, any\>, "response"\>
 
 #### Defined in
 
-[src/merkleAPI/MerkleAPIClient.ts:101](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L101)
+[src/merkleAPI/MerkleAPIClient.ts:115](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/MerkleAPIClient.ts#L115)

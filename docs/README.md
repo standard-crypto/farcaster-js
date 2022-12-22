@@ -17,6 +17,7 @@ A tool for interacting with the Farcaster social network.
   - [Reply to a Cast](#reply-to-a-cast)
   - [Follow a User](#follow-a-user)
   - [Parse an API Error Response](#parse-an-api-error-response)
+  - [Use a User-Supplied Auth Token](#use-a-user-supplied-auth-token)
 - [Documentation](#documentation)
   - [Merkle API Client](#merkle-api-client)
   - [Hubs](#hubs)
@@ -160,6 +161,26 @@ try {
     console.log(`Status code: ${error.response.status}`);
   }
 }
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Use a User-Supplied Auth Token
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/userSuppliedAuthTokens.ts) -->
+<!-- The below code snippet is automatically added from ./examples/userSuppliedAuthTokens.ts -->
+```ts
+import { type AuthToken, MerkleAPIClient } from "@standard-crypto/farcaster-js";
+
+// use an auth token provided directly by a user
+const authToken: AuthToken = {
+  secret: "MK-abc123...",
+  expiresAt: 123456789,
+};
+const apiClient = new MerkleAPIClient(authToken);
+
+// lookup that user
+const user = await apiClient.fetchCurrentUser();
+console.log(user.displayName);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
