@@ -34,7 +34,7 @@ import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "./logger";
 import { Notification } from "./swagger/models/Notification";
-import { WithRequired } from "../utils";
+import type { WithRequired } from "../utils";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
@@ -44,6 +44,7 @@ const BASE_PATH = "https://api.farcaster.xyz";
 export class MerkleAPIClient {
   private authToken?: Promise<AuthToken>;
   private readonly logger: Logger;
+  private readonly wallet?: Wallet;
 
   public readonly apis: {
     assets: AssetsApi;
@@ -57,14 +58,30 @@ export class MerkleAPIClient {
     watches: WatchesApi;
   };
 
+  /**
+   * Instantiates a MerkleAPIClient
+   *
+   * Note: A Wallet must be provided if the API client is to mint new AuthTokens
+   */
   constructor(
-    private readonly wallet: Wallet,
+    walletOrAuthToken: Wallet | { secret: string; expiresAt?: number },
     {
       logger = silentLogger,
       axiosInstance,
     }: { logger?: Logger; axiosInstance?: AxiosInstance } = {}
   ) {
     this.logger = logger;
+
+    if (walletOrAuthToken instanceof Wallet) {
+      this.wallet = walletOrAuthToken;
+    } else {
+      const authToken: AuthToken = {
+        secret: walletOrAuthToken.secret,
+        expiresAt: walletOrAuthToken.expiresAt ?? 33228645430000,
+      };
+      this.authToken = Promise.resolve(authToken);
+    }
+
     if (axiosInstance === undefined) {
       axiosInstance = axios.create();
     }
@@ -79,6 +96,7 @@ export class MerkleAPIClient {
         throw error;
       }
     );
+
     const config = { basePath: BASE_PATH };
     this.apis = {
       assets: new AssetsApi(config, undefined, axiosInstance),
@@ -144,6 +162,10 @@ export class MerkleAPIClient {
     ) {
       // existing auth token is still valid
       return await this.authToken;
+    }
+
+    if (this.wallet === undefined) {
+      throw new Error("the AuthToken provided has expired");
     }
 
     // queue up a request for a new auth token
@@ -822,8 +844,15 @@ export class MerkleAPIClient {
 
   private async _authHeader(params: V2AuthBody | V2AuthBody1): Promise<string> {
     const payload = canonicalize(params);
-    if (payload === undefined)
+    if (payload === undefined) {
       throw new Error("failed to canonicalize auth params");
+    }
+
+    if (this.wallet === undefined) {
+      throw new Error(
+        "MerkleAPIClient cannot create new auth tokens as it was initialized without a Wallet instance"
+      );
+    }
 
     const signature = Buffer.from(
       utils.arrayify(await this.wallet.signMessage(payload))

@@ -4,1240 +4,1153 @@
 
 ## Table of contents
 
-### Enumerations
+### References
 
-- [V2AuthBody1MethodEnum](../enums/merkleAPI_swagger.V2AuthBody1MethodEnum.md)
-- [V2AuthBodyMethodEnum](../enums/merkleAPI_swagger.V2AuthBodyMethodEnum.md)
-
-### Classes
-
-- [AssetsApi](../classes/merkleAPI_swagger.AssetsApi.md)
-- [AuthApi](../classes/merkleAPI_swagger.AuthApi.md)
-- [BaseAPI](../classes/merkleAPI_swagger.BaseAPI.md)
-- [CastsApi](../classes/merkleAPI_swagger.CastsApi.md)
-- [Configuration](../classes/merkleAPI_swagger.Configuration.md)
-- [FollowsApi](../classes/merkleAPI_swagger.FollowsApi.md)
-- [MiscellaneousApi](../classes/merkleAPI_swagger.MiscellaneousApi.md)
-- [NotificationsApi](../classes/merkleAPI_swagger.NotificationsApi.md)
-- [RequiredError](../classes/merkleAPI_swagger.RequiredError.md)
-- [UserApi](../classes/merkleAPI_swagger.UserApi.md)
-- [UsersApi](../classes/merkleAPI_swagger.UsersApi.md)
-- [VerificationsApi](../classes/merkleAPI_swagger.VerificationsApi.md)
-- [WatchesApi](../classes/merkleAPI_swagger.WatchesApi.md)
-
-### Interfaces
-
-- [ApiAssetEventFeedItem](../interfaces/merkleAPI_swagger.ApiAssetEventFeedItem.md)
-- [ApiCastAttachments](../interfaces/merkleAPI_swagger.ApiCastAttachments.md)
-- [ApiError](../interfaces/merkleAPI_swagger.ApiError.md)
-- [ApiErrorResponse](../interfaces/merkleAPI_swagger.ApiErrorResponse.md)
-- [ApiKeyStoreKey](../interfaces/merkleAPI_swagger.ApiKeyStoreKey.md)
-- [ApiOpenGraphMetadata](../interfaces/merkleAPI_swagger.ApiOpenGraphMetadata.md)
-- [ApiOpenSeaNft](../interfaces/merkleAPI_swagger.ApiOpenSeaNft.md)
-- [Asset](../interfaces/merkleAPI_swagger.Asset.md)
-- [AssetCollection](../interfaces/merkleAPI_swagger.AssetCollection.md)
-- [AssetEvent](../interfaces/merkleAPI_swagger.AssetEvent.md)
-- [AssetEventFeedItem](../interfaces/merkleAPI_swagger.AssetEventFeedItem.md)
-- [AssetGroup](../interfaces/merkleAPI_swagger.AssetGroup.md)
-- [AssetLastSale](../interfaces/merkleAPI_swagger.AssetLastSale.md)
-- [AssetMint](../interfaces/merkleAPI_swagger.AssetMint.md)
-- [AssetViewerContext](../interfaces/merkleAPI_swagger.AssetViewerContext.md)
-- [AuthToken](../interfaces/merkleAPI_swagger.AuthToken.md)
-- [Cast](../interfaces/merkleAPI_swagger.Cast.md)
-- [CastAncestors](../interfaces/merkleAPI_swagger.CastAncestors.md)
-- [CastAttachments](../interfaces/merkleAPI_swagger.CastAttachments.md)
-- [CastFeedItem](../interfaces/merkleAPI_swagger.CastFeedItem.md)
-- [CastMentionNotificationGroup](../interfaces/merkleAPI_swagger.CastMentionNotificationGroup.md)
-- [CastReaction](../interfaces/merkleAPI_swagger.CastReaction.md)
-- [CastReactionNotificationGroup](../interfaces/merkleAPI_swagger.CastReactionNotificationGroup.md)
-- [CastReactions](../interfaces/merkleAPI_swagger.CastReactions.md)
-- [CastRecasts](../interfaces/merkleAPI_swagger.CastRecasts.md)
-- [CastReplyNotificationGroup](../interfaces/merkleAPI_swagger.CastReplyNotificationGroup.md)
-- [CastViewerContext](../interfaces/merkleAPI_swagger.CastViewerContext.md)
-- [ConfigurationParameters](../interfaces/merkleAPI_swagger.ConfigurationParameters.md)
-- [DirectCast](../interfaces/merkleAPI_swagger.DirectCast.md)
-- [DirectCastConversation](../interfaces/merkleAPI_swagger.DirectCastConversation.md)
-- [DirectCastViewerContext](../interfaces/merkleAPI_swagger.DirectCastViewerContext.md)
-- [FollowNotificationGroup](../interfaces/merkleAPI_swagger.FollowNotificationGroup.md)
-- [GetCastResponse](../interfaces/merkleAPI_swagger.GetCastResponse.md)
-- [GetCastResponseResult](../interfaces/merkleAPI_swagger.GetCastResponseResult.md)
-- [InlineResponse200](../interfaces/merkleAPI_swagger.InlineResponse200.md)
-- [InlineResponse2001](../interfaces/merkleAPI_swagger.InlineResponse2001.md)
-- [InlineResponse20010](../interfaces/merkleAPI_swagger.InlineResponse20010.md)
-- [InlineResponse20010Result](../interfaces/merkleAPI_swagger.InlineResponse20010Result.md)
-- [InlineResponse20011](../interfaces/merkleAPI_swagger.InlineResponse20011.md)
-- [InlineResponse20011Result](../interfaces/merkleAPI_swagger.InlineResponse20011Result.md)
-- [InlineResponse20012](../interfaces/merkleAPI_swagger.InlineResponse20012.md)
-- [InlineResponse20012Result](../interfaces/merkleAPI_swagger.InlineResponse20012Result.md)
-- [InlineResponse20013](../interfaces/merkleAPI_swagger.InlineResponse20013.md)
-- [InlineResponse20013Result](../interfaces/merkleAPI_swagger.InlineResponse20013Result.md)
-- [InlineResponse20014](../interfaces/merkleAPI_swagger.InlineResponse20014.md)
-- [InlineResponse20014Result](../interfaces/merkleAPI_swagger.InlineResponse20014Result.md)
-- [InlineResponse20015](../interfaces/merkleAPI_swagger.InlineResponse20015.md)
-- [InlineResponse20016](../interfaces/merkleAPI_swagger.InlineResponse20016.md)
-- [InlineResponse20016Result](../interfaces/merkleAPI_swagger.InlineResponse20016Result.md)
-- [InlineResponse2001Result](../interfaces/merkleAPI_swagger.InlineResponse2001Result.md)
-- [InlineResponse2002](../interfaces/merkleAPI_swagger.InlineResponse2002.md)
-- [InlineResponse2002Result](../interfaces/merkleAPI_swagger.InlineResponse2002Result.md)
-- [InlineResponse2003](../interfaces/merkleAPI_swagger.InlineResponse2003.md)
-- [InlineResponse2003Result](../interfaces/merkleAPI_swagger.InlineResponse2003Result.md)
-- [InlineResponse2004](../interfaces/merkleAPI_swagger.InlineResponse2004.md)
-- [InlineResponse2004Result](../interfaces/merkleAPI_swagger.InlineResponse2004Result.md)
-- [InlineResponse2005](../interfaces/merkleAPI_swagger.InlineResponse2005.md)
-- [InlineResponse2005Result](../interfaces/merkleAPI_swagger.InlineResponse2005Result.md)
-- [InlineResponse2006](../interfaces/merkleAPI_swagger.InlineResponse2006.md)
-- [InlineResponse2007](../interfaces/merkleAPI_swagger.InlineResponse2007.md)
-- [InlineResponse2007Result](../interfaces/merkleAPI_swagger.InlineResponse2007Result.md)
-- [InlineResponse2008](../interfaces/merkleAPI_swagger.InlineResponse2008.md)
-- [InlineResponse2008Result](../interfaces/merkleAPI_swagger.InlineResponse2008Result.md)
-- [InlineResponse2009](../interfaces/merkleAPI_swagger.InlineResponse2009.md)
-- [InlineResponse200Result](../interfaces/merkleAPI_swagger.InlineResponse200Result.md)
-- [InlineResponse201](../interfaces/merkleAPI_swagger.InlineResponse201.md)
-- [NewCollection](../interfaces/merkleAPI_swagger.NewCollection.md)
-- [NotificationCastMention](../interfaces/merkleAPI_swagger.NotificationCastMention.md)
-- [NotificationCastMentionContent](../interfaces/merkleAPI_swagger.NotificationCastMentionContent.md)
-- [NotificationCastReaction](../interfaces/merkleAPI_swagger.NotificationCastReaction.md)
-- [NotificationCastReactionContent](../interfaces/merkleAPI_swagger.NotificationCastReactionContent.md)
-- [NotificationCastReply](../interfaces/merkleAPI_swagger.NotificationCastReply.md)
-- [NotificationFollow](../interfaces/merkleAPI_swagger.NotificationFollow.md)
-- [NotificationRecast](../interfaces/merkleAPI_swagger.NotificationRecast.md)
-- [NotificationRecastContent](../interfaces/merkleAPI_swagger.NotificationRecastContent.md)
-- [NotificationWatchedCastReply](../interfaces/merkleAPI_swagger.NotificationWatchedCastReply.md)
-- [NotificationWatchedCastReplyContent](../interfaces/merkleAPI_swagger.NotificationWatchedCastReplyContent.md)
-- [PFP](../interfaces/merkleAPI_swagger.PFP.md)
-- [PaginationInfo](../interfaces/merkleAPI_swagger.PaginationInfo.md)
-- [RecastNotificationGroup](../interfaces/merkleAPI_swagger.RecastNotificationGroup.md)
-- [Recaster](../interfaces/merkleAPI_swagger.Recaster.md)
-- [RecentUsersGetResponse](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md)
-- [RecentUsersGetResponseResult](../interfaces/merkleAPI_swagger.RecentUsersGetResponseResult.md)
-- [RequestArgs](../interfaces/merkleAPI_swagger.RequestArgs.md)
-- [TopCollection](../interfaces/merkleAPI_swagger.TopCollection.md)
-- [TrendingCollection](../interfaces/merkleAPI_swagger.TrendingCollection.md)
-- [UnseenConversation](../interfaces/merkleAPI_swagger.UnseenConversation.md)
-- [User](../interfaces/merkleAPI_swagger.User.md)
-- [UserCastLikesGetResponse](../interfaces/merkleAPI_swagger.UserCastLikesGetResponse.md)
-- [UserCastLikesGetResponseResult](../interfaces/merkleAPI_swagger.UserCastLikesGetResponseResult.md)
-- [UserPreferences](../interfaces/merkleAPI_swagger.UserPreferences.md)
-- [UserProfile](../interfaces/merkleAPI_swagger.UserProfile.md)
-- [UserProfileBio](../interfaces/merkleAPI_swagger.UserProfileBio.md)
-- [UserViewerContext](../interfaces/merkleAPI_swagger.UserViewerContext.md)
-- [V2AuthBody](../interfaces/merkleAPI_swagger.V2AuthBody.md)
-- [V2AuthBody1](../interfaces/merkleAPI_swagger.V2AuthBody1.md)
-- [V2CastReactionsBody](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md)
-- [V2CastReactionsBody1](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md)
-- [V2CastsBody](../interfaces/merkleAPI_swagger.V2CastsBody.md)
-- [V2CastsBody1](../interfaces/merkleAPI_swagger.V2CastsBody1.md)
-- [V2FollowsBody](../interfaces/merkleAPI_swagger.V2FollowsBody.md)
-- [V2FollowsBody1](../interfaces/merkleAPI_swagger.V2FollowsBody1.md)
-- [V2RecastsBody](../interfaces/merkleAPI_swagger.V2RecastsBody.md)
-- [V2RecastsBody1](../interfaces/merkleAPI_swagger.V2RecastsBody1.md)
-- [V2WatchedCastsBody](../interfaces/merkleAPI_swagger.V2WatchedCastsBody.md)
-- [V2WatchedCastsBody1](../interfaces/merkleAPI_swagger.V2WatchedCastsBody1.md)
-- [V2authParams](../interfaces/merkleAPI_swagger.V2authParams.md)
-- [V2authParams1](../interfaces/merkleAPI_swagger.V2authParams1.md)
-- [V2castsParent](../interfaces/merkleAPI_swagger.V2castsParent.md)
-- [Verification](../interfaces/merkleAPI_swagger.Verification.md)
-- [WatchedCastReplyNotificationGroup](../interfaces/merkleAPI_swagger.WatchedCastReplyNotificationGroup.md)
-
-### Type Aliases
-
+- [ApiAssetEventFeedItem](merkleAPI_swagger.md#apiasseteventfeeditem)
+- [ApiCastAttachments](merkleAPI_swagger.md#apicastattachments)
+- [ApiError](merkleAPI_swagger.md#apierror)
+- [ApiErrorResponse](merkleAPI_swagger.md#apierrorresponse)
+- [ApiKeyStoreKey](merkleAPI_swagger.md#apikeystorekey)
+- [ApiOpenGraphMetadata](merkleAPI_swagger.md#apiopengraphmetadata)
+- [ApiOpenSeaNft](merkleAPI_swagger.md#apiopenseanft)
+- [Asset](merkleAPI_swagger.md#asset)
+- [AssetCollection](merkleAPI_swagger.md#assetcollection)
+- [AssetEvent](merkleAPI_swagger.md#assetevent)
+- [AssetEventFeedItem](merkleAPI_swagger.md#asseteventfeeditem)
 - [AssetEventType](merkleAPI_swagger.md#asseteventtype)
 - [AssetEventVerb](merkleAPI_swagger.md#asseteventverb)
-- [CastReactionType](merkleAPI_swagger.md#castreactiontype)
-- [InlineResponse2006Result](merkleAPI_swagger.md#inlineresponse2006result)
-- [InlineResponse2009Result](merkleAPI_swagger.md#inlineresponse2009result)
-- [Notification](merkleAPI_swagger.md#notification)
-
-### Variables
-
-- [BASE\_PATH](merkleAPI_swagger.md#base_path)
-- [COLLECTION\_FORMATS](merkleAPI_swagger.md#collection_formats)
-
-### Functions
-
+- [AssetGroup](merkleAPI_swagger.md#assetgroup)
+- [AssetLastSale](merkleAPI_swagger.md#assetlastsale)
+- [AssetMint](merkleAPI_swagger.md#assetmint)
+- [AssetViewerContext](merkleAPI_swagger.md#assetviewercontext)
+- [AssetsApi](merkleAPI_swagger.md#assetsapi)
 - [AssetsApiAxiosParamCreator](merkleAPI_swagger.md#assetsapiaxiosparamcreator)
 - [AssetsApiFactory](merkleAPI_swagger.md#assetsapifactory)
 - [AssetsApiFp](merkleAPI_swagger.md#assetsapifp)
+- [AuthApi](merkleAPI_swagger.md#authapi)
 - [AuthApiAxiosParamCreator](merkleAPI_swagger.md#authapiaxiosparamcreator)
 - [AuthApiFactory](merkleAPI_swagger.md#authapifactory)
 - [AuthApiFp](merkleAPI_swagger.md#authapifp)
+- [AuthToken](merkleAPI_swagger.md#authtoken)
+- [BASE\_PATH](merkleAPI_swagger.md#base_path)
+- [BaseAPI](merkleAPI_swagger.md#baseapi)
+- [COLLECTION\_FORMATS](merkleAPI_swagger.md#collection_formats)
+- [Cast](merkleAPI_swagger.md#cast)
+- [CastAncestors](merkleAPI_swagger.md#castancestors)
+- [CastAttachments](merkleAPI_swagger.md#castattachments)
+- [CastFeedItem](merkleAPI_swagger.md#castfeeditem)
+- [CastMentionNotificationGroup](merkleAPI_swagger.md#castmentionnotificationgroup)
+- [CastReaction](merkleAPI_swagger.md#castreaction)
+- [CastReactionNotificationGroup](merkleAPI_swagger.md#castreactionnotificationgroup)
+- [CastReactionType](merkleAPI_swagger.md#castreactiontype)
+- [CastReactions](merkleAPI_swagger.md#castreactions)
+- [CastRecasts](merkleAPI_swagger.md#castrecasts)
+- [CastReplyNotificationGroup](merkleAPI_swagger.md#castreplynotificationgroup)
+- [CastViewerContext](merkleAPI_swagger.md#castviewercontext)
+- [CastsApi](merkleAPI_swagger.md#castsapi)
 - [CastsApiAxiosParamCreator](merkleAPI_swagger.md#castsapiaxiosparamcreator)
 - [CastsApiFactory](merkleAPI_swagger.md#castsapifactory)
 - [CastsApiFp](merkleAPI_swagger.md#castsapifp)
+- [Configuration](merkleAPI_swagger.md#configuration)
+- [ConfigurationParameters](merkleAPI_swagger.md#configurationparameters)
+- [DirectCast](merkleAPI_swagger.md#directcast)
+- [DirectCastConversation](merkleAPI_swagger.md#directcastconversation)
+- [DirectCastViewerContext](merkleAPI_swagger.md#directcastviewercontext)
+- [FollowNotificationGroup](merkleAPI_swagger.md#follownotificationgroup)
+- [FollowsApi](merkleAPI_swagger.md#followsapi)
 - [FollowsApiAxiosParamCreator](merkleAPI_swagger.md#followsapiaxiosparamcreator)
 - [FollowsApiFactory](merkleAPI_swagger.md#followsapifactory)
 - [FollowsApiFp](merkleAPI_swagger.md#followsapifp)
+- [GetCastResponse](merkleAPI_swagger.md#getcastresponse)
+- [GetCastResponseResult](merkleAPI_swagger.md#getcastresponseresult)
+- [InlineResponse200](merkleAPI_swagger.md#inlineresponse200)
+- [InlineResponse2001](merkleAPI_swagger.md#inlineresponse2001)
+- [InlineResponse20010](merkleAPI_swagger.md#inlineresponse20010)
+- [InlineResponse20010Result](merkleAPI_swagger.md#inlineresponse20010result)
+- [InlineResponse20011](merkleAPI_swagger.md#inlineresponse20011)
+- [InlineResponse20011Result](merkleAPI_swagger.md#inlineresponse20011result)
+- [InlineResponse20012](merkleAPI_swagger.md#inlineresponse20012)
+- [InlineResponse20012Result](merkleAPI_swagger.md#inlineresponse20012result)
+- [InlineResponse20013](merkleAPI_swagger.md#inlineresponse20013)
+- [InlineResponse20013Result](merkleAPI_swagger.md#inlineresponse20013result)
+- [InlineResponse20014](merkleAPI_swagger.md#inlineresponse20014)
+- [InlineResponse20014Result](merkleAPI_swagger.md#inlineresponse20014result)
+- [InlineResponse20015](merkleAPI_swagger.md#inlineresponse20015)
+- [InlineResponse20016](merkleAPI_swagger.md#inlineresponse20016)
+- [InlineResponse20016Result](merkleAPI_swagger.md#inlineresponse20016result)
+- [InlineResponse2001Result](merkleAPI_swagger.md#inlineresponse2001result)
+- [InlineResponse2002](merkleAPI_swagger.md#inlineresponse2002)
+- [InlineResponse2002Result](merkleAPI_swagger.md#inlineresponse2002result)
+- [InlineResponse2003](merkleAPI_swagger.md#inlineresponse2003)
+- [InlineResponse2003Result](merkleAPI_swagger.md#inlineresponse2003result)
+- [InlineResponse2004](merkleAPI_swagger.md#inlineresponse2004)
+- [InlineResponse2004Result](merkleAPI_swagger.md#inlineresponse2004result)
+- [InlineResponse2005](merkleAPI_swagger.md#inlineresponse2005)
+- [InlineResponse2005Result](merkleAPI_swagger.md#inlineresponse2005result)
+- [InlineResponse2006](merkleAPI_swagger.md#inlineresponse2006)
+- [InlineResponse2006Result](merkleAPI_swagger.md#inlineresponse2006result)
+- [InlineResponse2007](merkleAPI_swagger.md#inlineresponse2007)
+- [InlineResponse2007Result](merkleAPI_swagger.md#inlineresponse2007result)
+- [InlineResponse2008](merkleAPI_swagger.md#inlineresponse2008)
+- [InlineResponse2008Result](merkleAPI_swagger.md#inlineresponse2008result)
+- [InlineResponse2009](merkleAPI_swagger.md#inlineresponse2009)
+- [InlineResponse2009Result](merkleAPI_swagger.md#inlineresponse2009result)
+- [InlineResponse200Result](merkleAPI_swagger.md#inlineresponse200result)
+- [InlineResponse201](merkleAPI_swagger.md#inlineresponse201)
+- [MiscellaneousApi](merkleAPI_swagger.md#miscellaneousapi)
 - [MiscellaneousApiAxiosParamCreator](merkleAPI_swagger.md#miscellaneousapiaxiosparamcreator)
 - [MiscellaneousApiFactory](merkleAPI_swagger.md#miscellaneousapifactory)
 - [MiscellaneousApiFp](merkleAPI_swagger.md#miscellaneousapifp)
+- [NewCollection](merkleAPI_swagger.md#newcollection)
+- [Notification](merkleAPI_swagger.md#notification)
+- [NotificationCastMention](merkleAPI_swagger.md#notificationcastmention)
+- [NotificationCastMentionContent](merkleAPI_swagger.md#notificationcastmentioncontent)
+- [NotificationCastReaction](merkleAPI_swagger.md#notificationcastreaction)
+- [NotificationCastReactionContent](merkleAPI_swagger.md#notificationcastreactioncontent)
+- [NotificationCastReply](merkleAPI_swagger.md#notificationcastreply)
+- [NotificationFollow](merkleAPI_swagger.md#notificationfollow)
+- [NotificationRecast](merkleAPI_swagger.md#notificationrecast)
+- [NotificationRecastContent](merkleAPI_swagger.md#notificationrecastcontent)
+- [NotificationWatchedCastReply](merkleAPI_swagger.md#notificationwatchedcastreply)
+- [NotificationWatchedCastReplyContent](merkleAPI_swagger.md#notificationwatchedcastreplycontent)
+- [NotificationsApi](merkleAPI_swagger.md#notificationsapi)
 - [NotificationsApiAxiosParamCreator](merkleAPI_swagger.md#notificationsapiaxiosparamcreator)
 - [NotificationsApiFactory](merkleAPI_swagger.md#notificationsapifactory)
 - [NotificationsApiFp](merkleAPI_swagger.md#notificationsapifp)
+- [PFP](merkleAPI_swagger.md#pfp)
+- [PaginationInfo](merkleAPI_swagger.md#paginationinfo)
+- [RecastNotificationGroup](merkleAPI_swagger.md#recastnotificationgroup)
+- [Recaster](merkleAPI_swagger.md#recaster)
+- [RecentUsersGetResponse](merkleAPI_swagger.md#recentusersgetresponse)
+- [RecentUsersGetResponseResult](merkleAPI_swagger.md#recentusersgetresponseresult)
+- [RequestArgs](merkleAPI_swagger.md#requestargs)
+- [RequiredError](merkleAPI_swagger.md#requirederror)
+- [TopCollection](merkleAPI_swagger.md#topcollection)
+- [TrendingCollection](merkleAPI_swagger.md#trendingcollection)
+- [UnseenConversation](merkleAPI_swagger.md#unseenconversation)
+- [User](merkleAPI_swagger.md#user)
+- [UserApi](merkleAPI_swagger.md#userapi)
 - [UserApiAxiosParamCreator](merkleAPI_swagger.md#userapiaxiosparamcreator)
 - [UserApiFactory](merkleAPI_swagger.md#userapifactory)
 - [UserApiFp](merkleAPI_swagger.md#userapifp)
+- [UserCastLikesGetResponse](merkleAPI_swagger.md#usercastlikesgetresponse)
+- [UserCastLikesGetResponseResult](merkleAPI_swagger.md#usercastlikesgetresponseresult)
+- [UserPreferences](merkleAPI_swagger.md#userpreferences)
+- [UserProfile](merkleAPI_swagger.md#userprofile)
+- [UserProfileBio](merkleAPI_swagger.md#userprofilebio)
+- [UserViewerContext](merkleAPI_swagger.md#userviewercontext)
+- [UsersApi](merkleAPI_swagger.md#usersapi)
 - [UsersApiAxiosParamCreator](merkleAPI_swagger.md#usersapiaxiosparamcreator)
 - [UsersApiFactory](merkleAPI_swagger.md#usersapifactory)
 - [UsersApiFp](merkleAPI_swagger.md#usersapifp)
+- [V2AuthBody](merkleAPI_swagger.md#v2authbody)
+- [V2AuthBody1](merkleAPI_swagger.md#v2authbody1)
+- [V2AuthBody1MethodEnum](merkleAPI_swagger.md#v2authbody1methodenum)
+- [V2AuthBodyMethodEnum](merkleAPI_swagger.md#v2authbodymethodenum)
+- [V2CastReactionsBody](merkleAPI_swagger.md#v2castreactionsbody)
+- [V2CastReactionsBody1](merkleAPI_swagger.md#v2castreactionsbody1)
+- [V2CastsBody](merkleAPI_swagger.md#v2castsbody)
+- [V2CastsBody1](merkleAPI_swagger.md#v2castsbody1)
+- [V2FollowsBody](merkleAPI_swagger.md#v2followsbody)
+- [V2FollowsBody1](merkleAPI_swagger.md#v2followsbody1)
+- [V2RecastsBody](merkleAPI_swagger.md#v2recastsbody)
+- [V2RecastsBody1](merkleAPI_swagger.md#v2recastsbody1)
+- [V2WatchedCastsBody](merkleAPI_swagger.md#v2watchedcastsbody)
+- [V2WatchedCastsBody1](merkleAPI_swagger.md#v2watchedcastsbody1)
+- [V2authParams](merkleAPI_swagger.md#v2authparams)
+- [V2authParams1](merkleAPI_swagger.md#v2authparams1)
+- [V2castsParent](merkleAPI_swagger.md#v2castsparent)
+- [Verification](merkleAPI_swagger.md#verification)
+- [VerificationsApi](merkleAPI_swagger.md#verificationsapi)
 - [VerificationsApiAxiosParamCreator](merkleAPI_swagger.md#verificationsapiaxiosparamcreator)
 - [VerificationsApiFactory](merkleAPI_swagger.md#verificationsapifactory)
 - [VerificationsApiFp](merkleAPI_swagger.md#verificationsapifp)
+- [WatchedCastReplyNotificationGroup](merkleAPI_swagger.md#watchedcastreplynotificationgroup)
+- [WatchesApi](merkleAPI_swagger.md#watchesapi)
 - [WatchesApiAxiosParamCreator](merkleAPI_swagger.md#watchesapiaxiosparamcreator)
 - [WatchesApiFactory](merkleAPI_swagger.md#watchesapifactory)
 - [WatchesApiFp](merkleAPI_swagger.md#watchesapifp)
 
-## Type Aliases
+## References
+
+### ApiAssetEventFeedItem
+
+Re-exports [ApiAssetEventFeedItem](../interfaces/index.ApiAssetEventFeedItem.md)
+
+___
+
+### ApiCastAttachments
+
+Re-exports [ApiCastAttachments](../interfaces/index.ApiCastAttachments.md)
+
+___
+
+### ApiError
+
+Re-exports [ApiError](../interfaces/index.ApiError.md)
+
+___
+
+### ApiErrorResponse
+
+Re-exports [ApiErrorResponse](../interfaces/index.ApiErrorResponse.md)
+
+___
+
+### ApiKeyStoreKey
+
+Re-exports [ApiKeyStoreKey](../interfaces/index.ApiKeyStoreKey.md)
+
+___
+
+### ApiOpenGraphMetadata
+
+Re-exports [ApiOpenGraphMetadata](../interfaces/index.ApiOpenGraphMetadata.md)
+
+___
+
+### ApiOpenSeaNft
+
+Re-exports [ApiOpenSeaNft](../interfaces/index.ApiOpenSeaNft.md)
+
+___
+
+### Asset
+
+Re-exports [Asset](../interfaces/index.Asset.md)
+
+___
+
+### AssetCollection
+
+Re-exports [AssetCollection](../interfaces/index.AssetCollection.md)
+
+___
+
+### AssetEvent
+
+Re-exports [AssetEvent](../interfaces/index.AssetEvent.md)
+
+___
+
+### AssetEventFeedItem
+
+Re-exports [AssetEventFeedItem](../interfaces/index.AssetEventFeedItem.md)
+
+___
 
 ### AssetEventType
 
-Ƭ **AssetEventType**: ``"buy"`` \| ``"mint"`` \| ``"sell"`` \| ``"send"`` \| ``"receive"`` \| ``"use"`` \| ``"unknown"``
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/AssetEventType.ts:1](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/AssetEventType.ts#L1)
+Re-exports [AssetEventType](index.md#asseteventtype)
 
 ___
 
 ### AssetEventVerb
 
-Ƭ **AssetEventVerb**: ``"bought"`` \| ``"minted"`` \| ``"sold"`` \| ``"sent"`` \| ``"received"`` \| ``"used"``
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/AssetEventVerb.ts:1](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/AssetEventVerb.ts#L1)
+Re-exports [AssetEventVerb](index.md#asseteventverb)
 
 ___
 
-### CastReactionType
+### AssetGroup
 
-Ƭ **CastReactionType**: ``"Like"``
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/CastReactionType.ts:1](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/CastReactionType.ts#L1)
+Re-exports [AssetGroup](../interfaces/index.AssetGroup.md)
 
 ___
 
-### InlineResponse2006Result
+### AssetLastSale
 
-Ƭ **InlineResponse2006Result**: `Object`
-
-**`Export`**
-
-**`Interface`**
-
-InlineResponse2006Result
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `casts` | [`Cast`](../interfaces/merkleAPI_swagger.Cast.md)[] | **`Memberof`** InlineResponse2006Result |
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/inline-response2006-result.ts:20](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response2006-result.ts#L20)
+Re-exports [AssetLastSale](../interfaces/index.AssetLastSale.md)
 
 ___
 
-### InlineResponse2009Result
+### AssetMint
 
-Ƭ **InlineResponse2009Result**: `Object`
-
-**`Export`**
-
-**`Interface`**
-
-InlineResponse2009Result
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `users` | [`User`](../interfaces/merkleAPI_swagger.User.md)[] | **`Memberof`** InlineResponse2009Result |
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/inline-response2009-result.ts:20](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response2009-result.ts#L20)
+Re-exports [AssetMint](../interfaces/index.AssetMint.md)
 
 ___
 
-### Notification
+### AssetViewerContext
 
-Ƭ **Notification**: [`NotificationCastMention`](../interfaces/merkleAPI_swagger.NotificationCastMention.md) \| [`NotificationCastReaction`](../interfaces/merkleAPI_swagger.NotificationCastReaction.md) \| [`NotificationCastReply`](../interfaces/merkleAPI_swagger.NotificationCastReply.md) \| [`NotificationFollow`](../interfaces/merkleAPI_swagger.NotificationFollow.md) \| [`NotificationRecast`](../interfaces/merkleAPI_swagger.NotificationRecast.md) \| [`NotificationWatchedCastReply`](../interfaces/merkleAPI_swagger.NotificationWatchedCastReply.md)
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/Notification.ts:8](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Notification.ts#L8)
-
-## Variables
-
-### BASE\_PATH
-
-• `Const` **BASE\_PATH**: `string`
-
-#### Defined in
-
-[src/merkleAPI/swagger/base.ts:19](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/base.ts#L19)
+Re-exports [AssetViewerContext](../interfaces/index.AssetViewerContext.md)
 
 ___
 
-### COLLECTION\_FORMATS
+### AssetsApi
 
-• `Const` **COLLECTION\_FORMATS**: `Object`
+Re-exports [AssetsApi](../classes/index.AssetsApi.md)
 
-**`Export`**
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `csv` | `string` |
-| `pipes` | `string` |
-| `ssv` | `string` |
-| `tsv` | `string` |
-
-#### Defined in
-
-[src/merkleAPI/swagger/base.ts:25](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/base.ts#L25)
-
-## Functions
+___
 
 ### AssetsApiAxiosParamCreator
 
-▸ **AssetsApiAxiosParamCreator**(`configuration?`): `Object`
-
-AssetsApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AssetEventsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2AssetGet` | (`tokenId`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CollectionActivityGet` | (`collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CollectionAssetsGet` | (`fid`: `number`, `collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CollectionGet` | (`collectionId`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CollectionOwnersGet` | (`collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2UserCollectionsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/assets-api.ts:39](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/assets-api.ts#L39)
+Re-exports [AssetsApiAxiosParamCreator](index.md#assetsapiaxiosparamcreator)
 
 ___
 
 ### AssetsApiFactory
 
-▸ **AssetsApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-AssetsApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AssetEventsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2001`](../interfaces/merkleAPI_swagger.InlineResponse2001.md), `any`\>\> |
-| `v2AssetGet` | (`tokenId`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2002`](../interfaces/merkleAPI_swagger.InlineResponse2002.md), `any`\>\> |
-| `v2CollectionActivityGet` | (`collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2001`](../interfaces/merkleAPI_swagger.InlineResponse2001.md), `any`\>\> |
-| `v2CollectionAssetsGet` | (`fid`: `number`, `collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2005`](../interfaces/merkleAPI_swagger.InlineResponse2005.md), `any`\>\> |
-| `v2CollectionGet` | (`collectionId`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20010`](../interfaces/merkleAPI_swagger.InlineResponse20010.md), `any`\>\> |
-| `v2CollectionOwnersGet` | (`collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\> |
-| `v2UserCollectionsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20011`](../interfaces/merkleAPI_swagger.InlineResponse20011.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/assets-api.ts:903](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/assets-api.ts#L903)
+Re-exports [AssetsApiFactory](index.md#assetsapifactory)
 
 ___
 
 ### AssetsApiFp
 
-▸ **AssetsApiFp**(`configuration?`): `Object`
+Re-exports [AssetsApiFp](index.md#assetsapifp)
 
-AssetsApi - functional programming interface
+___
 
-**`Export`**
+### AuthApi
 
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AssetEventsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2001`](../interfaces/merkleAPI_swagger.InlineResponse2001.md), `any`\>\>\> |
-| `v2AssetGet` | (`tokenId`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2002`](../interfaces/merkleAPI_swagger.InlineResponse2002.md), `any`\>\>\> |
-| `v2CollectionActivityGet` | (`collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2001`](../interfaces/merkleAPI_swagger.InlineResponse2001.md), `any`\>\>\> |
-| `v2CollectionAssetsGet` | (`fid`: `number`, `collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2005`](../interfaces/merkleAPI_swagger.InlineResponse2005.md), `any`\>\>\> |
-| `v2CollectionGet` | (`collectionId`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20010`](../interfaces/merkleAPI_swagger.InlineResponse20010.md), `any`\>\>\> |
-| `v2CollectionOwnersGet` | (`collectionId`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\>\> |
-| `v2UserCollectionsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20011`](../interfaces/merkleAPI_swagger.InlineResponse20011.md), `any`\>\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/assets-api.ts:640](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/assets-api.ts#L640)
+Re-exports [AuthApi](../classes/index.AuthApi.md)
 
 ___
 
 ### AuthApiAxiosParamCreator
 
-▸ **AuthApiAxiosParamCreator**(`configuration?`): `Object`
-
-AuthApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AuthDelete` | (`authorization`: `string`, `body?`: [`V2AuthBody1`](../interfaces/merkleAPI_swagger.V2AuthBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2AuthPut` | (`body?`: [`V2AuthBody`](../interfaces/merkleAPI_swagger.V2AuthBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/auth-api.ts:37](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/auth-api.ts#L37)
+Re-exports [AuthApiAxiosParamCreator](index.md#authapiaxiosparamcreator)
 
 ___
 
 ### AuthApiFactory
 
-▸ **AuthApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-AuthApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AuthDelete` | (`authorization`: `string`, `body?`: [`V2AuthBody1`](../interfaces/merkleAPI_swagger.V2AuthBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-| `v2AuthPut` | (`body?`: [`V2AuthBody`](../interfaces/merkleAPI_swagger.V2AuthBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2003`](../interfaces/merkleAPI_swagger.InlineResponse2003.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/auth-api.ts:240](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/auth-api.ts#L240)
+Re-exports [AuthApiFactory](index.md#authapifactory)
 
 ___
 
 ### AuthApiFp
 
-▸ **AuthApiFp**(`configuration?`): `Object`
+Re-exports [AuthApiFp](index.md#authapifp)
 
-AuthApi - functional programming interface
+___
 
-**`Export`**
+### AuthToken
 
-#### Parameters
+Re-exports [AuthToken](../interfaces/index.AuthToken.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### BASE\_PATH
 
-`Object`
+Re-exports [BASE_PATH](index.md#base_path)
 
-| Name | Type |
-| :------ | :------ |
-| `v2AuthDelete` | (`authorization`: `string`, `body?`: [`V2AuthBody1`](../interfaces/merkleAPI_swagger.V2AuthBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-| `v2AuthPut` | (`body?`: [`V2AuthBody`](../interfaces/merkleAPI_swagger.V2AuthBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2003`](../interfaces/merkleAPI_swagger.InlineResponse2003.md), `any`\>\>\> |
+___
 
-#### Defined in
+### BaseAPI
 
-[src/merkleAPI/swagger/apis/auth-api.ts:171](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/auth-api.ts#L171)
+Re-exports [BaseAPI](../classes/index.BaseAPI.md)
+
+___
+
+### COLLECTION\_FORMATS
+
+Re-exports [COLLECTION_FORMATS](index.md#collection_formats)
+
+___
+
+### Cast
+
+Re-exports [Cast](../interfaces/index.Cast.md)
+
+___
+
+### CastAncestors
+
+Re-exports [CastAncestors](../interfaces/index.CastAncestors.md)
+
+___
+
+### CastAttachments
+
+Re-exports [CastAttachments](../interfaces/index.CastAttachments.md)
+
+___
+
+### CastFeedItem
+
+Re-exports [CastFeedItem](../interfaces/index.CastFeedItem.md)
+
+___
+
+### CastMentionNotificationGroup
+
+Re-exports [CastMentionNotificationGroup](../interfaces/index.CastMentionNotificationGroup.md)
+
+___
+
+### CastReaction
+
+Re-exports [CastReaction](../interfaces/index.CastReaction.md)
+
+___
+
+### CastReactionNotificationGroup
+
+Re-exports [CastReactionNotificationGroup](../interfaces/index.CastReactionNotificationGroup.md)
+
+___
+
+### CastReactionType
+
+Re-exports [CastReactionType](index.md#castreactiontype)
+
+___
+
+### CastReactions
+
+Re-exports [CastReactions](../interfaces/index.CastReactions.md)
+
+___
+
+### CastRecasts
+
+Re-exports [CastRecasts](../interfaces/index.CastRecasts.md)
+
+___
+
+### CastReplyNotificationGroup
+
+Re-exports [CastReplyNotificationGroup](../interfaces/index.CastReplyNotificationGroup.md)
+
+___
+
+### CastViewerContext
+
+Re-exports [CastViewerContext](../interfaces/index.CastViewerContext.md)
+
+___
+
+### CastsApi
+
+Re-exports [CastsApi](../classes/index.CastsApi.md)
 
 ___
 
 ### CastsApiAxiosParamCreator
 
-▸ **CastsApiAxiosParamCreator**(`configuration?`): `Object`
-
-CastsApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AllCastsInThreadGet` | (`threadHash`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastGet` | (`hash`: `string`, `authorization`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastReactionsDelete` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody1`](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastReactionsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastReactionsPut` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody`](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastRecastersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastsDelete` | (`authorization`: `string`, `body?`: [`V2CastsBody1`](../interfaces/merkleAPI_swagger.V2CastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastsGet` | (`includeDeletedCasts`: `boolean`, `limit`: `number`, `authorization`: `string`, `fid`: `number`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2CastsPost` | (`authorization`: `string`, `body?`: [`V2CastsBody`](../interfaces/merkleAPI_swagger.V2CastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2RecastsDelete` | (`authorization`: `string`, `body?`: [`V2RecastsBody1`](../interfaces/merkleAPI_swagger.V2RecastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2RecastsPut` | (`authorization`: `string`, `body?`: [`V2RecastsBody`](../interfaces/merkleAPI_swagger.V2RecastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2RecentCastsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2UserCastLikesGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/casts-api.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L50)
+Re-exports [CastsApiAxiosParamCreator](index.md#castsapiaxiosparamcreator)
 
 ___
 
 ### CastsApiFactory
 
-▸ **CastsApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-CastsApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2AllCastsInThreadGet` | (`threadHash`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2006`](../interfaces/merkleAPI_swagger.InlineResponse2006.md), `any`\>\> |
-| `v2CastGet` | (`hash`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`GetCastResponse`](../interfaces/merkleAPI_swagger.GetCastResponse.md), `any`\>\> |
-| `v2CastReactionsDelete` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody1`](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-| `v2CastReactionsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/merkleAPI_swagger.InlineResponse2007.md), `any`\>\> |
-| `v2CastReactionsPut` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody`](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2008`](../interfaces/merkleAPI_swagger.InlineResponse2008.md), `any`\>\> |
-| `v2CastRecastersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\> |
-| `v2CastsDelete` | (`authorization`: `string`, `body?`: [`V2CastsBody1`](../interfaces/merkleAPI_swagger.V2CastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-| `v2CastsGet` | (`fid`: `number`, `includeDeletedCasts`: `boolean`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2006`](../interfaces/merkleAPI_swagger.InlineResponse2006.md), `any`\>\> |
-| `v2CastsPost` | (`authorization`: `string`, `body?`: [`V2CastsBody`](../interfaces/merkleAPI_swagger.V2CastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse201`](../interfaces/merkleAPI_swagger.InlineResponse201.md), `any`\>\> |
-| `v2RecastsDelete` | (`authorization`: `string`, `body?`: [`V2RecastsBody1`](../interfaces/merkleAPI_swagger.V2RecastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-| `v2RecastsPut` | (`authorization`: `string`, `body?`: [`V2RecastsBody`](../interfaces/merkleAPI_swagger.V2RecastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20015`](../interfaces/merkleAPI_swagger.InlineResponse20015.md), `any`\>\> |
-| `v2RecentCastsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2006`](../interfaces/merkleAPI_swagger.InlineResponse2006.md), `any`\>\> |
-| `v2UserCastLikesGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`UserCastLikesGetResponse`](../interfaces/merkleAPI_swagger.UserCastLikesGetResponse.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/casts-api.ts:1455](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1455)
+Re-exports [CastsApiFactory](index.md#castsapifactory)
 
 ___
 
 ### CastsApiFp
 
-▸ **CastsApiFp**(`configuration?`): `Object`
+Re-exports [CastsApiFp](index.md#castsapifp)
 
-CastsApi - functional programming interface
+___
 
-**`Export`**
+### Configuration
 
-#### Parameters
+Re-exports [Configuration](../classes/index.Configuration.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### ConfigurationParameters
 
-`Object`
+Re-exports [ConfigurationParameters](../interfaces/index.ConfigurationParameters.md)
 
-| Name | Type |
-| :------ | :------ |
-| `v2AllCastsInThreadGet` | (`threadHash`: `string`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2006`](../interfaces/merkleAPI_swagger.InlineResponse2006.md), `any`\>\>\> |
-| `v2CastGet` | (`hash`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`GetCastResponse`](../interfaces/merkleAPI_swagger.GetCastResponse.md), `any`\>\>\> |
-| `v2CastReactionsDelete` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody1`](../interfaces/merkleAPI_swagger.V2CastReactionsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-| `v2CastReactionsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/merkleAPI_swagger.InlineResponse2007.md), `any`\>\>\> |
-| `v2CastReactionsPut` | (`authorization`: `string`, `body?`: [`V2CastReactionsBody`](../interfaces/merkleAPI_swagger.V2CastReactionsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2008`](../interfaces/merkleAPI_swagger.InlineResponse2008.md), `any`\>\>\> |
-| `v2CastRecastersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\>\> |
-| `v2CastsDelete` | (`authorization`: `string`, `body?`: [`V2CastsBody1`](../interfaces/merkleAPI_swagger.V2CastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-| `v2CastsGet` | (`includeDeletedCasts`: `boolean`, `limit`: `number`, `authorization`: `string`, `fid`: `number`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2006`](../interfaces/merkleAPI_swagger.InlineResponse2006.md), `any`\>\>\> |
-| `v2CastsPost` | (`authorization`: `string`, `body?`: [`V2CastsBody`](../interfaces/merkleAPI_swagger.V2CastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse201`](../interfaces/merkleAPI_swagger.InlineResponse201.md), `any`\>\>\> |
-| `v2RecastsDelete` | (`authorization`: `string`, `body?`: [`V2RecastsBody1`](../interfaces/merkleAPI_swagger.V2RecastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-| `v2RecastsPut` | (`authorization`: `string`, `body?`: [`V2RecastsBody`](../interfaces/merkleAPI_swagger.V2RecastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20015`](../interfaces/merkleAPI_swagger.InlineResponse20015.md), `any`\>\>\> |
-| `v2RecentCastsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2006`](../interfaces/merkleAPI_swagger.InlineResponse2006.md), `any`\>\>\> |
-| `v2UserCastLikesGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`UserCastLikesGetResponse`](../interfaces/merkleAPI_swagger.UserCastLikesGetResponse.md), `any`\>\>\> |
+___
 
-#### Defined in
+### DirectCast
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1032](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1032)
+Re-exports [DirectCast](../interfaces/index.DirectCast.md)
+
+___
+
+### DirectCastConversation
+
+Re-exports [DirectCastConversation](../interfaces/index.DirectCastConversation.md)
+
+___
+
+### DirectCastViewerContext
+
+Re-exports [DirectCastViewerContext](../interfaces/index.DirectCastViewerContext.md)
+
+___
+
+### FollowNotificationGroup
+
+Re-exports [FollowNotificationGroup](../interfaces/index.FollowNotificationGroup.md)
+
+___
+
+### FollowsApi
+
+Re-exports [FollowsApi](../classes/index.FollowsApi.md)
 
 ___
 
 ### FollowsApiAxiosParamCreator
 
-▸ **FollowsApiAxiosParamCreator**(`configuration?`): `Object`
-
-FollowsApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2FollowersGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2FollowingGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2FollowsDelete` | (`authorization`: `string`, `body?`: [`V2FollowsBody1`](../interfaces/merkleAPI_swagger.V2FollowsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2FollowsPut` | (`authorization`: `string`, `body?`: [`V2FollowsBody`](../interfaces/merkleAPI_swagger.V2FollowsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/follows-api.ts:37](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/follows-api.ts#L37)
+Re-exports [FollowsApiAxiosParamCreator](index.md#followsapiaxiosparamcreator)
 
 ___
 
 ### FollowsApiFactory
 
-▸ **FollowsApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-FollowsApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2FollowersGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\> |
-| `v2FollowingGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\> |
-| `v2FollowsDelete` | (`authorization`: `string`, `body?`: [`V2FollowsBody1`](../interfaces/merkleAPI_swagger.V2FollowsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-| `v2FollowsPut` | (`authorization`: `string`, `body?`: [`V2FollowsBody`](../interfaces/merkleAPI_swagger.V2FollowsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/follows-api.ts:501](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/follows-api.ts#L501)
+Re-exports [FollowsApiFactory](index.md#followsapifactory)
 
 ___
 
 ### FollowsApiFp
 
-▸ **FollowsApiFp**(`configuration?`): `Object`
+Re-exports [FollowsApiFp](index.md#followsapifp)
 
-FollowsApi - functional programming interface
+___
 
-**`Export`**
+### GetCastResponse
 
-#### Parameters
+Re-exports [GetCastResponse](../interfaces/index.GetCastResponse.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### GetCastResponseResult
 
-`Object`
+Re-exports [GetCastResponseResult](../interfaces/index.GetCastResponseResult.md)
 
-| Name | Type |
-| :------ | :------ |
-| `v2FollowersGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\>\> |
-| `v2FollowingGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2009`](../interfaces/merkleAPI_swagger.InlineResponse2009.md), `any`\>\>\> |
-| `v2FollowsDelete` | (`authorization`: `string`, `body?`: [`V2FollowsBody1`](../interfaces/merkleAPI_swagger.V2FollowsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-| `v2FollowsPut` | (`authorization`: `string`, `body?`: [`V2FollowsBody`](../interfaces/merkleAPI_swagger.V2FollowsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
+___
 
-#### Defined in
+### InlineResponse200
 
-[src/merkleAPI/swagger/apis/follows-api.ts:362](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/follows-api.ts#L362)
+Re-exports [InlineResponse200](../interfaces/index.InlineResponse200.md)
+
+___
+
+### InlineResponse2001
+
+Re-exports [InlineResponse2001](../interfaces/index.InlineResponse2001.md)
+
+___
+
+### InlineResponse20010
+
+Re-exports [InlineResponse20010](../interfaces/index.InlineResponse20010.md)
+
+___
+
+### InlineResponse20010Result
+
+Re-exports [InlineResponse20010Result](../interfaces/index.InlineResponse20010Result.md)
+
+___
+
+### InlineResponse20011
+
+Re-exports [InlineResponse20011](../interfaces/index.InlineResponse20011.md)
+
+___
+
+### InlineResponse20011Result
+
+Re-exports [InlineResponse20011Result](../interfaces/index.InlineResponse20011Result.md)
+
+___
+
+### InlineResponse20012
+
+Re-exports [InlineResponse20012](../interfaces/index.InlineResponse20012.md)
+
+___
+
+### InlineResponse20012Result
+
+Re-exports [InlineResponse20012Result](../interfaces/index.InlineResponse20012Result.md)
+
+___
+
+### InlineResponse20013
+
+Re-exports [InlineResponse20013](../interfaces/index.InlineResponse20013.md)
+
+___
+
+### InlineResponse20013Result
+
+Re-exports [InlineResponse20013Result](../interfaces/index.InlineResponse20013Result.md)
+
+___
+
+### InlineResponse20014
+
+Re-exports [InlineResponse20014](../interfaces/index.InlineResponse20014.md)
+
+___
+
+### InlineResponse20014Result
+
+Re-exports [InlineResponse20014Result](../interfaces/index.InlineResponse20014Result.md)
+
+___
+
+### InlineResponse20015
+
+Re-exports [InlineResponse20015](../interfaces/index.InlineResponse20015.md)
+
+___
+
+### InlineResponse20016
+
+Re-exports [InlineResponse20016](../interfaces/index.InlineResponse20016.md)
+
+___
+
+### InlineResponse20016Result
+
+Re-exports [InlineResponse20016Result](../interfaces/index.InlineResponse20016Result.md)
+
+___
+
+### InlineResponse2001Result
+
+Re-exports [InlineResponse2001Result](../interfaces/index.InlineResponse2001Result.md)
+
+___
+
+### InlineResponse2002
+
+Re-exports [InlineResponse2002](../interfaces/index.InlineResponse2002.md)
+
+___
+
+### InlineResponse2002Result
+
+Re-exports [InlineResponse2002Result](../interfaces/index.InlineResponse2002Result.md)
+
+___
+
+### InlineResponse2003
+
+Re-exports [InlineResponse2003](../interfaces/index.InlineResponse2003.md)
+
+___
+
+### InlineResponse2003Result
+
+Re-exports [InlineResponse2003Result](../interfaces/index.InlineResponse2003Result.md)
+
+___
+
+### InlineResponse2004
+
+Re-exports [InlineResponse2004](../interfaces/index.InlineResponse2004.md)
+
+___
+
+### InlineResponse2004Result
+
+Re-exports [InlineResponse2004Result](../interfaces/index.InlineResponse2004Result.md)
+
+___
+
+### InlineResponse2005
+
+Re-exports [InlineResponse2005](../interfaces/index.InlineResponse2005.md)
+
+___
+
+### InlineResponse2005Result
+
+Re-exports [InlineResponse2005Result](../interfaces/index.InlineResponse2005Result.md)
+
+___
+
+### InlineResponse2006
+
+Re-exports [InlineResponse2006](../interfaces/index.InlineResponse2006.md)
+
+___
+
+### InlineResponse2006Result
+
+Re-exports [InlineResponse2006Result](index.md#inlineresponse2006result)
+
+___
+
+### InlineResponse2007
+
+Re-exports [InlineResponse2007](../interfaces/index.InlineResponse2007.md)
+
+___
+
+### InlineResponse2007Result
+
+Re-exports [InlineResponse2007Result](../interfaces/index.InlineResponse2007Result.md)
+
+___
+
+### InlineResponse2008
+
+Re-exports [InlineResponse2008](../interfaces/index.InlineResponse2008.md)
+
+___
+
+### InlineResponse2008Result
+
+Re-exports [InlineResponse2008Result](../interfaces/index.InlineResponse2008Result.md)
+
+___
+
+### InlineResponse2009
+
+Re-exports [InlineResponse2009](../interfaces/index.InlineResponse2009.md)
+
+___
+
+### InlineResponse2009Result
+
+Re-exports [InlineResponse2009Result](index.md#inlineresponse2009result)
+
+___
+
+### InlineResponse200Result
+
+Re-exports [InlineResponse200Result](../interfaces/index.InlineResponse200Result.md)
+
+___
+
+### InlineResponse201
+
+Re-exports [InlineResponse201](../interfaces/index.InlineResponse201.md)
+
+___
+
+### MiscellaneousApi
+
+Re-exports [MiscellaneousApi](../classes/index.MiscellaneousApi.md)
 
 ___
 
 ### MiscellaneousApiAxiosParamCreator
 
-▸ **MiscellaneousApiAxiosParamCreator**(`configuration?`): `Object`
-
-MiscellaneousApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `healthcheckGet` | (`options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/miscellaneous-api.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/miscellaneous-api.ts#L34)
+Re-exports [MiscellaneousApiAxiosParamCreator](index.md#miscellaneousapiaxiosparamcreator)
 
 ___
 
 ### MiscellaneousApiFactory
 
-▸ **MiscellaneousApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-MiscellaneousApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `healthcheckGet` | (`options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse200`](../interfaces/merkleAPI_swagger.InlineResponse200.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/miscellaneous-api.ts:126](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/miscellaneous-api.ts#L126)
+Re-exports [MiscellaneousApiFactory](index.md#miscellaneousapifactory)
 
 ___
 
 ### MiscellaneousApiFp
 
-▸ **MiscellaneousApiFp**(`configuration?`): `Object`
+Re-exports [MiscellaneousApiFp](index.md#miscellaneousapifp)
 
-MiscellaneousApi - functional programming interface
+___
 
-**`Export`**
+### NewCollection
 
-#### Parameters
+Re-exports [NewCollection](../interfaces/index.NewCollection.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### Notification
 
-`Object`
+Re-exports [Notification](index.md#notification)
 
-| Name | Type |
-| :------ | :------ |
-| `healthcheckGet` | (`options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse200`](../interfaces/merkleAPI_swagger.InlineResponse200.md), `any`\>\>\> |
+___
 
-#### Defined in
+### NotificationCastMention
 
-[src/merkleAPI/swagger/apis/miscellaneous-api.ts:90](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/miscellaneous-api.ts#L90)
+Re-exports [NotificationCastMention](../interfaces/index.NotificationCastMention.md)
+
+___
+
+### NotificationCastMentionContent
+
+Re-exports [NotificationCastMentionContent](../interfaces/index.NotificationCastMentionContent.md)
+
+___
+
+### NotificationCastReaction
+
+Re-exports [NotificationCastReaction](../interfaces/index.NotificationCastReaction.md)
+
+___
+
+### NotificationCastReactionContent
+
+Re-exports [NotificationCastReactionContent](../interfaces/index.NotificationCastReactionContent.md)
+
+___
+
+### NotificationCastReply
+
+Re-exports [NotificationCastReply](../interfaces/index.NotificationCastReply.md)
+
+___
+
+### NotificationFollow
+
+Re-exports [NotificationFollow](../interfaces/index.NotificationFollow.md)
+
+___
+
+### NotificationRecast
+
+Re-exports [NotificationRecast](../interfaces/index.NotificationRecast.md)
+
+___
+
+### NotificationRecastContent
+
+Re-exports [NotificationRecastContent](../interfaces/index.NotificationRecastContent.md)
+
+___
+
+### NotificationWatchedCastReply
+
+Re-exports [NotificationWatchedCastReply](../interfaces/index.NotificationWatchedCastReply.md)
+
+___
+
+### NotificationWatchedCastReplyContent
+
+Re-exports [NotificationWatchedCastReplyContent](../interfaces/index.NotificationWatchedCastReplyContent.md)
+
+___
+
+### NotificationsApi
+
+Re-exports [NotificationsApi](../classes/index.NotificationsApi.md)
 
 ___
 
 ### NotificationsApiAxiosParamCreator
 
-▸ **NotificationsApiAxiosParamCreator**(`configuration?`): `Object`
-
-NotificationsApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2MentionAndReplyNotificationsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/notifications-api.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/notifications-api.ts#L34)
+Re-exports [NotificationsApiAxiosParamCreator](index.md#notificationsapiaxiosparamcreator)
 
 ___
 
 ### NotificationsApiFactory
 
-▸ **NotificationsApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-NotificationsApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2MentionAndReplyNotificationsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20014`](../interfaces/merkleAPI_swagger.InlineResponse20014.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/notifications-api.ts:169](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/notifications-api.ts#L169)
+Re-exports [NotificationsApiFactory](index.md#notificationsapifactory)
 
 ___
 
 ### NotificationsApiFp
 
-▸ **NotificationsApiFp**(`configuration?`): `Object`
+Re-exports [NotificationsApiFp](index.md#notificationsapifp)
 
-NotificationsApi - functional programming interface
+___
 
-**`Export`**
+### PFP
 
-#### Parameters
+Re-exports [PFP](../interfaces/index.PFP.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### PaginationInfo
 
-`Object`
+Re-exports [PaginationInfo](../interfaces/index.PaginationInfo.md)
 
-| Name | Type |
-| :------ | :------ |
-| `v2MentionAndReplyNotificationsGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20014`](../interfaces/merkleAPI_swagger.InlineResponse20014.md), `any`\>\>\> |
+___
 
-#### Defined in
+### RecastNotificationGroup
 
-[src/merkleAPI/swagger/apis/notifications-api.ts:122](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/notifications-api.ts#L122)
+Re-exports [RecastNotificationGroup](../interfaces/index.RecastNotificationGroup.md)
+
+___
+
+### Recaster
+
+Re-exports [Recaster](../interfaces/index.Recaster.md)
+
+___
+
+### RecentUsersGetResponse
+
+Re-exports [RecentUsersGetResponse](../interfaces/index.RecentUsersGetResponse.md)
+
+___
+
+### RecentUsersGetResponseResult
+
+Re-exports [RecentUsersGetResponseResult](../interfaces/index.RecentUsersGetResponseResult.md)
+
+___
+
+### RequestArgs
+
+Re-exports [RequestArgs](../interfaces/index.RequestArgs.md)
+
+___
+
+### RequiredError
+
+Re-exports [RequiredError](../classes/index.RequiredError.md)
+
+___
+
+### TopCollection
+
+Re-exports [TopCollection](../interfaces/index.TopCollection.md)
+
+___
+
+### TrendingCollection
+
+Re-exports [TrendingCollection](../interfaces/index.TrendingCollection.md)
+
+___
+
+### UnseenConversation
+
+Re-exports [UnseenConversation](../interfaces/index.UnseenConversation.md)
+
+___
+
+### User
+
+Re-exports [User](../interfaces/index.User.md)
+
+___
+
+### UserApi
+
+Re-exports [UserApi](../classes/index.UserApi.md)
 
 ___
 
 ### UserApiAxiosParamCreator
 
-▸ **UserApiAxiosParamCreator**(`configuration?`): `Object`
-
-UserApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2MeGet` | (`authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/user-api.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/user-api.ts#L34)
+Re-exports [UserApiAxiosParamCreator](index.md#userapiaxiosparamcreator)
 
 ___
 
 ### UserApiFactory
 
-▸ **UserApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-UserApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2MeGet` | (`authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/user-api.ts:141](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/user-api.ts#L141)
+Re-exports [UserApiFactory](index.md#userapifactory)
 
 ___
 
 ### UserApiFp
 
-▸ **UserApiFp**(`configuration?`): `Object`
+Re-exports [UserApiFp](index.md#userapifp)
 
-UserApi - functional programming interface
+___
 
-**`Export`**
+### UserCastLikesGetResponse
 
-#### Parameters
+Re-exports [UserCastLikesGetResponse](../interfaces/index.UserCastLikesGetResponse.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### UserCastLikesGetResponseResult
 
-`Object`
+Re-exports [UserCastLikesGetResponseResult](../interfaces/index.UserCastLikesGetResponseResult.md)
 
-| Name | Type |
-| :------ | :------ |
-| `v2MeGet` | (`authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>\> |
+___
 
-#### Defined in
+### UserPreferences
 
-[src/merkleAPI/swagger/apis/user-api.ts:103](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/user-api.ts#L103)
+Re-exports [UserPreferences](../interfaces/index.UserPreferences.md)
+
+___
+
+### UserProfile
+
+Re-exports [UserProfile](../interfaces/index.UserProfile.md)
+
+___
+
+### UserProfileBio
+
+Re-exports [UserProfileBio](../interfaces/index.UserProfileBio.md)
+
+___
+
+### UserViewerContext
+
+Re-exports [UserViewerContext](../interfaces/index.UserViewerContext.md)
+
+___
+
+### UsersApi
+
+Re-exports [UsersApi](../classes/index.UsersApi.md)
 
 ___
 
 ### UsersApiAxiosParamCreator
 
-▸ **UsersApiAxiosParamCreator**(`configuration?`): `Object`
-
-UsersApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2FnameGet` | (`fname`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2RecentUsersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2UserByUsernameGet` | (`username`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2UserByVerificationGet` | (`address`: `string`, `authorization`: `string`, `options`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2UserGet` | (`fid`: `number`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/users-api.ts:35](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L35)
+Re-exports [UsersApiAxiosParamCreator](index.md#usersapiaxiosparamcreator)
 
 ___
 
 ### UsersApiFactory
 
-▸ **UsersApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-UsersApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2FnameGet` | (`fname`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20012`](../interfaces/merkleAPI_swagger.InlineResponse20012.md), `any`\>\> |
-| `v2RecentUsersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\> |
-| `v2UserByUsernameGet` | (`username`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\> |
-| `v2UserByVerificationGet` | (`address`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\> |
-| `v2UserGet` | (`fid`: `number`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/users-api.ts:535](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L535)
+Re-exports [UsersApiFactory](index.md#usersapifactory)
 
 ___
 
 ### UsersApiFp
 
-▸ **UsersApiFp**(`configuration?`): `Object`
+Re-exports [UsersApiFp](index.md#usersapifp)
 
-UsersApi - functional programming interface
+___
 
-**`Export`**
+### V2AuthBody
 
-#### Parameters
+Re-exports [V2AuthBody](../interfaces/index.V2AuthBody.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### V2AuthBody1
 
-`Object`
+Re-exports [V2AuthBody1](../interfaces/index.V2AuthBody1.md)
 
-| Name | Type |
-| :------ | :------ |
-| `v2FnameGet` | (`fname`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20012`](../interfaces/merkleAPI_swagger.InlineResponse20012.md), `any`\>\>\> |
-| `v2RecentUsersGet` | (`limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`RecentUsersGetResponse`](../interfaces/merkleAPI_swagger.RecentUsersGetResponse.md), `any`\>\>\> |
-| `v2UserByUsernameGet` | (`username`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>\> |
-| `v2UserByVerificationGet` | (`address`: `string`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>\> |
-| `v2UserGet` | (`fid`: `number`, `authorization`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20013`](../interfaces/merkleAPI_swagger.InlineResponse20013.md), `any`\>\>\> |
+___
 
-#### Defined in
+### V2AuthBody1MethodEnum
 
-[src/merkleAPI/swagger/apis/users-api.ts:380](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/users-api.ts#L380)
+Re-exports [V2AuthBody1MethodEnum](../enums/index.V2AuthBody1MethodEnum.md)
+
+___
+
+### V2AuthBodyMethodEnum
+
+Re-exports [V2AuthBodyMethodEnum](../enums/index.V2AuthBodyMethodEnum.md)
+
+___
+
+### V2CastReactionsBody
+
+Re-exports [V2CastReactionsBody](../interfaces/index.V2CastReactionsBody.md)
+
+___
+
+### V2CastReactionsBody1
+
+Re-exports [V2CastReactionsBody1](../interfaces/index.V2CastReactionsBody1.md)
+
+___
+
+### V2CastsBody
+
+Re-exports [V2CastsBody](../interfaces/index.V2CastsBody.md)
+
+___
+
+### V2CastsBody1
+
+Re-exports [V2CastsBody1](../interfaces/index.V2CastsBody1.md)
+
+___
+
+### V2FollowsBody
+
+Re-exports [V2FollowsBody](../interfaces/index.V2FollowsBody.md)
+
+___
+
+### V2FollowsBody1
+
+Re-exports [V2FollowsBody1](../interfaces/index.V2FollowsBody1.md)
+
+___
+
+### V2RecastsBody
+
+Re-exports [V2RecastsBody](../interfaces/index.V2RecastsBody.md)
+
+___
+
+### V2RecastsBody1
+
+Re-exports [V2RecastsBody1](../interfaces/index.V2RecastsBody1.md)
+
+___
+
+### V2WatchedCastsBody
+
+Re-exports [V2WatchedCastsBody](../interfaces/index.V2WatchedCastsBody.md)
+
+___
+
+### V2WatchedCastsBody1
+
+Re-exports [V2WatchedCastsBody1](../interfaces/index.V2WatchedCastsBody1.md)
+
+___
+
+### V2authParams
+
+Re-exports [V2authParams](../interfaces/index.V2authParams.md)
+
+___
+
+### V2authParams1
+
+Re-exports [V2authParams1](../interfaces/index.V2authParams1.md)
+
+___
+
+### V2castsParent
+
+Re-exports [V2castsParent](../interfaces/index.V2castsParent.md)
+
+___
+
+### Verification
+
+Re-exports [Verification](../interfaces/index.Verification.md)
+
+___
+
+### VerificationsApi
+
+Re-exports [VerificationsApi](../classes/index.VerificationsApi.md)
 
 ___
 
 ### VerificationsApiAxiosParamCreator
 
-▸ **VerificationsApiAxiosParamCreator**(`configuration?`): `Object`
-
-VerificationsApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2VerificationsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/verifications-api.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L34)
+Re-exports [VerificationsApiAxiosParamCreator](index.md#verificationsapiaxiosparamcreator)
 
 ___
 
 ### VerificationsApiFactory
 
-▸ **VerificationsApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-VerificationsApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2VerificationsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/verifications-api.ts:177](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L177)
+Re-exports [VerificationsApiFactory](index.md#verificationsapifactory)
 
 ___
 
 ### VerificationsApiFp
 
-▸ **VerificationsApiFp**(`configuration?`): `Object`
+Re-exports [VerificationsApiFp](index.md#verificationsapifp)
 
-VerificationsApi - functional programming interface
+___
 
-**`Export`**
+### WatchedCastReplyNotificationGroup
 
-#### Parameters
+Re-exports [WatchedCastReplyNotificationGroup](../interfaces/index.WatchedCastReplyNotificationGroup.md)
 
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
+___
 
-#### Returns
+### WatchesApi
 
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2VerificationsGet` | (`fid`: `number`, `limit`: `number`, `authorization`: `string`, `cursor?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse20016`](../interfaces/merkleAPI_swagger.InlineResponse20016.md), `any`\>\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/verifications-api.ts:134](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/verifications-api.ts#L134)
+Re-exports [WatchesApi](../classes/index.WatchesApi.md)
 
 ___
 
 ### WatchesApiAxiosParamCreator
 
-▸ **WatchesApiAxiosParamCreator**(`configuration?`): `Object`
-
-WatchesApi - axios parameter creator
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2WatchedCastsDelete` | (`authorization`: `string`, `body?`: [`V2WatchedCastsBody1`](../interfaces/merkleAPI_swagger.V2WatchedCastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-| `v2WatchedCastsPut` | (`authorization`: `string`, `body?`: [`V2WatchedCastsBody`](../interfaces/merkleAPI_swagger.V2WatchedCastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/merkleAPI_swagger.RequestArgs.md)\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/watches-api.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/watches-api.ts#L36)
+Re-exports [WatchesApiAxiosParamCreator](index.md#watchesapiaxiosparamcreator)
 
 ___
 
 ### WatchesApiFactory
 
-▸ **WatchesApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
-
-WatchesApi - factory interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-| `basePath?` | `string` |
-| `axios?` | `AxiosInstance` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2WatchedCastsDelete` | (`authorization`: `string`, `body?`: [`V2WatchedCastsBody1`](../interfaces/merkleAPI_swagger.V2WatchedCastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-| `v2WatchedCastsPut` | (`authorization`: `string`, `body?`: [`V2WatchedCastsBody`](../interfaces/merkleAPI_swagger.V2WatchedCastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/watches-api.ts:254](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/watches-api.ts#L254)
+Re-exports [WatchesApiFactory](index.md#watchesapifactory)
 
 ___
 
 ### WatchesApiFp
 
-▸ **WatchesApiFp**(`configuration?`): `Object`
-
-WatchesApi - functional programming interface
-
-**`Export`**
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `configuration?` | [`Configuration`](../classes/merkleAPI_swagger.Configuration.md) |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `v2WatchedCastsDelete` | (`authorization`: `string`, `body?`: [`V2WatchedCastsBody1`](../interfaces/merkleAPI_swagger.V2WatchedCastsBody1.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-| `v2WatchedCastsPut` | (`authorization`: `string`, `body?`: [`V2WatchedCastsBody`](../interfaces/merkleAPI_swagger.V2WatchedCastsBody.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `Promise`<`AxiosResponse`<[`InlineResponse2004`](../interfaces/merkleAPI_swagger.InlineResponse2004.md), `any`\>\>\> |
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/watches-api.ts:183](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/watches-api.ts#L183)
+Re-exports [WatchesApiFp](index.md#watchesapifp)
