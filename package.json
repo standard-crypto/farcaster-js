@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.0",
-    "@commitlint/config-conventional": "^17.1.0",
+    "@commitlint/config-conventional": "^17.4.0",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-json": "^6.0.0",
