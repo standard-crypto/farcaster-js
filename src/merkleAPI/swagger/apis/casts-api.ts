@@ -211,24 +211,32 @@ export const CastsApiAxiosParamCreator = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    v2CastReactionsGet: async (
+    v2CastLikesGet: async (
+      hash: string,
       limit: number,
       authorization: string,
       cursor?: string,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'hash' is not null or undefined
+      if (hash === null || hash === undefined) {
+        throw new RequiredError(
+          "hash",
+          "Required parameter hash was null or undefined when calling v2CastLikesGet."
+        );
+      }
       // verify required parameter 'limit' is not null or undefined
       if (limit === null || limit === undefined) {
         throw new RequiredError(
           "limit",
-          "Required parameter limit was null or undefined when calling v2CastReactionsGet."
+          "Required parameter limit was null or undefined when calling v2CastLikesGet."
         );
       }
       // verify required parameter 'authorization' is not null or undefined
       if (authorization === null || authorization === undefined) {
         throw new RequiredError(
           "authorization",
-          "Required parameter authorization was null or undefined when calling v2CastReactionsGet."
+          "Required parameter authorization was null or undefined when calling v2CastLikesGet."
         );
       }
       const localVarPath = `/v2/cast-likes`;
@@ -248,6 +256,10 @@ export const CastsApiAxiosParamCreator = function (
 
       if (cursor !== undefined) {
         localVarQueryParameter["cursor"] = cursor;
+      }
+
+      if (hash !== undefined) {
+        localVarQueryParameter["castHash"] = hash;
       }
 
       if (limit !== undefined) {
@@ -1105,7 +1117,8 @@ export const CastsApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async v2CastReactionsGet(
+    async v2CastLikesGet(
+      hash: string,
       limit: number,
       authorization: string,
       cursor?: string,
@@ -1118,7 +1131,7 @@ export const CastsApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await CastsApiAxiosParamCreator(
         configuration
-      ).v2CastReactionsGet(limit, authorization, cursor, options);
+      ).v2CastLikesGet(hash, limit, authorization, cursor, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -1502,14 +1515,15 @@ export const CastsApiFactory = function (
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async v2CastReactionsGet(
+    async v2CastLikesGet(
+      hash: string,
       limit: number,
       authorization: string,
       cursor?: string,
       options?: AxiosRequestConfig
     ): Promise<AxiosResponse<InlineResponse2007>> {
       return CastsApiFp(configuration)
-        .v2CastReactionsGet(limit, authorization, cursor, options)
+        .v2CastLikesGet(hash, limit, authorization, cursor, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -1727,14 +1741,15 @@ export class CastsApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof CastsApi
    */
-  public async v2CastReactionsGet(
+  public async v2CastLikesGet(
+    hash: string,
     limit: number,
     authorization: string,
     cursor?: string,
     options?: AxiosRequestConfig
   ): Promise<AxiosResponse<InlineResponse2007>> {
     return CastsApiFp(this.configuration)
-      .v2CastReactionsGet(limit, authorization, cursor, options)
+      .v2CastLikesGet(hash, limit, authorization, cursor, options)
       .then((request) => request(this.axios, this.basePath));
   }
   /**

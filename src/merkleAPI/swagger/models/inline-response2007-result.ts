@@ -23,5 +23,5 @@ export interface InlineResponse2007Result {
    * @type {Array<CastReaction>
    * @memberof InlineResponse2007Result
    */
-  reactions: Array<CastReaction>;
+  likes: Array<CastReaction>;
 }

@@ -14,13 +14,13 @@ InlineResponse2007Result
 
 ### Properties
 
-- [reactions](index.InlineResponse2007Result.md#reactions)
+- [likes](index.InlineResponse2007Result.md#likes)
 
 ## Properties
 
-### reactions
+### likes
 
-• **reactions**: [`CastReaction`](index.CastReaction.md)[]
+• **likes**: [`CastReaction`](index.CastReaction.md)[]
 
 #### Defined in
 

@@ -30,8 +30,8 @@ CastsApi - object-oriented interface
 
 - [v2AllCastsInThreadGet](index.CastsApi.md#v2allcastsinthreadget)
 - [v2CastGet](index.CastsApi.md#v2castget)
+- [v2CastLikesGet](index.CastsApi.md#v2castlikesget)
 - [v2CastReactionsDelete](index.CastsApi.md#v2castreactionsdelete)
-- [v2CastReactionsGet](index.CastsApi.md#v2castreactionsget)
 - [v2CastReactionsPut](index.CastsApi.md#v2castreactionsput)
 - [v2CastRecastersGet](index.CastsApi.md#v2castrecastersget)
 - [v2CastsDelete](index.CastsApi.md#v2castsdelete)
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1693](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1693)
+[src/merkleAPI/swagger/apis/casts-api.ts:1707](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1707)
 
 ___
 
@@ -152,7 +152,39 @@ Gets information about an individual cast
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1796](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1796)
+[src/merkleAPI/swagger/apis/casts-api.ts:1811](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1811)
+
+___
+
+### v2CastLikesGet
+
+▸ **v2CastLikesGet**(`hash`, `limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/index.InlineResponse2007.md), `any`\>\>
+
+Get all reactions to a cast.
+
+**`Throws`**
+
+**`Memberof`**
+
+CastsApi
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `hash` | `string` | - |
+| `limit` | `number` |  |
+| `authorization` | `string` |  |
+| `cursor?` | `string` |  |
+| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+
+#### Returns
+
+`Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/index.InlineResponse2007.md), `any`\>\>
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/casts-api.ts:1744](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1744)
 
 ___
 
@@ -182,38 +214,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1712](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1712)
-
-___
-
-### v2CastReactionsGet
-
-▸ **v2CastReactionsGet**(`limit`, `authorization`, `cursor?`, `options?`): `Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/index.InlineResponse2007.md), `any`\>\>
-
-Get all reactions to a cast.
-
-**`Throws`**
-
-**`Memberof`**
-
-CastsApi
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `limit` | `number` |  |
-| `authorization` | `string` |  |
-| `cursor?` | `string` |  |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
-
-#### Returns
-
-`Promise`<`AxiosResponse`<[`InlineResponse2007`](../interfaces/index.InlineResponse2007.md), `any`\>\>
-
-#### Defined in
-
-[src/merkleAPI/swagger/apis/casts-api.ts:1730](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1730)
+[src/merkleAPI/swagger/apis/casts-api.ts:1726](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1726)
 
 ___
 
@@ -243,7 +244,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1748](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1748)
+[src/merkleAPI/swagger/apis/casts-api.ts:1763](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1763)
 
 ___
 
@@ -274,7 +275,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1766](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1766)
+[src/merkleAPI/swagger/apis/casts-api.ts:1781](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1781)
 
 ___
 
@@ -304,7 +305,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1784](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1784)
+[src/merkleAPI/swagger/apis/casts-api.ts:1799](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1799)
 
 ___
 
@@ -337,7 +338,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1815](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1815)
+[src/merkleAPI/swagger/apis/casts-api.ts:1830](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1830)
 
 ___
 
@@ -367,7 +368,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1855](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1855)
+[src/merkleAPI/swagger/apis/casts-api.ts:1870](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1870)
 
 ___
 
@@ -397,7 +398,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1872](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1872)
+[src/merkleAPI/swagger/apis/casts-api.ts:1887](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1887)
 
 ___
 
@@ -427,7 +428,7 @@ CastsApi
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1889](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1889)
+[src/merkleAPI/swagger/apis/casts-api.ts:1904](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1904)
 
 ___
 
@@ -452,7 +453,7 @@ A list of casts in reverse chronological order based on timestamp
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1837](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1837)
+[src/merkleAPI/swagger/apis/casts-api.ts:1852](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1852)
 
 ___
 
@@ -478,4 +479,4 @@ Returns all likes by a given user.
 
 #### Defined in
 
-[src/merkleAPI/swagger/apis/casts-api.ts:1901](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1901)
+[src/merkleAPI/swagger/apis/casts-api.ts:1916](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/casts-api.ts#L1916)
