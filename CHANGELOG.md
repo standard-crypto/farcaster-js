@@ -1,3 +1,10 @@
+# [5.5.0](https://github.com/standard-crypto/farcaster-js/compare/v5.4.0...v5.5.0) (2023-01-10)
+
+
+### Features
+
+* adds `fetchCastLikes()` to MerkleAPIClient ([e07abf2](https://github.com/standard-crypto/farcaster-js/commit/e07abf2b33e2c17ef6c739dc00c0f48d2b017568)), closes [#454](https://github.com/standard-crypto/farcaster-js/issues/454)
+
 # [5.4.0](https://github.com/standard-crypto/farcaster-js/compare/v5.3.0...v5.4.0) (2022-12-28)
 
 
