@@ -287,6 +287,20 @@ if (privateKey !== undefined && privateKey !== "") {
         expect(reaction.castHash).to.eq(cast.hash);
       });
 
+      it("can fetch reactions to a cast", async function () {
+        expectDefined(cast);
+        expectDefined(reaction);
+
+        let reactionFound = false;
+        for await (const observedReaction of client.fetchCastLikes(cast)) {
+          if (observedReaction.reactor.fid === reaction.reactor.fid) {
+            expect(observedReaction.type).eq(reaction.type);
+            reactionFound = true;
+          }
+        }
+        expect(reactionFound).to.be.true;
+      });
+
       it("can un-react to a cast", async function () {
         expectDefined(cast);
         expectDefined(reaction);

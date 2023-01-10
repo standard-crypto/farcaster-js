@@ -367,6 +367,40 @@ export class MerkleAPIClient {
   }
 
   /**
+   * Lists a given cast's likes
+   */
+  public async *fetchCastLikes(
+    castOrCastHash: Cast | string,
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<CastReaction, void, undefined> {
+    let cursor: string | undefined;
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+
+    while (true) {
+      const authToken = await this.getOrCreateValidAuthToken();
+      const response = await this.apis.casts.v2CastLikesGet(
+        castHash,
+        pageSize,
+        authToken.secret,
+        cursor
+      );
+
+      yield* response.data.result.likes;
+
+      // prep for next page
+      if (response.data.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
    * A list of the latest casts across all users in reverse chronological order based on timestamp
    */
   public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
