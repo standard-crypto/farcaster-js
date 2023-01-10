@@ -81,7 +81,7 @@
     "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.34.1",
-    "semantic-release": "^19.0.5",
+    "semantic-release": "^20.0.2",
     "source-map-support": "^0.5.19",
     "ts-mocha": "^10.0.0",
     "typedoc": "^0.23.24",
