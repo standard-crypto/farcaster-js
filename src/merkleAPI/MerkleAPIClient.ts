@@ -366,6 +366,9 @@ export class MerkleAPIClient {
     }
   }
 
+  /**
+   * Lists a given cast's likes
+   */
   public async *fetchCastLikes(
     castOrCastHash: Cast | string,
     { pageSize = 100 } = {}
