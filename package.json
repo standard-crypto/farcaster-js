@@ -76,7 +76,7 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "openapi-response-validator": "^12.1.0",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.2",
     "rollup": "^2.79.1",
     "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
     "rollup-plugin-peer-deps-external": "^2.2.4",
