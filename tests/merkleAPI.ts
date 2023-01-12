@@ -463,6 +463,8 @@ if (privateKey !== undefined && privateKey !== "") {
         // eslint-disable-next-line no-unreachable-loop
         for await (const notification of notifications) {
           expectDefined(notification);
+          expectDefined(notification.content);
+          expectDefined(notification.content.cast);
           notificationFound = true;
           break;
         }

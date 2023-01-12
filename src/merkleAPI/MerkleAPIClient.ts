@@ -29,11 +29,12 @@ import {
   NotificationsApi,
   VerificationsApi,
   Verification,
+  NotificationCastMention,
+  NotificationCastReply,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "./logger";
-import { Notification } from "./swagger/models/Notification";
 import type { WithRequired } from "../utils";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
@@ -342,7 +343,11 @@ export class MerkleAPIClient {
 
   public async *fetchMentionAndReplyNotifications({
     pageSize = 100,
-  } = {}): AsyncGenerator<Notification, void, undefined> {
+  } = {}): AsyncGenerator<
+    NotificationCastMention | NotificationCastReply,
+    void,
+    undefined
+  > {
     let cursor: string | undefined;
 
     while (true) {

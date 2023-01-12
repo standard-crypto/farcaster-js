@@ -12,7 +12,8 @@
  * Do not edit the class manually.
  */
 
-import { Notification } from "./Notification";
+import { NotificationCastMention } from "./NotificationCastMention";
+import { NotificationCastReply } from "./NotificationCastReply";
 
 /**
  *
@@ -25,5 +26,5 @@ export interface InlineResponse20014Result {
    * @type {Array<any>}
    * @memberof InlineResponse20014Result
    */
-  notifications: Array<Notification>;
+  notifications: Array<NotificationCastMention | NotificationCastReply>;
 }
