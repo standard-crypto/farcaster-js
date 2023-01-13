@@ -1,3 +1,22 @@
+# [5.5.0](https://github.com/standard-crypto/farcaster-js/compare/v5.4.0...v5.5.0) (2023-01-10)
+
+
+### Features
+
+* adds `fetchCastLikes()` to MerkleAPIClient ([e07abf2](https://github.com/standard-crypto/farcaster-js/commit/e07abf2b33e2c17ef6c739dc00c0f48d2b017568)), closes [#454](https://github.com/standard-crypto/farcaster-js/issues/454)
+
+# [5.4.0](https://github.com/standard-crypto/farcaster-js/compare/v5.3.0...v5.4.0) (2022-12-28)
+
+
+### Bug Fixes
+
+* export the underlying MerkleAPI types ([a2605de](https://github.com/standard-crypto/farcaster-js/commit/a2605de690a5604a053fe658e2b176ee8bfe78e5))
+
+
+### Features
+
+* add MerkleAPIClient support for user-supplied AuthTokens (replacing Wallet param) ([46d6758](https://github.com/standard-crypto/farcaster-js/commit/46d6758a4584f91c268a7c8278dfde5ca4f0be1e)), closes [#438](https://github.com/standard-crypto/farcaster-js/issues/438)
+
 # [5.3.0](https://github.com/standard-crypto/farcaster-js/compare/v5.2.0...v5.3.0) (2022-12-21)
 
 
