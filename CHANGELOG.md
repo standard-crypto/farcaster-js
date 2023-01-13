@@ -1,3 +1,10 @@
+## [5.5.1](https://github.com/standard-crypto/farcaster-js/compare/v5.5.0...v5.5.1) (2023-01-13)
+
+
+### Bug Fixes
+
+* narrow return type of `fetchMentionAndReplyNotifications()` ([e2bb2f6](https://github.com/standard-crypto/farcaster-js/commit/e2bb2f66e10435b664484ba7e147eef005fe9c55)), closes [#459](https://github.com/standard-crypto/farcaster-js/issues/459)
+
 # [5.5.0](https://github.com/standard-crypto/farcaster-js/compare/v5.4.0...v5.5.0) (2023-01-10)
 
 
