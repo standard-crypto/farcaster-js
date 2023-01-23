@@ -41,7 +41,7 @@
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@openapitools/openapi-generator-cli": "^2.5.2",
-    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@semantic-release/changelog": "^6.0.1",
