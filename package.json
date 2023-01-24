@@ -106,5 +106,8 @@
     "dist/**",
     "src/**",
     "types/**"
+  ],
+  "keywords": [
+    "farcaster"
   ]
 }
