@@ -30,7 +30,7 @@ const userFarcasterFid = 1; // @farcaster
 
 if (privateKey !== undefined && privateKey !== "") {
   describe("MerkleAPI", function () {
-    this.timeout("10000");
+    this.timeout("30000");
 
     let client: MerkleAPIClient;
 
