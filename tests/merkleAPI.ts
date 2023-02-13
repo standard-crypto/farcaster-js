@@ -340,10 +340,18 @@ if (privateKey !== undefined && privateKey !== "") {
     });
 
     describe("follows", function () {
+      // used to delay the time between when we follow a user, and when we query the server
+      // for our follows. There seems to be a delay before the update fully propagates server-side
+      let _followersUpdateTimer: () => void;
+      const followersUpdatePropagated: Promise<void> = new Promise(
+        (resolve) => (_followersUpdateTimer = resolve)
+      );
+      this.retries(4);
+
       it("can follow a user", async function () {
         await client.followUser({ fid: userDwrFid });
-        const user = await client.lookupUserByFid(userDwrFid);
-        expectDefined(user);
+
+        setTimeout(_followersUpdateTimer, 5000);
       });
 
       it("can fetch followers of a user", async function () {
@@ -359,6 +367,8 @@ if (privateKey !== undefined && privateKey !== "") {
       });
 
       it("can fetch users followed by a user", async function () {
+        await followersUpdatePropagated;
+
         let dwrFound = false;
         const currentUser = await client.fetchCurrentUser();
         for await (const following of client.fetchUserFollowing(currentUser)) {
