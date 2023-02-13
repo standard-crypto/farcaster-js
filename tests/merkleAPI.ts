@@ -34,10 +34,25 @@ if (privateKey !== undefined && privateKey !== "") {
 
     let client: MerkleAPIClient;
 
+    async function _cleanupBotCasts(): Promise<void> {
+      const castHashes = new Array<string>();
+      for await (const cast of client.fetchCastsForUser({
+        fid: userGaviBotFid,
+      })) {
+        castHashes.push(cast.hash);
+      }
+      for (const castHash of castHashes) {
+        await client.deleteCast(castHash);
+      }
+    }
+
     before("create client", function () {
       const wallet = Wallet.fromMnemonic(privateKey);
       client = new MerkleAPIClient(wallet, { logger: testLogger });
     });
+
+    before("cleanup any existing casts", _cleanupBotCasts);
+    after("cleanup any trailing casts", _cleanupBotCasts);
 
     it("#fetchCurrentUser", async function () {
       const user = await client.fetchCurrentUser();
