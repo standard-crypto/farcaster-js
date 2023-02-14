@@ -38,7 +38,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.2",
+    "@commitlint/cli": "^17.4.3",
     "@commitlint/config-conventional": "^17.4.2",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@rollup/plugin-commonjs": "^24.0.1",
