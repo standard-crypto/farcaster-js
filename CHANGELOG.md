@@ -1,3 +1,18 @@
+## [5.5.2](https://github.com/standard-crypto/farcaster-js/compare/v5.5.1...v5.5.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 1.1.3 to 1.3.1 ([701086e](https://github.com/standard-crypto/farcaster-js/commit/701086e7a35b6da2d11e693efe0912e8b9b8b867))
+* **deps:** bump axios from 1.3.1 to 1.3.2 ([6facc5e](https://github.com/standard-crypto/farcaster-js/commit/6facc5e27bd6885cc9dc66b11c21aaef6add4a33))
+* **deps:** bump axios from 1.3.2 to 1.3.3 ([8f833e7](https://github.com/standard-crypto/farcaster-js/commit/8f833e7a73786551c7a0488e5d26d5219c776bcc))
+* migrate API client from farcaster.xyz to warpcast.com ([dbb2f16](https://github.com/standard-crypto/farcaster-js/commit/dbb2f162c1a8c7cf890792a1345247a66bfa941d))
+
+
+### Reverts
+
+* adds to package.json keywords ([a05a548](https://github.com/standard-crypto/farcaster-js/commit/a05a548fd9020f31bea7f5fe9da629878f9b4d51))
+
 ## [5.5.1](https://github.com/standard-crypto/farcaster-js/compare/v5.5.0...v5.5.1) (2023-01-13)
 
 
