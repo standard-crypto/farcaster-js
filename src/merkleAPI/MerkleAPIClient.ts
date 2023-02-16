@@ -40,7 +40,7 @@ import type { WithRequired } from "../utils";
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
 
-const BASE_PATH = "https://api.farcaster.xyz";
+const BASE_PATH = "https://api.warpcast.com";
 
 export class MerkleAPIClient {
   private authToken?: Promise<AuthToken>;
