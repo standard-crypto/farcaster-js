@@ -1,1 +1,1 @@
-export type CastReactionType = "Like";
+export type CastReactionType = "like";

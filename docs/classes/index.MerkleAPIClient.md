@@ -687,7 +687,7 @@ React to a cast
 
 | Name | Type |
 | :------ | :------ |
-| `reaction` | ``"Like"`` |
+| `reaction` | ``"like"`` |
 | `cast` | [`Cast`](../interfaces/index.Cast.md) \| { `castHash`: `string`  } |
 
 #### Returns
@@ -732,7 +732,7 @@ Remove a reaction to a cast
 
 | Name | Type |
 | :------ | :------ |
-| `reaction` | ``"Like"`` |
+| `reaction` | ``"like"`` |
 | `cast` | [`Cast`](../interfaces/index.Cast.md) \| { `castHash`: `string`  } |
 
 #### Returns

@@ -247,7 +247,7 @@ if (privateKey !== undefined && privateKey !== "") {
         )) {
           expectDefined(cast);
           expectDefined(cast.hash);
-          expect(cast.type).to.eq("Like");
+          expect(cast.type).to.eq("like");
           castCount++;
           if (castCount === 10) break;
         }
@@ -297,8 +297,8 @@ if (privateKey !== undefined && privateKey !== "") {
         cast = await client.fetchLatestCastForUser({ fid: userDwrFid });
         expectDefined(cast);
 
-        reaction = await client.reactToCast("Like", cast);
-        expect(reaction.type).to.eq("Like");
+        reaction = await client.reactToCast("like", cast);
+        expect(reaction.type).to.eq("like");
         expect(reaction.castHash).to.eq(cast.hash);
       });
 
@@ -319,7 +319,7 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can un-react to a cast", async function () {
         expectDefined(cast);
         expectDefined(reaction);
-        await client.removeReactionToCast("Like", cast);
+        await client.removeReactionToCast("like", cast);
       });
     });
 

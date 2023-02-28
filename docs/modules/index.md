@@ -215,7 +215,7 @@ ___
 
 ### CastReactionType
 
-Ƭ **CastReactionType**: ``"Like"``
+Ƭ **CastReactionType**: ``"like"``
 
 #### Defined in
 

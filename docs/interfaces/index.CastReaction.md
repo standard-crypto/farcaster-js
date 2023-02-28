@@ -80,7 +80,7 @@ ___
 
 ### type
 
-• **type**: ``"Like"``
+• **type**: ``"like"``
 
 **`Memberof`**
 
