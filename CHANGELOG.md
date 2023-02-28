@@ -1,3 +1,11 @@
+## [5.5.3](https://github.com/standard-crypto/farcaster-js/compare/v5.5.2...v5.5.3) (2023-02-28)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 1.3.3 to 1.3.4 ([bbd737b](https://github.com/standard-crypto/farcaster-js/commit/bbd737b4002fd8941bb1fc35cf6c65a85bffeecc))
+* warpcast API changed case of "Like" reaction type to "like" ([5afaafa](https://github.com/standard-crypto/farcaster-js/commit/5afaafa84d369e240f7ddb8566ccb048a1f816fd))
+
 ## [5.5.2](https://github.com/standard-crypto/farcaster-js/compare/v5.5.1...v5.5.2) (2023-02-16)
 
 
