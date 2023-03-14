@@ -1,3 +1,10 @@
+## [5.5.4](https://github.com/standard-crypto/farcaster-js/compare/v5.5.3...v5.5.4) (2023-03-14)
+
+
+### Bug Fixes
+
+* fix bug caused by upstream Warpcast API change to lookupUserByFid response code ([24b53d1](https://github.com/standard-crypto/farcaster-js/commit/24b53d104478910f82c5d6c4df3afbf4add12f4a))
+
 ## [5.5.3](https://github.com/standard-crypto/farcaster-js/compare/v5.5.2...v5.5.3) (2023-02-28)
 
 
