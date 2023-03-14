@@ -663,13 +663,21 @@ export class MerkleAPIClient {
    */
   public async lookupUserByFid(fid: number): Promise<User | undefined> {
     const authToken = await this.getOrCreateValidAuthToken();
-    const response = await this.apis.users.v2UserGet(fid, authToken.secret, {
-      validateStatus: (status) => {
-        return status === 200 || status === 404;
-      },
-    });
-    if (response.status === 404) return undefined;
-    return response.data.result.user;
+    try {
+      const response = await this.apis.users.v2UserGet(fid, authToken.secret);
+      return response.data.result.user;
+    } catch (error) {
+      if (MerkleAPIClient.isApiErrorResponse(error)) {
+        const errors = error.response.data.errors;
+        if (
+          errors.length === 1 &&
+          errors[0].message.includes("No account found with fid")
+        ) {
+          return undefined;
+        }
+      }
+      throw error;
+    }
   }
 
   /**
