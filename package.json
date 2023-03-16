@@ -60,7 +60,7 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "commitizen": "^4.3.0",
-    "cspell": "^6.29.3",
+    "cspell": "^6.30.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
