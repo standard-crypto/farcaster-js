@@ -165,8 +165,7 @@ if (privateKey !== undefined && privateKey !== "") {
 
     describe("#fetchCast", function () {
       it("can fetch an existing cast", async function () {
-        const existingCastHash =
-          "0x832cfd5a2e54fc43c3f267c1ffdf4e63b0863cb0284a11ae0bafa7b0d0ef604a";
+        const existingCastHash = "0x61bf205b7e4ae838c05ff9d4096eef2de0cc57ee";
         const cast = await client.fetchCast(existingCastHash);
         expectDefined(cast);
         expect(cast.hash).to.eq(existingCastHash);
