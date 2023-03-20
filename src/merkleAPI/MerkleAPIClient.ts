@@ -142,12 +142,19 @@ export class MerkleAPIClient {
     );
   }
 
+  public async checkServerAcceptsAuthToken(
+    authToken: AuthToken
+  ): Promise<void> {
+    await this.apis.user.v2MeGet(authToken.secret);
+  }
+
   /**
    * Creates a new auth token from the signing key of the Wallet
    * configured with this API client.
    */
   public async createAuthToken(
-    expiryDurationMillis = TEN_MINUTES_IN_MILLIS
+    expiryDurationMillis = TEN_MINUTES_IN_MILLIS,
+    { checkServerAcceptsToken = true } = {}
   ): Promise<AuthToken> {
     this.logger.debug("fetching new authToken...");
     const now = Date.now();
@@ -162,7 +169,25 @@ export class MerkleAPIClient {
     const response = await this.apis.auth.v2AuthPut(params, {
       headers: { Authorization: authHeader },
     });
-    return response.data.result.token;
+    try {
+      if (checkServerAcceptsToken) {
+        await this.checkServerAcceptsAuthToken(response.data.result.token);
+      }
+      return response.data.result.token;
+    } catch (error) {
+      if (MerkleAPIClient.isApiErrorResponse(error)) {
+        const errors = error.response.data.errors;
+        if (
+          errors.length === 1 &&
+          errors[0].message.includes("Invalid authentication token")
+        ) {
+          throw Error(
+            "Warpcast API did not accept the auth token it just created. You may have too many long-lived tokens active at once, and should consider #revokeAllTokens()"
+          );
+        }
+      }
+      throw error;
+    }
   }
 
   /**
@@ -901,6 +926,38 @@ export class MerkleAPIClient {
     };
 
     await this.apis.auth.v2AuthDelete(`Bearer ${authToken.secret}`, params);
+  }
+
+  /**
+   * Revokes all other auth tokens created for this user, with the exception of
+   * the one token still in use by this particular instance.
+   *
+   * You may still use this instance after calling this method, but any other
+   * applications using Auth Tokens for your user will most likely cease working.
+   *
+   * Credit to DavidFurlong for this approach:
+   * https://github.com/davidfurlong/farcaster-auth-tokens/blob/a114450a1d511caa044e8ace0674146e1ace2531/revoke-all.ts
+   */
+  public async revokeAllAuthTokens(): Promise<void> {
+    const NUM_TOKENS = 50;
+
+    const tokens = await Promise.all(
+      Array.from(Array(NUM_TOKENS).keys()).map(async () => {
+        // go for the a very big expiry to make sure they have longer expiry than all existing tokens
+        return await this.createAuthToken(109999999999999, {
+          checkServerAcceptsToken: false,
+        });
+      })
+    );
+
+    // since we will blow up all tokens, whatever old one this client was using is no longer valid.
+    // marking as undefined flags that a new one must be re-created next time this client is used
+    this.authToken = undefined;
+
+    // revoke all of these auth tokens
+    for (const token of tokens) {
+      await this.revokeAuthToken(token);
+    }
   }
 
   /**

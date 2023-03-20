@@ -476,6 +476,33 @@ if (privateKey !== undefined && privateKey !== "") {
         );
       });
 
+      it("can gracefully handle inadvertent creation of too many auth tokens at once", async function () {
+        this.timeout("300000");
+
+        // Create too many long-lived tokens
+        const numTokens = 60;
+        const ONE_YEAR_IN_MILLIS = 31556926000;
+        for (let i = 0; i < numTokens; i++) {
+          await client.createAuthToken(ONE_YEAR_IN_MILLIS, {
+            checkServerAcceptsToken: false,
+          });
+        }
+
+        // attempting to create and use a new, short-lived token should fail
+        const wallet = Wallet.fromMnemonic(privateKey);
+        client = new MerkleAPIClient(wallet, { logger: testLogger });
+        const request = client.fetchCurrentUser();
+        await expect(request).to.be.rejectedWith(
+          "Warpcast API did not accept the auth token it just created. You may have too many long-lived tokens active at once"
+        );
+
+        // revoke all tokens
+        await client.revokeAllAuthTokens();
+
+        // things should work once again
+        await client.fetchCurrentUser();
+      });
+
       describe("user-supplied auth tokens", function () {
         it("can be used to initialize an API client", async function () {
           const token = await client.getOrCreateValidAuthToken();
@@ -484,7 +511,9 @@ if (privateKey !== undefined && privateKey !== "") {
         });
 
         it("causes an error to be thrown if the token has expired", async function () {
-          const token = await client.createAuthToken(1);
+          const token = await client.createAuthToken(1, {
+            checkServerAcceptsToken: false,
+          });
           const newClient = new MerkleAPIClient(token);
           await expect(newClient.fetchCurrentUser()).to.be.rejectedWith(
             "the AuthToken provided has expired"
