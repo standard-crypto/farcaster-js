@@ -165,7 +165,7 @@ if (privateKey !== undefined && privateKey !== "") {
 
     describe("#fetchCast", function () {
       it("can fetch an existing cast", async function () {
-        const existingCastHash = "0x61bf205b7e4ae838c05ff9d4096eef2de0cc57ee";
+        const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
         const cast = await client.fetchCast(existingCastHash);
         expectDefined(cast);
         expect(cast.hash).to.eq(existingCastHash);
@@ -279,12 +279,22 @@ if (privateKey !== undefined && privateKey !== "") {
         await client.deleteCast(publishedCast);
       });
 
-      // Skipped: server currently returns 500 error
-      it.skip("cannot delete a cast from a different author", async function () {
-        // hash of a cast posted by @dwr
-        await client.deleteCast(
-          "0x4a52dd0d3b9864d108bf08f28bf059365838ff3932a46a18a81d8bb378b1862e"
-        );
+      it("cannot delete a cast from a different author", async function () {
+        let errorThrownAndParsedCorrectly = false;
+        try {
+          await client.deleteCast("0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1"); // a cast by @dwr
+        } catch (error) {
+          expect(MerkleAPIClient.isApiErrorResponse(error)).is.true;
+          if (MerkleAPIClient.isApiErrorResponse(error)) {
+            // repeating the above just for the type inference
+            expect(error.response.status).to.eq(400);
+            const errors = error.response.data.errors;
+            expect(errors).to.have.length(1);
+            expect(errors[0].message).to.contain("does not exist");
+            errorThrownAndParsedCorrectly = true;
+          }
+        }
+        expect(errorThrownAndParsedCorrectly).to.be.true;
       });
     });
 
