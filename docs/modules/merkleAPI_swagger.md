@@ -125,6 +125,11 @@
 - [RecentUsersGetResponseResult](merkleAPI_swagger.md#recentusersgetresponseresult)
 - [RequestArgs](merkleAPI_swagger.md#requestargs)
 - [RequiredError](merkleAPI_swagger.md#requirederror)
+- [SignerRequest](merkleAPI_swagger.md#signerrequest)
+- [SignerRequestsApi](merkleAPI_swagger.md#signerrequestsapi)
+- [SignerRequestsApiAxiosParamCreator](merkleAPI_swagger.md#signerrequestsapiaxiosparamcreator)
+- [SignerRequestsApiFactory](merkleAPI_swagger.md#signerrequestsapifactory)
+- [SignerRequestsApiFp](merkleAPI_swagger.md#signerrequestsapifp)
 - [TopCollection](merkleAPI_swagger.md#topcollection)
 - [TrendingCollection](merkleAPI_swagger.md#trendingcollection)
 - [UnseenConversation](merkleAPI_swagger.md#unseenconversation)
@@ -155,6 +160,11 @@
 - [V2FollowsBody1](merkleAPI_swagger.md#v2followsbody1)
 - [V2RecastsBody](merkleAPI_swagger.md#v2recastsbody)
 - [V2RecastsBody1](merkleAPI_swagger.md#v2recastsbody1)
+- [V2SignerRequestGet200Response](merkleAPI_swagger.md#v2signerrequestget200response)
+- [V2SignerRequestGet200ResponseResult](merkleAPI_swagger.md#v2signerrequestget200responseresult)
+- [V2SignerRequestsPost200Response](merkleAPI_swagger.md#v2signerrequestspost200response)
+- [V2SignerRequestsPost200ResponseResult](merkleAPI_swagger.md#v2signerrequestspost200responseresult)
+- [V2SignerRequestsPostRequest](merkleAPI_swagger.md#v2signerrequestspostrequest)
 - [V2WatchedCastsBody](merkleAPI_swagger.md#v2watchedcastsbody)
 - [V2WatchedCastsBody1](merkleAPI_swagger.md#v2watchedcastsbody1)
 - [V2authParams](merkleAPI_swagger.md#v2authparams)
@@ -887,6 +897,36 @@ Re-exports [RequiredError](../classes/index.RequiredError.md)
 
 ___
 
+### SignerRequest
+
+Re-exports [SignerRequest](../interfaces/index.SignerRequest.md)
+
+___
+
+### SignerRequestsApi
+
+Re-exports [SignerRequestsApi](../classes/index.SignerRequestsApi.md)
+
+___
+
+### SignerRequestsApiAxiosParamCreator
+
+Re-exports [SignerRequestsApiAxiosParamCreator](index.md#signerrequestsapiaxiosparamcreator)
+
+___
+
+### SignerRequestsApiFactory
+
+Re-exports [SignerRequestsApiFactory](index.md#signerrequestsapifactory)
+
+___
+
+### SignerRequestsApiFp
+
+Re-exports [SignerRequestsApiFp](index.md#signerrequestsapifp)
+
+___
+
 ### TopCollection
 
 Re-exports [TopCollection](../interfaces/index.TopCollection.md)
@@ -1064,6 +1104,36 @@ ___
 ### V2RecastsBody1
 
 Re-exports [V2RecastsBody1](../interfaces/index.V2RecastsBody1.md)
+
+___
+
+### V2SignerRequestGet200Response
+
+Re-exports [V2SignerRequestGet200Response](../interfaces/index.V2SignerRequestGet200Response.md)
+
+___
+
+### V2SignerRequestGet200ResponseResult
+
+Re-exports [V2SignerRequestGet200ResponseResult](../interfaces/index.V2SignerRequestGet200ResponseResult.md)
+
+___
+
+### V2SignerRequestsPost200Response
+
+Re-exports [V2SignerRequestsPost200Response](../interfaces/index.V2SignerRequestsPost200Response.md)
+
+___
+
+### V2SignerRequestsPost200ResponseResult
+
+Re-exports [V2SignerRequestsPost200ResponseResult](../interfaces/index.V2SignerRequestsPost200ResponseResult.md)
+
+___
+
+### V2SignerRequestsPostRequest
+
+Re-exports [V2SignerRequestsPostRequest](../interfaces/index.V2SignerRequestsPostRequest.md)
 
 ___
 

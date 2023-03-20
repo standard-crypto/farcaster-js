@@ -22,6 +22,8 @@
 
   ↳ [`NotificationsApi`](index.NotificationsApi.md)
 
+  ↳ [`SignerRequestsApi`](index.SignerRequestsApi.md)
+
   ↳ [`UserApi`](index.UserApi.md)
 
   ↳ [`UsersApi`](index.UsersApi.md)

@@ -17,6 +17,7 @@ export * from "./apis/casts-api";
 export * from "./apis/follows-api";
 export * from "./apis/miscellaneous-api";
 export * from "./apis/notifications-api";
+export * from "./apis/signer-requests-api";
 export * from "./apis/user-api";
 export * from "./apis/users-api";
 export * from "./apis/verifications-api";

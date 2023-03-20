@@ -3361,6 +3361,126 @@
             }
          }
       },
+      "/v2/signer-request":{
+         "get":{
+            "description":"Gets information about a Signer Request. This URL can be polled to check if a user has completed the Signer Request flow.",
+            "tags":[
+               "signer-requests"
+            ],
+            "parameters":[
+               {
+                  "minLength":0,
+                  "maxLength":256,
+                  "type":"string",
+                  "required":true,
+                  "in":"query",
+                  "name":"token"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Default Response",
+                  "schema":{
+                     "type":"object",
+                     "properties":{
+                        "result":{
+                           "type":"object",
+                           "properties":{
+                              "signerRequest":{
+                                 "type":"object",
+                                 "properties": {
+                                    "token":{
+                                       "type": "string"
+                                    },
+                                    "publicKey":{
+                                       "type":"string"
+                                    },
+                                    "timestamp":{
+                                       "type":"number"
+                                    },
+                                    "name":{
+                                       "type":"string"
+                                    },
+                                    "fid":{
+                                       "$ref": "#/definitions/def-12"
+                                    },
+                                    "messageHash":{
+                                       "type":"string"
+                                    },
+                                    "base64SignedMessage":{
+                                       "type":"string"
+                                    }
+                                 },
+                                 "required": [
+                                    "token",
+                                    "publicKey",
+                                    "timestamp",
+                                    "name"
+                                 ]
+                              }
+                           },
+                           "required":[
+                              "signerRequest"
+                           ]
+                        }
+                     },
+                     "required":[
+                        "result"
+                     ]
+                  }
+               }
+            }
+         }
+      },
+      "/v2/signer-requests":{
+         "post": {
+            "description": "Creates a signer request used to initiate a signer request flow for a user in Warpcast. A Signer Request expires in 24 hours.",
+            "tags":[
+               "signer-requests"
+            ],
+            "parameters": [
+               {
+                  "name":"body",
+                  "in":"body",
+                  "schema":{
+                     "type":"object",
+                     "properties": {
+                        "publicKey":{"type":"string"},
+                        "name":{"type":"string"}
+                     },
+                     "required": [
+                        "publicKey",
+                        "name"
+                     ]
+                  }
+               }
+            ],
+            "responses": {
+               "200":{
+                  "description": "Default Response",
+                  "schema":{
+                     "type":"object",
+                     "properties": {
+                        "result":{
+                           "type":"object",
+                           "properties": {
+                              "token":{"type":"string"},
+                              "deepLinkUrl":{"type":"string"}
+                           },
+                           "required": [
+                              "token",
+                              "deepLinkUrl"
+                           ]
+                        }
+                     },
+                     "required": [
+                        "result"
+                     ]
+                  }
+               }
+            }
+         }
+      },
       "/v2/user":{
          "get":{
             "description":"Gets the specified user via their FID.",

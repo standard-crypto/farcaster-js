@@ -19,7 +19,7 @@ A tool for interacting with the Farcaster social network.
   - [Parse an API Error Response](#parse-an-api-error-response)
   - [Use a User-Supplied Auth Token](#use-a-user-supplied-auth-token)
 - [Documentation](#documentation)
-  - [Merkle API Client](#merkle-api-client)
+  - [Warpcast API Client](#warpcast-api-client)
   - [Hubs](#hubs)
   - [User Registry](#user-registry)
 <!-- AUTO-GENERATED-CONTENT:END -->
@@ -185,13 +185,17 @@ console.log(user.displayName);
 
 ## Documentation
 
-### Merkle API Client
+### Warpcast API Client
 
-The Merkle API is a collection of publicly exposed API endpoints provided by Merkle Manufactory, Inc
+The Warpcast API is a collection of publicly exposed API endpoints provided by Merkle Manufactory, Inc
 for Farcaster V2. `farcaster-js` provides a set of typescript bindings for those endpoints, as well
 as exposing the raw swagger bindings directly if needed.
 
 See [here](/docs/classes/index.MerkleAPIClient.md) for full list of the methods supported.
+
+Wrappers for the Warpcast API are based on a OpenAPI spec kept in the `src` directory that is no longer
+kept up-to-date by the Warpcast team. Many manual edits have been added to the output of the openapi-generator.
+To add wrappers for new API endpoints, the `yarn:generate` script can be used as a starting point.
 
 ### Hubs
 

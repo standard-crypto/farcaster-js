@@ -16,8 +16,13 @@
 - [apiKey](index.Configuration.md#apikey)
 - [baseOptions](index.Configuration.md#baseoptions)
 - [basePath](index.Configuration.md#basepath)
+- [formDataCtor](index.Configuration.md#formdatactor)
 - [password](index.Configuration.md#password)
 - [username](index.Configuration.md#username)
+
+### Methods
+
+- [isJsonMime](index.Configuration.md#isjsonmime)
 
 ## Constructors
 
@@ -33,7 +38,7 @@
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:82](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L82)
+[src/merkleAPI/swagger/configuration.ts:92](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L92)
 
 ## Properties
 
@@ -57,7 +62,7 @@ Configuration
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:62](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L62)
+[src/merkleAPI/swagger/configuration.ts:64](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L64)
 
 ___
 
@@ -77,7 +82,7 @@ Configuration
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:37](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L37)
+[src/merkleAPI/swagger/configuration.ts:39](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L39)
 
 ___
 
@@ -93,7 +98,7 @@ Configuration
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:80](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L80)
+[src/merkleAPI/swagger/configuration.ts:82](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L82)
 
 ___
 
@@ -109,7 +114,25 @@ Configuration
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:73](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L73)
+[src/merkleAPI/swagger/configuration.ts:75](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L75)
+
+___
+
+### formDataCtor
+
+• `Optional` **formDataCtor**: () => `any`
+
+#### Type declaration
+
+• **new formDataCtor**()
+
+The FormData constructor that will be used to create multipart form data
+requests. You can inject this here so that execution environments that
+do not support the FormData class can still run the generated client.
+
+#### Defined in
+
+[src/merkleAPI/swagger/configuration.ts:90](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L90)
 
 ___
 
@@ -125,7 +148,7 @@ Configuration
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:55](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L55)
+[src/merkleAPI/swagger/configuration.ts:57](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L57)
 
 ___
 
@@ -141,4 +164,33 @@ Configuration
 
 #### Defined in
 
-[src/merkleAPI/swagger/configuration.ts:48](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L48)
+[src/merkleAPI/swagger/configuration.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L50)
+
+## Methods
+
+### isJsonMime
+
+▸ **isJsonMime**(`mime`): `boolean`
+
+Check if the given MIME is a JSON MIME.
+JSON MIME examples:
+  application/json
+  application/json; charset=UTF8
+  APPLICATION/JSON
+  application/vnd.company+json
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `mime` | `string` | MIME (Multipurpose Internet Mail Extensions) |
+
+#### Returns
+
+`boolean`
+
+True if the given MIME is JSON, false otherwise.
+
+#### Defined in
+
+[src/merkleAPI/swagger/configuration.ts:112](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/configuration.ts#L112)

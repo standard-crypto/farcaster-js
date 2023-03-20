@@ -21,6 +21,7 @@
 - [MiscellaneousApi](../classes/index.MiscellaneousApi.md)
 - [NotificationsApi](../classes/index.NotificationsApi.md)
 - [RequiredError](../classes/index.RequiredError.md)
+- [SignerRequestsApi](../classes/index.SignerRequestsApi.md)
 - [UserApi](../classes/index.UserApi.md)
 - [UsersApi](../classes/index.UsersApi.md)
 - [VerificationsApi](../classes/index.VerificationsApi.md)
@@ -113,6 +114,7 @@
 - [RecentUsersGetResponse](../interfaces/index.RecentUsersGetResponse.md)
 - [RecentUsersGetResponseResult](../interfaces/index.RecentUsersGetResponseResult.md)
 - [RequestArgs](../interfaces/index.RequestArgs.md)
+- [SignerRequest](../interfaces/index.SignerRequest.md)
 - [TopCollection](../interfaces/index.TopCollection.md)
 - [TrendingCollection](../interfaces/index.TrendingCollection.md)
 - [UnseenConversation](../interfaces/index.UnseenConversation.md)
@@ -133,6 +135,11 @@
 - [V2FollowsBody1](../interfaces/index.V2FollowsBody1.md)
 - [V2RecastsBody](../interfaces/index.V2RecastsBody.md)
 - [V2RecastsBody1](../interfaces/index.V2RecastsBody1.md)
+- [V2SignerRequestGet200Response](../interfaces/index.V2SignerRequestGet200Response.md)
+- [V2SignerRequestGet200ResponseResult](../interfaces/index.V2SignerRequestGet200ResponseResult.md)
+- [V2SignerRequestsPost200Response](../interfaces/index.V2SignerRequestsPost200Response.md)
+- [V2SignerRequestsPost200ResponseResult](../interfaces/index.V2SignerRequestsPost200ResponseResult.md)
+- [V2SignerRequestsPostRequest](../interfaces/index.V2SignerRequestsPostRequest.md)
 - [V2WatchedCastsBody](../interfaces/index.V2WatchedCastsBody.md)
 - [V2WatchedCastsBody1](../interfaces/index.V2WatchedCastsBody1.md)
 - [V2authParams](../interfaces/index.V2authParams.md)
@@ -177,6 +184,9 @@
 - [NotificationsApiAxiosParamCreator](index.md#notificationsapiaxiosparamcreator)
 - [NotificationsApiFactory](index.md#notificationsapifactory)
 - [NotificationsApiFp](index.md#notificationsapifp)
+- [SignerRequestsApiAxiosParamCreator](index.md#signerrequestsapiaxiosparamcreator)
+- [SignerRequestsApiFactory](index.md#signerrequestsapifactory)
+- [SignerRequestsApiFp](index.md#signerrequestsapifp)
 - [UserApiAxiosParamCreator](index.md#userapiaxiosparamcreator)
 - [UserApiFactory](index.md#userapifactory)
 - [UserApiFp](index.md#userapifp)
@@ -916,6 +926,95 @@ NotificationsApi - functional programming interface
 #### Defined in
 
 [src/merkleAPI/swagger/apis/notifications-api.ts:122](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/notifications-api.ts#L122)
+
+___
+
+### SignerRequestsApiAxiosParamCreator
+
+▸ **SignerRequestsApiAxiosParamCreator**(`configuration?`): `Object`
+
+SignerRequestsApi - axios parameter creator
+
+**`Export`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `configuration?` | [`Configuration`](../classes/index.Configuration.md) |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `v2SignerRequestGet` | (`token`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/index.RequestArgs.md)\> |
+| `v2SignerRequestsPost` | (`body?`: [`V2SignerRequestsPostRequest`](../interfaces/index.V2SignerRequestsPostRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<[`RequestArgs`](../interfaces/index.RequestArgs.md)\> |
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/signer-requests-api.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/signer-requests-api.ts#L50)
+
+___
+
+### SignerRequestsApiFactory
+
+▸ **SignerRequestsApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
+
+SignerRequestsApi - factory interface
+
+**`Export`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `configuration?` | [`Configuration`](../classes/index.Configuration.md) |
+| `basePath?` | `string` |
+| `axios?` | `AxiosInstance` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `v2SignerRequestGet` | (`token`: `string`, `options?`: `any`) => `AxiosPromise`<[`V2SignerRequestGet200Response`](../interfaces/index.V2SignerRequestGet200Response.md)\> |
+| `v2SignerRequestsPost` | (`body?`: [`V2SignerRequestsPostRequest`](../interfaces/index.V2SignerRequestsPostRequest.md), `options?`: `any`) => `AxiosPromise`<[`V2SignerRequestsPost200Response`](../interfaces/index.V2SignerRequestsPost200Response.md)\> |
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/signer-requests-api.ts:213](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/signer-requests-api.ts#L213)
+
+___
+
+### SignerRequestsApiFp
+
+▸ **SignerRequestsApiFp**(`configuration?`): `Object`
+
+SignerRequestsApi - functional programming interface
+
+**`Export`**
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `configuration?` | [`Configuration`](../classes/index.Configuration.md) |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `v2SignerRequestGet` | (`token`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`V2SignerRequestGet200Response`](../interfaces/index.V2SignerRequestGet200Response.md)\>\> |
+| `v2SignerRequestsPost` | (`body?`: [`V2SignerRequestsPostRequest`](../interfaces/index.V2SignerRequestsPostRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`V2SignerRequestsPost200Response`](../interfaces/index.V2SignerRequestsPost200Response.md)\>\> |
+
+#### Defined in
+
+[src/merkleAPI/swagger/apis/signer-requests-api.ts:154](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/signer-requests-api.ts#L154)
 
 ___
 

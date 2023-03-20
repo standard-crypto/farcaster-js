@@ -461,6 +461,16 @@ if (privateKey !== undefined && privateKey !== "") {
         await client.fetchCurrentUser();
       });
 
+      it("returns an error when attempting to use authenticated API endpoints without providing credentials", async function () {
+        const noAuthClient = new MerkleAPIClient(undefined, {
+          logger: testLogger,
+        });
+        const request = noAuthClient.fetchCurrentUser();
+        await expect(request).to.be.rejectedWith(
+          "Attempt to use an authenticated API method without first providing a wallet or AuthToken"
+        );
+      });
+
       describe("user-supplied auth tokens", function () {
         it("can be used to initialize an API client", async function () {
           const token = await client.getOrCreateValidAuthToken();
@@ -591,6 +601,38 @@ if (privateKey !== undefined && privateKey !== "") {
           }
         }
         expect(errorThrownAndParsedCorrectly).to.be.true;
+      });
+    });
+
+    describe("signer requests", function () {
+      const TOKEN_NAME = "farcaster-js integration tests";
+      const TOKEN_PUB_KEY =
+        "0x48b0c7a6deff69bad7673357df43274f3a08163a6440b7a7e3b3cb6b6623faa7";
+      let signerRequestToken: string;
+
+      it("can create a signer request", async function () {
+        const signerRequest = await client.createSignerRequest(
+          TOKEN_PUB_KEY,
+          TOKEN_NAME
+        );
+        expectDefined(signerRequest.token);
+        expectDefined(signerRequest.deepLinkUrl);
+        signerRequestToken = signerRequest.token;
+      });
+
+      it("can fetch an existing signer request", async function () {
+        const signerRequest = await client.fetchSignerRequest(
+          signerRequestToken
+        );
+        expectDefined(signerRequest);
+        expect(signerRequest.token).to.eq(signerRequestToken);
+        expect(signerRequest.name).to.eq(TOKEN_NAME);
+        expect(signerRequest.publicKey).to.eq(TOKEN_PUB_KEY);
+      });
+
+      it("returns undefined when fetching nonexistent signer request", async function () {
+        const signerRequest = await client.fetchSignerRequest("noSuchToken");
+        expect(signerRequest).to.be.undefined;
       });
     });
   });

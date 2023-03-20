@@ -22,7 +22,8 @@
     "healthcheck",
     "recaster",
     "unwatch",
-    "openapi"
+    "openapi",
+    "warpcast"
   ],
   "flagWords": [],
   "ignorePaths": [

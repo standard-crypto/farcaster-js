@@ -31,11 +31,15 @@ import {
   Verification,
   NotificationCastMention,
   NotificationCastReply,
+  V2SignerRequestsPost200ResponseResult,
+  SignerRequest,
+  Configuration,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "./logger";
 import type { WithRequired } from "../utils";
+import { SignerRequestsApi } from "./swagger/apis/signer-requests-api";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
@@ -53,6 +57,7 @@ export class MerkleAPIClient {
     casts: CastsApi;
     follows: FollowsApi;
     notifications: NotificationsApi;
+    signerRequests: SignerRequestsApi;
     user: UserApi;
     users: UsersApi;
     verifications: VerificationsApi;
@@ -65,7 +70,7 @@ export class MerkleAPIClient {
    * Note: A Wallet must be provided if the API client is to mint new AuthTokens
    */
   constructor(
-    walletOrAuthToken: Wallet | { secret: string; expiresAt?: number },
+    walletOrAuthToken?: Wallet | { secret: string; expiresAt?: number },
     {
       logger = silentLogger,
       axiosInstance,
@@ -73,7 +78,13 @@ export class MerkleAPIClient {
   ) {
     this.logger = logger;
 
-    if (walletOrAuthToken instanceof Wallet) {
+    if (walletOrAuthToken === undefined) {
+      this.authToken = Promise.reject(
+        new Error(
+          "Attempt to use an authenticated API method without first providing a wallet or AuthToken"
+        )
+      );
+    } else if (walletOrAuthToken instanceof Wallet) {
       this.wallet = walletOrAuthToken;
     } else {
       const authToken: AuthToken = {
@@ -98,13 +109,14 @@ export class MerkleAPIClient {
       }
     );
 
-    const config = { basePath: BASE_PATH };
+    const config: Configuration = new Configuration({ basePath: BASE_PATH });
     this.apis = {
       assets: new AssetsApi(config, undefined, axiosInstance),
       auth: new AuthApi(config, undefined, axiosInstance),
       casts: new CastsApi(config, undefined, axiosInstance),
       follows: new FollowsApi(config, undefined, axiosInstance),
       notifications: new NotificationsApi(config, undefined, axiosInstance),
+      signerRequests: new SignerRequestsApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
       users: new UsersApi(config, undefined, axiosInstance),
       verifications: new VerificationsApi(config, undefined, axiosInstance),
@@ -148,6 +160,25 @@ export class MerkleAPIClient {
       headers: { Authorization: authHeader },
     });
     return response.data.result.token;
+  }
+
+  /**
+   * Creates a SignerRequest. See [Warpcast documentation](https://warpcast.notion.site/Warpcast-API-Docs-Signer-Requests-Public-e02ef71883374d2ca8d27239a8cc35d5)
+   * for more details.
+   *
+   * Note: Authentication credentials are not required for this API endpoint.
+   * @param publicKey
+   * @param name
+   */
+  public async createSignerRequest(
+    publicKey: string,
+    name: string
+  ): Promise<V2SignerRequestsPost200ResponseResult> {
+    const response = await this.apis.signerRequests.v2SignerRequestsPost({
+      publicKey,
+      name,
+    });
+    return response.data.result;
   }
 
   /**
@@ -463,6 +494,32 @@ export class MerkleAPIClient {
         break;
       }
       cursor = response.data.next.cursor;
+    }
+  }
+
+  /**
+   * Fetches an existing SignerRequest. See [Warpcast documentation](https://warpcast.notion.site/Warpcast-API-Docs-Signer-Requests-Public-e02ef71883374d2ca8d27239a8cc35d5)
+   * for more details.
+   *
+   * Note: Authentication credentials are not required for this API endpoint.
+   */
+  public async fetchSignerRequest(
+    token: string
+  ): Promise<SignerRequest | undefined> {
+    try {
+      const response = await this.apis.signerRequests.v2SignerRequestGet(token);
+      return response.data.result.signerRequest;
+    } catch (error) {
+      if (MerkleAPIClient.isApiErrorResponse(error)) {
+        const errors = error.response.data.errors;
+        if (
+          errors.length === 1 &&
+          errors[0].message.includes("No signer request found with token")
+        ) {
+          return undefined;
+        }
+      }
+      throw error;
     }
   }
 
