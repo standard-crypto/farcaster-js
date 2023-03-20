@@ -54,6 +54,11 @@ if (privateKey !== undefined && privateKey !== "") {
     before("cleanup any existing casts", _cleanupBotCasts);
     after("cleanup any trailing casts", _cleanupBotCasts);
 
+    it("can healthcheck", async function () {
+      const { status } = await client.healthcheck();
+      expect(status).to.eq("ok");
+    });
+
     it("#fetchCurrentUser", async function () {
       const user = await client.fetchCurrentUser();
       expect(user.displayName).not.empty;

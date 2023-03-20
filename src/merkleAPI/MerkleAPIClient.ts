@@ -34,6 +34,7 @@ import {
   V2SignerRequestsPost200ResponseResult,
   SignerRequest,
   Configuration,
+  MiscellaneousApi,
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
@@ -56,6 +57,7 @@ export class MerkleAPIClient {
     auth: AuthApi;
     casts: CastsApi;
     follows: FollowsApi;
+    miscellaneous: MiscellaneousApi;
     notifications: NotificationsApi;
     signerRequests: SignerRequestsApi;
     user: UserApi;
@@ -115,6 +117,7 @@ export class MerkleAPIClient {
       auth: new AuthApi(config, undefined, axiosInstance),
       casts: new CastsApi(config, undefined, axiosInstance),
       follows: new FollowsApi(config, undefined, axiosInstance),
+      miscellaneous: new MiscellaneousApi(config, undefined, axiosInstance),
       notifications: new NotificationsApi(config, undefined, axiosInstance),
       signerRequests: new SignerRequestsApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
@@ -713,6 +716,16 @@ export class MerkleAPIClient {
     await this.apis.follows.v2FollowsPut(authToken.secret, {
       targetFid: user.fid,
     });
+  }
+
+  /**
+   * Check the status of the API. Expected status is "ok".
+   *
+   * Note: authentication parameters are not required.
+   */
+  public async healthcheck(): Promise<{ status: string }> {
+    const response = await this.apis.miscellaneous.healthcheckGet();
+    return response.data.result;
   }
 
   /**
