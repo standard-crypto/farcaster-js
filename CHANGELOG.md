@@ -1,3 +1,12 @@
+# [5.6.0](https://github.com/standard-crypto/farcaster-js/compare/v5.5.4...v5.6.0) (2023-03-21)
+
+
+### Features
+
+* prevent users getting stuck with 401s due to too many Auth Tokens ([a8d6941](https://github.com/standard-crypto/farcaster-js/commit/a8d69417b905c5b35eaaf5bea0e9fcee2acf2963)), closes [#547](https://github.com/standard-crypto/farcaster-js/issues/547)
+* wrap the Healtcheck Warpcast API endpoint ([b29d7cf](https://github.com/standard-crypto/farcaster-js/commit/b29d7cfa5f00b1334450c1b48de242353e9875f4)), closes [#541](https://github.com/standard-crypto/farcaster-js/issues/541)
+* wrap Warpcast API methods for signer requests ([00f193d](https://github.com/standard-crypto/farcaster-js/commit/00f193ddf6d1af2989ff7288c3061569c298fa61)), closes [#539](https://github.com/standard-crypto/farcaster-js/issues/539)
+
 ## [5.5.4](https://github.com/standard-crypto/farcaster-js/compare/v5.5.3...v5.5.4) (2023-03-14)
 
 
