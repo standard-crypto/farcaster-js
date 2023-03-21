@@ -337,7 +337,8 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
-    describe("recasts", function () {
+    // Skipped due to warpcast API consistently 500-ing on recast attempts
+    describe.skip("recasts", function () {
       let cast: Cast | undefined;
 
       it("can recast a cast", async function () {
