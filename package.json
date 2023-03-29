@@ -57,7 +57,7 @@
     "@types/node": "^18.15.5",
     "@types/prompts": "^2.4.3",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "commitizen": "^4.3.0",
