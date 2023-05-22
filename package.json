@@ -63,7 +63,7 @@
     "commitizen": "^4.3.0",
     "cspell": "^6.31.1",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.39.0",
+    "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
