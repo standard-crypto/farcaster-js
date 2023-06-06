@@ -7730,10 +7730,10 @@ typedoc-plugin-mdn-links@^3.0.3:
   resolved "https://registry.yarnpkg.com/typedoc-plugin-mdn-links/-/typedoc-plugin-mdn-links-3.0.3.tgz#da8d1a9750d57333e6c21717b38bfc13d4058de2"
   integrity sha512-NXhIpwQnsg7BcyMCHVqj3tUK+DL4g3Bt96JbFl4APzTGFkA+iM6GfZ/fn3TAqJ8O0CXG5R9BfWxolw1m1omNuQ==
 
-typedoc@^0.24.6:
-  version "0.24.6"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.24.6.tgz#1f76fac27db9c6626b5b5c79f78f3c813b285827"
-  integrity sha512-c3y3h45xJv3qYwKDAwU6Cl+26CjT0ZvblHzfHJ+SjQDM4p1mZxtgHky4lhmG0+nNarRht8kADfZlbspJWdZarQ==
+typedoc@^0.24.8:
+  version "0.24.8"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.24.8.tgz#cce9f47ba6a8d52389f5e583716a2b3b4335b63e"
+  integrity sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==
   dependencies:
     lunr "^2.3.9"
     marked "^4.3.0"
