@@ -17,6 +17,7 @@ import { CastAttachments } from "./CastAttachments";
 import { CastReactions } from "./CastReactions";
 import { CastRecasts } from "./CastRecasts";
 import { CastViewerContext } from "./CastViewerContext";
+import { CastEmbeds } from "./CastEmbeds";
 /**
  */
 export interface Cast {
@@ -120,4 +121,5 @@ export interface Cast {
    * @memberof Def42
    */
   viewerContext?: CastViewerContext;
+  embeds?: CastEmbeds;
 }

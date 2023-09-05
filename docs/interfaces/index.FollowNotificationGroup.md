@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def57
 
 ## Table of contents

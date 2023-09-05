@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def40
 
 ## Table of contents

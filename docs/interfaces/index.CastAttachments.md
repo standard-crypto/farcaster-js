@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def42Attachments
 
 ## Table of contents

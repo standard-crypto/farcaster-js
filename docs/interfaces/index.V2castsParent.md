@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2castsParent
 
 ## Table of contents

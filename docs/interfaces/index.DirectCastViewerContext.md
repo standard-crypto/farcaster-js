@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def43ViewerContext
 
 ## Table of contents

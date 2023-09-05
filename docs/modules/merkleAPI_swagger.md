@@ -677,7 +677,7 @@ ___
 
 ### InlineResponse2006Result
 
-Re-exports [InlineResponse2006Result](index.md#inlineresponse2006result)
+Re-exports [InlineResponse2006Result](../interfaces/index.InlineResponse2006Result.md)
 
 ___
 
@@ -713,7 +713,7 @@ ___
 
 ### InlineResponse2009Result
 
-Re-exports [InlineResponse2009Result](index.md#inlineresponse2009result)
+Re-exports [InlineResponse2009Result](../interfaces/index.InlineResponse2009Result.md)
 
 ___
 

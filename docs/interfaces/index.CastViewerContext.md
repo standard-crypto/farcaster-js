@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def42ViewerContext
 
 ## Table of contents

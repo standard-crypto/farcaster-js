@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 InlineResponse2006
 
 ## Table of contents
@@ -35,7 +33,7 @@ ___
 
 ### result
 
-• **result**: [`InlineResponse2006Result`](../modules/index.md#inlineresponse2006result)
+• **result**: [`InlineResponse2006Result`](index.InlineResponse2006Result.md)
 
 **`Memberof`**
 

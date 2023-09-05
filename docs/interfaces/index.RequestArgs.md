@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 RequestArgs
 
 ## Table of contents

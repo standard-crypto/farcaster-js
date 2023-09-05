@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def30LastSale
 
 ## Table of contents
