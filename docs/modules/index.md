@@ -88,11 +88,13 @@
 - [InlineResponse2005](../interfaces/index.InlineResponse2005.md)
 - [InlineResponse2005Result](../interfaces/index.InlineResponse2005Result.md)
 - [InlineResponse2006](../interfaces/index.InlineResponse2006.md)
+- [InlineResponse2006Result](../interfaces/index.InlineResponse2006Result.md)
 - [InlineResponse2007](../interfaces/index.InlineResponse2007.md)
 - [InlineResponse2007Result](../interfaces/index.InlineResponse2007Result.md)
 - [InlineResponse2008](../interfaces/index.InlineResponse2008.md)
 - [InlineResponse2008Result](../interfaces/index.InlineResponse2008Result.md)
 - [InlineResponse2009](../interfaces/index.InlineResponse2009.md)
+- [InlineResponse2009Result](../interfaces/index.InlineResponse2009Result.md)
 - [InlineResponse200Result](../interfaces/index.InlineResponse200Result.md)
 - [InlineResponse201](../interfaces/index.InlineResponse201.md)
 - [Logger](../interfaces/index.Logger.md)
@@ -153,8 +155,6 @@
 - [AssetEventType](index.md#asseteventtype)
 - [AssetEventVerb](index.md#asseteventverb)
 - [CastReactionType](index.md#castreactiontype)
-- [InlineResponse2006Result](index.md#inlineresponse2006result)
-- [InlineResponse2009Result](index.md#inlineresponse2009result)
 - [Notification](index.md#notification)
 - [WithRequired](index.md#withrequired)
 
@@ -230,50 +230,6 @@ ___
 #### Defined in
 
 [src/merkleAPI/swagger/models/CastReactionType.ts:1](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/CastReactionType.ts#L1)
-
-___
-
-### InlineResponse2006Result
-
-Ƭ **InlineResponse2006Result**: `Object`
-
-**`Export`**
-
-**`Interface`**
-
-InlineResponse2006Result
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `casts` | [`Cast`](../interfaces/index.Cast.md)[] | **`Memberof`** InlineResponse2006Result |
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/inline-response2006-result.ts:20](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response2006-result.ts#L20)
-
-___
-
-### InlineResponse2009Result
-
-Ƭ **InlineResponse2009Result**: `Object`
-
-**`Export`**
-
-**`Interface`**
-
-InlineResponse2009Result
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `users` | [`User`](../interfaces/index.User.md)[] | **`Memberof`** InlineResponse2009Result |
-
-#### Defined in
-
-[src/merkleAPI/swagger/models/inline-response2009-result.ts:20](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/inline-response2009-result.ts#L20)
 
 ___
 
@@ -1379,7 +1335,7 @@ ___
 
 ### publishCast
 
-▸ **publishCast**(`wallet`, `text`, `replyTo?`): `Promise`<[`Cast`](../interfaces/index.Cast.md)\>
+▸ **publishCast**(`wallet`, `text`, `replyTo?`, `embeds?`): `Promise`<[`Cast`](../interfaces/index.Cast.md)\>
 
 Publishes a cast with a simple text body.
 
@@ -1398,6 +1354,7 @@ caching or rate limit behaviors that may be implemented by MerkleAPIClient.
 | `wallet` | `Wallet` | A Wallet derived from a private key or mnemonic phrase |
 | `text` | `string` | The text to be cast |
 | `replyTo?` | [`Cast`](../interfaces/index.Cast.md) \| { `fid`: `number` ; `hash`: `string`  } | A complete Cast (or its hash and author fid) that this cast will reply to. Omit if not replying. |
+| `embeds?` | `string`[] | - |
 
 #### Returns
 

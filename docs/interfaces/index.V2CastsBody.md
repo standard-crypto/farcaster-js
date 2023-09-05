@@ -6,18 +6,27 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2CastsBody
 
 ## Table of contents
 
 ### Properties
 
+- [embeds](index.V2CastsBody.md#embeds)
 - [parent](index.V2CastsBody.md#parent)
 - [text](index.V2CastsBody.md#text)
 
 ## Properties
+
+### embeds
+
+• `Optional` **embeds**: `string`[]
+
+#### Defined in
+
+[src/merkleAPI/swagger/models/v2-casts-body.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/v2-casts-body.ts#L34)
+
+___
 
 ### parent
 

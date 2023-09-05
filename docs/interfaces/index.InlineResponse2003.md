@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 InlineResponse2003
 
 ## Table of contents

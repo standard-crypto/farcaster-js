@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2SignerRequestsPost200Response
 
 ## Table of contents

@@ -30,4 +30,6 @@ export interface V2CastsBody {
    * @memberof V2CastsBody
    */
   parent?: V2castsParent;
+
+  embeds?: string[];
 }

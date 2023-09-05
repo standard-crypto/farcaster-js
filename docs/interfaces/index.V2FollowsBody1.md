@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2FollowsBody1
 
 ## Table of contents

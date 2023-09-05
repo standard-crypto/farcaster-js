@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def27Profile
 
 ## Table of contents

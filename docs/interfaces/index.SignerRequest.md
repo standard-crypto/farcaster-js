@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 SignerRequest
 
 ## Table of contents
