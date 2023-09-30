@@ -12,27 +12,21 @@
  */
 
 /**
- * Returns ErrorRes metadata
+ *
  * @export
- * @interface ErrorRes
+ * @interface RecasterViewerContext
  */
-export interface ErrorRes {
+export interface RecasterViewerContext {
   /**
-   *
-   * @type {string}
-   * @memberof ErrorRes
+   * Indicates if the viewer is following the recaster.
+   * @type {boolean}
+   * @memberof RecasterViewerContext
    */
-  code?: string;
+  following: boolean;
   /**
-   *
-   * @type {string}
-   * @memberof ErrorRes
+   * Indicates if the recaster is followed by the viewer.
+   * @type {boolean}
+   * @memberof RecasterViewerContext
    */
-  message: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ErrorRes
-   */
-  property?: string;
+  followedBy: boolean;
 }

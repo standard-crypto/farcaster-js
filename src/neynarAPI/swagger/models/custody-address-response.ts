@@ -11,9 +11,19 @@
  * Do not edit the class manually.
  */
 
-export * from "./apis/cast-api";
-export * from "./apis/follows-api";
-export * from "./apis/notifications-api";
-export * from "./apis/reactions-api";
-export * from "./apis/user-api";
-export * from "./apis/verification-api";
+// May contain unused imports in some cases
+import { CustodyAddressResponseResult } from "./custody-address-response-result";
+
+/**
+ *
+ * @export
+ * @interface CustodyAddressResponse
+ */
+export interface CustodyAddressResponse {
+  /**
+   *
+   * @type {CustodyAddressResponseResult}
+   * @memberof CustodyAddressResponse
+   */
+  result: CustodyAddressResponseResult;
+}

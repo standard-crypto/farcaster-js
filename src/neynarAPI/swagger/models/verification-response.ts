@@ -11,9 +11,19 @@
  * Do not edit the class manually.
  */
 
-export * from "./apis/cast-api";
-export * from "./apis/follows-api";
-export * from "./apis/notifications-api";
-export * from "./apis/reactions-api";
-export * from "./apis/user-api";
-export * from "./apis/verification-api";
+// May contain unused imports in some cases
+import { VerificationResponseResult } from "./verification-response-result";
+
+/**
+ *
+ * @export
+ * @interface VerificationResponse
+ */
+export interface VerificationResponse {
+  /**
+   *
+   * @type {VerificationResponseResult}
+   * @memberof VerificationResponse
+   */
+  result: VerificationResponseResult;
+}

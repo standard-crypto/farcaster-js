@@ -14,24 +14,24 @@
 // May contain unused imports in some cases
 import { NextCursor } from "./next-cursor";
 // May contain unused imports in some cases
-import { User } from "./user";
+import { Recaster } from "./recaster";
 
 /**
  *
  * @export
- * @interface RecentUsersResponseResult
+ * @interface CastRecasterResponseResult
  */
-export interface RecentUsersResponseResult {
+export interface CastRecasterResponseResult {
   /**
    *
-   * @type {Array<User>}
-   * @memberof RecentUsersResponseResult
+   * @type {Array<Recaster>}
+   * @memberof CastRecasterResponseResult
    */
-  users: User[];
+  users: Recaster[];
   /**
    *
    * @type {NextCursor}
-   * @memberof RecentUsersResponseResult
+   * @memberof CastRecasterResponseResult
    */
   next: NextCursor;
 }

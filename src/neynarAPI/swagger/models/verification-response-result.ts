@@ -12,27 +12,33 @@
  */
 
 /**
- * Returns ErrorRes metadata
+ *
  * @export
- * @interface ErrorRes
+ * @interface VerificationResponseResult
  */
-export interface ErrorRes {
+export interface VerificationResponseResult {
   /**
    *
    * @type {string}
-   * @memberof ErrorRes
+   * @memberof VerificationResponseResult
    */
-  code?: string;
+  fid: string;
   /**
    *
    * @type {string}
-   * @memberof ErrorRes
+   * @memberof VerificationResponseResult
    */
-  message: string;
+  username: string;
   /**
    *
    * @type {string}
-   * @memberof ErrorRes
+   * @memberof VerificationResponseResult
    */
-  property?: string;
+  display_name: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof VerificationResponseResult
+   */
+  verifications: string[];
 }

@@ -1,4 +1,12 @@
-import { User, UserApi, Configuration, ErrorRes, Reaction } from "./swagger";
+import {
+  Cast,
+  User,
+  CastApi,
+  UserApi,
+  Configuration,
+  ErrorRes,
+  ReactionWithCastMeta,
+} from "./swagger";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { silentLogger, Logger } from "./logger";
 import type { WithRequired } from "../utils";
@@ -10,6 +18,7 @@ export class NeynarAPIClient {
 
   public readonly apis: {
     user: UserApi;
+    cast: CastApi;
   };
 
   /**
@@ -52,6 +61,7 @@ export class NeynarAPIClient {
       apiKey: apiKey,
     });
     this.apis = {
+      cast: new CastApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
     };
   }
@@ -67,6 +77,101 @@ export class NeynarAPIClient {
   ): error is WithRequired<AxiosError<ErrorRes>, "response"> {
     if (!(error instanceof AxiosError)) return false;
     return error.response?.data !== undefined;
+  }
+
+  /**
+   * Gets information about an individual cast
+   */
+  public async fetchCast(
+    castOrCastHash: Cast | string
+  ): Promise<Cast | undefined> {
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    const response = await this.apis.cast.cast(castHash);
+    if (response.status === 404) return undefined;
+    return response.data.result.cast ?? undefined;
+  }
+
+  /**
+   * Fetches casts in a given thread.
+   * Note that the parent provided by the caller is included in the response.
+   */
+  public async fetchCastsInThread(
+    threadParent: Cast | { hash: string }
+  ): Promise<Cast[] | undefined> {
+    let viewer: number | undefined;
+
+    const response = await this.apis.cast.allCastsInThread(
+      threadParent.hash,
+      viewer
+    );
+    return response.data.result.casts;
+  }
+
+  /**
+   * Gets all casts (including replies and recasts) created by the specified user.
+   *
+   * @Note: Deleted cast filtering is applied server-side while recast filtering is applied
+   * client-side.
+   */
+  public async *fetchCastsForUser(
+    user: { fid: number },
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Cast, void, undefined> {
+    let cursor: string | undefined;
+    let viewer: number | undefined;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const response = await this.apis.cast.casts(
+        user.fid,
+        viewer,
+        cursor,
+        pageSize
+      );
+
+      // yield current page of casts
+      for (const cast of response.data.result.casts) {
+        yield cast;
+      }
+
+      // prep for next page
+      if (response.data.result?.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.result.next.cursor ?? undefined;
+    }
+  }
+
+  public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
+    Cast,
+    void,
+    undefined
+  > {
+    let cursor: string | undefined;
+    let viewer: number | undefined;
+
+    while (true) {
+      // fetch one page of casts (with refreshed auth if necessary)
+      const response = await this.apis.cast.recentCasts(
+        viewer,
+        cursor,
+        pageSize
+      );
+
+      // yield current page of casts
+      yield* response.data.result.casts;
+
+      // prep for next page
+      if (response.data.result?.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.result.next.cursor ?? undefined;
+    }
   }
 
   /**
@@ -101,7 +206,7 @@ export class NeynarAPIClient {
       if (response.data.result?.next?.cursor === undefined) {
         break;
       }
-      cursor = response.data.result?.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor ?? undefined;
     }
   }
 
@@ -111,13 +216,13 @@ export class NeynarAPIClient {
   public async *fetchUserCastLikes(
     user: { fid: number },
     { pageSize = 100 } = {}
-  ): AsyncGenerator<Reaction, void, undefined> {
+  ): AsyncGenerator<ReactionWithCastMeta, void, undefined> {
     let cursor: string | undefined;
     let viewer: number | undefined;
 
     while (true) {
       // fetch one page of likes
-      const response = await this.apis.user.getUserCastLikes(
+      const response = await this.apis.user.userCastLikes(
         user.fid,
         viewer,
         pageSize,
@@ -146,7 +251,7 @@ export class NeynarAPIClient {
    */
   public async lookupUserByFid(fid: number): Promise<User | undefined> {
     try {
-      const response = await this.apis.user.getUserInformationByFid(fid);
+      const response = await this.apis.user.user(fid);
       return response.data.result?.user;
     } catch (error) {
       if (NeynarAPIClient.isApiErrorResponse(error)) {
@@ -163,16 +268,22 @@ export class NeynarAPIClient {
     username: string
   ): Promise<User | undefined> {
     let viewer: number | undefined;
-    const response = await this.apis.user.getUserInformationByUsername(
-      username,
-      viewer,
-      {
-        validateStatus: (status: number) => {
-          return status === 200 || status === 404;
-        },
-      }
-    );
+    const response = await this.apis.user.userByUsername(username, viewer, {
+      validateStatus: (status: number) => {
+        return status === 200 || status === 404;
+      },
+    });
     if (response.status === 404) return undefined;
     return response.data.result?.user;
+  }
+
+  /**
+   * Gets the custody address for the specified user via their username (if found)
+   */
+  public async fetchCustodyAddressForUser(
+    fid: number
+  ): Promise<string | undefined> {
+    const response = await this.apis.user.custodyAddress(fid);
+    return response.data.result.custodyAddress ?? undefined;
   }
 }

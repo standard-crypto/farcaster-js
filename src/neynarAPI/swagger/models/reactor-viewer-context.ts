@@ -12,27 +12,21 @@
  */
 
 /**
- * Returns ErrorRes metadata
+ *
  * @export
- * @interface ErrorRes
+ * @interface ReactorViewerContext
  */
-export interface ErrorRes {
+export interface ReactorViewerContext {
   /**
-   *
-   * @type {string}
-   * @memberof ErrorRes
+   * Indicates if the viewer is following the reactor.
+   * @type {boolean}
+   * @memberof ReactorViewerContext
    */
-  code?: string;
+  following: boolean;
   /**
-   *
-   * @type {string}
-   * @memberof ErrorRes
+   * Indicates if the reactor is followed by the viewer.
+   * @type {boolean}
+   * @memberof ReactorViewerContext
    */
-  message: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ErrorRes
-   */
-  property?: string;
+  followedBy: boolean;
 }

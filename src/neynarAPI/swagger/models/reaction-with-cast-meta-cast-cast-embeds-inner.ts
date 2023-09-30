@@ -11,9 +11,16 @@
  * Do not edit the class manually.
  */
 
-export * from "./apis/cast-api";
-export * from "./apis/follows-api";
-export * from "./apis/notifications-api";
-export * from "./apis/reactions-api";
-export * from "./apis/user-api";
-export * from "./apis/verification-api";
+/**
+ *
+ * @export
+ * @interface ReactionWithCastMetaCastCastEmbedsInner
+ */
+export interface ReactionWithCastMetaCastCastEmbedsInner {
+  /**
+   *
+   * @type {string}
+   * @memberof ReactionWithCastMetaCastCastEmbedsInner
+   */
+  url: string;
+}

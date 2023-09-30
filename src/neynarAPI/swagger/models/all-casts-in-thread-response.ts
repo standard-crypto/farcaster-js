@@ -12,26 +12,18 @@
  */
 
 // May contain unused imports in some cases
-import { NextCursor } from "./next-cursor";
-// May contain unused imports in some cases
-import { User } from "./user";
+import { AllCastsInThreadResponseResult } from "./all-casts-in-thread-response-result";
 
 /**
  *
  * @export
- * @interface RecentUsersResponseResult
+ * @interface AllCastsInThreadResponse
  */
-export interface RecentUsersResponseResult {
+export interface AllCastsInThreadResponse {
   /**
    *
-   * @type {Array<User>}
-   * @memberof RecentUsersResponseResult
+   * @type {AllCastsInThreadResponseResult}
+   * @memberof AllCastsInThreadResponse
    */
-  users: User[];
-  /**
-   *
-   * @type {NextCursor}
-   * @memberof RecentUsersResponseResult
-   */
-  next: NextCursor;
+  result: AllCastsInThreadResponseResult;
 }

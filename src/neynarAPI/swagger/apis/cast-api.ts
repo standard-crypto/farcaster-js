@@ -40,37 +40,163 @@ import {
   RequiredError,
 } from "../base";
 // @ts-ignore
-import { CustodyAddressResponse } from "../models";
+import { AllCastsInThreadResponse } from "../models";
+// @ts-ignore
+import { CastResponse } from "../models";
+// @ts-ignore
+import { CastsResponse } from "../models";
 // @ts-ignore
 import { ErrorRes } from "../models";
 // @ts-ignore
-import { RecentUsersResponse } from "../models";
-// @ts-ignore
-import { User200Response } from "../models";
-// @ts-ignore
-import { UserCastLikeResponse } from "../models";
+import { RecentCastsResponse } from "../models";
 /**
- * UserApi - axios parameter creator
+ * CastApi - axios parameter creator
  * @export
  */
-export const UserApiAxiosParamCreator = function (
+export const CastApiAxiosParamCreator = function (
   configuration?: Configuration
 ) {
   return {
     /**
-     * Returns the custody address for a given FID
-     * @summary Get the custody address for a given FID
-     * @param {number} fid fid of a user
+     * Gets the most recent casts for a user in reverse-chronological order
+     * @summary Retrieve all casts in a given thread hash
+     * @param {string} threadHash The hash of the thread to retrieve casts from.
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    custodyAddress: async (
+    allCastsInThread: async (
+      threadHash: string,
+      viewerFid?: number,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'threadHash' is not null or undefined
+      assertParamExists("allCastsInThread", "threadHash", threadHash);
+      const localVarPath = `/farcaster/all-casts-in-thread`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication ApiKeyAuth required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        "api_key",
+        configuration
+      );
+
+      if (threadHash !== undefined) {
+        localVarQueryParameter["threadHash"] = threadHash;
+      }
+
+      if (viewerFid !== undefined) {
+        localVarQueryParameter["viewerFid"] = viewerFid;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Gets information about an individual cast
+     * @summary Retrieve cast for a given hash
+     * @param {string} hash Cast hash
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    cast: async (
+      hash: string,
+      viewerFid?: number,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'hash' is not null or undefined
+      assertParamExists("cast", "hash", hash);
+      const localVarPath = `/farcaster/cast`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication ApiKeyAuth required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        "api_key",
+        configuration
+      );
+
+      if (hash !== undefined) {
+        localVarQueryParameter["hash"] = hash;
+      }
+
+      if (viewerFid !== undefined) {
+        localVarQueryParameter["viewerFid"] = viewerFid;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Gets the most recent casts for a user
+     * @summary Retrieve casts for a given user
+     * @param {number} fid fid of a user
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {string} [cursor] Pagination cursor.
+     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    casts: async (
       fid: number,
+      viewerFid?: number,
+      cursor?: string,
+      limit?: number,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'fid' is not null or undefined
-      assertParamExists("custodyAddress", "fid", fid);
-      const localVarPath = `/farcaster/custody-address`;
+      assertParamExists("casts", "fid", fid);
+      const localVarPath = `/farcaster/casts`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -95,6 +221,18 @@ export const UserApiAxiosParamCreator = function (
 
       if (fid !== undefined) {
         localVarQueryParameter["fid"] = fid;
+      }
+
+      if (viewerFid !== undefined) {
+        localVarQueryParameter["viewerFid"] = viewerFid;
+      }
+
+      if (cursor !== undefined) {
+        localVarQueryParameter["cursor"] = cursor;
+      }
+
+      if (limit !== undefined) {
+        localVarQueryParameter["limit"] = limit;
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -113,20 +251,20 @@ export const UserApiAxiosParamCreator = function (
     },
     /**
      * Get a list of casts from the protocol in reverse chronological order based on timestamp
-     * @summary Get Recent Users
+     * @summary Get Recent Casts
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 100, max 1000)
+     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    recentUsers: async (
+    recentCasts: async (
       viewerFid?: number,
       cursor?: string,
       limit?: number,
       options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      const localVarPath = `/farcaster/recent-users`;
+      const localVarPath = `/farcaster/recent-casts`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -159,198 +297,6 @@ export const UserApiAxiosParamCreator = function (
 
       if (limit !== undefined) {
         localVarQueryParameter["limit"] = limit;
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Returns metadata about a specific user
-     * @summary Get User Information by FID
-     * @param {number} fid fid of a user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    user: async (
-      fid: number,
-      viewerFid?: number,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'fid' is not null or undefined
-      assertParamExists("user", "fid", fid);
-      const localVarPath = `/farcaster/user`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = {
-        method: "GET",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      // authentication ApiKeyAuth required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        "api_key",
-        configuration
-      );
-
-      if (fid !== undefined) {
-        localVarQueryParameter["fid"] = fid;
-      }
-
-      if (viewerFid !== undefined) {
-        localVarQueryParameter["viewerFid"] = viewerFid;
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Returns metadata about a specific user
-     * @summary Get User Information by username
-     * @param {string} username Username of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    userByUsername: async (
-      username: string,
-      viewerFid?: number,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'username' is not null or undefined
-      assertParamExists("userByUsername", "username", username);
-      const localVarPath = `/farcaster/user-by-username`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = {
-        method: "GET",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      // authentication ApiKeyAuth required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        "api_key",
-        configuration
-      );
-
-      if (username !== undefined) {
-        localVarQueryParameter["username"] = username;
-      }
-
-      if (viewerFid !== undefined) {
-        localVarQueryParameter["viewerFid"] = viewerFid;
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Fetch all the liked cast of a User
-     * @summary Get User Cast Likes
-     * @param {number} fid FID of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
-     * @param {string} [cursor] Pagination cursor
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    userCastLikes: async (
-      fid: number,
-      viewerFid?: number,
-      limit?: number,
-      cursor?: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'fid' is not null or undefined
-      assertParamExists("userCastLikes", "fid", fid);
-      const localVarPath = `/farcaster/user-cast-likes`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = {
-        method: "GET",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      // authentication ApiKeyAuth required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        "api_key",
-        configuration
-      );
-
-      if (fid !== undefined) {
-        localVarQueryParameter["fid"] = fid;
-      }
-
-      if (viewerFid !== undefined) {
-        localVarQueryParameter["viewerFid"] = viewerFid;
-      }
-
-      if (limit !== undefined) {
-        localVarQueryParameter["limit"] = limit;
-      }
-
-      if (cursor !== undefined) {
-        localVarQueryParameter["cursor"] = cursor;
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -371,30 +317,94 @@ export const UserApiAxiosParamCreator = function (
 };
 
 /**
- * UserApi - functional programming interface
+ * CastApi - functional programming interface
  * @export
  */
-export const UserApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration);
+export const CastApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = CastApiAxiosParamCreator(configuration);
   return {
     /**
-     * Returns the custody address for a given FID
-     * @summary Get the custody address for a given FID
-     * @param {number} fid fid of a user
+     * Gets the most recent casts for a user in reverse-chronological order
+     * @summary Retrieve all casts in a given thread hash
+     * @param {string} threadHash The hash of the thread to retrieve casts from.
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async custodyAddress(
-      fid: number,
+    async allCastsInThread(
+      threadHash: string,
+      viewerFid?: number,
       options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
         basePath?: string
-      ) => AxiosPromise<CustodyAddressResponse>
+      ) => AxiosPromise<AllCastsInThreadResponse>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.custodyAddress(
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.allCastsInThread(
+          threadHash,
+          viewerFid,
+          options
+        );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+    /**
+     * Gets information about an individual cast
+     * @summary Retrieve cast for a given hash
+     * @param {string} hash Cast hash
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async cast(
+      hash: string,
+      viewerFid?: number,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<CastResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.cast(
+        hash,
+        viewerFid,
+        options
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+    /**
+     * Gets the most recent casts for a user
+     * @summary Retrieve casts for a given user
+     * @param {number} fid fid of a user
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {string} [cursor] Pagination cursor.
+     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async casts(
+      fid: number,
+      viewerFid?: number,
+      cursor?: string,
+      limit?: number,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<CastsResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.casts(
         fid,
+        viewerFid,
+        cursor,
+        limit,
         options
       );
       return createRequestFunction(
@@ -406,14 +416,14 @@ export const UserApiFp = function (configuration?: Configuration) {
     },
     /**
      * Get a list of casts from the protocol in reverse chronological order based on timestamp
-     * @summary Get Recent Users
+     * @summary Get Recent Casts
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 100, max 1000)
+     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async recentUsers(
+    async recentCasts(
       viewerFid?: number,
       cursor?: string,
       limit?: number,
@@ -422,108 +432,12 @@ export const UserApiFp = function (configuration?: Configuration) {
       (
         axios?: AxiosInstance,
         basePath?: string
-      ) => AxiosPromise<RecentUsersResponse>
+      ) => AxiosPromise<RecentCastsResponse>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.recentUsers(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.recentCasts(
         viewerFid,
         cursor,
         limit,
-        options
-      );
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      );
-    },
-    /**
-     * Returns metadata about a specific user
-     * @summary Get User Information by FID
-     * @param {number} fid fid of a user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async user(
-      fid: number,
-      viewerFid?: number,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<User200Response>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.user(
-        fid,
-        viewerFid,
-        options
-      );
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      );
-    },
-    /**
-     * Returns metadata about a specific user
-     * @summary Get User Information by username
-     * @param {string} username Username of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async userByUsername(
-      username: string,
-      viewerFid?: number,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<User200Response>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.userByUsername(
-        username,
-        viewerFid,
-        options
-      );
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      );
-    },
-    /**
-     * Fetch all the liked cast of a User
-     * @summary Get User Cast Likes
-     * @param {number} fid FID of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
-     * @param {string} [cursor] Pagination cursor
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async userCastLikes(
-      fid: number,
-      viewerFid?: number,
-      limit?: number,
-      cursor?: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<UserCastLikeResponse>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.userCastLikes(
-        fid,
-        viewerFid,
-        limit,
-        cursor,
         options
       );
       return createRequestFunction(
@@ -537,204 +451,175 @@ export const UserApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * UserApi - factory interface
+ * CastApi - factory interface
  * @export
  */
-export const UserApiFactory = function (
+export const CastApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
   axios?: AxiosInstance
 ) {
-  const localVarFp = UserApiFp(configuration);
+  const localVarFp = CastApiFp(configuration);
   return {
     /**
-     * Returns the custody address for a given FID
-     * @summary Get the custody address for a given FID
-     * @param {number} fid fid of a user
+     * Gets the most recent casts for a user in reverse-chronological order
+     * @summary Retrieve all casts in a given thread hash
+     * @param {string} threadHash The hash of the thread to retrieve casts from.
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    custodyAddress(
-      fid: number,
+    allCastsInThread(
+      threadHash: string,
+      viewerFid?: number,
       options?: any
-    ): AxiosPromise<CustodyAddressResponse> {
+    ): AxiosPromise<AllCastsInThreadResponse> {
       return localVarFp
-        .custodyAddress(fid, options)
+        .allCastsInThread(threadHash, viewerFid, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     * Gets information about an individual cast
+     * @summary Retrieve cast for a given hash
+     * @param {string} hash Cast hash
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    cast(
+      hash: string,
+      viewerFid?: number,
+      options?: any
+    ): AxiosPromise<CastResponse> {
+      return localVarFp
+        .cast(hash, viewerFid, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     * Gets the most recent casts for a user
+     * @summary Retrieve casts for a given user
+     * @param {number} fid fid of a user
+     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {string} [cursor] Pagination cursor.
+     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    casts(
+      fid: number,
+      viewerFid?: number,
+      cursor?: string,
+      limit?: number,
+      options?: any
+    ): AxiosPromise<CastsResponse> {
+      return localVarFp
+        .casts(fid, viewerFid, cursor, limit, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Get a list of casts from the protocol in reverse chronological order based on timestamp
-     * @summary Get Recent Users
+     * @summary Get Recent Casts
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 100, max 1000)
+     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    recentUsers(
+    recentCasts(
       viewerFid?: number,
       cursor?: string,
       limit?: number,
       options?: any
-    ): AxiosPromise<RecentUsersResponse> {
+    ): AxiosPromise<RecentCastsResponse> {
       return localVarFp
-        .recentUsers(viewerFid, cursor, limit, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Returns metadata about a specific user
-     * @summary Get User Information by FID
-     * @param {number} fid fid of a user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    user(
-      fid: number,
-      viewerFid?: number,
-      options?: any
-    ): AxiosPromise<User200Response> {
-      return localVarFp
-        .user(fid, viewerFid, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Returns metadata about a specific user
-     * @summary Get User Information by username
-     * @param {string} username Username of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    userByUsername(
-      username: string,
-      viewerFid?: number,
-      options?: any
-    ): AxiosPromise<User200Response> {
-      return localVarFp
-        .userByUsername(username, viewerFid, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Fetch all the liked cast of a User
-     * @summary Get User Cast Likes
-     * @param {number} fid FID of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
-     * @param {string} [cursor] Pagination cursor
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    userCastLikes(
-      fid: number,
-      viewerFid?: number,
-      limit?: number,
-      cursor?: string,
-      options?: any
-    ): AxiosPromise<UserCastLikeResponse> {
-      return localVarFp
-        .userCastLikes(fid, viewerFid, limit, cursor, options)
+        .recentCasts(viewerFid, cursor, limit, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
 
 /**
- * UserApi - object-oriented interface
+ * CastApi - object-oriented interface
  * @export
- * @class UserApi
+ * @class CastApi
  * @extends {BaseAPI}
  */
-export class UserApi extends BaseAPI {
+export class CastApi extends BaseAPI {
   /**
-   * Returns the custody address for a given FID
-   * @summary Get the custody address for a given FID
-   * @param {number} fid fid of a user
+   * Gets the most recent casts for a user in reverse-chronological order
+   * @summary Retrieve all casts in a given thread hash
+   * @param {string} threadHash The hash of the thread to retrieve casts from.
+   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof UserApi
+   * @memberof CastApi
    */
-  public custodyAddress(fid: number, options?: AxiosRequestConfig) {
-    return UserApiFp(this.configuration)
-      .custodyAddress(fid, options)
+  public allCastsInThread(
+    threadHash: string,
+    viewerFid?: number,
+    options?: AxiosRequestConfig
+  ) {
+    return CastApiFp(this.configuration)
+      .allCastsInThread(threadHash, viewerFid, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Gets information about an individual cast
+   * @summary Retrieve cast for a given hash
+   * @param {string} hash Cast hash
+   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CastApi
+   */
+  public cast(hash: string, viewerFid?: number, options?: AxiosRequestConfig) {
+    return CastApiFp(this.configuration)
+      .cast(hash, viewerFid, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Gets the most recent casts for a user
+   * @summary Retrieve casts for a given user
+   * @param {number} fid fid of a user
+   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {string} [cursor] Pagination cursor.
+   * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CastApi
+   */
+  public casts(
+    fid: number,
+    viewerFid?: number,
+    cursor?: string,
+    limit?: number,
+    options?: AxiosRequestConfig
+  ) {
+    return CastApiFp(this.configuration)
+      .casts(fid, viewerFid, cursor, limit, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Get a list of casts from the protocol in reverse chronological order based on timestamp
-   * @summary Get Recent Users
+   * @summary Get Recent Casts
    * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
    * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 100, max 1000)
+   * @param {number} [limit] Number of results to retrieve (default 25, max 100)
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof UserApi
+   * @memberof CastApi
    */
-  public recentUsers(
+  public recentCasts(
     viewerFid?: number,
     cursor?: string,
     limit?: number,
     options?: AxiosRequestConfig
   ) {
-    return UserApiFp(this.configuration)
-      .recentUsers(viewerFid, cursor, limit, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Returns metadata about a specific user
-   * @summary Get User Information by FID
-   * @param {number} fid fid of a user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UserApi
-   */
-  public user(fid: number, viewerFid?: number, options?: AxiosRequestConfig) {
-    return UserApiFp(this.configuration)
-      .user(fid, viewerFid, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Returns metadata about a specific user
-   * @summary Get User Information by username
-   * @param {string} username Username of the user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UserApi
-   */
-  public userByUsername(
-    username: string,
-    viewerFid?: number,
-    options?: AxiosRequestConfig
-  ) {
-    return UserApiFp(this.configuration)
-      .userByUsername(username, viewerFid, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Fetch all the liked cast of a User
-   * @summary Get User Cast Likes
-   * @param {number} fid FID of the user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 150)
-   * @param {string} [cursor] Pagination cursor
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UserApi
-   */
-  public userCastLikes(
-    fid: number,
-    viewerFid?: number,
-    limit?: number,
-    cursor?: string,
-    options?: AxiosRequestConfig
-  ) {
-    return UserApiFp(this.configuration)
-      .userCastLikes(fid, viewerFid, limit, cursor, options)
+    return CastApiFp(this.configuration)
+      .recentCasts(viewerFid, cursor, limit, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

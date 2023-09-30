@@ -12,78 +12,70 @@
  */
 
 // May contain unused imports in some cases
-import { ActiveStatus } from "./active-status";
+import { RecasterPfp } from "./recaster-pfp";
 // May contain unused imports in some cases
-import { UserPfp } from "./user-pfp";
+import { RecasterViewerContext } from "./recaster-viewer-context";
 // May contain unused imports in some cases
 import { UserProfile } from "./user-profile";
-// May contain unused imports in some cases
-import { ViewerContext } from "./viewer-context";
 
 /**
  *
  * @export
- * @interface User
+ * @interface Recaster
  */
-export interface User {
+export interface Recaster {
   /**
-   * User identifier (unsigned integer)
+   * The unique identifier of the recaster.
    * @type {number}
-   * @memberof User
+   * @memberof Recaster
    */
   fid: number;
   /**
-   * The username of the user.
+   * The username of the recaster.
    * @type {string}
-   * @memberof User
+   * @memberof Recaster
    */
   username: string;
   /**
-   * The display of the reactor.
+   * The display name of the recaster.
    * @type {string}
-   * @memberof User
+   * @memberof Recaster
    */
   displayName: string;
   /**
    *
-   * @type {UserPfp}
-   * @memberof User
+   * @type {RecasterPfp}
+   * @memberof Recaster
    */
-  pfp: UserPfp;
+  pfp: RecasterPfp;
   /**
    *
    * @type {UserProfile}
-   * @memberof User
+   * @memberof Recaster
    */
   profile: UserProfile;
   /**
-   * The number of followers the user has.
+   * The number of followers the recaster has.
    * @type {number}
-   * @memberof User
+   * @memberof Recaster
    */
   followerCount: number;
   /**
-   * The number of users the user is following.
+   * The number of users the recaster is following.
    * @type {number}
-   * @memberof User
+   * @memberof Recaster
    */
   followingCount: number;
   /**
    *
-   * @type {Array<string>}
-   * @memberof User
+   * @type {string}
+   * @memberof Recaster
    */
-  verifications: string[];
+  timestamp: string;
   /**
    *
-   * @type {ActiveStatus}
-   * @memberof User
+   * @type {RecasterViewerContext}
+   * @memberof Recaster
    */
-  activeStatus: ActiveStatus;
-  /**
-   *
-   * @type {ViewerContext}
-   * @memberof User
-   */
-  viewerContext?: ViewerContext;
+  viewerContext?: RecasterViewerContext;
 }
