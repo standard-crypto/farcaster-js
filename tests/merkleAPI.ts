@@ -448,7 +448,7 @@ if (privateKey !== undefined && privateKey !== "") {
     describe("#fetchCustodyAddress", function () {
       it("can lookup by fid", async function () {
         const expectedCustodyAddr =
-          "0x74232bf61e994655592747e20bdf6fa9b9476f79";
+          "0x6b0bda3f2ffed5efc83fa8c024acff1dd45793f1";
         const custodyAddr = await client.fetchCustodyAddressForUser("dwr");
         expect(custodyAddr).to.eq(expectedCustodyAddr);
       });

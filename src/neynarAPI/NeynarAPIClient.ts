@@ -3,9 +3,15 @@ import {
   User,
   CastApi,
   UserApi,
+  VerificationApi,
+  NotificationsApi,
+  ReactionsApi,
+  FollowsApi,
   Configuration,
   ErrorRes,
+  Reaction,
   ReactionWithCastMeta,
+  VerificationResponseResult,
 } from "./swagger";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { silentLogger, Logger } from "./logger";
@@ -19,6 +25,10 @@ export class NeynarAPIClient {
   public readonly apis: {
     user: UserApi;
     cast: CastApi;
+    verification: VerificationApi;
+    notifications: NotificationsApi;
+    reactions: ReactionsApi;
+    follows: FollowsApi;
   };
 
   /**
@@ -63,6 +73,10 @@ export class NeynarAPIClient {
     this.apis = {
       cast: new CastApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
+      verification: new VerificationApi(config, undefined, axiosInstance),
+      notifications: new NotificationsApi(config, undefined, axiosInstance),
+      reactions: new ReactionsApi(config, undefined, axiosInstance),
+      follows: new FollowsApi(config, undefined, axiosInstance),
     };
   }
 
@@ -285,5 +299,114 @@ export class NeynarAPIClient {
   ): Promise<string | undefined> {
     const response = await this.apis.user.custodyAddress(fid);
     return response.data.result.custodyAddress ?? undefined;
+  }
+
+  public async fetchUserVerifications(user: {
+    fid: number;
+  }): Promise<VerificationResponseResult | undefined> {
+    const response = await this.apis.verification.verifications(user.fid);
+    return response.data.result;
+  }
+
+  /**
+   * Checks if a given Ethereum address has a Farcaster user associated with it.
+   * Note: if an address is associated with multiple users, the API will return
+   * the user who most recently published a verification with the address
+   * (based on when Merkle received the proof, not a self-reported timestamp).
+   */
+  public async lookupUserByVerification(
+    address: string
+  ): Promise<User | undefined> {
+    const response = await this.apis.verification.userByVerification(address);
+    return response.data.result?.user?.fid != null
+      ? response.data.result.user
+      : undefined;
+  }
+
+  public async *fetchMentionAndReplyNotifications(
+    fid: number,
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Cast, void, undefined> {
+    let cursor: string | undefined;
+    let viewer: number | undefined;
+
+    while (true) {
+      // fetch one page of notifications
+      const response = await this.apis.notifications.mentionsAndReplies(
+        fid,
+        viewer,
+        cursor,
+        pageSize
+      );
+
+      // yield current page
+      yield* response.data.result.notifications;
+
+      // prep for next page
+      if (response.data.result.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.result.next.cursor ?? undefined;
+    }
+  }
+
+  /**
+   * Lists a given cast's likes
+   */
+  public async *fetchCastLikes(
+    castOrCastHash: Cast | string,
+    { pageSize = 100 } = {}
+  ): AsyncGenerator<Reaction, void, undefined> {
+    let cursor: string | undefined;
+    let viewer: number | undefined;
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+
+    while (true) {
+      const response = await this.apis.reactions.castLikes(
+        castHash,
+        viewer,
+        cursor,
+        pageSize
+      );
+
+      yield* response.data.result.likes;
+
+      // prep for next page
+      if (response.data.result.next?.cursor === undefined) {
+        break;
+      }
+      cursor = response.data.result.next.cursor ?? undefined;
+    }
+  }
+
+  /**
+   * Get all users that follow the specified user
+   */
+  public async fetchUserFollowers(user: {
+    fid: number;
+  }): Promise<User[] | undefined> {
+    let viewer: number | undefined;
+
+    const response = await this.apis.follows.followers(user.fid, viewer);
+
+    return response.data.result.users ?? undefined;
+  }
+
+  /**
+   * Get all users the specified user is following.
+   */
+  public async fetchUserFollowing(user: {
+    fid: number;
+  }): Promise<User[] | undefined> {
+    let viewer: number | undefined;
+
+    const response = await this.apis.follows.following(user.fid, viewer);
+
+    return response.data.result.users ?? undefined;
   }
 }

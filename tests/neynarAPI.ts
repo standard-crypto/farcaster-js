@@ -3,6 +3,7 @@ import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { Logger, silentLogger } from "../src/merkleAPI/logger";
 import { expectDefined } from "./utils";
+import { ReactionTypeEnum } from "../src/neynarAPI/swagger";
 
 chai.use(chaiAsPromised);
 
@@ -161,12 +162,124 @@ if (apiKey !== undefined && apiKey !== "") {
       });
     });
 
+    describe("#lookupUserByVerification", function () {
+      it("can find existing user", async function () {
+        const user = await client.lookupUserByVerification(
+          "0xAA8b53BE5670d56bA9795AFCEdF6d39b96f5f1E2"
+        );
+        expect(user?.username).to.eq("gavi-bot");
+      });
+
+      it("returns undefined if address not found", async function () {
+        const user = await client.lookupUserByVerification(
+          "0x0000000000000000000000000000000000000000"
+        );
+        expect(user).to.be.undefined;
+      });
+    });
+
     describe("#fetchCustodyAddress", function () {
       it("can lookup by fid", async function () {
         const expectedCustodyAddr =
           "0x6b0bda3f2ffed5efc83fa8c024acff1dd45793f1";
         const custodyAddr = await client.fetchCustodyAddressForUser(userDwrFid);
         expect(custodyAddr).to.eq(expectedCustodyAddr);
+      });
+    });
+
+    describe("verifications", function () {
+      it("can fetch a user's verifications", async function () {
+        const verifications = await client.fetchUserVerifications({
+          fid: userDwrFid,
+        });
+        expect(verifications?.fid).eq(userDwrFid.toString());
+        expect(verifications?.verifications.length).to.be.greaterThan(0);
+      });
+
+      it("returns empty generator for user with no verifications", async function () {
+        const verifications = await client.fetchUserVerifications({
+          fid: 100,
+        });
+        expect(verifications?.verifications.length).to.eq(0);
+      });
+    });
+
+    describe("notifications", function () {
+      it("can fetch mention and reply notifications", async function () {
+        let castCount = 0;
+        let notificationFound = false;
+        for await (const notification of client.fetchMentionAndReplyNotifications(
+          userDwrFid,
+          {
+            pageSize: 5,
+          }
+        )) {
+          expectDefined(notification);
+          expectDefined(notification.hash);
+          expectDefined(notification.text);
+          castCount++;
+          notificationFound = true;
+          if (castCount === 10) break;
+        }
+        expect(castCount).to.eq(10);
+        expect(notificationFound).to.be.true;
+      });
+    });
+
+    describe("reactions", function () {
+      it("can fetch reactions to a cast", async function () {
+        const existingCastHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+        let castCount = 0;
+        let reactionFound = false;
+        for await (const observedReaction of client.fetchCastLikes(
+          existingCastHash,
+          { pageSize: 5 }
+        )) {
+          expect(observedReaction.type).eq(ReactionTypeEnum.Like);
+          castCount++;
+          reactionFound = true;
+          if (castCount === 10) break;
+        }
+        expect(castCount).to.eq(10);
+        expect(reactionFound).to.be.true;
+      });
+    });
+
+    describe("follows", function () {
+      it("can fetch followers of a user", async function () {
+        let followerFound = false;
+        let followersFound = 0;
+        const followers = await client.fetchUserFollowers({
+          fid: userGaviFid,
+        });
+        for (const follower of followers ?? []) {
+          expectDefined(follower);
+          expectDefined(follower.fid);
+          followerFound = true;
+          followersFound++;
+          if (followersFound === 50) break;
+        }
+        expect(followersFound).to.eq(50);
+        expect(followerFound).to.be.true;
+      });
+
+      it("can fetch users followed by a user", async function () {
+        let followingFound = false;
+        let dwrFound = false;
+        const following = await client.fetchUserFollowers({
+          fid: userGaviFid,
+        });
+        for (const follow of following ?? []) {
+          if (follow.fid === userDwrFid) {
+            dwrFound = true;
+            break;
+          }
+          expectDefined(follow);
+          expectDefined(follow.fid);
+          followingFound = true;
+        }
+        expect(followingFound).to.be.true;
+        expect(dwrFound).to.be.true;
       });
     });
   });
