@@ -336,7 +336,7 @@
                "$ref":"#/definitions/def-12"
             },
             "username":{
-               "$ref":"#/definitions/def-13"
+               "$ref":"#/definitions/def-66"
             },
             "displayName":{
                "$ref":"#/definitions/def-17"
@@ -1602,6 +1602,11 @@
             }
          ],
          "title":"PushNotificationPayload"
+      },
+      "def-66": {
+         "type":"string",
+         "pattern":"^[.-9a-z][.-9a-z-]{0,25}$",
+         "title":"ApiFname"
       }
    },
    "paths":{
