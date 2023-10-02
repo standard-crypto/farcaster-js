@@ -117,12 +117,7 @@ export class NeynarAPIClient {
   public async fetchCastsInThread(
     threadParent: Cast | { hash: string }
   ): Promise<Cast[] | undefined> {
-    let viewer: number | undefined;
-
-    const response = await this.apis.cast.allCastsInThread(
-      threadParent.hash,
-      viewer
-    );
+    const response = await this.apis.cast.allCastsInThread(threadParent.hash);
     return response.data.result.casts;
   }
 
@@ -390,9 +385,7 @@ export class NeynarAPIClient {
   public async fetchUserFollowers(user: {
     fid: number;
   }): Promise<User[] | undefined> {
-    let viewer: number | undefined;
-
-    const response = await this.apis.follows.followers(user.fid, viewer);
+    const response = await this.apis.follows.followers(user.fid);
 
     return response.data.result.users ?? undefined;
   }
@@ -403,9 +396,7 @@ export class NeynarAPIClient {
   public async fetchUserFollowing(user: {
     fid: number;
   }): Promise<User[] | undefined> {
-    let viewer: number | undefined;
-
-    const response = await this.apis.follows.following(user.fid, viewer);
+    const response = await this.apis.follows.following(user.fid);
 
     return response.data.result.users ?? undefined;
   }
