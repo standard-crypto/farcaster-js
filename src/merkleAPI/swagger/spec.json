@@ -98,7 +98,7 @@
       },
       "def-13":{
          "type":"string",
-         "pattern":"^[0-9a-z][0-9a-z-]{0,15}$",
+         "pattern":"^[.-9a-z][.-9a-z-]{0,25}$",
          "title":"ApiFname"
       },
       "def-14":{
@@ -336,7 +336,7 @@
                "$ref":"#/definitions/def-12"
             },
             "username":{
-               "$ref":"#/definitions/def-66"
+               "$ref":"#/definitions/def-13"
             },
             "displayName":{
                "$ref":"#/definitions/def-17"
@@ -1602,11 +1602,6 @@
             }
          ],
          "title":"PushNotificationPayload"
-      },
-      "def-66": {
-         "type":"string",
-         "pattern":"^[.-9a-z][.-9a-z-]{0,25}$",
-         "title":"ApiFname"
       }
    },
    "paths":{
