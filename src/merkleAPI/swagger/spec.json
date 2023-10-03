@@ -2087,22 +2087,25 @@
                               "type":"string"
                            }
                         },
-                        // TODO: Should also accept { "type": "string" }
-                        "parent":{
-                           "type":"object",
-                           "properties":{
-                              "fid":{
-                                 "$ref":"#/definitions/def-12"
+                        "parent": {
+                           "oneOf": [
+                              {
+                                 "type":"object",
+                                 "properties":{
+                                    "fid":{
+                                       "$ref":"#/definitions/def-12"
+                                    },
+                                    "hash":{
+                                       "$ref":"#/definitions/def-6"
+                                    }
+                                 },
+                                 "required":[
+                                    "fid",
+                                    "hash"
+                                 ]
                               },
-                              "hash":{
-                                 "$ref":"#/definitions/def-6"
-                              }
-                           },
-                           "required":[
-                              "fid",
-                              "hash"
+                              { "type": "string" }
                            ]
-                        }
                      },
                      "required":[
                         "text"
