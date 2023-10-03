@@ -305,6 +305,14 @@ if (privateKey !== undefined && privateKey !== "") {
         }
         expect(errorThrownAndParsedCorrectly).to.be.true;
       });
+
+      it("can publish a cast with a non-cast as its parent", async function () {
+        const text = "this is a test cast replying to a non-cast target";
+        const target =
+          "chain://eip155:base/erc721:0x9a9AcbA3c0799018C85A71DcD8A5C916468C9618";
+        publishedCast = await client.publishCast(text, target);
+        expect(publishedCast.text).to.eq(text);
+      });
     });
 
     describe("reactions", function () {

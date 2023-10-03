@@ -29,7 +29,7 @@ export interface V2CastsBody {
    * @type {V2castsParent}
    * @memberof V2CastsBody
    */
-  parent?: V2castsParent;
+  parent?: V2castsParent | string;
 
   embeds?: string[];
 }

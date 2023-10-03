@@ -30,7 +30,7 @@ ___
 
 ### parent
 
-• `Optional` **parent**: [`V2castsParent`](index.V2castsParent.md)
+• `Optional` **parent**: `string` \| [`V2castsParent`](index.V2castsParent.md)
 
 **`Memberof`**
 
