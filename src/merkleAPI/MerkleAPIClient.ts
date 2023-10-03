@@ -823,7 +823,7 @@ export class MerkleAPIClient {
    */
   public async publishCast(
     text: string,
-    replyTo?: Cast | { fid: number; hash: string },
+    replyTo?: Cast | { fid: number; hash: string } | string,
     embeds?: string[]
   ): Promise<Cast> {
     const authToken = await this.getOrCreateValidAuthToken();
@@ -832,16 +832,21 @@ export class MerkleAPIClient {
       embeds,
     };
     if (replyTo !== undefined) {
-      let parentFid: number;
-      if ("author" in replyTo) {
-        parentFid = replyTo.author.fid;
-      } else {
-        parentFid = replyTo.fid;
+      if (typeof replyTo === "string") {
+        body.parent = replyTo;
+      } 
+      else {
+        let parentFid: number;
+        if ("author" in replyTo) {
+          parentFid = replyTo.author.fid;
+        } else {
+          parentFid = replyTo.fid;
+        }
+        body.parent = {
+          fid: parentFid,
+          hash: replyTo.hash,
+        };
       }
-      body.parent = {
-        fid: parentFid,
-        hash: replyTo.hash,
-      };
       if (embeds !== undefined) {
         body.embeds = embeds;
       }
