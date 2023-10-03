@@ -2087,6 +2087,7 @@
                               "type":"string"
                            }
                         },
+                        // TODO: Should also accept { "type": "string" }
                         "parent":{
                            "type":"object",
                            "properties":{
