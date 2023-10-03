@@ -2106,6 +2106,7 @@
                               },
                               { "type": "string" }
                            ]
+                        }
                      },
                      "required":[
                         "text"
