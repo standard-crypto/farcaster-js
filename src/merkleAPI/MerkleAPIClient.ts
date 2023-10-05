@@ -39,7 +39,7 @@ import {
 import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "../common/logger";
-import type { WithRequired } from "../utils";
+import type { WithRequired } from "../common/typeUtils";
 import { SignerRequestsApi } from "./swagger/apis/signer-requests-api";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;

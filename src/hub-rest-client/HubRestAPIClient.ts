@@ -38,10 +38,10 @@ export class HubRestAPIClient {
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (HubRestAPIClient.isApiErrorResponse(error)) {
-          const apiErrors = error.response.data;
-          this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
-        }
+        // if (HubRestAPIClient.isApiErrorResponse(error)) {
+        //   const apiErrors = error.response.data;
+        //   this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
+        // }
         throw error;
       }
     );
