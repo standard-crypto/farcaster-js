@@ -28,4 +28,3 @@ export async function publishCast(
 }
 
 export * from "./merkleAPI";
-export { WithRequired } from "./utils";

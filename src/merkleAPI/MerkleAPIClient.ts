@@ -38,7 +38,7 @@ import {
 } from "./swagger";
 import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import { silentLogger, Logger } from "./logger";
+import { silentLogger, Logger } from "../common/logger";
 import type { WithRequired } from "../utils";
 import { SignerRequestsApi } from "./swagger/apis/signer-requests-api";
 
