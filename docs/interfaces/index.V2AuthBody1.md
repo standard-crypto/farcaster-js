@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2AuthBody1
 
 ## Table of contents

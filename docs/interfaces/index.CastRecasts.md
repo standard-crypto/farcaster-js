@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def42Recasts
 
 ## Table of contents

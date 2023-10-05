@@ -5,3 +5,4 @@ coverage/
 .DS_Store
 types/
 swagger-tmp
+.env

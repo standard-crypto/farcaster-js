@@ -20,10 +20,11 @@ import { Cast } from "./merkleAPI/swagger";
 export async function publishCast(
   wallet: Wallet,
   text: string,
-  replyTo?: Cast | { fid: number; hash: string }
+  replyTo?: Cast | { fid: number; hash: string },
+  embeds?: string[]
 ): Promise<Cast> {
   const merkleAPI = new MerkleAPIClient(wallet);
-  return await merkleAPI.publishCast(text, replyTo);
+  return await merkleAPI.publishCast(text, replyTo, embeds);
 }
 
 export * from "./merkleAPI";

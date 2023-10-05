@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def30Mint
 
 ## Table of contents

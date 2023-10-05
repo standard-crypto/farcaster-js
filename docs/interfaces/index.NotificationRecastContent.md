@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def51Content
 
 ## Table of contents

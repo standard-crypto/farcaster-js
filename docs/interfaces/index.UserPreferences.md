@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def28
 
 ## Table of contents

@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def30ViewerContext
 
 ## Table of contents

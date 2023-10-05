@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2CastReactionsBody
 
 ## Table of contents

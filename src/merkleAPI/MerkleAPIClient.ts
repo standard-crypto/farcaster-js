@@ -45,7 +45,7 @@ import { SignerRequestsApi } from "./swagger/apis/signer-requests-api";
 const THIRTY_SECONDS_IN_MILLIS = 30000;
 const TEN_MINUTES_IN_MILLIS = 600000;
 
-const BASE_PATH = "https://api.warpcast.com";
+const BASE_PATH = "https://client.warpcast.com";
 
 export class MerkleAPIClient {
   private authToken?: Promise<AuthToken>;
@@ -823,11 +823,13 @@ export class MerkleAPIClient {
    */
   public async publishCast(
     text: string,
-    replyTo?: Cast | { fid: number; hash: string }
+    replyTo?: Cast | { fid: number; hash: string },
+    embeds?: string[]
   ): Promise<Cast> {
     const authToken = await this.getOrCreateValidAuthToken();
     const body: V2CastsBody = {
       text,
+      embeds,
     };
     if (replyTo !== undefined) {
       let parentFid: number;
@@ -840,6 +842,9 @@ export class MerkleAPIClient {
         fid: parentFid,
         hash: replyTo.hash,
       };
+      if (embeds !== undefined) {
+        body.embeds = embeds;
+      }
     }
     const response = await this.apis.casts.v2CastsPost(authToken.secret, body);
     return response.data.result.cast;

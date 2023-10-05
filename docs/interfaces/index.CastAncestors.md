@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 Def42Ancestors
 
 ## Table of contents

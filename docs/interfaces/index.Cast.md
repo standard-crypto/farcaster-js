@@ -12,6 +12,7 @@
 - [attachments](index.Cast.md#attachments)
 - [author](index.Cast.md#author)
 - [deleted](index.Cast.md#deleted)
+- [embeds](index.Cast.md#embeds)
 - [hash](index.Cast.md#hash)
 - [mentions](index.Cast.md#mentions)
 - [parentAuthor](index.Cast.md#parentauthor)
@@ -38,7 +39,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:80](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L80)
+[src/merkleAPI/swagger/models/Cast.ts:81](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L81)
 
 ___
 
@@ -52,7 +53,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:74](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L74)
+[src/merkleAPI/swagger/models/Cast.ts:75](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L75)
 
 ___
 
@@ -66,7 +67,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L50)
+[src/merkleAPI/swagger/models/Cast.ts:51](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L51)
 
 ___
 
@@ -80,7 +81,17 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:110](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L110)
+[src/merkleAPI/swagger/models/Cast.ts:111](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L111)
+
+___
+
+### embeds
+
+• `Optional` **embeds**: `CastEmbeds`
+
+#### Defined in
+
+[src/merkleAPI/swagger/models/Cast.ts:124](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L124)
 
 ___
 
@@ -94,7 +105,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:27](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L27)
+[src/merkleAPI/swagger/models/Cast.ts:28](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L28)
 
 ___
 
@@ -108,7 +119,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:68](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L68)
+[src/merkleAPI/swagger/models/Cast.ts:69](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L69)
 
 ___
 
@@ -122,7 +133,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:44](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L44)
+[src/merkleAPI/swagger/models/Cast.ts:45](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L45)
 
 ___
 
@@ -136,7 +147,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:38](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L38)
+[src/merkleAPI/swagger/models/Cast.ts:39](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L39)
 
 ___
 
@@ -150,7 +161,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:92](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L92)
+[src/merkleAPI/swagger/models/Cast.ts:93](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L93)
 
 ___
 
@@ -164,7 +175,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:116](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L116)
+[src/merkleAPI/swagger/models/Cast.ts:117](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L117)
 
 ___
 
@@ -178,7 +189,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:98](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L98)
+[src/merkleAPI/swagger/models/Cast.ts:99](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L99)
 
 ___
 
@@ -192,7 +203,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:86](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L86)
+[src/merkleAPI/swagger/models/Cast.ts:87](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L87)
 
 ___
 
@@ -206,7 +217,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:56](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L56)
+[src/merkleAPI/swagger/models/Cast.ts:57](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L57)
 
 ___
 
@@ -220,7 +231,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:32](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L32)
+[src/merkleAPI/swagger/models/Cast.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L33)
 
 ___
 
@@ -234,7 +245,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:62](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L62)
+[src/merkleAPI/swagger/models/Cast.ts:63](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L63)
 
 ___
 
@@ -248,7 +259,7 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:122](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L122)
+[src/merkleAPI/swagger/models/Cast.ts:123](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L123)
 
 ___
 
@@ -262,4 +273,4 @@ Def42
 
 #### Defined in
 
-[src/merkleAPI/swagger/models/Cast.ts:104](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L104)
+[src/merkleAPI/swagger/models/Cast.ts:105](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Cast.ts#L105)

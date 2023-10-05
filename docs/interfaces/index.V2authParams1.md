@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2authParams1
 
 ## Table of contents

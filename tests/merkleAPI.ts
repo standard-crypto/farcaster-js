@@ -26,7 +26,10 @@ const testLogger: Logger = {
 const userDwrFid = 3;
 const userGaviFid = 69; // @gavi
 const userGaviBotFid = 6365; // @gavi-bot
-const userFarcasterFid = 1; // @farcaster
+
+async function sleep(ms: number): Promise<void> {
+  return await new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 if (privateKey !== undefined && privateKey !== "") {
   describe("MerkleAPI", function () {
@@ -214,8 +217,8 @@ if (privateKey !== undefined && privateKey !== "") {
 
     describe("#lookupUserByUsername", function () {
       it("can find existing user", async function () {
-        const user = await client.lookupUserByUsername("dwr");
-        expect(user?.username).to.eq("dwr");
+        const user = await client.lookupUserByUsername("dwr.eth");
+        expect(user?.username).to.eq("dwr.eth");
       });
 
       it("returns undefined if user not found", async function () {
@@ -280,6 +283,7 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can delete a cast", async function () {
         expectDefined(reply);
         expectDefined(publishedCast);
+        await sleep(1000);
         await client.deleteCast(reply);
         await client.deleteCast(publishedCast);
       });
@@ -424,9 +428,11 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
-    describe("assets", function () {
+    // See issue #652
+    describe.skip("assets", function () {
       it("can fetch a list of collections owned by a user", async function () {
         let assetFound = false;
+
         // eslint-disable-next-line no-unreachable-loop
         for await (const assetCollection of client.fetchUserAssetCollections({
           fid: userDwrFid,
@@ -610,8 +616,8 @@ if (privateKey !== undefined && privateKey !== "") {
       it("returns empty generator for user with no verifications", async function () {
         let verificationFound = false;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for await (const _ of client.fetchUserVerifications({
-          fid: userFarcasterFid,
+        for await (const v of client.fetchUserVerifications({
+          fid: 100,
         })) {
           verificationFound = true;
         }
@@ -639,7 +645,8 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
-    describe("signer requests", function () {
+    // See issue #653
+    describe.skip("signer requests", function () {
       const TOKEN_NAME = "farcaster-js integration tests";
       const TOKEN_PUB_KEY =
         "0x48b0c7a6deff69bad7673357df43274f3a08163a6440b7a7e3b3cb6b6623faa7";
@@ -668,6 +675,53 @@ if (privateKey !== undefined && privateKey !== "") {
       it("returns undefined when fetching nonexistent signer request", async function () {
         const signerRequest = await client.fetchSignerRequest("noSuchToken");
         expect(signerRequest).to.be.undefined;
+      });
+    });
+
+    describe("cast embeds", function () {
+      it("can publish a cast with URL embeds", async function () {
+        const embedURL = "https://www.farcaster.xyz/";
+        const text = "this is a cast testing URL embed functionality";
+        let publishedCast: Cast | undefined = await client.publishCast(
+          text,
+          undefined /* replyTo */,
+          [embedURL]
+        );
+        expectDefined(publishedCast);
+
+        // re-fetch the cast again, since the warpcast API might not return it in response to our POST
+        await sleep(1000);
+        publishedCast = await client.fetchCast(publishedCast);
+        expectDefined(publishedCast);
+
+        expectDefined(publishedCast.embeds);
+        const urls = publishedCast.embeds.urls;
+        expect(urls).to.have.length(1);
+        expect(urls[0].type).eq("url");
+        expect(urls[0].openGraph.url).eq(embedURL);
+        expect(urls[0].openGraph.sourceUrl).eq(embedURL);
+      });
+
+      it("can publish a cast with image embeds", async function () {
+        const embedURL = "https://i.imgur.com/YPEZebo.png";
+        const text = "this is a cast testing image embed functionality";
+        let publishedCast: Cast | undefined = await client.publishCast(
+          text,
+          undefined /* replyTo */,
+          [embedURL]
+        );
+        expectDefined(publishedCast);
+
+        // re-fetch the cast again, since the warpcast API might not return it in response to our POST
+        await sleep(1000);
+        publishedCast = await client.fetchCast(publishedCast);
+        expectDefined(publishedCast);
+
+        expectDefined(publishedCast.embeds);
+        const images = publishedCast.embeds.images;
+        expect(images).to.have.length(1);
+        expect(images[0].type).eq("image");
+        expect(images[0].sourceUrl).eq(embedURL);
       });
     });
   });

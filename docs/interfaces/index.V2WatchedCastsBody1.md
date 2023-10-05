@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2WatchedCastsBody1
 
 ## Table of contents

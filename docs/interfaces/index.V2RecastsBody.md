@@ -6,8 +6,6 @@
 
 **`Export`**
 
-**`Interface`**
-
 V2RecastsBody
 
 ## Table of contents
