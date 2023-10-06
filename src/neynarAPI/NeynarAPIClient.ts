@@ -312,10 +312,17 @@ export class NeynarAPIClient {
   public async lookupUserByVerification(
     address: string
   ): Promise<User | undefined> {
-    const response = await this.apis.verification.userByVerification(address);
-    return response.data.result?.user?.fid != null
-      ? response.data.result.user
-      : undefined;
+    try {
+      const response = await this.apis.verification.userByVerification(address);
+      return response.data.result?.user?.fid != null
+        ? response.data.result.user
+        : undefined;
+    } catch (error) {
+      if (NeynarAPIClient.isApiErrorResponse(error)) {
+        if (error.response.status === 404) return undefined;
+      }
+      throw error;
+    }
   }
 
   public async *fetchMentionAndReplyNotifications(

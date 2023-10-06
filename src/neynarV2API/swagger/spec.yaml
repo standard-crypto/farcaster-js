@@ -1,0 +1,977 @@
+openapi: 3.0.0
+info:
+  title: v2 Farcaster
+  version: "1.0"
+servers:
+  - url: https://api.neynar.com/v2
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: api_key
+      description: API key required for authentication. use value --> NEYNAR_API_DOCS<-- for testing
+
+  schemas:
+    Address:
+      type: string
+      description: Ethereum address
+    Fid:
+      type: integer
+      format: int32
+      default: 3
+      description: User identifier (unsigned integer)
+    ActiveStatus:
+      type: string
+      enum:
+        - active
+        - inactive
+      description: |
+        The status of a user.
+          - active: The user is currently active.
+          - inactive: The user is not currently active.
+    ReactionType:
+      type: string
+      enum:
+        - like
+        - recast
+    NextCursor:
+      type: object
+      description: Returns next cursor
+      required:
+        - cursor
+      properties:
+        cursor:
+          type: string
+          nullable: true
+    CastNotificationType:
+      type: string
+      enum:
+        - cast-mention
+        - cast-reply
+      description: |
+        The notification type of a cast.
+    CastParamType:
+      type: string
+      enum:
+        - url
+        - hash
+      description: |
+        The query param accepted by the API. Sent along with identifier param.
+        url - Cast identifier is a url
+        hash - Cast identifier is a hash
+    ErrorRes:
+      type: object
+      required:
+        - message
+      description: Returns ErrorRes metadata
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        property:
+          type: string
+        status:
+          type: integer
+          format: int32
+    Timestamp:
+      type: string
+      format: date-time
+    IndividualHashObj:
+      type: object
+      properties:
+        hash:
+          type: string
+      required:
+        - hash
+    EmbedUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+    CastId:
+      type: object
+      required:
+        - fid
+        - hash
+      properties:
+        fid:
+          type: integer
+          format: int64
+        hash:
+          type: string
+    EmbedCastId:
+      type: object
+      required:
+        - cast_id
+      properties:
+        cast_id:
+          $ref: "#/components/schemas/CastId"
+    ReactionLike:
+      type: object
+      required:
+        - fid
+      properties:
+        fid:
+          $ref: "#/components/schemas/Fid"
+    ReactionRecast:
+      type: object
+      required:
+        - fid
+        - fname
+      properties:
+        fid:
+          $ref: "#/components/schemas/Fid"
+        fname:
+          type: string
+    User:
+      type: object
+      required:
+        - fid
+        - username
+        - display_name
+        - pfp_url
+        - profile
+        - follower_count
+        - following_count
+        - verifications
+        - activeStatus
+      properties:
+        fid:
+          $ref: "#/components/schemas/Fid"
+        username:
+          type: string
+        display_name:
+          type: string
+        custody_address:
+          $ref: "#/components/schemas/Address"
+        pfp_url:
+          type: string
+          description: The URL of the user's profile picture
+        profile:
+          type: object
+          required:
+            - bio
+          properties:
+            bio:
+              type: object
+              required:
+                - text
+              properties:
+                text:
+                  type: string
+        follower_count:
+          type: integer
+          format: int32
+          description: The number of followers the user has.
+        following_count:
+          type: integer
+          format: int32
+          description: The number of users the user is following.
+        verifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Address"
+        activeStatus:
+          $ref: "#/components/schemas/ActiveStatus"
+    CastEmbeds:
+      oneOf:
+        - $ref: "#/components/schemas/EmbedUrl"
+        - $ref: "#/components/schemas/EmbedCastId"
+    Cast:
+      type: object
+      required:
+        - hash
+        - parent_hash
+        - parent_url
+        - parent_author
+        - author
+        - text
+        - timestamp
+        - embeds
+      properties:
+        hash:
+          type: string
+        parent_hash:
+          type: string
+          nullable: true
+        parent_url:
+          type: string
+          nullable: true
+        parent_author:
+          type: object
+          allOf:
+            - $ref: "#/components/schemas/Fid"
+            - required:
+                - fid
+              properties:
+                fid:
+                  type: string
+                  nullable: true
+        author:
+          $ref: "#/components/schemas/User"
+          # oneOf:
+          #   - $ref: '#/components/schemas/User'
+          #   - type: object
+          #     required:
+          #       - fid
+          #     properties:
+          #       fid:
+          #         type: string
+        text:
+          type: string
+        timestamp:
+          $ref: "#/components/schemas/Timestamp"
+        embeds:
+          type: array
+          items:
+            $ref: "#/components/schemas/CastEmbeds"
+        type:
+          $ref: "#/components/schemas/CastNotificationType"
+    ProfileUrl:
+      type: object
+      required:
+        - pfp
+      properties:
+        pfp:
+          type: object
+          required:
+            - url
+          properties:
+            url:
+              type: string
+    SearchedUser:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - $ref: "#/components/schemas/ProfileUrl"
+    RegisterSignerKeyReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - signature
+        - app_fid
+        - deadline
+      properties:
+        signer_uuid:
+          type: string
+          description: UUID of the signer
+        signature:
+          type: string
+          description: Signature generated by the custody address of the app. Signed data includes app_fid, deadline, signer’s public key
+        app_fid:
+          type: integer
+          description: Application FID
+        deadline:
+          type: integer
+          description: unix timestamp in seconds that controls how long the signed key request is valid for. (24 hours from now is recommended)
+    PostCastReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - text
+      properties:
+        signer_uuid:
+          type: string
+        text:
+          type: string
+        embeds:
+          $ref: "#/components/schemas/CastEmbeds"
+        parent:
+          $ref: "#/components/schemas/Address"
+    ReactionReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - reaction_type
+        - target
+      properties:
+        signer_uuid:
+          type: string
+        reaction_type:
+          $ref: "#/components/schemas/ReactionType"
+        target:
+          type: string
+    GetCastsReqBody:
+      type: object
+      properties:
+        casts:
+          type: array
+          items:
+            $ref: "#/components/schemas/IndividualHashObj"
+    DeleteCastReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - target_hash
+      properties:
+        signer_uuid:
+          type: string
+          description: UUID of the signer
+        target_hash:
+          $ref: "#/components/schemas/Address"
+    FollowReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - target_fids
+      properties:
+        signer_uuid:
+          type: string
+        target_fids:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fid"
+    CastWithInteractionsReactions:
+      type: object
+      required:
+        - likes
+        - recasts
+      properties:
+        likes:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReactionLike"
+        recasts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReactionRecast"
+    CastWithInteractionsReplies:
+      type: object
+      required:
+        - count
+      properties:
+        count:
+          type: integer
+          format: int32
+    CastWithInteractions:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Cast"
+        - required:
+            - reactions
+            - replies
+            - thread_hash
+          properties:
+            reactions:
+              $ref: "#/components/schemas/CastWithInteractionsReactions"
+            replies:
+              $ref: "#/components/schemas/CastWithInteractionsReplies"
+            thread_hash:
+              type: string
+              nullable: true
+    Signer:
+      type: object
+      required:
+        - signer_uuid
+        - public_key
+        - status
+      properties:
+        signer_uuid:
+          type: string
+        public_key:
+          type: string
+        status:
+          type: string
+          enum:
+            - generated
+            - pending_approval
+            - approved
+            - revoked
+        signer_approval_url:
+          type: string
+        fid:
+          type: string
+    CastResponse:
+      type: object
+      required:
+        - cast
+      properties:
+        cast:
+          $ref: "#/components/schemas/CastWithInteractions"
+    UserSearchResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: object
+          required:
+            - users
+          properties:
+            users:
+              type: array
+              items:
+                $ref: "#/components/schemas/SearchedUser"
+    CastsResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: object
+          required:
+            - casts
+          properties:
+            casts:
+              type: array
+              items:
+                $ref: "#/components/schemas/CastWithInteractions"
+    FeedResponse:
+      type: object
+      required:
+        - casts
+        - next
+      properties:
+        casts:
+          type: array
+          items:
+            $ref: "#/components/schemas/CastWithInteractions"
+        next:
+          $ref: "#/components/schemas/NextCursor"
+    PostCastResponse:
+      type: object
+      required:
+        - success
+        - cast
+      properties:
+        success:
+          type: boolean
+        cast:
+          type: object
+          required:
+            - hash
+            - author
+            - text
+          properties:
+            hash:
+              $ref: "#/components/schemas/Address"
+            author:
+              type: object
+              required:
+                - fid
+              properties:
+                fid:
+                  $ref: "#/components/schemas/Fid"
+            text:
+              type: string
+    OperationResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+    FollowResponse:
+      type: object
+      required:
+        - success
+        - target_fid
+      properties:
+        success:
+          type: boolean
+        target_fid:
+          $ref: "#/components/schemas/Fid"
+    BulkFollowResponse:
+      type: object
+      required:
+        - success
+        - details
+      properties:
+        success:
+          type: boolean
+        details:
+          type: array
+          items:
+            $ref: "#/components/schemas/FollowResponse"
+
+  responses:
+    404Response:
+      description: "Resource not found"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorRes"
+    400Response:
+      description: "Bad Request"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorRes"
+    403Response:
+      description: "Forbidden"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorRes"
+    500Response:
+      description: "Server Error"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorRes"
+
+tags:
+  - name: User
+    description: Operations related to user
+    externalDocs:
+      description: More info about user
+      url: https://docs.neynar.com/reference/search-usernames
+  - name: Signer
+    description: Operations related to signer
+    externalDocs:
+      description: More info about signer
+      url: https://docs.neynar.com/reference/write-to-farcaster-via-neynar
+  - name: Cast
+    description: Operations related to cast
+    externalDocs:
+      description: More info about cast
+      url: https://docs.neynar.com/reference/get-cast
+  - name: Feed
+    description: Operations related to feed
+    externalDocs:
+      description: More info about feed
+      url: https://docs.neynar.com/reference/how-to-use-the-feed-api
+  - name: Reaction
+    description: Operations related to reaction
+    externalDocs:
+      description: More info about reaction
+      url: https://docs.neynar.com/reference/post-a-reaction
+  - name: Follow
+    description: Operations related to follow
+    externalDocs:
+      description: More info about follow
+      url: https://docs.neynar.com/reference/follow-a-user
+
+paths:
+  /farcaster/signer:
+    get:
+      tags:
+        - Signer
+      summary: Fetches the status of a signer
+      description: Gets information status of a signer by passing in a signer_uuid (Use post API to generate a signer)
+      operationId: signer
+      parameters:
+        - name: signer_uuid
+          required: true
+          in: query
+          example: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Signer"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    post:
+      tags:
+        - Signer
+      summary: Creates a signer and returns the signer status
+      description: |
+        Creates a signer and returns the signer status. \
+        **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+      operationId: create-signer
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Signer"
+        "500":
+          $ref: "#/components/responses/500Response"
+  /farcaster/signer/signed_key:
+    post:
+      tags:
+        - Signer
+      summary: Register Signed Key
+      description: Registers an app fid, deadline and a signature. Returns the signer status with an approval url.
+      operationId: register-signed-key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterSignerKeyReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              app_fid: 18949
+              deadline: 1693627665
+              signature: "0xe5d95c391e165dac8efea373efe301d3ea823e1f41713f8943713cbe2850566672e33ff3e17e19abb89703f650a2597f62b4fda0ce28ca15d59eb6d4e971ee531b"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Signer"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+  /farcaster/user/search:
+    get:
+      tags:
+        - User
+      summary: Search for Usernames
+      description: Search for Usernames
+      operationId: user-search
+      parameters:
+        - name: viewer_fid
+          in: query
+          required: true
+          example: 3
+          schema:
+            $ref: "#/components/schemas/Fid"
+        - name: q
+          in: query
+          required: true
+          example: r
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSearchResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+  /farcaster/cast:
+    get:
+      tags:
+        - Cast
+      summary: Retrieve cast for a given hash
+      description: Gets information about an individual cast by passing in a web URL or cast hash
+      operationId: cast
+      parameters:
+        - name: type
+          required: true
+          in: query
+          example: url
+          schema:
+            $ref: "#/components/schemas/CastParamType"
+        - name: identifier
+          required: true
+          in: query
+          example: "https://warpcast.com/rish/0x9288c1"
+          description: Cast identifier (Its either a url or a hash)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CastResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+    post:
+      tags:
+        - Cast
+      summary: Posts a cast
+      description: |
+        Posts a cast or cast reply. Works with mentions and embeds.  
+        (In order to post a cast `signer_uuid` must be approved)
+      operationId: post-cast
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCastReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              text: "Writing to @farcaster via the @neynar APIs 🪐"
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostCastResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    delete:
+      tags:
+        - Cast
+      summary: Delete a cast
+      description: |
+        Delete an existing cast. \
+        (In order to delete a cast `signer_uuid` must be approved)
+      operationId: delete-cast
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteCastReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              target_hash: "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f"
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+  /farcaster/casts:
+    get:
+      tags:
+        - Cast
+      summary: Gets information about an array of casts
+      description: Retrieve multiple casts using their respective hashes.
+      operationId: casts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetCastsReqBody"
+            example:
+              casts:
+                - hash: "0xa896906a5e397b4fec247c3ee0e9e4d4990b8004"
+                - hash: "0x27ff810f7f718afd8c40be236411f017982e0994"
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CastsResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+  /farcaster/feed:
+    get:
+      summary: Retrieve casts based on filters
+      operationId: feed
+      tags:
+        - Feed
+      parameters:
+        - name: feed_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - filter
+              - following
+          example: filter
+          description: Defaults to following (requires fid or address). If set to filter (requires filter_type)
+        - name: filter_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - fids
+              - parent_url
+          example: fids
+          description: Used when feed_type=filter. Can be set to fids (requires fids) or parent_url (requires parent_url)
+        - name: fid
+          in: query
+          schema:
+            $ref: "#/components/schemas/Fid"
+          description: (Optional) fid of user whose feed you want to create. By default, the API expects this field, except if you pass a filter_type
+        - name: fids
+          in: query
+          schema:
+            type: string
+          example: 3,4,194
+          description: Used when filter_type=fids . Create a feed based on a list of fids. Max array size is 250. Requires feed_type and filter_type.
+        - name: parent_url
+          in: query
+          schema:
+            type: string
+          description: Used when filter_type=parent_url can be used to fetch content under any parent url e.g. FIP-2 channels on Warpcast. Requires feed_type and filter_type
+        - name: cursor
+          in: query
+          description: Pagination cursor.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results to retrieve (default 25, max 150)
+          schema:
+            type: integer
+            default: 25
+            minimum: 1
+            maximum: 150
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+  /farcaster/reaction:
+    post:
+      tags:
+        - Reaction
+      summary: Posts a reaction
+      description: |
+        Post a reaction (like or recast) to a given cast \
+        (In order to post a reaction `signer_uuid` must be approved)
+      operationId: post-reaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReactionReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              target: "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f"
+              reaction_type: like
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    delete:
+      tags:
+        - Reaction
+      summary: Delete a reaction
+      description: |
+        Delete a reaction (like or recast) to a given cast \
+        (In order to delete a reaction `signer_uuid` must be approved)
+      operationId: delete-reaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReactionReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              target: "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f"
+              reaction_type: like
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+  /farcaster/user/follow:
+    post:
+      tags:
+        - Follow
+      summary: Follow a user
+      description: |
+        Follow a user \
+        (In order to follow a user `signer_uuid` must be approved)
+      operationId: follow-user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FollowReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              target_fids:
+                - 3
+                - 194
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkFollowResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    delete:
+      tags:
+        - Follow
+      summary: Unfollow a user
+      description: |
+        Unfollow a user \
+        (In order to unfollow a user `signer_uuid` must be approved)
+      operationId: unfollow-user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FollowReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              target_fids:
+                - 3
+                - 194
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkFollowResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+        "403":
+          $ref: "#/components/responses/403Response"
+        "500":
+          $ref: "#/components/responses/500Response"

@@ -4,6 +4,7 @@
   "words": [
     "arrayify",
     "bignumber",
+    "deeplink",
     "esbuild",
     "ethersproject",
     "farcaster",
@@ -24,6 +25,7 @@
     "recaster",
     "unwatch",
     "openapi",
+    "viem",
     "warpcast"
   ],
   "flagWords": [],
