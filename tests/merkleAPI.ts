@@ -2,8 +2,8 @@ import { MerkleAPIClient } from "../src/merkleAPI";
 import { Wallet } from "ethers";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { Logger, silentLogger } from "./common/logger";
-import { expectDefined } from "./utils";
+import { Logger, silentLogger } from "../src/common/logger";
+import { expectDefinedNonNull } from "./utils";
 import { AuthToken, Cast, CastReaction } from "./merkleAPI/swagger";
 import OpenAPIResponseValidator from "openapi-response-validator";
 import apiDefinitions from "../src/merkleAPI/swagger/spec.json";
@@ -76,7 +76,7 @@ if (privateKey !== undefined && privateKey !== "") {
         })) {
           foundCast = true;
           expect(cast.author.fid).to.eq(userGaviFid);
-          expectDefined(cast.timestamp);
+          expectDefinedNonNull(cast.timestamp);
           break;
         }
         expect(foundCast).to.be.true;
@@ -85,7 +85,6 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can fetch multiple pages worth of casts", async function () {
         let castCount = 0;
         const castCountBiggerThanPageSize = 150;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for await (const _ of client.fetchCastsForUser({ fid: userDwrFid })) {
           castCount++;
           if (castCount >= castCountBiggerThanPageSize) {
@@ -131,8 +130,8 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can fetch multiple pages of casts", async function () {
         let castCount = 0;
         for await (const cast of client.fetchRecentCasts({ pageSize: 5 })) {
-          expectDefined(cast);
-          expectDefined(cast.hash);
+          expectDefinedNonNull(cast);
+          expectDefinedNonNull(cast.hash);
           castCount++;
           if (castCount === 10) break;
         }
@@ -149,8 +148,8 @@ if (privateKey !== undefined && privateKey !== "") {
           { hash: threadHash },
           { pageSize: 1 }
         )) {
-          expectDefined(cast);
-          expectDefined(cast.hash);
+          expectDefinedNonNull(cast);
+          expectDefinedNonNull(cast.hash);
           castCount++;
           if (castCount === 2) break;
         }
@@ -162,8 +161,8 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can fetch multiple pages of users", async function () {
         let userCount = 0;
         for await (const user of client.fetchRecentUsers({ pageSize: 5 })) {
-          expectDefined(user);
-          expectDefined(user.username);
+          expectDefinedNonNull(user);
+          expectDefinedNonNull(user.username);
           userCount++;
           if (userCount === 10) break;
         }
@@ -175,7 +174,7 @@ if (privateKey !== undefined && privateKey !== "") {
       it("can fetch an existing cast", async function () {
         const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
         const cast = await client.fetchCast(existingCastHash);
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
         expect(cast.hash).to.eq(existingCastHash);
       });
 
@@ -192,7 +191,7 @@ if (privateKey !== undefined && privateKey !== "") {
         const cast = await client.fetchLatestCastForUser({
           fid: userGaviFid,
         });
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
       });
 
       it("returns undefined if user has no (undeleted) casts", async function () {
@@ -252,8 +251,8 @@ if (privateKey !== undefined && privateKey !== "") {
             pageSize: 5,
           }
         )) {
-          expectDefined(cast);
-          expectDefined(cast.hash);
+          expectDefinedNonNull(cast);
+          expectDefinedNonNull(cast.hash);
           expect(cast.type).to.eq("like");
           castCount++;
           if (castCount === 10) break;
@@ -274,15 +273,15 @@ if (privateKey !== undefined && privateKey !== "") {
 
       it("can reply to an existing cast", async function () {
         const text = "this is a reply to the test cast";
-        expectDefined(publishedCast);
+        expectDefinedNonNull(publishedCast);
         reply = await client.publishCast(text, publishedCast);
         expect(reply.text).to.eq(text);
         expect(reply.parentHash).to.eq(publishedCast?.hash);
       });
 
       it("can delete a cast", async function () {
-        expectDefined(reply);
-        expectDefined(publishedCast);
+        expectDefinedNonNull(reply);
+        expectDefinedNonNull(publishedCast);
         await sleep(1000);
         await client.deleteCast(reply);
         await client.deleteCast(publishedCast);
@@ -313,7 +312,7 @@ if (privateKey !== undefined && privateKey !== "") {
 
       it("can react to a cast", async function () {
         cast = await client.fetchLatestCastForUser({ fid: userDwrFid });
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
 
         reaction = await client.reactToCast("like", cast);
         expect(reaction.type).to.eq("like");
@@ -321,8 +320,8 @@ if (privateKey !== undefined && privateKey !== "") {
       });
 
       it("can fetch reactions to a cast", async function () {
-        expectDefined(cast);
-        expectDefined(reaction);
+        expectDefinedNonNull(cast);
+        expectDefinedNonNull(reaction);
 
         let reactionFound = false;
         for await (const observedReaction of client.fetchCastLikes(cast)) {
@@ -335,8 +334,8 @@ if (privateKey !== undefined && privateKey !== "") {
       });
 
       it("can un-react to a cast", async function () {
-        expectDefined(cast);
-        expectDefined(reaction);
+        expectDefinedNonNull(cast);
+        expectDefinedNonNull(reaction);
         await client.removeReactionToCast("like", cast);
       });
     });
@@ -347,13 +346,13 @@ if (privateKey !== undefined && privateKey !== "") {
 
       it("can recast a cast", async function () {
         cast = await client.fetchLatestCastForUser({ fid: userDwrFid });
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
 
         await client.recast(cast);
       });
 
       it("can delete a recast", async function () {
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
         await client.deleteRecast(cast);
       });
     });
@@ -418,12 +417,12 @@ if (privateKey !== undefined && privateKey !== "") {
 
       it("can watch a cast", async function () {
         cast = await client.fetchLatestCastForUser({ fid: userDwrFid });
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
         await client.watchCast(cast);
       });
 
       it("can unwatch a cast", async function () {
-        expectDefined(cast);
+        expectDefinedNonNull(cast);
         await client.unwatchCast(cast);
       });
     });
@@ -437,7 +436,7 @@ if (privateKey !== undefined && privateKey !== "") {
         for await (const assetCollection of client.fetchUserAssetCollections({
           fid: userDwrFid,
         })) {
-          expectDefined(assetCollection);
+          expectDefinedNonNull(assetCollection);
           assetFound = true;
           break;
         }
@@ -459,11 +458,11 @@ if (privateKey !== undefined && privateKey !== "") {
 
       it("can create an auth token", async function () {
         token = await client.createAuthToken();
-        expectDefined(token);
+        expectDefinedNonNull(token);
       });
 
       it("can revoke an auth token", async function () {
-        expectDefined(token);
+        expectDefinedNonNull(token);
         await client.revokeAuthToken(token);
       });
 
@@ -545,9 +544,9 @@ if (privateKey !== undefined && privateKey !== "") {
         let notificationFound = false;
         // eslint-disable-next-line no-unreachable-loop
         for await (const notification of notifications) {
-          expectDefined(notification);
-          expectDefined(notification.content);
-          expectDefined(notification.content.cast);
+          expectDefinedNonNull(notification);
+          expectDefinedNonNull(notification.content);
+          expectDefinedNonNull(notification.content.cast);
           notificationFound = true;
           break;
         }
@@ -657,8 +656,8 @@ if (privateKey !== undefined && privateKey !== "") {
           TOKEN_PUB_KEY,
           TOKEN_NAME
         );
-        expectDefined(signerRequest.token);
-        expectDefined(signerRequest.deepLinkUrl);
+        expectDefinedNonNull(signerRequest.token);
+        expectDefinedNonNull(signerRequest.deepLinkUrl);
         signerRequestToken = signerRequest.token;
       });
 
@@ -666,7 +665,7 @@ if (privateKey !== undefined && privateKey !== "") {
         const signerRequest = await client.fetchSignerRequest(
           signerRequestToken
         );
-        expectDefined(signerRequest);
+        expectDefinedNonNull(signerRequest);
         expect(signerRequest.token).to.eq(signerRequestToken);
         expect(signerRequest.name).to.eq(TOKEN_NAME);
         expect(signerRequest.publicKey).to.eq(TOKEN_PUB_KEY);
@@ -687,14 +686,14 @@ if (privateKey !== undefined && privateKey !== "") {
           undefined /* replyTo */,
           [embedURL]
         );
-        expectDefined(publishedCast);
+        expectDefinedNonNull(publishedCast);
 
         // re-fetch the cast again, since the warpcast API might not return it in response to our POST
         await sleep(1000);
         publishedCast = await client.fetchCast(publishedCast);
-        expectDefined(publishedCast);
+        expectDefinedNonNull(publishedCast);
 
-        expectDefined(publishedCast.embeds);
+        expectDefinedNonNull(publishedCast.embeds);
         const urls = publishedCast.embeds.urls;
         expect(urls).to.have.length(1);
         expect(urls[0].type).eq("url");
@@ -710,14 +709,14 @@ if (privateKey !== undefined && privateKey !== "") {
           undefined /* replyTo */,
           [embedURL]
         );
-        expectDefined(publishedCast);
+        expectDefinedNonNull(publishedCast);
 
         // re-fetch the cast again, since the warpcast API might not return it in response to our POST
         await sleep(1000);
         publishedCast = await client.fetchCast(publishedCast);
-        expectDefined(publishedCast);
+        expectDefinedNonNull(publishedCast);
 
-        expectDefined(publishedCast.embeds);
+        expectDefinedNonNull(publishedCast.embeds);
         const images = publishedCast.embeds.images;
         expect(images).to.have.length(1);
         expect(images[0].type).eq("image");

@@ -1,0 +1,1799 @@
+---
+swagger: '2.0'
+info:
+  title: Farcaster Hub REST API
+  version: "1"
+schemes:
+  - http
+  - https
+basePath: "/"
+host: hub.farcaster.standardcrypto.vc:2281
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/HubService/GetAllCastMessagesByFid":
+    post:
+      summary: Bulk Methods
+      operationId: HubService_GetAllCastMessagesByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - Casts
+  "/HubService/GetAllLinkMessagesByFid":
+    post:
+      operationId: HubService_GetAllLinkMessagesByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetAllMessagesBySyncIds":
+    post:
+      operationId: HubService_GetAllMessagesBySyncIds
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/SyncIds"
+      tags:
+      - HubService
+  "/HubService/GetAllReactionMessagesByFid":
+    post:
+      operationId: HubService_GetAllReactionMessagesByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetAllSyncIdsByPrefix":
+    post:
+      operationId: HubService_GetAllSyncIdsByPrefix
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/SyncIds"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/TrieNodePrefix"
+      tags:
+      - HubService
+  "/HubService/GetAllUserDataMessagesByFid":
+    post:
+      operationId: HubService_GetAllUserDataMessagesByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetAllVerificationMessagesByFid":
+    post:
+      operationId: HubService_GetAllVerificationMessagesByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/v1/castById":
+    get:
+      summary: Get a cast by its FID and Hash.
+      operationId: GetCastById
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/Message"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          type: integer
+          description: The FID of the cast's creator
+        - name: hash
+          in: query
+          required: true
+          description: The cast's hash
+          type: "string"
+          pattern: "^0x[0-9a-fA-F]{40}$"
+      tags:
+      - Casts
+  "/v1/castsByFid":
+    get:
+      summary: Fetch all casts authored by an FID.
+      operationId: GetCastsByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          type: integer
+          description: The FID of the casts' creator
+        - name: pageSize
+          in: query
+          required: false
+          type: integer
+          description: Maximum number of messages to return in a single response
+        - name: reverse
+          in: query
+          required: false
+          type: boolean
+          description: Reverse the sort order, returning latest messages first
+        - name: pageToken
+          in: query
+          required: false
+          type: string
+          description: The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page	
+      tags:
+      - Casts
+  "/v1/castsByMention":
+    get:
+      summary: Fetch all casts that mention an FID
+      operationId: GetCastsByMention
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          type: integer
+          description: The FID that is mentioned in a cast
+        - name: pageSize
+          in: query
+          required: false
+          type: integer
+          description: Maximum number of messages to return in a single response
+        - name: reverse
+          in: query
+          required: false
+          type: boolean
+          description: Reverse the sort order, returning latest messages first
+        - name: pageToken
+          in: query
+          required: false
+          type: string
+          description: The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+      tags:
+      - Casts
+  "/v1/castsByParent":
+    get:
+      summary: Fetch all casts by parent cast's FID and Hash OR by the parent's URL
+      operationId: GetCastsByParent
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+        - name: fid
+          in: query
+          required: false
+          type: integer
+          description: The FID of the parent cast
+        - name: hash
+          in: query
+          required: false
+          type: string
+          description: The parent cast's hash
+        - name: url
+          in: query
+          required: false
+          type: string
+        - name: pageSize
+          in: query
+          required: false
+          type: integer
+          description: Maximum number of messages to return in a single response
+        - name: reverse
+          in: query
+          required: false
+          type: boolean
+          description: Reverse the sort order, returning latest messages first
+        - name: pageToken
+          in: query
+          required: false
+          type: string
+          description: The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+      tags:
+      - Casts
+  "/HubService/GetCurrentStorageLimitsByFid":
+    post:
+      operationId: HubService_GetCurrentStorageLimitsByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/StorageLimitsResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetEvent":
+    post:
+      operationId: HubService_GetEvent
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/HubEvent"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/EventRequest"
+      tags:
+      - HubService
+  "/HubService/GetFids":
+    post:
+      operationId: HubService_GetFids
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/FidsResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidsRequest"
+      tags:
+      - HubService
+  "/HubService/GetIdRegistryOnChainEvent":
+    post:
+      operationId: HubService_GetIdRegistryOnChainEvent
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/OnChainEvent"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetIdRegistryOnChainEventByAddress":
+    post:
+      operationId: HubService_GetIdRegistryOnChainEventByAddress
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/OnChainEvent"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/IdRegistryEventByAddressRequest"
+      tags:
+      - HubService
+  "/v1/info":
+    get:
+      summary: Sync Methods
+      operationId: GetInfo
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/HubInfoResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+        - name: dbstats
+          in: query
+          required: true
+          type: boolean
+          description: Whether to return DB stats	
+      tags:
+      - Info
+  "/HubService/GetLink":
+    post:
+      summary: Links
+      operationId: HubService_GetLink
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/Message"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/LinkRequest"
+      tags:
+      - HubService
+  "/HubService/GetLinksByFid":
+    post:
+      operationId: HubService_GetLinksByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/LinksByFidRequest"
+      tags:
+      - HubService
+  "/HubService/GetLinksByTarget":
+    post:
+      operationId: HubService_GetLinksByTarget
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/LinksByTargetRequest"
+      tags:
+      - HubService
+  "/HubService/GetOnChainEvents":
+    post:
+      operationId: HubService_GetOnChainEvents
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/OnChainEventResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/OnChainEventRequest"
+      tags:
+      - HubService
+  "/HubService/GetOnChainSigner":
+    post:
+      summary: OnChain Events
+      operationId: HubService_GetOnChainSigner
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/OnChainEvent"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/SignerRequest"
+      tags:
+      - HubService
+  "/HubService/GetOnChainSignersByFid":
+    post:
+      operationId: HubService_GetOnChainSignersByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/OnChainEventResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetReaction":
+    post:
+      summary: Reactions
+      operationId: HubService_GetReaction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/Message"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/ReactionRequest"
+      tags:
+      - HubService
+  "/HubService/GetReactionsByCast":
+    post:
+      summary: To be deprecated
+      operationId: HubService_GetReactionsByCast
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/ReactionsByTargetRequest"
+      tags:
+      - HubService
+  "/HubService/GetReactionsByFid":
+    post:
+      operationId: HubService_GetReactionsByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/ReactionsByFidRequest"
+      tags:
+      - HubService
+  "/HubService/GetReactionsByTarget":
+    post:
+      operationId: HubService_GetReactionsByTarget
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/ReactionsByTargetRequest"
+      tags:
+      - HubService
+  "/HubService/GetSyncMetadataByPrefix":
+    post:
+      operationId: HubService_GetSyncMetadataByPrefix
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/TrieNodeMetadataResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/TrieNodePrefix"
+      tags:
+      - HubService
+  "/HubService/GetSyncSnapshotByPrefix":
+    post:
+      operationId: HubService_GetSyncSnapshotByPrefix
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/TrieNodeSnapshotResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/TrieNodePrefix"
+      tags:
+      - HubService
+  "/HubService/GetSyncStatus":
+    post:
+      operationId: HubService_GetSyncStatus
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/SyncStatusResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/SyncStatusRequest"
+      tags:
+      - HubService
+  "/HubService/GetUserData":
+    post:
+      summary: User Data
+      operationId: HubService_GetUserData
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/Message"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/UserDataRequest"
+      tags:
+      - HubService
+  "/HubService/GetUserDataByFid":
+    post:
+      operationId: HubService_GetUserDataByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetUserNameProofsByFid":
+    post:
+      operationId: HubService_GetUserNameProofsByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/UsernameProofsResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/GetUsernameProof":
+    post:
+      summary: Username Proof
+      operationId: HubService_GetUsernameProof
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/UserNameProof"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/UsernameProofRequest"
+      tags:
+      - HubService
+  "/HubService/GetVerification":
+    post:
+      summary: Verifications
+      operationId: HubService_GetVerification
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/Message"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/VerificationRequest"
+      tags:
+      - HubService
+  "/HubService/GetVerificationsByFid":
+    post:
+      operationId: HubService_GetVerificationsByFid
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/MessagesResponse"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/FidRequest"
+      tags:
+      - HubService
+  "/HubService/SubmitMessage":
+    post:
+      summary: Submit Methods
+      operationId: HubService_SubmitMessage
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            "$ref": "#/definitions/Message"
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        description: "* \nA Message is a delta operation on the Farcaster network.
+          The message protobuf is an envelope \nthat wraps a MessageData object and
+          contains a hash and signature which can verify its authenticity."
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/Message"
+      tags:
+      - HubService
+  "/HubService/Subscribe":
+    post:
+      summary: Event Methods
+      operationId: HubService_Subscribe
+      responses:
+        '200':
+          description: A successful response.(streaming responses)
+          schema:
+            type: object
+            properties:
+              result:
+                "$ref": "#/definitions/HubEvent"
+              error:
+                "$ref": "#/definitions/ErrorResponse"
+            title: Stream result of HubEvent
+        default:
+          description: An unexpected error response.
+          schema:
+            "$ref": "#/definitions/ErrorResponse"
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          "$ref": "#/definitions/SubscribeRequest"
+      tags:
+      - HubService
+definitions:
+  CastAddBody:
+    type: object
+    properties:
+      embedsDeprecated:
+        type: array
+        items:
+          type: string
+        title: URLs to be embedded in the cast
+      mentions:
+        type: array
+        items:
+          type: integer
+          format: uint64
+        title: Fids mentioned in the cast
+      parentCastId:
+        "$ref": "#/definitions/CastId"
+        title: Parent cast of the cast
+      parentUrl:
+        type: string
+        title: Parent URL
+      text:
+        type: string
+        title: Text of the cast
+      mentionsPositions:
+        type: array
+        items:
+          type: integer
+          format: int64
+        title: Positions of the mentions in the text
+      embeds:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/Embed"
+        title: URLs or cast ids to be embedded in the cast
+    title: "* Adds a new Cast"
+  CastId:
+    type: object
+    properties:
+      fid:
+        type: integer
+        format: uint64
+        title: Fid of the user who created the cast
+      hash:
+        type: string
+        format: byte
+        title: Hash of the cast
+    title: "* Identifier used to look up a Cast"
+    required:
+      - fid
+      - hash
+  CastHash:
+    type: string
+    pattern: "^0x[0-9a-fA-F]{40}$"
+  CastRemoveBody:
+    type: object
+    properties:
+      targetHash:
+        type: string
+        format: byte
+        title: Hash of the cast to remove
+    title: "* Removes an existing Cast"
+  DbStats:
+    type: object
+    properties:
+      numMessages:
+        type: integer
+        format: uint64
+      numFidEvents:
+        type: integer
+        format: uint64
+      numFnameEvents:
+        type: integer
+        format: uint64
+    required:
+      - numMessages
+      - numFidEvents
+      - numFnameEvents
+  Embed:
+    type: object
+    properties:
+      url:
+        type: string
+      castId:
+        "$ref": "#/definitions/CastId"
+  Empty:
+    type: object
+  ErrorResponse:
+    type: object
+    properties:
+      errCode:
+        type: string
+      presentable:
+        type: boolean
+      name:
+        type: string
+      code:
+        type: integer
+      details:
+        type: string
+      metadata:
+        type: object
+        properties:
+          errcode:
+            type: array
+            items:
+              type: string
+        required:
+          - errcode
+    required:
+      - errCode
+      - presentable
+      - name
+      - code
+      - details
+      - metadata
+  EventRequest:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  FarcasterNetwork:
+    type: string
+    enum:
+    - FARCASTER_NETWORK_NONE
+    - FARCASTER_NETWORK_MAINNET
+    - FARCASTER_NETWORK_TESTNET
+    - FARCASTER_NETWORK_DEVNET
+    default: FARCASTER_NETWORK_NONE
+    description: |-
+      - FARCASTER_NETWORK_MAINNET: Public primary network
+       - FARCASTER_NETWORK_TESTNET: Public test network
+       - FARCASTER_NETWORK_DEVNET: Private test network
+    title: "* Farcaster network the message is intended for"
+  FidRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  FidsRequest:
+    type: object
+    properties:
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  FidsResponse:
+    type: object
+    properties:
+      fids:
+        type: array
+        items:
+          type: string
+          format: uint64
+      nextPageToken:
+        type: string
+        format: byte
+  HashScheme:
+    type: string
+    enum:
+    - HASH_SCHEME_NONE
+    - HASH_SCHEME_BLAKE3
+    default: HASH_SCHEME_NONE
+    description: "- HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData"
+    title: "* Type of hashing scheme used to produce a digest of MessageData"
+  HubEvent:
+    type: object
+    properties:
+      type:
+        "$ref": "#/definitions/HubEventType"
+      id:
+        type: integer
+        format: uint64
+      mergeMessageBody:
+        "$ref": "#/definitions/MergeMessageBody"
+      pruneMessageBody:
+        "$ref": "#/definitions/PruneMessageBody"
+      revokeMessageBody:
+        "$ref": "#/definitions/RevokeMessageBody"
+      mergeUsernameProofBody:
+        "$ref": "#/definitions/MergeUserNameProofBody"
+        title: |-
+          Deprecated
+             MergeIdRegistryEventBody merge_id_registry_event_body = 6;
+             MergeNameRegistryEventBody merge_name_registry_event_body = 7;
+      mergeOnChainEventBody:
+        "$ref": "#/definitions/MergeOnChainEventBody"
+        title: |-
+          Deprecated
+             MergeRentRegistryEventBody merge_rent_registry_event_body = 9;
+             MergeStorageAdminRegistryEventBody merge_storage_admin_registry_event_body = 10;
+  HubEventType:
+    type: string
+    enum:
+    - HUB_EVENT_TYPE_NONE
+    - HUB_EVENT_TYPE_MERGE_MESSAGE
+    - HUB_EVENT_TYPE_PRUNE_MESSAGE
+    - HUB_EVENT_TYPE_REVOKE_MESSAGE
+    - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF
+    - HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT
+    default: HUB_EVENT_TYPE_NONE
+    title: |-
+      - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF: Deprecated
+       HUB_EVENT_TYPE_MERGE_ID_REGISTRY_EVENT = 4;
+       HUB_EVENT_TYPE_MERGE_NAME_REGISTRY_EVENT = 5;
+       - HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT: Deprecated
+       HUB_EVENT_TYPE_MERGE_RENT_REGISTRY_EVENT = 7;
+       HUB_EVENT_TYPE_MERGE_STORAGE_ADMIN_REGISTRY_EVENT = 8;
+  HubInfoRequest:
+    type: object
+    properties:
+      dbStats:
+        type: boolean
+  HubInfoResponse:
+    type: object
+    properties:
+      version:
+        type: string
+      isSyncing:
+        type: boolean
+      nickname:
+        type: string
+      rootHash:
+        type: string
+      dbStats:
+        "$ref": "#/definitions/DbStats"
+      peerId:
+        type: string
+      hubOperatorFid:
+        type: integer
+        format: uint64
+    title: Response Types for the Sync RPC Methods
+    required:
+      - version
+      - isSyncing
+      - nickname
+      - rootHash
+      - peerId
+      - hubOperatorFid
+  IdRegisterEventBody:
+    type: object
+    properties:
+      to:
+        type: string
+        format: byte
+      eventType:
+        "$ref": "#/definitions/IdRegisterEventType"
+      from:
+        type: string
+        format: byte
+      recoveryAddress:
+        type: string
+        format: byte
+  IdRegisterEventType:
+    type: string
+    enum:
+    - ID_REGISTER_EVENT_TYPE_NONE
+    - ID_REGISTER_EVENT_TYPE_REGISTER
+    - ID_REGISTER_EVENT_TYPE_TRANSFER
+    - ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY
+    default: ID_REGISTER_EVENT_TYPE_NONE
+  IdRegistryEventByAddressRequest:
+    type: object
+    properties:
+      address:
+        type: string
+        format: byte
+  LinkBody:
+    type: object
+    properties:
+      type:
+        type: string
+        title: Type of link, <= 8 characters
+      displayTimestamp:
+        type: integer
+        format: int64
+        title: User-defined timestamp that preserves original timestamp when message.data.timestamp
+          needs to be updated for compaction
+      targetFid:
+        type: integer
+        format: uint64
+        title: The fid the link relates to
+    title: "* Adds or removes a Link"
+  LinkRequest:
+    type: object
+    properties:
+      fid:
+        type: integer
+        format: uint64
+      linkType:
+        type: string
+      targetFid:
+        type: integer
+        format: uint64
+  LinksByFidRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      linkType:
+        type: string
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  LinksByTargetRequest:
+    type: object
+    properties:
+      targetFid:
+        type: string
+        format: uint64
+      linkType:
+        type: string
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  MergeMessageBody:
+    type: object
+    properties:
+      message:
+        "$ref": "#/definitions/Message"
+      deletedMessages:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/Message"
+  MergeOnChainEventBody:
+    type: object
+    properties:
+      onChainEvent:
+        "$ref": "#/definitions/OnChainEvent"
+  MergeUserNameProofBody:
+    type: object
+    properties:
+      usernameProof:
+        "$ref": "#/definitions/UserNameProof"
+      deletedUsernameProof:
+        "$ref": "#/definitions/UserNameProof"
+      usernameProofMessage:
+        "$ref": "#/definitions/Message"
+      deletedUsernameProofMessage:
+        "$ref": "#/definitions/Message"
+  Message:
+    type: object
+    properties:
+      data:
+        "$ref": "#/definitions/MessageData"
+        title: Contents of the message
+      hash:
+        type: string
+        format: byte
+        title: Hash digest of data
+      hashScheme:
+        "$ref": "#/definitions/HashScheme"
+        title: Hash scheme that produced the hash digest
+      signature:
+        type: string
+        format: byte
+        title: Signature of the hash digest
+      signatureScheme:
+        "$ref": "#/definitions/SignatureScheme"
+        title: Signature scheme that produced the signature
+      signer:
+        type: string
+        format: byte
+        title: Public key or address of the key pair that produced the signature
+    description: "* \nA Message is a delta operation on the Farcaster network. The
+      message protobuf is an envelope \nthat wraps a MessageData object and contains
+      a hash and signature which can verify its authenticity."
+    required:
+      - data
+      - hash
+      - hashScheme
+      - signature
+      - signatureScheme
+      - signer
+  MessageData:
+    type: object
+    properties:
+      type:
+        "$ref": "#/definitions/MessageType"
+        title: Type of message contained in the body
+      fid:
+        type: integer
+        format: uint64
+        title: Farcaster ID of the user producing the message
+      timestamp:
+        type: integer
+        format: int64
+        title: Farcaster epoch timestamp in seconds
+      network:
+        "$ref": "#/definitions/FarcasterNetwork"
+        title: Farcaster network the message is intended for
+      castAddBody:
+        "$ref": "#/definitions/CastAddBody"
+      castRemoveBody:
+        "$ref": "#/definitions/CastRemoveBody"
+      reactionBody:
+        "$ref": "#/definitions/ReactionBody"
+      verificationAddEthAddressBody:
+        "$ref": "#/definitions/VerificationAddEthAddressBody"
+      verificationRemoveBody:
+        "$ref": "#/definitions/VerificationRemoveBody"
+      userDataBody:
+        "$ref": "#/definitions/UserDataBody"
+        title: SignerAddBody signer_add_body = 11; // Deprecated
+      linkBody:
+        "$ref": "#/definitions/LinkBody"
+        title: SignerRemoveBody signer_remove_body = 13; // Deprecated
+      usernameProofBody:
+        "$ref": "#/definitions/UserNameProof"
+    description: "* \nA MessageData object contains properties common to all messages
+      and wraps a body object which \ncontains properties specific to the MessageType."
+    required:
+      - type
+      - fid
+      - timestamp
+      - network
+  MessageType:
+    type: string
+    enum:
+    - MESSAGE_TYPE_NONE
+    - MESSAGE_TYPE_CAST_ADD
+    - MESSAGE_TYPE_CAST_REMOVE
+    - MESSAGE_TYPE_REACTION_ADD
+    - MESSAGE_TYPE_REACTION_REMOVE
+    - MESSAGE_TYPE_LINK_ADD
+    - MESSAGE_TYPE_LINK_REMOVE
+    - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS
+    - MESSAGE_TYPE_VERIFICATION_REMOVE
+    - MESSAGE_TYPE_USER_DATA_ADD
+    - MESSAGE_TYPE_USERNAME_PROOF
+    default: MESSAGE_TYPE_NONE
+    description: |-
+      - MESSAGE_TYPE_CAST_ADD: Add a new Cast
+       - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast
+       - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast
+       - MESSAGE_TYPE_REACTION_REMOVE: Remove a Reaction from a Cast
+       - MESSAGE_TYPE_LINK_ADD: Add a new Link
+       - MESSAGE_TYPE_LINK_REMOVE: Remove an existing Link
+       - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS: Add a Verification of an Ethereum Address
+       - MESSAGE_TYPE_VERIFICATION_REMOVE: Remove a Verification
+       - MESSAGE_TYPE_USER_DATA_ADD: Deprecated
+       MESSAGE_TYPE_SIGNER_ADD = 9; // Add a new Ed25519 key pair that signs messages for a user
+       MESSAGE_TYPE_SIGNER_REMOVE = 10; // Remove an Ed25519 key pair that signs messages for a user
+
+      Add metadata about a user
+       - MESSAGE_TYPE_USERNAME_PROOF: Add or replace a username proof
+    title: "* Type of the MessageBody"
+  MessagesResponse:
+    type: object
+    properties:
+      messages:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/Message"
+      nextPageToken:
+        type: string
+        format: byte
+    required:
+      - messages
+      - nextPageToken
+  OnChainEvent:
+    type: object
+    properties:
+      type:
+        "$ref": "#/definitions/OnChainEventType"
+      chainId:
+        type: integer
+        format: int64
+      blockNumber:
+        type: integer
+        format: int64
+      blockHash:
+        type: string
+        format: byte
+      blockTimestamp:
+        type: integer
+        format: uint64
+      transactionHash:
+        type: string
+        format: byte
+      logIndex:
+        type: integer
+        format: int64
+      fid:
+        type: integer
+        format: uint64
+      signerEventBody:
+        "$ref": "#/definitions/SignerEventBody"
+      signerMigratedEventBody:
+        "$ref": "#/definitions/SignerMigratedEventBody"
+      idRegisterEventBody:
+        "$ref": "#/definitions/IdRegisterEventBody"
+      storageRentEventBody:
+        "$ref": "#/definitions/StorageRentEventBody"
+      txIndex:
+        type: integer
+        format: int64
+  OnChainEventRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      eventType:
+        "$ref": "#/definitions/OnChainEventType"
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  OnChainEventResponse:
+    type: object
+    properties:
+      events:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/OnChainEvent"
+      nextPageToken:
+        type: string
+        format: byte
+  OnChainEventType:
+    type: string
+    enum:
+    - EVENT_TYPE_NONE
+    - EVENT_TYPE_SIGNER
+    - EVENT_TYPE_SIGNER_MIGRATED
+    - EVENT_TYPE_ID_REGISTER
+    - EVENT_TYPE_STORAGE_RENT
+    default: EVENT_TYPE_NONE
+  PruneMessageBody:
+    type: object
+    properties:
+      message:
+        "$ref": "#/definitions/Message"
+  ReactionBody:
+    type: object
+    properties:
+      type:
+        "$ref": "#/definitions/ReactionType"
+        title: Type of reaction
+      targetCastId:
+        "$ref": "#/definitions/CastId"
+        title: CastId of the Cast to react to
+      targetUrl:
+        type: string
+        title: URL to react to
+    title: "* Adds or removes a Reaction from a Cast"
+  ReactionRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      reactionType:
+        "$ref": "#/definitions/ReactionType"
+      targetCastId:
+        "$ref": "#/definitions/CastId"
+      targetUrl:
+        type: string
+  ReactionType:
+    type: string
+    enum:
+    - REACTION_TYPE_NONE
+    - REACTION_TYPE_LIKE
+    - REACTION_TYPE_RECAST
+    default: REACTION_TYPE_NONE
+    description: |-
+      - REACTION_TYPE_LIKE: Like the target cast
+       - REACTION_TYPE_RECAST: Share target cast to the user's audience
+    title: "* Type of Reaction"
+  ReactionsByFidRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      reactionType:
+        "$ref": "#/definitions/ReactionType"
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  ReactionsByTargetRequest:
+    type: object
+    properties:
+      targetCastId:
+        "$ref": "#/definitions/CastId"
+      targetUrl:
+        type: string
+      reactionType:
+        "$ref": "#/definitions/ReactionType"
+      pageSize:
+        type: integer
+        format: int64
+      pageToken:
+        type: string
+        format: byte
+      reverse:
+        type: boolean
+  RevokeMessageBody:
+    type: object
+    properties:
+      message:
+        "$ref": "#/definitions/Message"
+  SignatureScheme:
+    type: string
+    enum:
+    - SIGNATURE_SCHEME_NONE
+    - SIGNATURE_SCHEME_ED25519
+    - SIGNATURE_SCHEME_EIP712
+    default: SIGNATURE_SCHEME_NONE
+    description: |-
+      - SIGNATURE_SCHEME_ED25519: Ed25519 signature (default)
+       - SIGNATURE_SCHEME_EIP712: ECDSA signature using EIP-712 scheme
+    title: "* Type of signature scheme used to sign the Message hash"
+  SignerEventBody:
+    type: object
+    properties:
+      key:
+        type: string
+        format: byte
+      keyType:
+        type: integer
+        format: int64
+      eventType:
+        "$ref": "#/definitions/SignerEventType"
+      metadata:
+        type: string
+        format: byte
+      metadataType:
+        type: integer
+        format: int64
+  SignerEventType:
+    type: string
+    enum:
+    - SIGNER_EVENT_TYPE_NONE
+    - SIGNER_EVENT_TYPE_ADD
+    - SIGNER_EVENT_TYPE_REMOVE
+    - SIGNER_EVENT_TYPE_ADMIN_RESET
+    default: SIGNER_EVENT_TYPE_NONE
+  SignerMigratedEventBody:
+    type: object
+    properties:
+      migratedAt:
+        type: integer
+        format: int64
+  SignerRequest:
+    type: object
+    properties:
+      fid:
+        type: integer
+        format: uint64
+      signer:
+        type: string
+        format: byte
+  StorageLimit:
+    type: object
+    properties:
+      storeType:
+        "$ref": "#/definitions/StoreType"
+      limit:
+        type: integer
+        format: uint64
+  StorageLimitsResponse:
+    type: object
+    properties:
+      limits:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/StorageLimit"
+  StorageRentEventBody:
+    type: object
+    properties:
+      payer:
+        type: string
+        format: byte
+      units:
+        type: integer
+        format: int64
+      expiry:
+        type: integer
+        format: int64
+  StoreType:
+    type: string
+    enum:
+    - STORE_TYPE_NONE
+    - STORE_TYPE_CASTS
+    - STORE_TYPE_LINKS
+    - STORE_TYPE_REACTIONS
+    - STORE_TYPE_USER_DATA
+    - STORE_TYPE_VERIFICATIONS
+    - STORE_TYPE_USERNAME_PROOFS
+    default: STORE_TYPE_NONE
+  SubscribeRequest:
+    type: object
+    properties:
+      eventTypes:
+        type: array
+        items:
+          "$ref": "#/definitions/HubEventType"
+      fromId:
+        type: integer
+        format: uint64
+  SyncIds:
+    type: object
+    properties:
+      syncIds:
+        type: array
+        items:
+          type: string
+          format: byte
+  SyncStatus:
+    type: object
+    properties:
+      peerId:
+        type: string
+      inSync:
+        type: string
+      shouldSync:
+        type: boolean
+      divergencePrefix:
+        type: string
+      divergenceSecondsAgo:
+        type: integer
+        format: int32
+      theirMessages:
+        type: integer
+        format: uint64
+      ourMessages:
+        type: integer
+        format: uint64
+      lastBadSync:
+        type: integer
+        format: int64
+  SyncStatusRequest:
+    type: object
+    properties:
+      peerId:
+        type: string
+  SyncStatusResponse:
+    type: object
+    properties:
+      isSyncing:
+        type: boolean
+      syncStatus:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/SyncStatus"
+      engineStarted:
+        type: boolean
+  TrieNodeMetadataResponse:
+    type: object
+    properties:
+      prefix:
+        type: string
+        format: byte
+      numMessages:
+        type: string
+        format: uint64
+      hash:
+        type: string
+      children:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/TrieNodeMetadataResponse"
+  TrieNodePrefix:
+    type: object
+    properties:
+      prefix:
+        type: string
+        format: byte
+  TrieNodeSnapshotResponse:
+    type: object
+    properties:
+      prefix:
+        type: string
+        format: byte
+      excludedHashes:
+        type: array
+        items:
+          type: string
+      numMessages:
+        type: string
+        format: uint64
+      rootHash:
+        type: string
+  UserDataBody:
+    type: object
+    properties:
+      type:
+        "$ref": "#/definitions/UserDataType"
+        title: Type of metadata
+      value:
+        type: string
+        title: Value of the metadata
+    title: "* Adds metadata about a user"
+  UserDataRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      userDataType:
+        "$ref": "#/definitions/UserDataType"
+  UserDataType:
+    type: string
+    enum:
+    - USER_DATA_TYPE_NONE
+    - USER_DATA_TYPE_PFP
+    - USER_DATA_TYPE_DISPLAY
+    - USER_DATA_TYPE_BIO
+    - USER_DATA_TYPE_URL
+    - USER_DATA_TYPE_USERNAME
+    default: USER_DATA_TYPE_NONE
+    description: |-
+      - USER_DATA_TYPE_PFP: Profile Picture for the user
+       - USER_DATA_TYPE_DISPLAY: Display Name for the user
+       - USER_DATA_TYPE_BIO: Bio for the user
+       - USER_DATA_TYPE_URL: URL of the user
+       - USER_DATA_TYPE_USERNAME: Preferred Name for the user
+    title: "* Type of UserData"
+  UserNameProof:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        format: uint64
+      name:
+        type: string
+        format: byte
+      owner:
+        type: string
+        format: byte
+      signature:
+        type: string
+        format: byte
+      fid:
+        type: string
+        format: uint64
+      type:
+        "$ref": "#/definitions/UserNameType"
+  UserNameType:
+    type: string
+    enum:
+    - USERNAME_TYPE_NONE
+    - USERNAME_TYPE_FNAME
+    - USERNAME_TYPE_ENS_L1
+    default: USERNAME_TYPE_NONE
+  UsernameProofRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        format: byte
+  UsernameProofsResponse:
+    type: object
+    properties:
+      proofs:
+        type: array
+        items:
+          type: object
+          "$ref": "#/definitions/UserNameProof"
+  VerificationAddEthAddressBody:
+    type: object
+    properties:
+      address:
+        type: string
+        format: byte
+        title: Ethereum address being verified
+      ethSignature:
+        type: string
+        format: byte
+        title: Signature produced by the user's Ethereum address
+      blockHash:
+        type: string
+        format: byte
+        title: Hash of the latest Ethereum block when the signature was produced
+    title: "* Adds a Verification of ownership of an Ethereum Address"
+  VerificationRemoveBody:
+    type: object
+    properties:
+      address:
+        type: string
+        format: byte
+        title: Address of the Verification to remove
+    title: "* Removes a Verification of any type"
+  VerificationRequest:
+    type: object
+    properties:
+      fid:
+        type: string
+        format: uint64
+      address:
+        type: string
+        format: byte
+  protobufAny:
+    type: object
+    properties:
+      "@type":
+        type: string
+    additionalProperties: {}

@@ -10,7 +10,7 @@
     ],
     "module": "ESNext",
     "moduleResolution": "node",
-    "target": "es2017",
+    "target": "es2022",
     "rootDirs": [
       "./src",
       "./tests",

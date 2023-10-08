@@ -28,3 +28,4 @@ export async function publishCast(
 }
 
 export * from "./merkleAPI";
+export * from "./hub-rest-client";

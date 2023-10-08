@@ -39,7 +39,7 @@ import {
 import canonicalize from "canonicalize";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { silentLogger, Logger } from "../common/logger";
-import type { WithRequired } from "../common/typeUtils";
+import type { SetRequired } from "type-fest";
 import { SignerRequestsApi } from "./swagger/apis/signer-requests-api";
 
 const THIRTY_SECONDS_IN_MILLIS = 30000;
@@ -135,7 +135,7 @@ export class MerkleAPIClient {
   public static isApiErrorResponse(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any
-  ): error is WithRequired<AxiosError<ApiErrorResponse>, "response"> {
+  ): error is SetRequired<AxiosError<ApiErrorResponse>, "response"> {
     if (!(error instanceof AxiosError)) return false;
     return (
       error.response?.data !== undefined && "errors" in error.response.data
