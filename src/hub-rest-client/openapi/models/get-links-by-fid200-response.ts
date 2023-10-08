@@ -13,18 +13,27 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { LinkAdd } from './link-add';
 
 /**
  * 
  * @export
- * @enum {string}
+ * @interface GetLinksByFid200Response
  */
-
-export enum IdRegisterEventType {
-    Register = 'ID_REGISTER_EVENT_TYPE_REGISTER',
-    Transfer = 'ID_REGISTER_EVENT_TYPE_TRANSFER',
-    ChangeRecovery = 'ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY'
+export interface GetLinksByFid200Response {
+    /**
+     * 
+     * @type {Array<LinkAdd>}
+     * @memberof GetLinksByFid200Response
+     */
+    'messages': Array<LinkAdd>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetLinksByFid200Response
+     */
+    'nextPageToken': string;
 }
-
-
 

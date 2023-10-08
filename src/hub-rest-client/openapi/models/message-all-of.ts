@@ -15,27 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserDataType } from './user-data-type';
+import { DataLinkAdd|MessageDataCastAdd|MessageDataCastRemove|MessageDataReactionAdd } from './data-link-add|message-data-cast-add|message-data-cast-remove|message-data-reaction-add';
 
 /**
  * 
  * @export
- * @interface UserDataBody
+ * @interface MessageAllOf
  */
-export interface UserDataBody {
+export interface MessageAllOf {
     /**
      * 
-     * @type {UserDataType}
-     * @memberof UserDataBody
+     * @type {MessageDataCastAdd | MessageDataCastRemove | MessageDataLinkAdd | MessageDataReactionAdd}
+     * @memberof MessageAllOf
      */
-    'type': UserDataType;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserDataBody
-     */
-    'value': string;
+    'data': MessageDataCastAdd | MessageDataCastRemove | MessageDataLinkAdd | MessageDataReactionAdd;
 }
-
-
 

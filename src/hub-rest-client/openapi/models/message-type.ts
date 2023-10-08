@@ -21,7 +21,6 @@
  */
 
 export enum MessageType {
-    None = 'MESSAGE_TYPE_NONE',
     CastAdd = 'MESSAGE_TYPE_CAST_ADD',
     CastRemove = 'MESSAGE_TYPE_CAST_REMOVE',
     ReactionAdd = 'MESSAGE_TYPE_REACTION_ADD',

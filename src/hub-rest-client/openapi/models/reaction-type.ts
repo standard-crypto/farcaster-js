@@ -21,7 +21,6 @@
  */
 
 export enum ReactionType {
-    None = 'REACTION_TYPE_NONE',
     Like = 'REACTION_TYPE_LIKE',
     Recast = 'REACTION_TYPE_RECAST'
 }

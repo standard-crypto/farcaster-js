@@ -15,24 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { FarcasterNetwork } from './farcaster-network';
+import { GetUserDataByFid200ResponseOneOf } from './get-user-data-by-fid200-response-one-of';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCommon } from './message-data-common';
+import { HashScheme } from './hash-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReactionAddAllOf } from './message-data-reaction-add-all-of';
+import { MessageDataUserDataAdd } from './message-data-user-data-add';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type';
+import { SignatureScheme } from './signature-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionBody } from './reaction-body';
+import { UserDataAdd } from './user-data-add';
 
 /**
- * @type MessageDataReactionAdd
+ * @type GetUserDataByFid200Response
  * @export
  */
-export type MessageDataReactionAdd = MessageDataCommon & MessageDataReactionAddAllOf;
+export type GetUserDataByFid200Response = GetUserDataByFid200ResponseOneOf | UserDataAdd;
 
 

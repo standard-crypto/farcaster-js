@@ -13,16 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageDataReactionAdd } from './message-data-reaction-add';
 
 /**
- * - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+ * 
  * @export
- * @enum {string}
+ * @interface ReactionAllOf
  */
-
-export enum HashScheme {
-    HashSchemeBlake3 = 'HASH_SCHEME_BLAKE3'
+export interface ReactionAllOf {
+    /**
+     * 
+     * @type {MessageDataReactionAdd}
+     * @memberof ReactionAllOf
+     */
+    'data': MessageDataReactionAdd;
 }
-
-
 

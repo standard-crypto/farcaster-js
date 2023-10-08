@@ -13,24 +13,27 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { Reaction } from './reaction';
 
 /**
  * 
  * @export
- * @interface MergeMessageBody
+ * @interface GetReactionsByCast200Response
  */
-export interface MergeMessageBody {
-    /**
-     * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {object}
-     * @memberof MergeMessageBody
-     */
-    'message'?: object;
+export interface GetReactionsByCast200Response {
     /**
      * 
-     * @type {Array<object>}
-     * @memberof MergeMessageBody
+     * @type {Array<Reaction>}
+     * @memberof GetReactionsByCast200Response
      */
-    'deletedMessages'?: Array<object>;
+    'messages': Array<Reaction>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetReactionsByCast200Response
+     */
+    'nextPageToken': string;
 }
 

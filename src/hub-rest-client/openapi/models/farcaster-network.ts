@@ -21,7 +21,6 @@
  */
 
 export enum FarcasterNetwork {
-    None = 'FARCASTER_NETWORK_NONE',
     Mainnet = 'FARCASTER_NETWORK_MAINNET',
     Testnet = 'FARCASTER_NETWORK_TESTNET',
     Devnet = 'FARCASTER_NETWORK_DEVNET'

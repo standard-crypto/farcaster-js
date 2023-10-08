@@ -13,16 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { UserDataBody } from './user-data-body';
 
 /**
- * - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+ * 
  * @export
- * @enum {string}
+ * @interface MessageDataUserDataAddAllOf
  */
-
-export enum HashScheme {
-    HashSchemeBlake3 = 'HASH_SCHEME_BLAKE3'
+export interface MessageDataUserDataAddAllOf {
+    /**
+     * 
+     * @type {UserDataBody}
+     * @memberof MessageDataUserDataAddAllOf
+     */
+    'userDataBody': UserDataBody;
 }
-
-
 

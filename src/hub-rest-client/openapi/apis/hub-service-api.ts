@@ -36,14 +36,6 @@ import { HubEvent } from '../models';
 // @ts-ignore
 import { IdRegistryEventByAddressRequest } from '../models';
 // @ts-ignore
-import { LinkRequest } from '../models';
-// @ts-ignore
-import { LinksByFidRequest } from '../models';
-// @ts-ignore
-import { LinksByTargetRequest } from '../models';
-// @ts-ignore
-import { Message } from '../models';
-// @ts-ignore
 import { MessagesResponse } from '../models';
 // @ts-ignore
 import { OnChainEvent } from '../models';
@@ -51,10 +43,6 @@ import { OnChainEvent } from '../models';
 import { OnChainEventRequest } from '../models';
 // @ts-ignore
 import { OnChainEventResponse } from '../models';
-// @ts-ignore
-import { ReactionsByFidRequest } from '../models';
-// @ts-ignore
-import { ReactionsByTargetRequest } from '../models';
 // @ts-ignore
 import { SignerRequest } from '../models';
 // @ts-ignore
@@ -75,8 +63,6 @@ import { TrieNodeMetadataResponse } from '../models';
 import { TrieNodePrefix } from '../models';
 // @ts-ignore
 import { TrieNodeSnapshotResponse } from '../models';
-// @ts-ignore
-import { UserDataRequest } from '../models';
 // @ts-ignore
 import { UserNameProof } from '../models';
 // @ts-ignore
@@ -478,112 +464,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary Links
-         * @param {LinkRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetLink: async (body: LinkRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetLink', 'body', body)
-            const localVarPath = `/HubService/GetLink`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {LinksByFidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetLinksByFid: async (body: LinksByFidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetLinksByFid', 'body', body)
-            const localVarPath = `/HubService/GetLinksByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {LinksByTargetRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetLinksByTarget: async (body: LinksByTargetRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetLinksByTarget', 'body', body)
-            const localVarPath = `/HubService/GetLinksByTarget`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {OnChainEventRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -690,112 +570,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary To be deprecated
-         * @param {ReactionsByTargetRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetReactionsByCast: async (body: ReactionsByTargetRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetReactionsByCast', 'body', body)
-            const localVarPath = `/HubService/GetReactionsByCast`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {ReactionsByFidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetReactionsByFid: async (body: ReactionsByFidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetReactionsByFid', 'body', body)
-            const localVarPath = `/HubService/GetReactionsByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {ReactionsByTargetRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetReactionsByTarget: async (body: ReactionsByTargetRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetReactionsByTarget', 'body', body)
-            const localVarPath = `/HubService/GetReactionsByTarget`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {TrieNodePrefix} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -874,42 +648,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
             // verify required parameter 'body' is not null or undefined
             assertParamExists('hubServiceGetSyncStatus', 'body', body)
             const localVarPath = `/HubService/GetSyncStatus`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary User Data
-         * @param {UserDataRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetUserData: async (body: UserDataRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetUserData', 'body', body)
-            const localVarPath = `/HubService/GetUserData`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1115,11 +853,11 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
         /**
          * 
          * @summary Submit Methods
-         * @param {Message} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
+         * @param {object} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hubServiceSubmitMessage: async (body: Message, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        hubServiceSubmitMessage: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'body' is not null or undefined
             assertParamExists('hubServiceSubmitMessage', 'body', body)
             const localVarPath = `/HubService/SubmitMessage`;
@@ -1306,37 +1044,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Links
-         * @param {LinkRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetLink(body: LinkRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetLink(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {LinksByFidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetLinksByFid(body: LinksByFidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetLinksByFid(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {LinksByTargetRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetLinksByTarget(body: LinksByTargetRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetLinksByTarget(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {OnChainEventRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1368,37 +1075,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary To be deprecated
-         * @param {ReactionsByTargetRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetReactionsByCast(body: ReactionsByTargetRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetReactionsByCast(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {ReactionsByFidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetReactionsByFid(body: ReactionsByFidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetReactionsByFid(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {ReactionsByTargetRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetReactionsByTarget(body: ReactionsByTargetRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetReactionsByTarget(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {TrieNodePrefix} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1425,17 +1101,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
          */
         async hubServiceGetSyncStatus(body: SyncStatusRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SyncStatusResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetSyncStatus(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary User Data
-         * @param {UserDataRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetUserData(body: UserDataRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetUserData(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1476,7 +1141,7 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hubServiceGetVerification(body: VerificationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+        async hubServiceGetVerification(body: VerificationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetVerification(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1493,11 +1158,11 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Submit Methods
-         * @param {Message} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
+         * @param {object} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hubServiceSubmitMessage(body: Message, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+        async hubServiceSubmitMessage(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceSubmitMessage(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1623,34 +1288,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @summary Links
-         * @param {HubServiceApiHubServiceGetLinkRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetLink(requestParameters: HubServiceApiHubServiceGetLinkRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
-            return localVarFp.hubServiceGetLink(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetLinksByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetLinksByFid(requestParameters: HubServiceApiHubServiceGetLinksByFidRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetLinksByFid(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetLinksByTargetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetLinksByTarget(requestParameters: HubServiceApiHubServiceGetLinksByTargetRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetLinksByTarget(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {HubServiceApiHubServiceGetOnChainEventsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1679,34 +1316,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @summary To be deprecated
-         * @param {HubServiceApiHubServiceGetReactionsByCastRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetReactionsByCast(requestParameters: HubServiceApiHubServiceGetReactionsByCastRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetReactionsByCast(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetReactionsByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetReactionsByFid(requestParameters: HubServiceApiHubServiceGetReactionsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetReactionsByFid(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetReactionsByTargetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetReactionsByTarget(requestParameters: HubServiceApiHubServiceGetReactionsByTargetRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetReactionsByTarget(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {HubServiceApiHubServiceGetSyncMetadataByPrefixRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1731,16 +1340,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
          */
         hubServiceGetSyncStatus(requestParameters: HubServiceApiHubServiceGetSyncStatusRequest, options?: AxiosRequestConfig): AxiosPromise<SyncStatusResponse> {
             return localVarFp.hubServiceGetSyncStatus(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary User Data
-         * @param {HubServiceApiHubServiceGetUserDataRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetUserData(requestParameters: HubServiceApiHubServiceGetUserDataRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
-            return localVarFp.hubServiceGetUserData(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1777,7 +1376,7 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
+        hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.hubServiceGetVerification(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1796,7 +1395,7 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hubServiceSubmitMessage(requestParameters: HubServiceApiHubServiceSubmitMessageRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
+        hubServiceSubmitMessage(requestParameters: HubServiceApiHubServiceSubmitMessageRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.hubServiceSubmitMessage(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1967,48 +1566,6 @@ export interface HubServiceApiHubServiceGetIdRegistryOnChainEventByAddressReques
 }
 
 /**
- * Request parameters for hubServiceGetLink operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetLinkRequest
- */
-export interface HubServiceApiHubServiceGetLinkRequest {
-    /**
-     * 
-     * @type {LinkRequest}
-     * @memberof HubServiceApiHubServiceGetLink
-     */
-    readonly body: LinkRequest
-}
-
-/**
- * Request parameters for hubServiceGetLinksByFid operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetLinksByFidRequest
- */
-export interface HubServiceApiHubServiceGetLinksByFidRequest {
-    /**
-     * 
-     * @type {LinksByFidRequest}
-     * @memberof HubServiceApiHubServiceGetLinksByFid
-     */
-    readonly body: LinksByFidRequest
-}
-
-/**
- * Request parameters for hubServiceGetLinksByTarget operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetLinksByTargetRequest
- */
-export interface HubServiceApiHubServiceGetLinksByTargetRequest {
-    /**
-     * 
-     * @type {LinksByTargetRequest}
-     * @memberof HubServiceApiHubServiceGetLinksByTarget
-     */
-    readonly body: LinksByTargetRequest
-}
-
-/**
  * Request parameters for hubServiceGetOnChainEvents operation in HubServiceApi.
  * @export
  * @interface HubServiceApiHubServiceGetOnChainEventsRequest
@@ -2051,48 +1608,6 @@ export interface HubServiceApiHubServiceGetOnChainSignersByFidRequest {
 }
 
 /**
- * Request parameters for hubServiceGetReactionsByCast operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetReactionsByCastRequest
- */
-export interface HubServiceApiHubServiceGetReactionsByCastRequest {
-    /**
-     * 
-     * @type {ReactionsByTargetRequest}
-     * @memberof HubServiceApiHubServiceGetReactionsByCast
-     */
-    readonly body: ReactionsByTargetRequest
-}
-
-/**
- * Request parameters for hubServiceGetReactionsByFid operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetReactionsByFidRequest
- */
-export interface HubServiceApiHubServiceGetReactionsByFidRequest {
-    /**
-     * 
-     * @type {ReactionsByFidRequest}
-     * @memberof HubServiceApiHubServiceGetReactionsByFid
-     */
-    readonly body: ReactionsByFidRequest
-}
-
-/**
- * Request parameters for hubServiceGetReactionsByTarget operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetReactionsByTargetRequest
- */
-export interface HubServiceApiHubServiceGetReactionsByTargetRequest {
-    /**
-     * 
-     * @type {ReactionsByTargetRequest}
-     * @memberof HubServiceApiHubServiceGetReactionsByTarget
-     */
-    readonly body: ReactionsByTargetRequest
-}
-
-/**
  * Request parameters for hubServiceGetSyncMetadataByPrefix operation in HubServiceApi.
  * @export
  * @interface HubServiceApiHubServiceGetSyncMetadataByPrefixRequest
@@ -2132,20 +1647,6 @@ export interface HubServiceApiHubServiceGetSyncStatusRequest {
      * @memberof HubServiceApiHubServiceGetSyncStatus
      */
     readonly body: SyncStatusRequest
-}
-
-/**
- * Request parameters for hubServiceGetUserData operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetUserDataRequest
- */
-export interface HubServiceApiHubServiceGetUserDataRequest {
-    /**
-     * 
-     * @type {UserDataRequest}
-     * @memberof HubServiceApiHubServiceGetUserData
-     */
-    readonly body: UserDataRequest
 }
 
 /**
@@ -2226,10 +1727,10 @@ export interface HubServiceApiHubServiceGetVerificationsByFidRequest {
 export interface HubServiceApiHubServiceSubmitMessageRequest {
     /**
      * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {Message}
+     * @type {object}
      * @memberof HubServiceApiHubServiceSubmitMessage
      */
-    readonly body: Message
+    readonly body: object
 }
 
 /**
@@ -2376,40 +1877,6 @@ export class HubServiceApi extends BaseAPI {
 
     /**
      * 
-     * @summary Links
-     * @param {HubServiceApiHubServiceGetLinkRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetLink(requestParameters: HubServiceApiHubServiceGetLinkRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetLink(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetLinksByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetLinksByFid(requestParameters: HubServiceApiHubServiceGetLinksByFidRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetLinksByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetLinksByTargetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetLinksByTarget(requestParameters: HubServiceApiHubServiceGetLinksByTargetRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetLinksByTarget(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {HubServiceApiHubServiceGetOnChainEventsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2444,40 +1911,6 @@ export class HubServiceApi extends BaseAPI {
 
     /**
      * 
-     * @summary To be deprecated
-     * @param {HubServiceApiHubServiceGetReactionsByCastRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetReactionsByCast(requestParameters: HubServiceApiHubServiceGetReactionsByCastRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetReactionsByCast(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetReactionsByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetReactionsByFid(requestParameters: HubServiceApiHubServiceGetReactionsByFidRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetReactionsByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetReactionsByTargetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetReactionsByTarget(requestParameters: HubServiceApiHubServiceGetReactionsByTargetRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetReactionsByTarget(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {HubServiceApiHubServiceGetSyncMetadataByPrefixRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2507,18 +1940,6 @@ export class HubServiceApi extends BaseAPI {
      */
     public hubServiceGetSyncStatus(requestParameters: HubServiceApiHubServiceGetSyncStatusRequest, options?: AxiosRequestConfig) {
         return HubServiceApiFp(this.configuration).hubServiceGetSyncStatus(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary User Data
-     * @param {HubServiceApiHubServiceGetUserDataRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetUserData(requestParameters: HubServiceApiHubServiceGetUserDataRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetUserData(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

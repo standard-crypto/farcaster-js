@@ -21,7 +21,6 @@
  */
 
 export enum SignatureScheme {
-    None = 'SIGNATURE_SCHEME_NONE',
     Ed25519 = 'SIGNATURE_SCHEME_ED25519',
     Eip712 = 'SIGNATURE_SCHEME_EIP712'
 }

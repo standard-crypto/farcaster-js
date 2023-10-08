@@ -21,7 +21,6 @@
  */
 
 export enum SignerEventType {
-    None = 'SIGNER_EVENT_TYPE_NONE',
     Add = 'SIGNER_EVENT_TYPE_ADD',
     Remove = 'SIGNER_EVENT_TYPE_REMOVE',
     AdminReset = 'SIGNER_EVENT_TYPE_ADMIN_RESET'

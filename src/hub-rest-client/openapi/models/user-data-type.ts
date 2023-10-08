@@ -21,7 +21,6 @@
  */
 
 export enum UserDataType {
-    None = 'USER_DATA_TYPE_NONE',
     Pfp = 'USER_DATA_TYPE_PFP',
     Display = 'USER_DATA_TYPE_DISPLAY',
     Bio = 'USER_DATA_TYPE_BIO',

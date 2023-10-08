@@ -21,18 +21,18 @@ import { FarcasterNetwork } from './farcaster-network';
 import { MessageDataCommon } from './message-data-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReactionAddAllOf } from './message-data-reaction-add-all-of';
+import { MessageDataUserDataAddAllOf } from './message-data-user-data-add-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageType } from './message-type';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionBody } from './reaction-body';
+import { UserDataBody } from './user-data-body';
 
 /**
- * @type MessageDataReactionAdd
+ * @type MessageDataUserDataAdd
  * @export
  */
-export type MessageDataReactionAdd = MessageDataCommon & MessageDataReactionAddAllOf;
+export type MessageDataUserDataAdd = MessageDataCommon & MessageDataUserDataAddAllOf;
 
 

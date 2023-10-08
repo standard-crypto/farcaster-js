@@ -13,16 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { LinkBody } from './link-body';
 
 /**
- * - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+ * 
  * @export
- * @enum {string}
+ * @interface MessageDataLinkAddAllOf
  */
-
-export enum HashScheme {
-    HashSchemeBlake3 = 'HASH_SCHEME_BLAKE3'
+export interface MessageDataLinkAddAllOf {
+    /**
+     * 
+     * @type {LinkBody}
+     * @memberof MessageDataLinkAddAllOf
+     */
+    'linkBody': LinkBody;
 }
-
-
 

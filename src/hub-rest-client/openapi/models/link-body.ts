@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { LinkType } from './link-type';
 
 /**
  * 
@@ -22,10 +25,10 @@
 export interface LinkBody {
     /**
      * 
-     * @type {string}
+     * @type {LinkType}
      * @memberof LinkBody
      */
-    'type'?: string;
+    'type'?: LinkType;
     /**
      * 
      * @type {number}
@@ -39,4 +42,6 @@ export interface LinkBody {
      */
     'targetFid'?: number;
 }
+
+
 

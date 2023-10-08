@@ -21,7 +21,6 @@
  */
 
 export enum OnChainEventType {
-    None = 'EVENT_TYPE_NONE',
     Signer = 'EVENT_TYPE_SIGNER',
     SignerMigrated = 'EVENT_TYPE_SIGNER_MIGRATED',
     IdRegister = 'EVENT_TYPE_ID_REGISTER',

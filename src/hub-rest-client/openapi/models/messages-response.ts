@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { Message } from './message';
 
 /**
  * 
@@ -25,10 +22,10 @@ import { Message } from './message';
 export interface MessagesResponse {
     /**
      * 
-     * @type {Array<Message>}
+     * @type {Array<object>}
      * @memberof MessagesResponse
      */
-    'messages': Array<Message>;
+    'messages': Array<object>;
     /**
      * 
      * @type {string}

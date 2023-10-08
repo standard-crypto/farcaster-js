@@ -17,5 +17,7 @@
 export * from './apis/casts-api';
 export * from './apis/hub-service-api';
 export * from './apis/info-api';
+export * from './apis/links-api';
 export * from './apis/reactions-api';
+export * from './apis/user-data-api';
 

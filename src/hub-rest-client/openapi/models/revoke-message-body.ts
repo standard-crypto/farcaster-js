@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { Message } from './message';
 
 /**
  * 
@@ -24,10 +21,10 @@ import { Message } from './message';
  */
 export interface RevokeMessageBody {
     /**
-     * 
-     * @type {Message}
+     * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
+     * @type {object}
      * @memberof RevokeMessageBody
      */
-    'message'?: Message;
+    'message'?: object;
 }
 

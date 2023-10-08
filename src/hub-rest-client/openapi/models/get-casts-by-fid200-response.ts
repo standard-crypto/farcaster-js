@@ -13,18 +13,27 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { CastAdd } from './cast-add';
 
 /**
  * 
  * @export
- * @enum {string}
+ * @interface GetCastsByFid200Response
  */
-
-export enum IdRegisterEventType {
-    Register = 'ID_REGISTER_EVENT_TYPE_REGISTER',
-    Transfer = 'ID_REGISTER_EVENT_TYPE_TRANSFER',
-    ChangeRecovery = 'ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY'
+export interface GetCastsByFid200Response {
+    /**
+     * 
+     * @type {Array<CastAdd>}
+     * @memberof GetCastsByFid200Response
+     */
+    'messages': Array<CastAdd>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCastsByFid200Response
+     */
+    'nextPageToken': string;
 }
-
-
 

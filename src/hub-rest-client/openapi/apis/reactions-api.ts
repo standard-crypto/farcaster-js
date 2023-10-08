@@ -24,7 +24,9 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
-import { Message } from '../models';
+import { GetReactionsByCast200Response } from '../models';
+// @ts-ignore
+import { Reaction } from '../models';
 // @ts-ignore
 import { ReactionType } from '../models';
 /**
@@ -91,6 +93,189 @@ export const ReactionsApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Get all reactions to a cast
+         * @param {number} targetFid The FID of the cast\&#39;s creator
+         * @param {string} targetHash The hash of the cast
+         * @param {ReactionType} reactionType The type of reaction, either as a numerical enum value or string representation
+         * @param {number} [pageSize] Maximum number of messages to return in a single response
+         * @param {boolean} [reverse] Reverse the sort order, returning latest messages first
+         * @param {string} [pageToken] The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReactionsByCast: async (targetFid: number, targetHash: string, reactionType: ReactionType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'targetFid' is not null or undefined
+            assertParamExists('getReactionsByCast', 'targetFid', targetFid)
+            // verify required parameter 'targetHash' is not null or undefined
+            assertParamExists('getReactionsByCast', 'targetHash', targetHash)
+            // verify required parameter 'reactionType' is not null or undefined
+            assertParamExists('getReactionsByCast', 'reactionType', reactionType)
+            const localVarPath = `/v1/reactionsByCast`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (targetFid !== undefined) {
+                localVarQueryParameter['target_fid'] = targetFid;
+            }
+
+            if (targetHash !== undefined) {
+                localVarQueryParameter['target_hash'] = targetHash;
+            }
+
+            if (reactionType !== undefined) {
+                localVarQueryParameter['reaction_type'] = reactionType;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (reverse !== undefined) {
+                localVarQueryParameter['reverse'] = reverse;
+            }
+
+            if (pageToken !== undefined) {
+                localVarQueryParameter['pageToken'] = pageToken;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all reactions by an FID
+         * @param {number} fid The FID of the reaction\&#39;s creator
+         * @param {ReactionType} reactionType The type of reaction, either as a numerical enum value or string representation
+         * @param {number} [pageSize] Maximum number of messages to return in a single response
+         * @param {boolean} [reverse] Reverse the sort order, returning latest messages first
+         * @param {string} [pageToken] The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReactionsByFid: async (fid: number, reactionType: ReactionType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fid' is not null or undefined
+            assertParamExists('getReactionsByFid', 'fid', fid)
+            // verify required parameter 'reactionType' is not null or undefined
+            assertParamExists('getReactionsByFid', 'reactionType', reactionType)
+            const localVarPath = `/v1/reactionsByFid`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (fid !== undefined) {
+                localVarQueryParameter['fid'] = fid;
+            }
+
+            if (reactionType !== undefined) {
+                localVarQueryParameter['reaction_type'] = reactionType;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (reverse !== undefined) {
+                localVarQueryParameter['reverse'] = reverse;
+            }
+
+            if (pageToken !== undefined) {
+                localVarQueryParameter['pageToken'] = pageToken;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} url The URL of the parent cast
+         * @param {ReactionType} reactionType The type of reaction, either as a numerical enum value or string representation
+         * @param {number} [pageSize] Maximum number of messages to return in a single response
+         * @param {boolean} [reverse] Reverse the sort order, returning latest messages first
+         * @param {string} [pageToken] The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReactionsByTarget: async (url: string, reactionType: ReactionType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'url' is not null or undefined
+            assertParamExists('getReactionsByTarget', 'url', url)
+            // verify required parameter 'reactionType' is not null or undefined
+            assertParamExists('getReactionsByTarget', 'reactionType', reactionType)
+            const localVarPath = `/v1/reactionsByTarget`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (url !== undefined) {
+                localVarQueryParameter['url'] = url;
+            }
+
+            if (reactionType !== undefined) {
+                localVarQueryParameter['reaction_type'] = reactionType;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (reverse !== undefined) {
+                localVarQueryParameter['reverse'] = reverse;
+            }
+
+            if (pageToken !== undefined) {
+                localVarQueryParameter['pageToken'] = pageToken;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -111,8 +296,53 @@ export const ReactionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReactionById(fid: number, targetFid: number, targetHash: string, reactionType: ReactionType, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+        async getReactionById(fid: number, targetFid: number, targetHash: string, reactionType: ReactionType, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Reaction>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getReactionById(fid, targetFid, targetHash, reactionType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all reactions to a cast
+         * @param {number} targetFid The FID of the cast\&#39;s creator
+         * @param {string} targetHash The hash of the cast
+         * @param {ReactionType} reactionType The type of reaction, either as a numerical enum value or string representation
+         * @param {number} [pageSize] Maximum number of messages to return in a single response
+         * @param {boolean} [reverse] Reverse the sort order, returning latest messages first
+         * @param {string} [pageToken] The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getReactionsByCast(targetFid: number, targetHash: string, reactionType: ReactionType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetReactionsByCast200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getReactionsByCast(targetFid, targetHash, reactionType, pageSize, reverse, pageToken, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all reactions by an FID
+         * @param {number} fid The FID of the reaction\&#39;s creator
+         * @param {ReactionType} reactionType The type of reaction, either as a numerical enum value or string representation
+         * @param {number} [pageSize] Maximum number of messages to return in a single response
+         * @param {boolean} [reverse] Reverse the sort order, returning latest messages first
+         * @param {string} [pageToken] The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getReactionsByFid(fid: number, reactionType: ReactionType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetReactionsByCast200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getReactionsByFid(fid, reactionType, pageSize, reverse, pageToken, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} url The URL of the parent cast
+         * @param {ReactionType} reactionType The type of reaction, either as a numerical enum value or string representation
+         * @param {number} [pageSize] Maximum number of messages to return in a single response
+         * @param {boolean} [reverse] Reverse the sort order, returning latest messages first
+         * @param {string} [pageToken] The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getReactionsByTarget(url: string, reactionType: ReactionType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetReactionsByCast200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getReactionsByTarget(url, reactionType, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -132,8 +362,37 @@ export const ReactionsApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getReactionById(requestParameters: ReactionsApiGetReactionByIdRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
+        getReactionById(requestParameters: ReactionsApiGetReactionByIdRequest, options?: AxiosRequestConfig): AxiosPromise<Reaction> {
             return localVarFp.getReactionById(requestParameters.fid, requestParameters.targetFid, requestParameters.targetHash, requestParameters.reactionType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all reactions to a cast
+         * @param {ReactionsApiGetReactionsByCastRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReactionsByCast(requestParameters: ReactionsApiGetReactionsByCastRequest, options?: AxiosRequestConfig): AxiosPromise<GetReactionsByCast200Response> {
+            return localVarFp.getReactionsByCast(requestParameters.targetFid, requestParameters.targetHash, requestParameters.reactionType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all reactions by an FID
+         * @param {ReactionsApiGetReactionsByFidRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReactionsByFid(requestParameters: ReactionsApiGetReactionsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<GetReactionsByCast200Response> {
+            return localVarFp.getReactionsByFid(requestParameters.fid, requestParameters.reactionType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ReactionsApiGetReactionsByTargetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReactionsByTarget(requestParameters: ReactionsApiGetReactionsByTargetRequest, options?: AxiosRequestConfig): AxiosPromise<GetReactionsByCast200Response> {
+            return localVarFp.getReactionsByTarget(requestParameters.url, requestParameters.reactionType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -174,6 +433,139 @@ export interface ReactionsApiGetReactionByIdRequest {
 }
 
 /**
+ * Request parameters for getReactionsByCast operation in ReactionsApi.
+ * @export
+ * @interface ReactionsApiGetReactionsByCastRequest
+ */
+export interface ReactionsApiGetReactionsByCastRequest {
+    /**
+     * The FID of the cast\&#39;s creator
+     * @type {number}
+     * @memberof ReactionsApiGetReactionsByCast
+     */
+    readonly targetFid: number
+
+    /**
+     * The hash of the cast
+     * @type {string}
+     * @memberof ReactionsApiGetReactionsByCast
+     */
+    readonly targetHash: string
+
+    /**
+     * The type of reaction, either as a numerical enum value or string representation
+     * @type {ReactionType}
+     * @memberof ReactionsApiGetReactionsByCast
+     */
+    readonly reactionType: ReactionType
+
+    /**
+     * Maximum number of messages to return in a single response
+     * @type {number}
+     * @memberof ReactionsApiGetReactionsByCast
+     */
+    readonly pageSize?: number
+
+    /**
+     * Reverse the sort order, returning latest messages first
+     * @type {boolean}
+     * @memberof ReactionsApiGetReactionsByCast
+     */
+    readonly reverse?: boolean
+
+    /**
+     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+     * @type {string}
+     * @memberof ReactionsApiGetReactionsByCast
+     */
+    readonly pageToken?: string
+}
+
+/**
+ * Request parameters for getReactionsByFid operation in ReactionsApi.
+ * @export
+ * @interface ReactionsApiGetReactionsByFidRequest
+ */
+export interface ReactionsApiGetReactionsByFidRequest {
+    /**
+     * The FID of the reaction\&#39;s creator
+     * @type {number}
+     * @memberof ReactionsApiGetReactionsByFid
+     */
+    readonly fid: number
+
+    /**
+     * The type of reaction, either as a numerical enum value or string representation
+     * @type {ReactionType}
+     * @memberof ReactionsApiGetReactionsByFid
+     */
+    readonly reactionType: ReactionType
+
+    /**
+     * Maximum number of messages to return in a single response
+     * @type {number}
+     * @memberof ReactionsApiGetReactionsByFid
+     */
+    readonly pageSize?: number
+
+    /**
+     * Reverse the sort order, returning latest messages first
+     * @type {boolean}
+     * @memberof ReactionsApiGetReactionsByFid
+     */
+    readonly reverse?: boolean
+
+    /**
+     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+     * @type {string}
+     * @memberof ReactionsApiGetReactionsByFid
+     */
+    readonly pageToken?: string
+}
+
+/**
+ * Request parameters for getReactionsByTarget operation in ReactionsApi.
+ * @export
+ * @interface ReactionsApiGetReactionsByTargetRequest
+ */
+export interface ReactionsApiGetReactionsByTargetRequest {
+    /**
+     * The URL of the parent cast
+     * @type {string}
+     * @memberof ReactionsApiGetReactionsByTarget
+     */
+    readonly url: string
+
+    /**
+     * The type of reaction, either as a numerical enum value or string representation
+     * @type {ReactionType}
+     * @memberof ReactionsApiGetReactionsByTarget
+     */
+    readonly reactionType: ReactionType
+
+    /**
+     * Maximum number of messages to return in a single response
+     * @type {number}
+     * @memberof ReactionsApiGetReactionsByTarget
+     */
+    readonly pageSize?: number
+
+    /**
+     * Reverse the sort order, returning latest messages first
+     * @type {boolean}
+     * @memberof ReactionsApiGetReactionsByTarget
+     */
+    readonly reverse?: boolean
+
+    /**
+     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+     * @type {string}
+     * @memberof ReactionsApiGetReactionsByTarget
+     */
+    readonly pageToken?: string
+}
+
+/**
  * ReactionsApi - object-oriented interface
  * @export
  * @class ReactionsApi
@@ -190,5 +582,40 @@ export class ReactionsApi extends BaseAPI {
      */
     public getReactionById(requestParameters: ReactionsApiGetReactionByIdRequest, options?: AxiosRequestConfig) {
         return ReactionsApiFp(this.configuration).getReactionById(requestParameters.fid, requestParameters.targetFid, requestParameters.targetHash, requestParameters.reactionType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all reactions to a cast
+     * @param {ReactionsApiGetReactionsByCastRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ReactionsApi
+     */
+    public getReactionsByCast(requestParameters: ReactionsApiGetReactionsByCastRequest, options?: AxiosRequestConfig) {
+        return ReactionsApiFp(this.configuration).getReactionsByCast(requestParameters.targetFid, requestParameters.targetHash, requestParameters.reactionType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all reactions by an FID
+     * @param {ReactionsApiGetReactionsByFidRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ReactionsApi
+     */
+    public getReactionsByFid(requestParameters: ReactionsApiGetReactionsByFidRequest, options?: AxiosRequestConfig) {
+        return ReactionsApiFp(this.configuration).getReactionsByFid(requestParameters.fid, requestParameters.reactionType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ReactionsApiGetReactionsByTargetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ReactionsApi
+     */
+    public getReactionsByTarget(requestParameters: ReactionsApiGetReactionsByTargetRequest, options?: AxiosRequestConfig) {
+        return ReactionsApiFp(this.configuration).getReactionsByTarget(requestParameters.url, requestParameters.reactionType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
     }
 }

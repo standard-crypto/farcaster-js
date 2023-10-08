@@ -3,11 +3,20 @@ import chaiAsPromised from "chai-as-promised";
 import OpenAPIResponseValidator from "openapi-response-validator";
 import { promises as fs } from "fs";
 import yaml from "yaml";
+import { OpenAPIV3 } from "openapi-types";
+import type { OverrideProperties } from "type-fest";
 
 import { HubRestAPIClient } from "../src/hub-rest-client";
 import { Logger, silentLogger } from "../src/common/logger";
-import { expectDefinedNonNull } from "./utils";
-import { ReactionType } from "../src/hub-rest-client/openapi";
+import { expectDefinedNonNull, expectFalse } from "./utils";
+import {
+  GetUserDataByFid200ResponseOneOf,
+  LinkType,
+  ReactionType,
+  UserDataAdd,
+  UserDataType,
+} from "../src/hub-rest-client/openapi";
+import type { paths as SchemaPaths } from "./hub-rest-client/openapi/schema";
 
 chai.use(chaiAsPromised);
 
@@ -26,7 +35,7 @@ const testLogger: Logger = {
 
 describe.only("HubWebClient", function () {
   let client: HubRestAPIClient;
-  let apiSpec: any;
+  let apiSpec: OverrideProperties<OpenAPIV3.Document, { paths: SchemaPaths }>;
 
   before("setup", async function () {
     client = new HubRestAPIClient({
@@ -46,10 +55,10 @@ describe.only("HubWebClient", function () {
   });
 
   describe("Info API", function () {
-    it("validates against swagger spec", async function () {
+    it("validates against OpenAPI spec", async function () {
       const info = await client.apis.info.getInfo({ dbstats: true });
       const validator = new OpenAPIResponseValidator({
-        responses: apiSpec.paths["/v1/info"].get.responses,
+        responses: apiSpec.paths["/v1/info"].get.responses as any,
         components: apiSpec.components,
       });
       const errors = validator.validateResponse(200, info.data);
@@ -66,13 +75,13 @@ describe.only("HubWebClient", function () {
 
   describe("Casts API", function () {
     describe("#getCastById", function () {
-      it("validates against swagger spec", async function () {
+      it("validates against OpenAPI spec", async function () {
         const response = await client.apis.casts.getCastById({
           fid: 2,
           hash: "0xd2b1ddc6c88e865a33cb1a565e0058d757042974",
         });
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/castById"].get.responses,
+          responses: apiSpec.paths["/v1/castById"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -97,12 +106,13 @@ describe.only("HubWebClient", function () {
     });
 
     describe("#getCastsByFid", function () {
-      it("validates against swagger spec", async function () {
+      it("validates against OpenAPI spec", async function () {
         const response = await client.apis.casts.getCastsByFid({
           fid: userGaviFid,
         });
+        expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/castsByFid"].get.responses,
+          responses: apiSpec.paths["/v1/castsByFid"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -130,13 +140,14 @@ describe.only("HubWebClient", function () {
     });
 
     describe("#getCastsByParent", function () {
-      it("validates against swagger spec", async function () {
+      it("validates against OpenAPI spec", async function () {
         const response = await client.apis.casts.getCastsByParent({
           fid: 226,
           hash: "0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9",
         });
+        expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/castsByParent"].get.responses,
+          responses: apiSpec.paths["/v1/castsByParent"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -171,12 +182,13 @@ describe.only("HubWebClient", function () {
     });
 
     describe("#getCastsByMention", function () {
-      it("validates against swagger spec", async function () {
+      it("validates against OpenAPI spec", async function () {
         const response = await client.apis.casts.getCastsByMention({
           fid: 6833,
         });
+        expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/castsByMention"].get.responses,
+          responses: apiSpec.paths["/v1/castsByMention"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -196,7 +208,7 @@ describe.only("HubWebClient", function () {
 
   describe("Reactions API", function () {
     describe("#getReactionById", function () {
-      it("validates against swagger spec", async function () {
+      it("validates against OpenAPI spec", async function () {
         const response = await client.apis.reactions.getReactionById({
           fid: 2,
           targetFid: 1795,
@@ -205,7 +217,7 @@ describe.only("HubWebClient", function () {
         });
         const validator = new OpenAPIResponseValidator({
           components: apiSpec.components,
-          responses: apiSpec.paths["/v1/reactionById"].get.responses,
+          responses: apiSpec.paths["/v1/reactionById"].get.responses as any,
         });
         const errors = validator.validateResponse(200, response.data);
         expect(errors, JSON.stringify(errors)).is.undefined;
@@ -229,6 +241,234 @@ describe.only("HubWebClient", function () {
           reactionType: ReactionType.Like,
         });
         expect(reaction).to.be.null;
+      });
+    });
+
+    describe("#getReactionsByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.reactions.getReactionsByFid({
+          fid: 2,
+          reactionType: ReactionType.Like,
+        });
+        expect(response.data.messages).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/reactionsByFid"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch a reaction by FID", async function () {
+        const pageSize = 1;
+        const reactions = client.getReactionsByFid(2, ReactionType.Like, {
+          pageSize,
+        });
+        const reaction = await reactions.next();
+        expectDefinedNonNull(reaction.value);
+      });
+    });
+
+    describe("#getReactionsByCast", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.reactions.getReactionsByCast({
+          targetFid: 1795,
+          targetHash: "0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0",
+          reactionType: ReactionType.Like,
+        });
+        expect(response.data.messages).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/reactionsByCast"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch a reaction by cast", async function () {
+        const pageSize = 1;
+        const reactions = client.getReactionsByCast(
+          1795,
+          "0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0",
+          ReactionType.Like,
+          {
+            pageSize,
+          }
+        );
+        const reaction = await reactions.next();
+        expectDefinedNonNull(reaction.value);
+      });
+    });
+
+    describe("#getReactionsByTarget", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.reactions.getReactionsByTarget({
+          url: "chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2",
+          reactionType: ReactionType.Like,
+        });
+        expect(response.data.messages).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/reactionsByTarget"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch a reaction by cast", async function () {
+        const pageSize = 1;
+        const reactions = client.getReactionsByTarget(
+          "chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2",
+          ReactionType.Like,
+          {
+            pageSize,
+          }
+        );
+        const reaction = await reactions.next();
+        expectDefinedNonNull(reaction.value);
+      });
+    });
+  });
+
+  describe("Links API", function () {
+    describe("#getLinkById", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.links.getLinkById({
+          fid: 6833,
+          targetFid: 2,
+          linkType: LinkType.Follow,
+        });
+        const validator = new OpenAPIResponseValidator({
+          components: apiSpec.components,
+          responses: apiSpec.paths["/v1/linkById"].get.responses as any,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch an existing link", async function () {
+        const link = await client.getLinkById(6833, 2);
+        expectDefinedNonNull(link);
+      });
+
+      it("returns null for nonexistent link", async function () {
+        const link = await client.getLinkById(userGaviFid, 6833);
+        expect(link).to.be.null;
+      });
+    });
+
+    describe("#getLinksByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.links.getLinksByFid({
+          fid: 6833,
+        });
+        expect(response.data.messages).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/linksByFid"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch a link by ID", async function () {
+        const pageSize = 1;
+        const links = client.getLinksByFid(6833, {
+          pageSize,
+        });
+        const link = await links.next();
+        expectDefinedNonNull(link.value);
+      });
+    });
+
+    describe("#getLinksByTargetFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.links.getLinksByTargetFid({
+          targetFid: 6833,
+        });
+        expect(response.data.messages).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/linksByTargetFid"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch a link by target ID", async function () {
+        const pageSize = 1;
+        const links = client.getLinksByTargetFid(6833, {
+          pageSize,
+        });
+        const link = await links.next();
+        expectDefinedNonNull(link.value);
+      });
+    });
+  });
+
+  describe("UserData API", function () {
+    describe("#getSpecificUserDataByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.userData.getUserDataByFid({
+          fid: 6833,
+          userDataType: UserDataType.Username,
+        });
+        const validator = new OpenAPIResponseValidator({
+          components: apiSpec.components,
+          responses: apiSpec.paths["/v1/userDataByFid"].get.responses as any,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("filters on user data type", async function () {
+        const userDataUsername = await client.getSpecificUserDataByFid(
+          6833,
+          UserDataType.Username
+        );
+        expectDefinedNonNull(userDataUsername);
+        expect(userDataUsername.data.userDataBody.type).eq(
+          UserDataType.Username
+        );
+
+        const userDataPfp = await client.getSpecificUserDataByFid(
+          6833,
+          UserDataType.Pfp
+        );
+        expectDefinedNonNull(userDataPfp);
+        expect(userDataPfp.data.userDataBody.type).eq(UserDataType.Pfp);
+      });
+
+      it("returns null for nonexistent user data", async function () {
+        const userData = await client.getSpecificUserDataByFid(
+          userGaviFid,
+          UserDataType.Url
+        );
+        expect(userData).to.be.null;
+      });
+    });
+
+    describe("#getAllUserDataByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.userData.getUserDataByFid({
+          fid: 6833,
+        });
+        expect((response.data as GetUserDataByFid200ResponseOneOf).messages).to
+          .not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          components: apiSpec.components,
+          responses: apiSpec.paths["/v1/userDataByFid"].get.responses as any,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch existing user data", async function () {
+        const pageSize = 1;
+        const userData = await client.getAllUserDataByFid(6833, { pageSize });
+        const singleData = await userData.next();
+        expectDefinedNonNull(singleData);
       });
     });
   });

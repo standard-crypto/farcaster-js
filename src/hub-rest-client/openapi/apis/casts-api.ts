@@ -22,11 +22,13 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { CastAdd } from '../models';
+// @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
 import { FidRequest } from '../models';
 // @ts-ignore
-import { Message } from '../models';
+import { GetCastsByFid200Response } from '../models';
 // @ts-ignore
 import { MessagesResponse } from '../models';
 /**
@@ -297,7 +299,7 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastById(fid: number, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+        async getCastById(fid: number, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CastAdd>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCastById(fid, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -311,7 +313,7 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastsByFid(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
+        async getCastsByFid(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCastsByFid200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCastsByFid(fid, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -325,7 +327,7 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastsByMention(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
+        async getCastsByMention(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCastsByFid200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCastsByMention(fid, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -341,7 +343,7 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastsByParent(fid?: number, hash?: string, url?: string, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
+        async getCastsByParent(fid?: number, hash?: string, url?: string, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCastsByFid200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCastsByParent(fid, hash, url, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -373,7 +375,7 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastById(requestParameters: CastsApiGetCastByIdRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
+        getCastById(requestParameters: CastsApiGetCastByIdRequest, options?: AxiosRequestConfig): AxiosPromise<CastAdd> {
             return localVarFp.getCastById(requestParameters.fid, requestParameters.hash, options).then((request) => request(axios, basePath));
         },
         /**
@@ -383,7 +385,7 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastsByFid(requestParameters: CastsApiGetCastsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
+        getCastsByFid(requestParameters: CastsApiGetCastsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<GetCastsByFid200Response> {
             return localVarFp.getCastsByFid(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
         /**
@@ -393,7 +395,7 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastsByMention(requestParameters: CastsApiGetCastsByMentionRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
+        getCastsByMention(requestParameters: CastsApiGetCastsByMentionRequest, options?: AxiosRequestConfig): AxiosPromise<GetCastsByFid200Response> {
             return localVarFp.getCastsByMention(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
         /**
@@ -403,7 +405,7 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastsByParent(requestParameters: CastsApiGetCastsByParentRequest = {}, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
+        getCastsByParent(requestParameters: CastsApiGetCastsByParentRequest = {}, options?: AxiosRequestConfig): AxiosPromise<GetCastsByFid200Response> {
             return localVarFp.getCastsByParent(requestParameters.fid, requestParameters.hash, requestParameters.url, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
         /**

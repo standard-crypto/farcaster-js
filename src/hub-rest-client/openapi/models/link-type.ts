@@ -15,13 +15,13 @@
 
 
 /**
- * - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+ * - follow: Follow another user
  * @export
  * @enum {string}
  */
 
-export enum HashScheme {
-    HashSchemeBlake3 = 'HASH_SCHEME_BLAKE3'
+export enum LinkType {
+    Follow = 'follow'
 }
 
 

@@ -21,7 +21,6 @@
  */
 
 export enum HubEventType {
-    None = 'HUB_EVENT_TYPE_NONE',
     MergeMessage = 'HUB_EVENT_TYPE_MERGE_MESSAGE',
     PruneMessage = 'HUB_EVENT_TYPE_PRUNE_MESSAGE',
     RevokeMessage = 'HUB_EVENT_TYPE_REVOKE_MESSAGE',

@@ -13,16 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageDataCastAdd } from './message-data-cast-add';
 
 /**
- * - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+ * 
  * @export
- * @enum {string}
+ * @interface CastAddAllOf
  */
-
-export enum HashScheme {
-    HashSchemeBlake3 = 'HASH_SCHEME_BLAKE3'
+export interface CastAddAllOf {
+    /**
+     * 
+     * @type {MessageDataCastAdd}
+     * @memberof CastAddAllOf
+     */
+    'data': MessageDataCastAdd;
 }
-
-
 

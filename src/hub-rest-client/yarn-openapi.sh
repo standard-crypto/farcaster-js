@@ -6,3 +6,7 @@ yarn openapi-generator-cli generate \
     -o src/hub-rest-client/openapi/ \
     --skip-validate-spec \
     --config openapi-generator-config.json
+
+yarn openapi-typescript \
+    src/hub-rest-client/openapi/spec.yaml \
+    -o src/hub-rest-client/openapi/schema.d.ts

@@ -21,7 +21,6 @@
  */
 
 export enum UserNameType {
-    None = 'USERNAME_TYPE_NONE',
     Fname = 'USERNAME_TYPE_FNAME',
     EnsL1 = 'USERNAME_TYPE_ENS_L1'
 }

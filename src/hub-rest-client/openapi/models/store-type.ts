@@ -21,7 +21,6 @@
  */
 
 export enum StoreType {
-    None = 'STORE_TYPE_NONE',
     Casts = 'STORE_TYPE_CASTS',
     Links = 'STORE_TYPE_LINKS',
     Reactions = 'STORE_TYPE_REACTIONS',

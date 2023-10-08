@@ -13,24 +13,27 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { UserDataAdd } from './user-data-add';
 
 /**
  * 
  * @export
- * @interface MergeMessageBody
+ * @interface GetUserDataByFid200ResponseOneOf
  */
-export interface MergeMessageBody {
-    /**
-     * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {object}
-     * @memberof MergeMessageBody
-     */
-    'message'?: object;
+export interface GetUserDataByFid200ResponseOneOf {
     /**
      * 
-     * @type {Array<object>}
-     * @memberof MergeMessageBody
+     * @type {Array<UserDataAdd>}
+     * @memberof GetUserDataByFid200ResponseOneOf
      */
-    'deletedMessages'?: Array<object>;
+    'messages': Array<UserDataAdd>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetUserDataByFid200ResponseOneOf
+     */
+    'nextPageToken': string;
 }
 
