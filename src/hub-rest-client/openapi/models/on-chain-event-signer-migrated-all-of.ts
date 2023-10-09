@@ -13,30 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { SignerMigratedEventBody } from './signer-migrated-event-body';
 
 /**
  * 
  * @export
- * @interface StorageRentEventBody
+ * @interface OnChainEventSignerMigratedAllOf
  */
-export interface StorageRentEventBody {
+export interface OnChainEventSignerMigratedAllOf {
     /**
      * 
-     * @type {string}
-     * @memberof StorageRentEventBody
+     * @type {SignerMigratedEventBody}
+     * @memberof OnChainEventSignerMigratedAllOf
      */
-    'payer': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'units': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'expiry': number;
+    'signerMigratedEventBody': SignerMigratedEventBody;
 }
 

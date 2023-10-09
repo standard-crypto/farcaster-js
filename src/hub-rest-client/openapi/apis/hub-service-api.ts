@@ -36,12 +36,6 @@ import { MessagesResponse } from '../models';
 // @ts-ignore
 import { OnChainEvent } from '../models';
 // @ts-ignore
-import { OnChainEventRequest } from '../models';
-// @ts-ignore
-import { OnChainEventResponse } from '../models';
-// @ts-ignore
-import { SignerRequest } from '../models';
-// @ts-ignore
 import { StreamResultOfHubEvent } from '../models';
 // @ts-ignore
 import { SubscribeRequest } from '../models';
@@ -355,112 +349,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
             // verify required parameter 'body' is not null or undefined
             assertParamExists('hubServiceGetIdRegistryOnChainEventByAddress', 'body', body)
             const localVarPath = `/HubService/GetIdRegistryOnChainEventByAddress`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {OnChainEventRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetOnChainEvents: async (body: OnChainEventRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetOnChainEvents', 'body', body)
-            const localVarPath = `/HubService/GetOnChainEvents`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary OnChain Events
-         * @param {SignerRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetOnChainSigner: async (body: SignerRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetOnChainSigner', 'body', body)
-            const localVarPath = `/HubService/GetOnChainSigner`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetOnChainSignersByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetOnChainSignersByFid', 'body', body)
-            const localVarPath = `/HubService/GetOnChainSignersByFid`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -836,37 +724,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {OnChainEventRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetOnChainEvents(body: OnChainEventRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnChainEventResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetOnChainEvents(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary OnChain Events
-         * @param {SignerRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetOnChainSigner(body: SignerRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnChainEvent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetOnChainSigner(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetOnChainSignersByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnChainEventResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetOnChainSignersByFid(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {TrieNodePrefix} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1028,34 +885,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
          */
         hubServiceGetIdRegistryOnChainEventByAddress(requestParameters: HubServiceApiHubServiceGetIdRegistryOnChainEventByAddressRequest, options?: AxiosRequestConfig): AxiosPromise<OnChainEvent> {
             return localVarFp.hubServiceGetIdRegistryOnChainEventByAddress(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetOnChainEventsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetOnChainEvents(requestParameters: HubServiceApiHubServiceGetOnChainEventsRequest, options?: AxiosRequestConfig): AxiosPromise<OnChainEventResponse> {
-            return localVarFp.hubServiceGetOnChainEvents(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary OnChain Events
-         * @param {HubServiceApiHubServiceGetOnChainSignerRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetOnChainSigner(requestParameters: HubServiceApiHubServiceGetOnChainSignerRequest, options?: AxiosRequestConfig): AxiosPromise<OnChainEvent> {
-            return localVarFp.hubServiceGetOnChainSigner(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetOnChainSignersByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetOnChainSignersByFid(requestParameters: HubServiceApiHubServiceGetOnChainSignersByFidRequest, options?: AxiosRequestConfig): AxiosPromise<OnChainEventResponse> {
-            return localVarFp.hubServiceGetOnChainSignersByFid(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1250,48 +1079,6 @@ export interface HubServiceApiHubServiceGetIdRegistryOnChainEventByAddressReques
      * @memberof HubServiceApiHubServiceGetIdRegistryOnChainEventByAddress
      */
     readonly body: IdRegistryEventByAddressRequest
-}
-
-/**
- * Request parameters for hubServiceGetOnChainEvents operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetOnChainEventsRequest
- */
-export interface HubServiceApiHubServiceGetOnChainEventsRequest {
-    /**
-     * 
-     * @type {OnChainEventRequest}
-     * @memberof HubServiceApiHubServiceGetOnChainEvents
-     */
-    readonly body: OnChainEventRequest
-}
-
-/**
- * Request parameters for hubServiceGetOnChainSigner operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetOnChainSignerRequest
- */
-export interface HubServiceApiHubServiceGetOnChainSignerRequest {
-    /**
-     * 
-     * @type {SignerRequest}
-     * @memberof HubServiceApiHubServiceGetOnChainSigner
-     */
-    readonly body: SignerRequest
-}
-
-/**
- * Request parameters for hubServiceGetOnChainSignersByFid operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetOnChainSignersByFidRequest
- */
-export interface HubServiceApiHubServiceGetOnChainSignersByFidRequest {
-    /**
-     * 
-     * @type {FidRequest}
-     * @memberof HubServiceApiHubServiceGetOnChainSignersByFid
-     */
-    readonly body: FidRequest
 }
 
 /**
@@ -1496,40 +1283,6 @@ export class HubServiceApi extends BaseAPI {
      */
     public hubServiceGetIdRegistryOnChainEventByAddress(requestParameters: HubServiceApiHubServiceGetIdRegistryOnChainEventByAddressRequest, options?: AxiosRequestConfig) {
         return HubServiceApiFp(this.configuration).hubServiceGetIdRegistryOnChainEventByAddress(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetOnChainEventsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetOnChainEvents(requestParameters: HubServiceApiHubServiceGetOnChainEventsRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetOnChainEvents(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary OnChain Events
-     * @param {HubServiceApiHubServiceGetOnChainSignerRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetOnChainSigner(requestParameters: HubServiceApiHubServiceGetOnChainSignerRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetOnChainSigner(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetOnChainSignersByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetOnChainSignersByFid(requestParameters: HubServiceApiHubServiceGetOnChainSignersByFidRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetOnChainSignersByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

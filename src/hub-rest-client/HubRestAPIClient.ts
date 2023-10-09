@@ -27,7 +27,25 @@ import {
   UserNameProof,
   VerificationsApi,
   Verification,
+  OnChainEvent,
+  SignerEventType,
+  OnChainEventType,
+  OnChainEventSigner,
+  OnChainApi,
+  OnChainEventSignerMigrated,
+  OnChainEventIdRegister,
+  OnChainEventStorageRent,
 } from "./openapi";
+
+type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
+  ? OnChainEventSigner
+  : T extends OnChainEventType.SignerMigrated
+  ? OnChainEventSignerMigrated
+  : T extends OnChainEventType.IdRegister
+  ? OnChainEventIdRegister
+  : T extends OnChainEventType.StorageRent
+  ? OnChainEventStorageRent
+  : never;
 
 export const DEFAULT_SERVER = "http://hub.farcaster.standardcrypto.vc:2281";
 
@@ -50,6 +68,7 @@ export class HubRestAPIClient {
     fids: FIDsApi;
     info: InfoApi;
     links: LinksApi;
+    onChain: OnChainApi;
     reactions: ReactionsApi;
     storage: StorageApi;
     userData: UserDataApi;
@@ -95,6 +114,7 @@ export class HubRestAPIClient {
       storage: new StorageApi(config, undefined, axiosInstance),
       usernames: new UsernamesApi(config, undefined, axiosInstance),
       verifications: new VerificationsApi(config, undefined, axiosInstance),
+      onChain: new OnChainApi(config, undefined, axiosInstance),
     };
   }
 
@@ -583,6 +603,73 @@ export class HubRestAPIClient {
         break;
       }
       pageToken = response.data.nextPageToken;
+    }
+  }
+
+  /**
+   * Get a list of on-chain events by an FID
+   * @param fid The FID being requested
+   * @param eventType The event type being requested
+   * @returns
+   */
+  public async listOnChainEventsByFid<T extends OnChainEventType>(
+    fid: number,
+    eventType: T
+  ): Promise<Array<OnChainEventsReturnType<T>>> {
+    const response = await this.apis.onChain.listOnChainEventsByFid({
+      fid,
+      eventType,
+    });
+    return response.data.events as Array<OnChainEventsReturnType<T>>;
+  }
+
+  /**
+   * Get a specific on-chain signer event by FID and signer
+   * @param fid The FID being requested
+   * @param signer The key of signer
+   * @returns
+   */
+  public async getOnChainSignerEventBySigner(
+    fid: number,
+    signer: string
+  ): Promise<OnChainEventSigner | null> {
+    try {
+      const response = await this.apis.onChain.listOnChainSignersByFid({
+        fid,
+        signer,
+      });
+      return response.data as OnChainEventSigner;
+    } catch (err) {
+      if (
+        HubRestAPIClient.isApiErrorResponse(err) &&
+        err.response.data.errCode === "not_found"
+      ) {
+        return null;
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Get a specific on-chain ID registration event by address
+   * @param address The ETH address being requested
+   * @returns
+   */
+  public async getOnChainIdRegistryEventByAddress(
+    address: string
+  ): Promise<OnChainEventIdRegister | null> {
+    try {
+      const response =
+        await this.apis.onChain.getOnChainIdRegistrationByAddress({ address });
+      return response.data;
+    } catch (err) {
+      if (
+        HubRestAPIClient.isApiErrorResponse(err) &&
+        err.response.data.errCode === "not_found"
+      ) {
+        return null;
+      }
+      throw err;
     }
   }
 

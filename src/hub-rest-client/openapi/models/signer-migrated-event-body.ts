@@ -25,6 +25,6 @@ export interface SignerMigratedEventBody {
      * @type {number}
      * @memberof SignerMigratedEventBody
      */
-    'migratedAt'?: number;
+    'migratedAt': number;
 }
 

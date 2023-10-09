@@ -31,6 +31,12 @@ export interface MessageCommon {
      * @type {string}
      * @memberof MessageCommon
      */
+    'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MessageCommon
+     */
     'hash': string;
     /**
      * 

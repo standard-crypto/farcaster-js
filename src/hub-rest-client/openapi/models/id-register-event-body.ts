@@ -28,25 +28,25 @@ export interface IdRegisterEventBody {
      * @type {string}
      * @memberof IdRegisterEventBody
      */
-    'to'?: string;
+    'to': string;
     /**
      * 
      * @type {IdRegisterEventType}
      * @memberof IdRegisterEventBody
      */
-    'eventType'?: IdRegisterEventType;
+    'eventType': IdRegisterEventType;
     /**
      * 
      * @type {string}
      * @memberof IdRegisterEventBody
      */
-    'from'?: string;
+    'from': string;
     /**
      * 
      * @type {string}
      * @memberof IdRegisterEventBody
      */
-    'recoveryAddress'?: string;
+    'recoveryAddress': string;
 }
 
 

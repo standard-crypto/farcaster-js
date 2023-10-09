@@ -547,70 +547,106 @@ paths:
                     format: byte
         default:
           $ref: '#/components/responses/ErrorResponse'
-  /HubService/GetOnChainEvents:
-    post:
+  /v1/onChainIdRegistryEventByAddress:
+    get:
       tags:
-      - HubService
-      operationId: HubService_GetOnChainEvents
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OnChainEventRequest'
-        required: true
+        - OnChain
+      summary: Get an on chain ID Registry Event for a given Address
+      operationId: GetOnChainIdRegistrationByAddress
+      parameters:
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: ^0x[0-9a-fA-F]{40}$
+          description: The ETH address being requested
       responses:
         200:
           description: A successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OnChainEventResponse'
+                $ref: '#/components/schemas/OnChainEventIdRegister'
         default:
           $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetOnChainSigner:
-    post:
+  /v1/onChainEventsByFid:
+    get:
       tags:
-      - HubService
-      summary: OnChain Events
-      operationId: HubService_GetOnChainSigner
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignerRequest'
-        required: true
+        - OnChain
+      summary: Get a list of on-chain events provided by an FID
+      operationId: ListOnChainEventsByFid
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The FID being requested
+        - name: event_type
+          in: query
+          schema:
+            $ref: '#/components/schemas/OnChainEventType'
+          description: The numeric of string value of the event type being requested.
+          required: true
       responses:
         200:
           description: A successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OnChainEvent'
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OnChainEvent'
+                required:
+                  - events
         default:
           $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetOnChainSignersByFid:
-    post:
+  /v1/onChainSignersByFid:
+    get:
       tags:
-      - HubService
-      operationId: HubService_GetOnChainSignersByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
+        - OnChain
+      summary: Get a list of signers provided by an FID
+      description: "**Note:** one of two different response schemas is returned 
+        based on whether the caller provides the `signer` parameter. If included, a single
+        `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a 
+        non-paginated list of `OnChainEventSigner` messages is returned instead"
+      operationId: ListOnChainSignersByFid
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The FID being requested
+        - name: signer
+          in: query
+          schema:
+            type: string
+          description: The optional key of signer
+          required: false
+          example: "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd"
       responses:
         200:
           description: A successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OnChainEventResponse'
+                oneOf:
+                  - $ref: '#/components/schemas/OnChainEventSigner'
+                  - type: object
+                    properties:
+                      events:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/OnChainEventSigner'
+                    required:
+                      - events
         default:
           $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/reactionById:
     get:
       tags:
@@ -1369,19 +1405,23 @@ components:
       type: object
       properties:
         to:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          pattern: ^0x[a-fA-F0-9]{40}$
           type: string
-          format: byte
         eventType:
           $ref: '#/components/schemas/IdRegisterEventType'
         from:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          pattern: ^0x[a-fA-F0-9]*$
           type: string
-          format: byte
+          example: 0x
         recoveryAddress:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          pattern: ^0x[a-fA-F0-9]*$
           type: string
-          format: byte
+          example: '0x00000000fcd5a8e45785c8a4b9a718c9348e4f18'
+      required:
+        - to
+        - from
+        - eventType
+        - recoveryAddress
     IdRegisterEventType:
       type: string
       default: ID_REGISTER_EVENT_TYPE_REGISTER
@@ -1393,9 +1433,8 @@ components:
       type: object
       properties:
         address:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          pattern: ^0x[a-fA-F0-9]{40}$
           type: string
-          format: byte
     LinkAdd:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1527,14 +1566,11 @@ components:
     #     \ message protobuf is an envelope \nthat wraps a MessageData object and contains\
     #     \ a hash and signature which can verify its authenticity."
     MessageCommon:
-      required:
-      - hash
-      - hashScheme
-      - signature
-      - signatureScheme
-      - signer
       type: object
       properties:
+        type:
+          type: string
+          example: MESSAGE_TYPE_CAST_ADD
         hash:
           title: Hash digest of data
           pattern: ^0x[0-9a-fA-F]{40}$
@@ -1553,6 +1589,13 @@ components:
           title: Public key or address of the key pair that produced the signature
           pattern: ^0x[0-9a-fA-F]+$
           type: string
+      required:
+        - type
+        - hash
+        - hashScheme
+        - signature
+        - signatureScheme
+        - signer
     MessageDataCommon:
       required:
       - fid
@@ -1673,45 +1716,128 @@ components:
           pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
           type: string
           format: byte
+    # OnChainEvent:
+    #   type: object
+    #   properties:
+    #     type:
+    #       $ref: '#/components/schemas/OnChainEventType'
+    #     chainId:
+    #       type: integer
+    #       format: int64
+    #     blockNumber:
+    #       type: integer
+    #       format: int64
+    #     blockHash:
+    #       pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+    #       type: string
+    #       format: byte
+    #     blockTimestamp:
+    #       type: integer
+    #       format: uint64
+    #     transactionHash:
+    #       pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+    #       type: string
+    #       format: byte
+    #     logIndex:
+    #       type: integer
+    #       format: int64
+    #     fid:
+    #       type: integer
+    #       format: uint64
+    #     signerEventBody:
+    #       $ref: '#/components/schemas/SignerEventBody'
+    #     signerMigratedEventBody:
+    #       $ref: '#/components/schemas/SignerMigratedEventBody'
+    #     idRegisterEventBody:
+    #       $ref: '#/components/schemas/IdRegisterEventBody'
+    #     storageRentEventBody:
+    #       $ref: '#/components/schemas/StorageRentEventBody'
+    #     txIndex:
+    #       type: integer
+    #       format: int64
     OnChainEvent:
+      oneOf:
+        - $ref: '#/components/schemas/OnChainEventSigner'
+        - $ref: '#/components/schemas/OnChainEventSignerMigrated'
+        - $ref: '#/components/schemas/OnChainEventIdRegister'
+        - $ref: '#/components/schemas/OnChainEventStorageRent'
+      discriminator:
+        propertyName: type
+        mapping:
+          EVENT_TYPE_SIGNER: '#/components/schemas/OnChainEventSigner'
+          EVENT_TYPE_SIGNER_MIGRATED: '#/components/schemas/OnChainEventSignerMigrated'
+          EVENT_TYPE_ID_REGISTER: '#/components/schemas/OnChainEventIdRegister'
+          EVENT_TYPE_STORAGE_RENT: '#/components/schemas/OnChainEventStorageRent'
+    OnChainEventCommon:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/OnChainEventType'
+          type: string
+          example: EVENT_TYPE_SIGNER
         chainId:
           type: integer
-          format: int64
         blockNumber:
           type: integer
-          format: int64
         blockHash:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
           type: string
-          format: byte
+          example: "0x75fbbb8b2a4ede67ac350e1b0503c6a152c0091bd8e3ef4a6927d58e088eae28"
         blockTimestamp:
           type: integer
-          format: uint64
         transactionHash:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
           type: string
-          format: byte
+          example: "0x36ef79e6c460e6ae251908be13116ff0065960adb1ae032b4cc65a8352f28952"
         logIndex:
           type: integer
-          format: int64
-        fid:
-          type: integer
-          format: uint64
-        signerEventBody:
-          $ref: '#/components/schemas/SignerEventBody'
-        signerMigratedEventBody:
-          $ref: '#/components/schemas/SignerMigratedEventBody'
-        idRegisterEventBody:
-          $ref: '#/components/schemas/IdRegisterEventBody'
-        storageRentEventBody:
-          $ref: '#/components/schemas/StorageRentEventBody'
         txIndex:
           type: integer
-          format: int64
+        fid:
+          type: integer
+      required:
+        - type
+        - chainId
+        - blockNumber
+        - blockHash
+        - blockTimestamp
+        - transactionHash
+        - logIndex
+        - txIndex
+        - fid
+    OnChainEventSigner:
+      allOf:
+        - $ref: '#/components/schemas/OnChainEventCommon'
+        - type: object
+          properties:
+            signerEventBody:
+              $ref: '#/components/schemas/SignerEventBody'
+          required:
+            - signerEventBody
+    OnChainEventSignerMigrated:
+      allOf:
+        - $ref: '#/components/schemas/OnChainEventCommon'
+        - type: object
+          properties:
+            signerMigratedEventBody:
+              $ref: '#/components/schemas/SignerMigratedEventBody'
+          required:
+            - signerMigratedEventBody
+    OnChainEventIdRegister:
+      allOf:
+        - $ref: '#/components/schemas/OnChainEventCommon'
+        - type: object
+          properties:
+            idRegisterEventBody:
+              $ref: '#/components/schemas/IdRegisterEventBody'
+          required:
+            - idRegisterEventBody
+    OnChainEventStorageRent:
+      allOf:
+        - $ref: '#/components/schemas/OnChainEventCommon'
+        - type: object
+          properties:
+            storageRentEventBody:
+              $ref: '#/components/schemas/StorageRentEventBody'
+          required:
+            - storageRentEventBody
     OnChainEventRequest:
       type: object
       properties:
@@ -1849,9 +1975,8 @@ components:
       type: object
       properties:
         key:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          pattern: ^0x[a-fA-F0-9]{64}$
           type: string
-          format: byte
         keyType:
           type: integer
           format: int64
@@ -1864,6 +1989,12 @@ components:
         metadataType:
           type: integer
           format: int64
+      required:
+        - key
+        - keyType
+        - eventType
+        - metadata
+        - metadataType
     SignerEventType:
       type: string
       default: SIGNER_EVENT_TYPE_ADD
@@ -1877,6 +2008,8 @@ components:
         migratedAt:
           type: integer
           format: int64
+      required:
+        - migratedAt
     SignerRequest:
       type: object
       properties:
@@ -1920,6 +2053,10 @@ components:
         expiry:
           type: integer
           format: int64
+      required:
+        - payer
+        - units
+        - expiry
     StoreType:
       type: string
       default: STORE_TYPE_CASTS

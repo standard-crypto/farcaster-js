@@ -19,6 +19,7 @@ export * from './apis/fids-api';
 export * from './apis/hub-service-api';
 export * from './apis/info-api';
 export * from './apis/links-api';
+export * from './apis/on-chain-api';
 export * from './apis/reactions-api';
 export * from './apis/storage-api';
 export * from './apis/user-data-api';

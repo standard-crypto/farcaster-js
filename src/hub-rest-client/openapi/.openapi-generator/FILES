@@ -6,6 +6,7 @@ apis/fids-api.ts
 apis/hub-service-api.ts
 apis/info-api.ts
 apis/links-api.ts
+apis/on-chain-api.ts
 apis/reactions-api.ts
 apis/storage-api.ts
 apis/user-data-api.ts
@@ -50,6 +51,9 @@ models/links-by-fid-request.ts
 models/links-by-target-request.ts
 models/list-casts-by-fid200-response.ts
 models/list-links-by-fid200-response.ts
+models/list-on-chain-events-by-fid200-response.ts
+models/list-on-chain-signers-by-fid200-response-one-of.ts
+models/list-on-chain-signers-by-fid200-response.ts
 models/list-reactions-by-cast200-response.ts
 models/list-verifications-by-fid200-response.ts
 models/merge-message-body.ts
@@ -71,8 +75,17 @@ models/message-data-verification-add-all-of.ts
 models/message-data-verification-add.ts
 models/message-type.ts
 models/messages-response.ts
+models/on-chain-event-common.ts
+models/on-chain-event-id-register-all-of.ts
+models/on-chain-event-id-register.ts
 models/on-chain-event-request.ts
 models/on-chain-event-response.ts
+models/on-chain-event-signer-all-of.ts
+models/on-chain-event-signer-migrated-all-of.ts
+models/on-chain-event-signer-migrated.ts
+models/on-chain-event-signer.ts
+models/on-chain-event-storage-rent-all-of.ts
+models/on-chain-event-storage-rent.ts
 models/on-chain-event-type.ts
 models/on-chain-event.ts
 models/protobuf-any.ts

@@ -28,31 +28,31 @@ export interface SignerEventBody {
      * @type {string}
      * @memberof SignerEventBody
      */
-    'key'?: string;
+    'key': string;
     /**
      * 
      * @type {number}
      * @memberof SignerEventBody
      */
-    'keyType'?: number;
+    'keyType': number;
     /**
      * 
      * @type {SignerEventType}
      * @memberof SignerEventBody
      */
-    'eventType'?: SignerEventType;
+    'eventType': SignerEventType;
     /**
      * 
      * @type {string}
      * @memberof SignerEventBody
      */
-    'metadata'?: string;
+    'metadata': string;
     /**
      * 
      * @type {number}
      * @memberof SignerEventBody
      */
-    'metadataType'?: number;
+    'metadataType': number;
 }
 
 

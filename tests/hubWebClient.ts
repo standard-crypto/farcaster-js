@@ -12,6 +12,9 @@ import { expectDefinedNonNull, expectFalse } from "./utils";
 import {
   GetUserDataByFid200ResponseOneOf,
   LinkType,
+  ListOnChainSignersByFid200Response,
+  ListOnChainSignersByFid200ResponseOneOf,
+  OnChainEventType,
   ReactionType,
   UserDataAdd,
   UserDataType,
@@ -560,7 +563,7 @@ describe.only("HubWebClient", function () {
     });
   });
 
-  describe.only("Verifications API", function () {
+  describe("Verifications API", function () {
     describe("#listVerificationsByFid", function () {
       it("validates against OpenAPI spec", async function () {
         const response = await client.apis.verifications.listVerificationsByFid(
@@ -576,6 +579,157 @@ describe.only("HubWebClient", function () {
         });
         const errors = validator.validateResponse(200, response.data);
         expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+    });
+  });
+
+  describe("OnChain Events API", function () {
+    describe("#listOnChainEventsByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        for (const eventType of [
+          OnChainEventType.Signer,
+          // TODO: find an FID with this event
+          // OnChainEventType.SignerMigrated,
+          OnChainEventType.IdRegister,
+          OnChainEventType.StorageRent,
+        ]) {
+          const response = await client.apis.onChain.listOnChainEventsByFid({
+            fid: 3,
+            eventType,
+          });
+          expect(response.data.events).to.not.be.empty;
+          const validator = new OpenAPIResponseValidator({
+            responses: apiSpec.paths["/v1/onChainEventsByFid"].get
+              .responses as any,
+            components: apiSpec.components,
+          });
+          const errors = validator.validateResponse(200, response.data);
+          expect(errors, JSON.stringify(errors)).is.undefined;
+        }
+      });
+
+      it("returns OnChainSigner events", async function () {
+        const events = await client.listOnChainEventsByFid(
+          2,
+          OnChainEventType.Signer
+        );
+        expect(events).to.not.be.empty;
+        const event = events[0];
+        expect(event.type).to.eq(OnChainEventType.Signer);
+        expectDefinedNonNull(event.signerEventBody);
+      });
+
+      it("returns IdRegister events", async function () {
+        const events = await client.listOnChainEventsByFid(
+          2,
+          OnChainEventType.IdRegister
+        );
+        expect(events).to.not.be.empty;
+        const event = events[0];
+        expect(event.type).to.eq(OnChainEventType.IdRegister);
+        expectDefinedNonNull(event.idRegisterEventBody);
+      });
+
+      // TODO: find an FID with SignerMigrated events
+      it.skip("returns SignerMigrated events", async function () {
+        const events = await client.listOnChainEventsByFid(
+          2,
+          OnChainEventType.SignerMigrated
+        );
+        expect(events).to.not.be.empty;
+        const event = events[0];
+        expect(event.type).to.eq(OnChainEventType.SignerMigrated);
+        expectDefinedNonNull(event.signerMigratedEventBody);
+      });
+
+      it("returns StorageRent events", async function () {
+        const events = await client.listOnChainEventsByFid(
+          2,
+          OnChainEventType.StorageRent
+        );
+        expect(events).to.not.be.empty;
+        const event = events[0];
+        expect(event.type).to.eq(OnChainEventType.StorageRent);
+        expectDefinedNonNull(event.storageRentEventBody);
+      });
+    });
+
+    describe("#getOnChainSignerEventBySigner", function () {
+      it("validates against OpenAPI spec", async function () {
+        // Provide the `signer` param
+        const response = await client.apis.onChain.listOnChainSignersByFid({
+          fid: 6833,
+          signer:
+            "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd",
+        });
+        expect(response.data).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/onChainSignersByFid"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        let errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+
+        // Omit the `signer` param
+        const listResponse = await client.apis.onChain.listOnChainSignersByFid({
+          fid: 6833,
+        });
+        expect(listResponse.data).to.have.property("events");
+        expect(
+          (listResponse.data as ListOnChainSignersByFid200ResponseOneOf).events
+        ).to.not.be.empty;
+        errors = validator.validateResponse(200, listResponse.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("returns the appropriate event", async function () {
+        const event = await client.getOnChainSignerEventBySigner(
+          6833,
+          "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd"
+        );
+        expectDefinedNonNull(event);
+        expectDefinedNonNull(event.signerEventBody);
+      });
+
+      it("returns null if signer not found", async function () {
+        const event = await client.getOnChainSignerEventBySigner(
+          6833,
+          "0x0000000000000000000000000000000000000000000000000000000000000000"
+        );
+        expect(event).to.be.null;
+      });
+    });
+
+    describe("#getOnChainIdRegistryEventByAddress", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response =
+          await client.apis.onChain.getOnChainIdRegistrationByAddress({
+            address: "0x74232bf61e994655592747e20bdf6fa9b9476f79",
+          });
+        expect(response.data).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/onChainIdRegistryEventByAddress"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("returns the appropriate event", async function () {
+        const event = await client.getOnChainIdRegistryEventByAddress(
+          "0x74232bf61e994655592747e20bdf6fa9b9476f79"
+        );
+        expectDefinedNonNull(event);
+        expectDefinedNonNull(event.idRegisterEventBody);
+      });
+
+      it("returns null if signer not found", async function () {
+        const event = await client.getOnChainIdRegistryEventByAddress(
+          "0x0000000000000000000000000000000000000000"
+        );
+        expect(event).to.be.null;
       });
     });
   });

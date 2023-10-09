@@ -13,30 +13,23 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { OnChainEventType } from './on-chain-event-type';
 
 /**
  * 
  * @export
- * @interface StorageRentEventBody
+ * @interface OnChainEventAllOf
  */
-export interface StorageRentEventBody {
+export interface OnChainEventAllOf {
     /**
      * 
-     * @type {string}
-     * @memberof StorageRentEventBody
+     * @type {OnChainEventType}
+     * @memberof OnChainEventAllOf
      */
-    'payer': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'units': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'expiry': number;
+    'type': OnChainEventType;
 }
+
+
 

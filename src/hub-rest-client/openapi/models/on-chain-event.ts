@@ -18,7 +18,16 @@
 import { IdRegisterEventBody } from './id-register-event-body';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventType } from './on-chain-event-type';
+import { OnChainEventIdRegister } from './on-chain-event-id-register';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OnChainEventSigner } from './on-chain-event-signer';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OnChainEventSignerMigrated } from './on-chain-event-signer-migrated';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OnChainEventStorageRent } from './on-chain-event-storage-rent';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SignerEventBody } from './signer-event-body';
@@ -30,90 +39,9 @@ import { SignerMigratedEventBody } from './signer-migrated-event-body';
 import { StorageRentEventBody } from './storage-rent-event-body';
 
 /**
- * 
+ * @type OnChainEvent
  * @export
- * @interface OnChainEvent
  */
-export interface OnChainEvent {
-    /**
-     * 
-     * @type {OnChainEventType}
-     * @memberof OnChainEvent
-     */
-    'type'?: OnChainEventType;
-    /**
-     * 
-     * @type {number}
-     * @memberof OnChainEvent
-     */
-    'chainId'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OnChainEvent
-     */
-    'blockNumber'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OnChainEvent
-     */
-    'blockHash'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OnChainEvent
-     */
-    'blockTimestamp'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OnChainEvent
-     */
-    'transactionHash'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OnChainEvent
-     */
-    'logIndex'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OnChainEvent
-     */
-    'fid'?: number;
-    /**
-     * 
-     * @type {SignerEventBody}
-     * @memberof OnChainEvent
-     */
-    'signerEventBody'?: SignerEventBody;
-    /**
-     * 
-     * @type {SignerMigratedEventBody}
-     * @memberof OnChainEvent
-     */
-    'signerMigratedEventBody'?: SignerMigratedEventBody;
-    /**
-     * 
-     * @type {IdRegisterEventBody}
-     * @memberof OnChainEvent
-     */
-    'idRegisterEventBody'?: IdRegisterEventBody;
-    /**
-     * 
-     * @type {StorageRentEventBody}
-     * @memberof OnChainEvent
-     */
-    'storageRentEventBody'?: StorageRentEventBody;
-    /**
-     * 
-     * @type {number}
-     * @memberof OnChainEvent
-     */
-    'txIndex'?: number;
-}
-
+export type OnChainEvent = { type: 'EVENT_TYPE_ID_REGISTER' } & OnChainEventIdRegister | { type: 'EVENT_TYPE_SIGNER' } & OnChainEventSigner | { type: 'EVENT_TYPE_SIGNER_MIGRATED' } & OnChainEventSignerMigrated | { type: 'EVENT_TYPE_STORAGE_RENT' } & OnChainEventStorageRent;
 
 

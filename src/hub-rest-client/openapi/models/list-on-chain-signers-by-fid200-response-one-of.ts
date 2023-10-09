@@ -13,30 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { OnChainEventSigner } from './on-chain-event-signer';
 
 /**
  * 
  * @export
- * @interface StorageRentEventBody
+ * @interface ListOnChainSignersByFid200ResponseOneOf
  */
-export interface StorageRentEventBody {
+export interface ListOnChainSignersByFid200ResponseOneOf {
     /**
      * 
-     * @type {string}
-     * @memberof StorageRentEventBody
+     * @type {Array<OnChainEventSigner>}
+     * @memberof ListOnChainSignersByFid200ResponseOneOf
      */
-    'payer': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'units': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'expiry': number;
+    'events': Array<OnChainEventSigner>;
 }
 

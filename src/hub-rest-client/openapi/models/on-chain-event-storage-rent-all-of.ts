@@ -13,30 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { StorageRentEventBody } from './storage-rent-event-body';
 
 /**
  * 
  * @export
- * @interface StorageRentEventBody
+ * @interface OnChainEventStorageRentAllOf
  */
-export interface StorageRentEventBody {
+export interface OnChainEventStorageRentAllOf {
     /**
      * 
-     * @type {string}
-     * @memberof StorageRentEventBody
+     * @type {StorageRentEventBody}
+     * @memberof OnChainEventStorageRentAllOf
      */
-    'payer': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'units': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'expiry': number;
+    'storageRentEventBody': StorageRentEventBody;
 }
 

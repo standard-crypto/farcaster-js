@@ -81,15 +81,20 @@ export interface paths {
     /** Get all links to a target FID */
     get: operations["ListLinksByTargetFid"];
   };
-  "/HubService/GetOnChainEvents": {
-    post: operations["HubService_GetOnChainEvents"];
+  "/v1/onChainIdRegistryEventByAddress": {
+    /** Get an on chain ID Registry Event for a given Address */
+    get: operations["GetOnChainIdRegistrationByAddress"];
   };
-  "/HubService/GetOnChainSigner": {
-    /** OnChain Events */
-    post: operations["HubService_GetOnChainSigner"];
+  "/v1/onChainEventsByFid": {
+    /** Get a list of on-chain events provided by an FID */
+    get: operations["ListOnChainEventsByFid"];
   };
-  "/HubService/GetOnChainSignersByFid": {
-    post: operations["HubService_GetOnChainSignersByFid"];
+  "/v1/onChainSignersByFid": {
+    /**
+     * Get a list of signers provided by an FID
+     * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a paginated list of `OnChainEventSigner` messages is returned instead
+     */
+    get: operations["ListOnChainSignersByFid"];
   };
   "/v1/reactionById": {
     /** Get a reaction by its created FID and target Cast. */
@@ -296,13 +301,12 @@ export interface components {
       hubOperatorFid: number;
     };
     IdRegisterEventBody: {
-      /** Format: byte */
-      to?: string;
-      eventType?: components["schemas"]["IdRegisterEventType"];
-      /** Format: byte */
-      from?: string;
-      /** Format: byte */
-      recoveryAddress?: string;
+      to: string;
+      eventType: components["schemas"]["IdRegisterEventType"];
+      /** @example 0x */
+      from: string;
+      /** @example 0x00000000fcd5a8e45785c8a4b9a718c9348e4f18 */
+      recoveryAddress: string;
     };
     /**
      * @default ID_REGISTER_EVENT_TYPE_REGISTER
@@ -310,7 +314,6 @@ export interface components {
      */
     IdRegisterEventType: "ID_REGISTER_EVENT_TYPE_REGISTER" | "ID_REGISTER_EVENT_TYPE_TRANSFER" | "ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY";
     IdRegistryEventByAddressRequest: {
-      /** Format: byte */
       address?: string;
     };
     LinkAdd: components["schemas"]["MessageCommon"] & {
@@ -384,9 +387,10 @@ export interface components {
      */
     Message: Record<string, never>;
     MessageCommon: {
+      /** @example MESSAGE_TYPE_CAST_ADD */
+      type: string;
       /**
        * Hash digest of data
-       * Format: byte
        * @example 0xd2b1ddc6c88e865a33cb1a565e0058d757042974
        */
       hash: string;
@@ -397,10 +401,7 @@ export interface components {
        */
       signature: string;
       signatureScheme: components["schemas"]["SignatureScheme"];
-      /**
-       * Public key or address of the key pair that produced the signature
-       * Format: byte
-       */
+      /** Public key or address of the key pair that produced the signature */
       signer: string;
     };
     MessageDataCommon: {
@@ -462,28 +463,32 @@ export interface components {
       /** Format: byte */
       nextPageToken: string;
     };
-    OnChainEvent: {
-      type?: components["schemas"]["OnChainEventType"];
-      /** Format: int64 */
-      chainId?: number;
-      /** Format: int64 */
-      blockNumber?: number;
-      /** Format: byte */
-      blockHash?: string;
-      /** Format: uint64 */
-      blockTimestamp?: number;
-      /** Format: byte */
-      transactionHash?: string;
-      /** Format: int64 */
-      logIndex?: number;
-      /** Format: uint64 */
-      fid?: number;
-      signerEventBody?: components["schemas"]["SignerEventBody"];
-      signerMigratedEventBody?: components["schemas"]["SignerMigratedEventBody"];
-      idRegisterEventBody?: components["schemas"]["IdRegisterEventBody"];
-      storageRentEventBody?: components["schemas"]["StorageRentEventBody"];
-      /** Format: int64 */
-      txIndex?: number;
+    OnChainEvent: components["schemas"]["OnChainEventSigner"] | components["schemas"]["OnChainEventSignerMigrated"] | components["schemas"]["OnChainEventIdRegister"] | components["schemas"]["OnChainEventStorageRent"];
+    OnChainEventCommon: {
+      /** @example EVENT_TYPE_SIGNER */
+      type: string;
+      chainId: number;
+      blockNumber: number;
+      /** @example 0x75fbbb8b2a4ede67ac350e1b0503c6a152c0091bd8e3ef4a6927d58e088eae28 */
+      blockHash: string;
+      blockTimestamp: number;
+      /** @example 0x36ef79e6c460e6ae251908be13116ff0065960adb1ae032b4cc65a8352f28952 */
+      transactionHash: string;
+      logIndex: number;
+      txIndex: number;
+      fid: number;
+    };
+    OnChainEventSigner: components["schemas"]["OnChainEventCommon"] & {
+      signerEventBody: components["schemas"]["SignerEventBody"];
+    };
+    OnChainEventSignerMigrated: components["schemas"]["OnChainEventCommon"] & {
+      signerMigratedEventBody: components["schemas"]["SignerMigratedEventBody"];
+    };
+    OnChainEventIdRegister: components["schemas"]["OnChainEventCommon"] & {
+      idRegisterEventBody: components["schemas"]["IdRegisterEventBody"];
+    };
+    OnChainEventStorageRent: components["schemas"]["OnChainEventCommon"] & {
+      storageRentEventBody: components["schemas"]["StorageRentEventBody"];
     };
     OnChainEventRequest: {
       /** Format: uint64 */
@@ -565,15 +570,14 @@ export interface components {
      */
     SignatureScheme: "SIGNATURE_SCHEME_ED25519" | "SIGNATURE_SCHEME_EIP712";
     SignerEventBody: {
-      /** Format: byte */
-      key?: string;
+      key: string;
       /** Format: int64 */
-      keyType?: number;
-      eventType?: components["schemas"]["SignerEventType"];
+      keyType: number;
+      eventType: components["schemas"]["SignerEventType"];
       /** Format: byte */
-      metadata?: string;
+      metadata: string;
       /** Format: int64 */
-      metadataType?: number;
+      metadataType: number;
     };
     /**
      * @default SIGNER_EVENT_TYPE_ADD
@@ -582,7 +586,7 @@ export interface components {
     SignerEventType: "SIGNER_EVENT_TYPE_ADD" | "SIGNER_EVENT_TYPE_REMOVE" | "SIGNER_EVENT_TYPE_ADMIN_RESET";
     SignerMigratedEventBody: {
       /** Format: int64 */
-      migratedAt?: number;
+      migratedAt: number;
     };
     SignerRequest: {
       /** Format: uint64 */
@@ -600,11 +604,11 @@ export interface components {
     };
     StorageRentEventBody: {
       /** Format: byte */
-      payer?: string;
+      payer: string;
       /** Format: int64 */
-      units?: number;
+      units: number;
       /** Format: int64 */
-      expiry?: number;
+      expiry: number;
     };
     /**
      * @default STORE_TYPE_CASTS
@@ -689,9 +693,8 @@ export interface components {
     UserNameProof: {
       /** Format: uint64 */
       timestamp: number;
-      /** Format: byte */
+      /** @example gavi */
       name: string;
-      /** Format: byte */
       owner: string;
       /** Format: byte */
       signature: string;
@@ -705,7 +708,7 @@ export interface components {
      */
     UserNameType: "USERNAME_TYPE_FNAME" | "USERNAME_TYPE_ENS_L1";
     UsernameProofRequest: {
-      /** Format: byte */
+      /** @example gavi */
       name?: string;
     };
     UsernameProofsResponse: {
@@ -716,20 +719,14 @@ export interface components {
     };
     /** * Adds a Verification of ownership of an Ethereum Address */
     VerificationAddEthAddressBody: {
-      /**
-       * Ethereum address being verified
-       * Format: byte
-       */
+      /** Ethereum address being verified */
       address?: string;
       /**
        * Signature produced by the user's Ethereum address
        * Format: byte
        */
       ethSignature?: string;
-      /**
-       * Hash of the latest Ethereum block when the signature was produced
-       * Format: byte
-       */
+      /** Hash of the latest Ethereum block when the signature was produced */
       blockHash?: string;
     };
     /** * Removes a Verification of any type */
@@ -1167,50 +1164,69 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetOnChainEvents: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["OnChainEventRequest"];
+  /** Get an on chain ID Registry Event for a given Address */
+  GetOnChainIdRegistrationByAddress: {
+    parameters: {
+      query: {
+        /** @description The ETH address being requested */
+        address: string;
       };
     };
     responses: {
       /** @description A successful response. */
       200: {
         content: {
-          "application/json": components["schemas"]["OnChainEventResponse"];
+          "application/json": components["schemas"]["OnChainEventIdRegister"];
         };
       };
       default: components["responses"]["ErrorResponse"];
     };
   };
-  /** OnChain Events */
-  HubService_GetOnChainSigner: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SignerRequest"];
+  /** Get a list of on-chain events provided by an FID */
+  ListOnChainEventsByFid: {
+    parameters: {
+      query: {
+        /** @description The FID being requested */
+        fid: number;
+        /** @description The numeric of string value of the event type being requested. */
+        event_type: components["schemas"]["OnChainEventType"];
       };
     };
     responses: {
       /** @description A successful response. */
       200: {
         content: {
-          "application/json": components["schemas"]["OnChainEvent"];
+          "application/json": {
+            events: components["schemas"]["OnChainEvent"][];
+          };
         };
       };
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetOnChainSignersByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
+  /**
+   * Get a list of signers provided by an FID
+   * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a paginated list of `OnChainEventSigner` messages is returned instead
+   */
+  ListOnChainSignersByFid: {
+    parameters: {
+      query: {
+        /** @description The FID being requested */
+        fid: number;
+        /**
+         * @description The optional key of signer
+         * @example 0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd
+         */
+        signer?: string;
       };
     };
     responses: {
       /** @description A successful response. */
       200: {
         content: {
-          "application/json": components["schemas"]["OnChainEventResponse"];
+          "application/json": OneOf<[components["schemas"]["OnChainEventSigner"], {
+            events: components["schemas"]["OnChainEventSigner"][];
+          }]>;
         };
       };
       default: components["responses"]["ErrorResponse"];

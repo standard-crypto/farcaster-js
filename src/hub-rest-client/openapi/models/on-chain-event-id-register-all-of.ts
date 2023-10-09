@@ -13,30 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { IdRegisterEventBody } from './id-register-event-body';
 
 /**
  * 
  * @export
- * @interface StorageRentEventBody
+ * @interface OnChainEventIdRegisterAllOf
  */
-export interface StorageRentEventBody {
+export interface OnChainEventIdRegisterAllOf {
     /**
      * 
-     * @type {string}
-     * @memberof StorageRentEventBody
+     * @type {IdRegisterEventBody}
+     * @memberof OnChainEventIdRegisterAllOf
      */
-    'payer': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'units': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageRentEventBody
-     */
-    'expiry': number;
+    'idRegisterEventBody': IdRegisterEventBody;
 }
 
