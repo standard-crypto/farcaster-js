@@ -292,6 +292,9 @@ export interface components {
        */
       targetFid?: number;
     };
+    LinkRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataLink"];
+    };
     /**
      * * Type of Link
      * @description - follow: Follow another user
@@ -320,15 +323,6 @@ export interface components {
     Message: ({
       data: components["schemas"]["MessageDataCastAdd"] | components["schemas"]["MessageDataCastRemove"] | components["schemas"]["MessageDataReaction"] | components["schemas"]["MessageDataLink"] | components["schemas"]["MessageDataVerificationAdd"] | components["schemas"]["MessageDataVerificationRemove"] | components["schemas"]["MessageDataUserDataAdd"] | components["schemas"]["MessageDataUsernameProof"];
     }) & components["schemas"]["MessageCommon"];
-    ReactionRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataReaction"];
-    };
-    LinkRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataLink"];
-    };
-    VerificationRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataVerificationRemove"];
-    };
     MessageCommon: {
       /**
        * Hash digest of data
@@ -450,6 +444,9 @@ export interface components {
       /** URL to react to */
       targetUrl?: string;
     };
+    ReactionRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataReaction"];
+    };
     /**
      * * Type of Reaction
      * @description - REACTION_TYPE_LIKE: Like the target cast
@@ -563,6 +560,9 @@ export interface components {
       ethSignature: string;
       /** Hash of the latest Ethereum block when the signature was produced */
       blockHash: string;
+    };
+    VerificationRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataVerificationRemove"];
     };
     /** * Removes a Verification of any type */
     VerificationRemoveBody: {

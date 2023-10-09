@@ -1210,6 +1210,13 @@ components:
           title: The fid the link relates to
           type: integer
           format: uint64
+    LinkRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataLink'
     LinkType:
       title: '* Type of Link'
       type: string
@@ -1279,27 +1286,6 @@ components:
       description: "* \nA Message is a delta operation on the Farcaster network. The\
         \ message protobuf is an envelope \nthat wraps a MessageData object and contains\
         \ a hash and signature which can verify its authenticity."
-    ReactionRemove:
-      allOf:
-        - $ref: '#/components/schemas/MessageCommon'
-        - type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/MessageDataReaction'
-    LinkRemove:
-      allOf:
-        - $ref: '#/components/schemas/MessageCommon'
-        - type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/MessageDataLink'
-    VerificationRemove:
-      allOf:
-        - $ref: '#/components/schemas/MessageCommon'
-        - type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/MessageDataVerificationRemove'
     MessageCommon:
       type: object
       properties:
@@ -1569,6 +1555,13 @@ components:
           type: string
       required:
         - type
+    ReactionRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataReaction'
     ReactionType:
       title: '* Type of Reaction'
       type: string
@@ -1790,6 +1783,13 @@ components:
         - address
         - ethSignature
         - blockHash
+    VerificationRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataVerificationRemove'
     VerificationRemoveBody:
       title: '* Removes a Verification of any type'
       type: object
