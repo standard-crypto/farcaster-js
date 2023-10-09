@@ -1,38 +1,60 @@
 import {
-  Cast,
+  Cast as v1Cast,
   User,
-  CastApi,
+  CastApi as CastApiV1,
   UserApi,
   VerificationApi,
   NotificationsApi,
   ReactionsApi,
-  FollowsApi,
+  FollowsApi as FollowsApiV1,
   Configuration,
   ErrorRes,
   Reaction,
   ReactionWithCastMeta,
   VerificationResponseResult,
-} from "./swagger";
+} from "./neynarV1API/swagger";
+import {
+  CastApi as CastApiV2,
+  SignerApi,
+  Signer,
+  Cast as v2Cast,
+  CastParamType,
+  PostCastReqBody,
+  PostCastResponseCast,
+  DeleteCastReqBody,
+  RegisterSignerKeyReqBody,
+  ReactionApi,
+  ReactionReqBody,
+  ReactionType,
+  OperationResponse,
+  FollowApi as FollowApiV2,
+  FollowReqBody,
+  BulkFollowResponse,
+} from "./neynarV2API/swagger";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { silentLogger, Logger } from "./logger";
 import type { WithRequired } from "../utils";
 
-const BASE_PATH = "https://api.neynar.com/v1";
+const BASE_PATH = "https://api.neynar.com/";
 
-export class NeynarV1APIClient {
+export class NeynarAPIClient {
   private readonly logger: Logger;
 
   public readonly apis: {
     user: UserApi;
-    cast: CastApi;
+    v1Cast: CastApiV1;
     verification: VerificationApi;
     notifications: NotificationsApi;
     reactions: ReactionsApi;
-    follows: FollowsApi;
+    v1Follows: FollowsApiV1;
+    signer: SignerApi;
+    v2Cast: CastApiV2;
+    reaction: ReactionApi;
+    v2Follow: FollowApiV2;
   };
 
   /**
-   * Instantiates a MerkleAPIClient
+   * Instantiates a NeynarV1APIClient
    *
    * Note: A Wallet must be provided if the API client is to mint new AuthTokens
    */
@@ -58,7 +80,7 @@ export class NeynarV1APIClient {
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (NeynarV1APIClient.isApiErrorResponse(error)) {
+        if (NeynarAPIClient.isApiErrorResponse(error)) {
           const apiErrors = error.response.data;
           this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
         }
@@ -66,17 +88,25 @@ export class NeynarV1APIClient {
       }
     );
 
-    const config: Configuration = new Configuration({
-      basePath: BASE_PATH,
+    const v1Config: Configuration = new Configuration({
+      basePath: BASE_PATH + "v1",
+      apiKey: apiKey,
+    });
+    const v2Config: Configuration = new Configuration({
+      basePath: BASE_PATH + "v2",
       apiKey: apiKey,
     });
     this.apis = {
-      cast: new CastApi(config, undefined, axiosInstance),
-      user: new UserApi(config, undefined, axiosInstance),
-      verification: new VerificationApi(config, undefined, axiosInstance),
-      notifications: new NotificationsApi(config, undefined, axiosInstance),
-      reactions: new ReactionsApi(config, undefined, axiosInstance),
-      follows: new FollowsApi(config, undefined, axiosInstance),
+      v1Cast: new CastApiV1(v1Config, undefined, axiosInstance),
+      user: new UserApi(v1Config, undefined, axiosInstance),
+      verification: new VerificationApi(v1Config, undefined, axiosInstance),
+      notifications: new NotificationsApi(v1Config, undefined, axiosInstance),
+      reactions: new ReactionsApi(v1Config, undefined, axiosInstance),
+      v1Follows: new FollowsApiV1(v1Config, undefined, axiosInstance),
+      v2Cast: new CastApiV2(v2Config, undefined, axiosInstance),
+      signer: new SignerApi(v2Config, undefined, axiosInstance),
+      reaction: new ReactionApi(v2Config, undefined, axiosInstance),
+      v2Follow: new FollowApiV2(v2Config, undefined, axiosInstance),
     };
   }
 
@@ -94,20 +124,183 @@ export class NeynarV1APIClient {
   }
 
   /**
-   * Gets information about an individual cast
+   * Creates a Signer. See [Neynar documentation](https://docs.neynar.com/reference/create-signer)
+   * for more details.
    */
-  public async fetchCast(
-    castOrCastHash: Cast | string
-  ): Promise<Cast | undefined> {
+  public async createSigner(): Promise<Signer> {
+    const response = await this.apis.signer.createSigner();
+    return response.data;
+  }
+
+  /**
+   * Fetches an existing Signer. See [Neynar documentation](https://docs.neynar.com/reference/get-signer)
+   * for more details.
+   *
+   */
+  public async fetchSigner(signerUuid: string): Promise<Signer | undefined> {
+    try {
+      const response = await this.apis.signer.signer(signerUuid);
+      return response.data;
+    } catch (error) {
+      if (NeynarAPIClient.isApiErrorResponse(error)) {
+        const status = error.response.status;
+        if (status === 404) {
+          return undefined;
+        }
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Registers a Signer with an fid. See [Neynar documentation](https://docs.neynar.com/reference/register-app-fid)
+   * for more details.
+   */
+  public async registerSigner(
+    signerUuid: string,
+    fid: number,
+    deadline: number,
+    signature: string
+  ): Promise<Signer> {
+    const body: RegisterSignerKeyReqBody = {
+      signer_uuid: signerUuid,
+      app_fid: fid,
+      deadline,
+      signature,
+    };
+    const response = await this.apis.signer.registerSignedKey(body);
+    return response.data;
+  }
+
+  /**
+   * Gets information about an individual cast using neynar v1 API
+   */
+  public async v1FetchCast(
+    castOrCastHash: v1Cast | string
+  ): Promise<v1Cast | undefined> {
     let castHash: string;
     if (typeof castOrCastHash === "string") {
       castHash = castOrCastHash;
     } else {
       castHash = castOrCastHash.hash;
     }
-    const response = await this.apis.cast.cast(castHash);
+    const response = await this.apis.v1Cast.cast(castHash);
     if (response.status === 404) return undefined;
     return response.data.result.cast ?? undefined;
+  }
+
+  /**
+   * Gets information about an individual cast
+   */
+  public async fetchCast(
+    castOrCastHash: v2Cast | string
+  ): Promise<v2Cast | undefined> {
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    try {
+      const response = await this.apis.v2Cast.cast(
+        CastParamType.Hash,
+        castHash
+      );
+      return response.data.cast ?? undefined;
+    } catch (error) {
+      if (NeynarAPIClient.isApiErrorResponse(error)) {
+        const status = error.response.status;
+        if (status === 404) {
+          return undefined;
+        }
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Publishes a cast for the currently authenticated user
+   */
+  public async publishCast(
+    signerUuid: string,
+    text: string,
+    replyTo?: v2Cast | { fid?: number; hash: string },
+    embeds?: string[]
+  ): Promise<PostCastResponseCast> {
+    const body: PostCastReqBody = {
+      signer_uuid: signerUuid,
+      text: text,
+      embeds: embeds !== undefined ? [{ url: embeds[0] }] : undefined,
+      parent: replyTo !== undefined ? replyTo.hash : undefined,
+    };
+    const response = await this.apis.v2Cast.postCast(body);
+    return response.data.cast;
+  }
+
+  /**
+   * Delete a cast
+   */
+  public async deleteCast(
+    signerUuid: string,
+    castOrCastHash: v2Cast | string
+  ): Promise<void> {
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    const body: DeleteCastReqBody = {
+      signer_uuid: signerUuid,
+      target_hash: castHash,
+    };
+    await this.apis.v2Cast.deleteCast(body);
+  }
+
+  /**
+   * React to a cast
+   */
+  public async reactToCast(
+    signerUuid: string,
+    reaction: ReactionType,
+    castOrCastHash: v2Cast | string
+  ): Promise<OperationResponse> {
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    const body: ReactionReqBody = {
+      signer_uuid: signerUuid,
+      reaction_type: reaction,
+      target: castHash,
+    };
+    const response = await this.apis.reaction.postReaction(body);
+    return response.data;
+  }
+
+  /**
+   * Remove a reaction to a cast
+   */
+  public async removeReactionToCast(
+    signerUuid: string,
+    reaction: ReactionType,
+    castOrCastHash: v2Cast | string
+  ): Promise<OperationResponse> {
+    let castHash: string;
+    if (typeof castOrCastHash === "string") {
+      castHash = castOrCastHash;
+    } else {
+      castHash = castOrCastHash.hash;
+    }
+    const body: ReactionReqBody = {
+      signer_uuid: signerUuid,
+      reaction_type: reaction,
+      target: castHash,
+    };
+    const response = await this.apis.reaction.deleteReaction(body);
+    return response.data;
   }
 
   /**
@@ -115,9 +308,9 @@ export class NeynarV1APIClient {
    * Note that the parent provided by the caller is included in the response.
    */
   public async fetchCastsInThread(
-    threadParent: Cast | { hash: string }
-  ): Promise<Cast[] | undefined> {
-    const response = await this.apis.cast.allCastsInThread(threadParent.hash);
+    threadParent: v1Cast | { hash: string }
+  ): Promise<v1Cast[] | undefined> {
+    const response = await this.apis.v1Cast.allCastsInThread(threadParent.hash);
     return response.data.result.casts;
   }
 
@@ -130,13 +323,13 @@ export class NeynarV1APIClient {
   public async *fetchCastsForUser(
     user: { fid: number },
     { pageSize = 100 } = {}
-  ): AsyncGenerator<Cast, void, undefined> {
+  ): AsyncGenerator<v1Cast, void, undefined> {
     let cursor: string | undefined;
     let viewer: number | undefined;
 
     while (true) {
       // fetch one page of casts (with refreshed auth if necessary)
-      const response = await this.apis.cast.casts(
+      const response = await this.apis.v1Cast.casts(
         user.fid,
         viewer,
         cursor,
@@ -157,7 +350,7 @@ export class NeynarV1APIClient {
   }
 
   public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
-    Cast,
+    v1Cast,
     void,
     undefined
   > {
@@ -166,7 +359,7 @@ export class NeynarV1APIClient {
 
     while (true) {
       // fetch one page of casts (with refreshed auth if necessary)
-      const response = await this.apis.cast.recentCasts(
+      const response = await this.apis.v1Cast.recentCasts(
         viewer,
         cursor,
         pageSize
@@ -263,7 +456,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.user.user(fid);
       return response.data.result?.user;
     } catch (error) {
-      if (NeynarV1APIClient.isApiErrorResponse(error)) {
+      if (NeynarAPIClient.isApiErrorResponse(error)) {
         if (error.response.status === 404) return undefined;
       }
       throw error;
@@ -318,7 +511,7 @@ export class NeynarV1APIClient {
         ? response.data.result.user
         : undefined;
     } catch (error) {
-      if (NeynarV1APIClient.isApiErrorResponse(error)) {
+      if (NeynarAPIClient.isApiErrorResponse(error)) {
         if (error.response.status === 404) return undefined;
       }
       throw error;
@@ -328,7 +521,7 @@ export class NeynarV1APIClient {
   public async *fetchMentionAndReplyNotifications(
     fid: number,
     { pageSize = 100 } = {}
-  ): AsyncGenerator<Cast, void, undefined> {
+  ): AsyncGenerator<v1Cast, void, undefined> {
     let cursor: string | undefined;
     let viewer: number | undefined;
 
@@ -356,7 +549,7 @@ export class NeynarV1APIClient {
    * Lists a given cast's likes
    */
   public async *fetchCastLikes(
-    castOrCastHash: Cast | string,
+    castOrCastHash: v1Cast | string,
     { pageSize = 100 } = {}
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
@@ -392,7 +585,7 @@ export class NeynarV1APIClient {
   public async fetchUserFollowers(user: {
     fid: number;
   }): Promise<User[] | undefined> {
-    const response = await this.apis.follows.followers(user.fid);
+    const response = await this.apis.v1Follows.followers(user.fid);
 
     return response.data.result.users ?? undefined;
   }
@@ -403,8 +596,68 @@ export class NeynarV1APIClient {
   public async fetchUserFollowing(user: {
     fid: number;
   }): Promise<User[] | undefined> {
-    const response = await this.apis.follows.following(user.fid);
+    const response = await this.apis.v1Follows.following(user.fid);
 
     return response.data.result.users ?? undefined;
+  }
+
+  /**
+   * Follow a user
+   */
+  public async followUser(
+    signerUuid: string,
+    user: { fid: number }
+  ): Promise<BulkFollowResponse> {
+    const body: FollowReqBody = {
+      signer_uuid: signerUuid,
+      target_fids: [user.fid],
+    };
+    const response = await this.apis.v2Follow.followUser(body);
+    return response.data;
+  }
+
+  /**
+   * Follow multiple users
+   */
+  public async followUsers(
+    signerUuid: string,
+    fids: number[]
+  ): Promise<BulkFollowResponse> {
+    const body: FollowReqBody = {
+      signer_uuid: signerUuid,
+      target_fids: fids,
+    };
+    const response = await this.apis.v2Follow.followUser(body);
+    return response.data;
+  }
+
+  /**
+   * Unfollow a user
+   */
+  public async unfollowUser(
+    signerUuid: string,
+    user: { fid: number }
+  ): Promise<BulkFollowResponse> {
+    const body: FollowReqBody = {
+      signer_uuid: signerUuid,
+      target_fids: [user.fid],
+    };
+    const response = await this.apis.v2Follow.unfollowUser(body);
+    return response.data;
+  }
+
+  /**
+   * Unfollow multiple users
+   */
+  public async unfollowUsers(
+    signerUuid: string,
+    fids: number[]
+  ): Promise<BulkFollowResponse> {
+    const body: FollowReqBody = {
+      signer_uuid: signerUuid,
+      target_fids: fids,
+    };
+    const response = await this.apis.v2Follow.unfollowUser(body);
+    return response.data;
   }
 }
