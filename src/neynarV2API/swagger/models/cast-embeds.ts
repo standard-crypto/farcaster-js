@@ -28,4 +28,4 @@ import { EmbedUrl } from "./embed-url";
  * @type CastEmbeds
  * @export
  */
-export type CastEmbeds = (EmbedCastId | EmbedUrl)[];
+export type CastEmbeds = EmbedCastId | EmbedUrl;

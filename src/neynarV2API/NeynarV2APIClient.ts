@@ -7,8 +7,6 @@ import {
   Cast,
   CastParamType,
   PostCastReqBody,
-  CastEmbeds,
-  EmbedUrl,
   PostCastResponseCast,
   DeleteCastReqBody,
   RegisterSignerKeyReqBody,
@@ -180,15 +178,10 @@ export class NeynarV2APIClient {
     replyTo?: Cast | { fid?: number; hash: string },
     embeds?: string[]
   ): Promise<PostCastResponseCast> {
-    const castEmbeds: CastEmbeds = [];
-    for (const embedURL in embeds) {
-      const castEmbed: EmbedUrl = { url: embedURL };
-      castEmbeds.push(castEmbed);
-    }
     const body: PostCastReqBody = {
       signer_uuid: signerUuid,
       text: text,
-      embeds: castEmbeds,
+      embeds: embeds !== undefined ? [{ url: embeds[0] }] : undefined,
       parent: replyTo !== undefined ? replyTo.hash : undefined,
     };
     const response = await this.apis.cast.postCast(body);

@@ -1,3 +1,3 @@
 export * from "./logger";
-export * from "./NeynarAPIClient";
+export * from "./NeynarV1APIClient";
 export * from "./swagger";

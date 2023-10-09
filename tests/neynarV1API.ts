@@ -1,13 +1,12 @@
-import { NeynarAPIClient } from "../src/neynarAPI";
+import { NeynarV1APIClient } from "../src/neynarV1API";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { Logger, silentLogger } from "../src/merkleAPI/logger";
+import { Logger, silentLogger } from "../src/neynarV1API/logger";
 import { expectDefined } from "./utils";
-import { ReactionTypeEnum } from "../src/neynarAPI/swagger";
+import { ReactionTypeEnum } from "../src/neynarV1API/swagger";
 
 chai.use(chaiAsPromised);
 
-// const privateKey = process.env.INTEGRATION_TEST_USER_MNEMONIC;
 const apiKey = process.env.INTEGRATION_TEST_NEYNAR_API_KEY;
 
 const testLogger: Logger = {
@@ -25,13 +24,13 @@ const userDwrFid = 3;
 const userGaviFid = 69; // @gavi
 
 if (apiKey !== undefined && apiKey !== "") {
-  describe("NeynarAPI", function () {
+  describe("NeynarV1API", function () {
     this.timeout("30000");
 
-    let client: NeynarAPIClient;
+    let client: NeynarV1APIClient;
 
     before("create client", function () {
-      client = new NeynarAPIClient(apiKey, { logger: testLogger });
+      client = new NeynarV1APIClient(apiKey, { logger: testLogger });
     });
 
     describe("#fetchCast", function () {
@@ -289,3 +288,4 @@ if (apiKey !== undefined && apiKey !== "") {
     "Skipping NeynarAPI integration tests. Env var INTEGRATION_TEST_NEYNAR_API_KEY is unset."
   );
 }
+export { NeynarV1APIClient };

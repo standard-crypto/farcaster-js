@@ -33,10 +33,10 @@ export interface PostCastReqBody {
   text: string;
   /**
    *
-   * @type {CastEmbeds}
+   * @type {CastEmbeds[]}
    * @memberof PostCastReqBody
    */
-  embeds?: CastEmbeds;
+  embeds?: CastEmbeds[];
   /**
    * Ethereum address
    * @type {string}

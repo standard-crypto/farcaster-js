@@ -19,7 +19,7 @@ import type { WithRequired } from "../utils";
 
 const BASE_PATH = "https://api.neynar.com/v1";
 
-export class NeynarAPIClient {
+export class NeynarV1APIClient {
   private readonly logger: Logger;
 
   public readonly apis: {
@@ -58,7 +58,7 @@ export class NeynarAPIClient {
     axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (NeynarAPIClient.isApiErrorResponse(error)) {
+        if (NeynarV1APIClient.isApiErrorResponse(error)) {
           const apiErrors = error.response.data;
           this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
         }
@@ -263,7 +263,7 @@ export class NeynarAPIClient {
       const response = await this.apis.user.user(fid);
       return response.data.result?.user;
     } catch (error) {
-      if (NeynarAPIClient.isApiErrorResponse(error)) {
+      if (NeynarV1APIClient.isApiErrorResponse(error)) {
         if (error.response.status === 404) return undefined;
       }
       throw error;
@@ -318,7 +318,7 @@ export class NeynarAPIClient {
         ? response.data.result.user
         : undefined;
     } catch (error) {
-      if (NeynarAPIClient.isApiErrorResponse(error)) {
+      if (NeynarV1APIClient.isApiErrorResponse(error)) {
         if (error.response.status === 404) return undefined;
       }
       throw error;

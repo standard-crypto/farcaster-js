@@ -3,10 +3,12 @@ import {
   NeynarV2APIClient,
   PostCastResponseCast,
   ReactionType,
+  EmbedUrl,
+  Logger,
+  silentLogger,
 } from "../src/neynarV2API";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { Logger, silentLogger } from "../src/neynarV2API/logger";
 import { expectDefined, generateSignature } from "./utils";
 
 chai.use(chaiAsPromised);
@@ -29,7 +31,7 @@ const testLogger: Logger = {
 
 const userDwrFid = 3;
 const userGaviFid = 69; // @gavi
-const userGaviBotFid = 6365; // @gavi-bot
+const userBotFid = 6365; // @gavi-bot
 
 async function sleep(ms: number): Promise<void> {
   return await new Promise((resolve) => setTimeout(resolve, ms));
@@ -49,19 +51,20 @@ if (apiKey !== undefined && apiKey !== "") {
       /**
        * Note: While testing please reuse the signer, it costs money to approve a signer.
        * Steps to create & register a signer:
-       * 1. Run "yarn add viem --dev"
+       * 1. Set INTEGRATION_TEST_USER_MNEMONIC in the .env file and replace userBotFid with it's fid
+       * 2. Run "yarn add viem --dev"
        *    - Note: the project will not compile with this dependency installed
-       * 2. Uncomment the code for `generateSignature()` in /tests/utils.ts
-       * 3. Remove the skip on "can generate a signer"
-       * 4. Set the values for your signer UUID & public key in your .env file
-       * 5. Replace the skip to "can generate a signer" and remove the skip on "can register a signer"
-       *    - Update the deadline if you want to use the signer for a longer period
-       * 6. Open the signer_approval_url from the logged registeredSigner on a mobile device
+       * 3. Uncomment the code for `generateSignature()` in /tests/utils.ts
+       * 4. Remove the skip on "can generate a signer"
+       * 5. Set the values for your signer UUID & public key in your .env file
+       * 6. Replace the skip to "can generate a signer" and remove the skip on "can register a signer"
+       *   - Update the deadline if you want to use the signer for a longer period
+       * 7. Open the signer_approval_url from the logged registeredSigner on a mobile device
        *    that is logged into the same account
        *    - if android -> update the deeplink to follow this format
        *     https://client.warpcast.com/deeplinks/signed-key-request?token=0x1234
-       * 7. Approve the signer (costs $0.99)
-       * 8. Replace the skip on "can register a signer" and run the tests
+       * 8. Approve the signer (costs $0.99)
+       * 9. Replace the skip on "can register a signer" and run the tests
        */
       it.skip("can create a signer", async function () {
         const signer = await client.createSigner();
@@ -73,13 +76,13 @@ if (apiKey !== undefined && apiKey !== "") {
         const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now
         const signature = await generateSignature(
           signerPublicKey ?? "",
-          userGaviBotFid,
+          userBotFid,
           privateKey ?? "",
           deadline
         );
         const registeredSigner = await client.registerSigner(
           signerUuid ?? "",
-          userGaviBotFid,
+          userBotFid,
           deadline,
           signature
         );
@@ -163,6 +166,56 @@ if (apiKey !== undefined && apiKey !== "") {
         });
       });
 
+      describe("cast embeds", function () {
+        it("can publish a cast with URL embeds", async function () {
+          const embedURL = "https://www.farcaster.xyz/";
+          const text = "this is a cast testing URL embed functionality";
+          const publishCastResp = await client.publishCast(
+            signerUuid,
+            text,
+            undefined /* replyTo */,
+            [embedURL]
+          );
+          expectDefined(publishCastResp);
+
+          // re-fetch the cast again, since the warpcast API might not return it in response to our POST
+          await sleep(1000);
+          const publishedCast = await client.fetchCast(publishCastResp.hash);
+          expectDefined(publishedCast);
+
+          expectDefined(publishedCast.embeds);
+          const urls = publishedCast.embeds;
+          expect(urls).to.have.length(1);
+          const publishedEmbed: EmbedUrl = urls[0] as EmbedUrl;
+          expect(publishedEmbed.url).to.be.eq(embedURL);
+          await client.deleteCast(signerUuid, publishedCast);
+        });
+
+        it("can publish a cast with image embeds", async function () {
+          const embedURL = "https://i.imgur.com/YPEZebo.png";
+          const text = "this is a cast testing image embed functionality";
+          const publishCastResp = await client.publishCast(
+            signerUuid,
+            text,
+            undefined /* replyTo */,
+            [embedURL]
+          );
+          expectDefined(publishCastResp);
+
+          // re-fetch the cast again, since the warpcast API might not return it in response to our POST
+          await sleep(1000);
+          const publishedCast = await client.fetchCast(publishCastResp.hash);
+          expectDefined(publishedCast);
+
+          expectDefined(publishedCast.embeds);
+          const images = publishedCast.embeds;
+          expect(images).to.have.length(1);
+          const publishedEmbed: EmbedUrl = images[0] as EmbedUrl;
+          expect(publishedEmbed.url).to.be.eq(embedURL);
+          await client.deleteCast(signerUuid, publishedCast);
+        });
+      });
+
       describe("reactions", function () {
         let cast: Cast | undefined;
 
@@ -175,7 +228,7 @@ if (apiKey !== undefined && apiKey !== "") {
             ReactionType.Like,
             cast
           );
-          expect(response.success).to.be.eq(true);
+          expect(response.success).to.be.true;
         });
 
         it("can un-react to a cast", async function () {
@@ -185,7 +238,7 @@ if (apiKey !== undefined && apiKey !== "") {
             ReactionType.Like,
             cast
           );
-          expect(response.success).to.be.eq(true);
+          expect(response.success).to.be.true;
         });
       });
 
@@ -200,7 +253,7 @@ if (apiKey !== undefined && apiKey !== "") {
             ReactionType.Recast,
             cast
           );
-          expect(response.success).to.be.eq(true);
+          expect(response.success).to.be.true;
         });
 
         it("can delete a recast", async function () {
@@ -210,7 +263,7 @@ if (apiKey !== undefined && apiKey !== "") {
             ReactionType.Recast,
             cast
           );
-          expect(response.success).to.be.eq(true);
+          expect(response.success).to.be.true;
         });
       });
 
@@ -219,8 +272,8 @@ if (apiKey !== undefined && apiKey !== "") {
           const response = await client.followUser(signerUuid, {
             fid: userDwrFid,
           });
-          expect(response.success).to.be.eq(true);
-          expect(response.details[0].success).to.be.eq(true);
+          expect(response.success).to.be.true;
+          expect(response.details[0].success).to.be.true;
           expect(response.details[0].target_fid).to.be.eq(userDwrFid);
         });
 
@@ -228,8 +281,8 @@ if (apiKey !== undefined && apiKey !== "") {
           const response = await client.unfollowUser(signerUuid, {
             fid: userDwrFid,
           });
-          expect(response.success).to.be.eq(true);
-          expect(response.details[0].success).to.be.eq(true);
+          expect(response.success).to.be.true;
+          expect(response.details[0].success).to.be.true;
           expect(response.details[0].target_fid).to.be.eq(userDwrFid);
         });
 
@@ -238,10 +291,10 @@ if (apiKey !== undefined && apiKey !== "") {
             userDwrFid,
             userGaviFid,
           ]);
-          expect(response.success).to.be.eq(true);
-          expect(response.details[0].success).to.be.eq(true);
+          expect(response.success).to.be.true;
+          expect(response.details[0].success).to.be.true;
           expect(response.details[0].target_fid).to.be.eq(userDwrFid);
-          expect(response.details[1].success).to.be.eq(true);
+          expect(response.details[1].success).to.be.true;
           expect(response.details[1].target_fid).to.be.eq(userGaviFid);
         });
 
@@ -250,10 +303,10 @@ if (apiKey !== undefined && apiKey !== "") {
             userDwrFid,
             userGaviFid,
           ]);
-          expect(response.success).to.be.eq(true);
-          expect(response.details[0].success).to.be.eq(true);
+          expect(response.success).to.be.true;
+          expect(response.details[0].success).to.be.true;
           expect(response.details[0].target_fid).to.be.eq(userDwrFid);
-          expect(response.details[1].success).to.be.eq(true);
+          expect(response.details[1].success).to.be.true;
           expect(response.details[1].target_fid).to.be.eq(userGaviFid);
         });
       });
