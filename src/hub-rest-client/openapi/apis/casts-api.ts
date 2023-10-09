@@ -26,11 +26,7 @@ import { CastAdd } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
-import { FidRequest } from '../models';
-// @ts-ignore
 import { ListCastsByFid200Response } from '../models';
-// @ts-ignore
-import { MessagesResponse } from '../models';
 /**
  * CastsApi - axios parameter creator
  * @export
@@ -75,42 +71,6 @@ export const CastsApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Bulk Methods
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetAllCastMessagesByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetAllCastMessagesByFid', 'body', body)
-            const localVarPath = `/HubService/GetAllCastMessagesByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -305,17 +265,6 @@ export const CastsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Bulk Methods
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetAllCastMessagesByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetAllCastMessagesByFid(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Fetch all casts authored by an FID.
          * @param {number} fid The FID of the casts\&#39; creator
          * @param {number} [pageSize] Maximum number of messages to return in a single response
@@ -380,16 +329,6 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @summary Bulk Methods
-         * @param {CastsApiHubServiceGetAllCastMessagesByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetAllCastMessagesByFid(requestParameters: CastsApiHubServiceGetAllCastMessagesByFidRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetAllCastMessagesByFid(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Fetch all casts authored by an FID.
          * @param {CastsApiListCastsByFidRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -440,20 +379,6 @@ export interface CastsApiGetCastByIdRequest {
      * @memberof CastsApiGetCastById
      */
     readonly hash: string
-}
-
-/**
- * Request parameters for hubServiceGetAllCastMessagesByFid operation in CastsApi.
- * @export
- * @interface CastsApiHubServiceGetAllCastMessagesByFidRequest
- */
-export interface CastsApiHubServiceGetAllCastMessagesByFidRequest {
-    /**
-     * 
-     * @type {FidRequest}
-     * @memberof CastsApiHubServiceGetAllCastMessagesByFid
-     */
-    readonly body: FidRequest
 }
 
 /**
@@ -592,18 +517,6 @@ export class CastsApi extends BaseAPI {
      */
     public getCastById(requestParameters: CastsApiGetCastByIdRequest, options?: AxiosRequestConfig) {
         return CastsApiFp(this.configuration).getCastById(requestParameters.fid, requestParameters.hash, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Bulk Methods
-     * @param {CastsApiHubServiceGetAllCastMessagesByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CastsApi
-     */
-    public hubServiceGetAllCastMessagesByFid(requestParameters: CastsApiHubServiceGetAllCastMessagesByFidRequest, options?: AxiosRequestConfig) {
-        return CastsApiFp(this.configuration).hubServiceGetAllCastMessagesByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

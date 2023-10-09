@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLinkRemove } from './message-data-link-remove';
+import { MessageDataLink } from './message-data-link';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataLinkRemove } from './message-data-link-remove';
 export interface LinkRemoveAllOf {
     /**
      * 
-     * @type {MessageDataLinkRemove}
+     * @type {MessageDataLink}
      * @memberof LinkRemoveAllOf
      */
-    'data'?: MessageDataLinkRemove;
+    'data'?: MessageDataLink;
 }
 

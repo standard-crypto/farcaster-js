@@ -17,7 +17,6 @@
 export * from './apis/casts-api';
 export * from './apis/fids-api';
 export * from './apis/hub-events-api';
-export * from './apis/hub-service-api';
 export * from './apis/info-api';
 export * from './apis/links-api';
 export * from './apis/on-chain-events-api';

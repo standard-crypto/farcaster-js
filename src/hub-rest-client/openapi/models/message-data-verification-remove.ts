@@ -21,7 +21,7 @@ import { FarcasterNetwork } from './farcaster-network';
 import { MessageDataCommon } from './message-data-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataSignerAddAllOf } from './message-data-signer-add-all-of';
+import { MessageDataVerificationRemoveAllOf } from './message-data-verification-remove-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageType } from './message-type';
@@ -33,6 +33,6 @@ import { VerificationRemoveBody } from './verification-remove-body';
  * @type MessageDataVerificationRemove
  * @export
  */
-export type MessageDataVerificationRemove = MessageDataCommon & MessageDataSignerAddAllOf;
+export type MessageDataVerificationRemove = MessageDataCommon & MessageDataVerificationRemoveAllOf;
 
 

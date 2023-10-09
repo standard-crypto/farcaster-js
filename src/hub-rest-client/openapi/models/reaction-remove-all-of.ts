@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReactionRemove } from './message-data-reaction-remove';
+import { MessageDataReaction } from './message-data-reaction';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataReactionRemove } from './message-data-reaction-remove';
 export interface ReactionRemoveAllOf {
     /**
      * 
-     * @type {MessageDataReactionRemove}
+     * @type {MessageDataReaction}
      * @memberof ReactionRemoveAllOf
      */
-    'data'?: MessageDataReactionRemove;
+    'data'?: MessageDataReaction;
 }
 

@@ -10,28 +10,6 @@ type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> &
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
 
 export interface paths {
-  "/HubService/GetAllCastMessagesByFid": {
-    /** Bulk Methods */
-    post: operations["HubService_GetAllCastMessagesByFid"];
-  };
-  "/HubService/GetAllLinkMessagesByFid": {
-    post: operations["HubService_GetAllLinkMessagesByFid"];
-  };
-  "/HubService/GetAllMessagesBySyncIds": {
-    post: operations["HubService_GetAllMessagesBySyncIds"];
-  };
-  "/HubService/GetAllReactionMessagesByFid": {
-    post: operations["HubService_GetAllReactionMessagesByFid"];
-  };
-  "/HubService/GetAllSyncIdsByPrefix": {
-    post: operations["HubService_GetAllSyncIdsByPrefix"];
-  };
-  "/HubService/GetAllUserDataMessagesByFid": {
-    post: operations["HubService_GetAllUserDataMessagesByFid"];
-  };
-  "/HubService/GetAllVerificationMessagesByFid": {
-    post: operations["HubService_GetAllVerificationMessagesByFid"];
-  };
   "/v1/castById": {
     /** Get a cast by its FID and Hash. */
     get: operations["GetCastById"];
@@ -63,12 +41,6 @@ export interface paths {
   "/v1/fids": {
     /** Get a list of all the FIDs */
     get: operations["ListFids"];
-  };
-  "/HubService/GetIdRegistryOnChainEvent": {
-    post: operations["HubService_GetIdRegistryOnChainEvent"];
-  };
-  "/HubService/GetIdRegistryOnChainEventByAddress": {
-    post: operations["HubService_GetIdRegistryOnChainEventByAddress"];
   };
   "/v1/info": {
     /** Sync Methods */
@@ -116,24 +88,12 @@ export interface paths {
   "/v1/reactionsByTarget": {
     get: operations["ListReactionsByTarget"];
   };
-  "/HubService/GetSyncMetadataByPrefix": {
-    post: operations["HubService_GetSyncMetadataByPrefix"];
-  };
-  "/HubService/GetSyncSnapshotByPrefix": {
-    post: operations["HubService_GetSyncSnapshotByPrefix"];
-  };
-  "/HubService/GetSyncStatus": {
-    post: operations["HubService_GetSyncStatus"];
-  };
   "/v1/userDataByFid": {
     /**
      * Get UserData for a FID.
      * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `user_data_type` parameter. If included, a single `UserDataAdd` message is returned (or a `not_found` error). If omitted, a paginated list of `UserDataAdd` messages is returned instead
      */
     get: operations["GetUserDataByFid"];
-  };
-  "/HubService/GetUserDataByFid": {
-    post: operations["HubService_GetUserDataByFid"];
   };
   "/v1/userNameProofsByFid": {
     /** Get a list of proofs provided by an FID */
@@ -143,10 +103,6 @@ export interface paths {
     /** Get an proof for a username by the Farcaster username */
     get: operations["GetUsernameProof"];
   };
-  "/HubService/GetVerification": {
-    /** Verifications */
-    post: operations["HubService_GetVerification"];
-  };
   "/v1/verificationsByFid": {
     /** Get a list of verifications provided by an FID */
     get: operations["ListVerificationsByFid"];
@@ -154,10 +110,6 @@ export interface paths {
   "/v1/submitMessage": {
     /** Submit a signed protobuf-serialized message to the Hub */
     post: operations["SubmitMessage"];
-  };
-  "/HubService/Subscribe": {
-    /** Event Methods */
-    post: operations["HubService_Subscribe"];
   };
 }
 
@@ -221,7 +173,6 @@ export interface components {
       url?: string;
       castId?: components["schemas"]["CastId"];
     };
-    Empty: Record<string, never>;
     ErrorResponse: {
       errCode: string;
       presentable: boolean;
@@ -232,10 +183,6 @@ export interface components {
         errcode: string[];
       };
     };
-    EventRequest: {
-      /** Format: uint64 */
-      id?: string;
-    };
     /**
      * * Farcaster network the message is intended for
      * @description - FARCASTER_NETWORK_MAINNET: Public primary network
@@ -245,22 +192,6 @@ export interface components {
      * @enum {string}
      */
     FarcasterNetwork: "FARCASTER_NETWORK_MAINNET" | "FARCASTER_NETWORK_TESTNET" | "FARCASTER_NETWORK_DEVNET";
-    FidRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
-    };
-    FidsRequest: {
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
-    };
     FidsResponse: {
       fids: number[];
       /** Format: byte */
@@ -320,9 +251,6 @@ export interface components {
      * @enum {string}
      */
     HubEventType: "HUB_EVENT_TYPE_MERGE_MESSAGE" | "HUB_EVENT_TYPE_PRUNE_MESSAGE" | "HUB_EVENT_TYPE_REVOKE_MESSAGE" | "HUB_EVENT_TYPE_MERGE_USERNAME_PROOF" | "HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT";
-    HubInfoRequest: {
-      dbStats?: boolean;
-    };
     /** Response Types for the Sync RPC Methods */
     HubInfoResponse: {
       version: string;
@@ -347,9 +275,6 @@ export interface components {
      * @enum {string}
      */
     IdRegisterEventType: "ID_REGISTER_EVENT_TYPE_REGISTER" | "ID_REGISTER_EVENT_TYPE_TRANSFER" | "ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY";
-    IdRegistryEventByAddressRequest: {
-      address?: string;
-    };
     LinkAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataLink"];
     };
@@ -366,33 +291,6 @@ export interface components {
        * Format: uint64
        */
       targetFid?: number;
-    };
-    LinkRequest: {
-      /** Format: uint64 */
-      fid?: number;
-      linkType?: string;
-      /** Format: uint64 */
-      targetFid?: number;
-    };
-    LinksByFidRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      linkType?: string;
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
-    };
-    LinksByTargetRequest: {
-      /** Format: uint64 */
-      targetFid?: string;
-      linkType?: string;
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
     };
     /**
      * * Type of Link
@@ -423,10 +321,10 @@ export interface components {
       data: components["schemas"]["MessageDataCastAdd"] | components["schemas"]["MessageDataCastRemove"] | components["schemas"]["MessageDataReaction"] | components["schemas"]["MessageDataLink"] | components["schemas"]["MessageDataVerificationAdd"] | components["schemas"]["MessageDataVerificationRemove"] | components["schemas"]["MessageDataUserDataAdd"] | components["schemas"]["MessageDataUsernameProof"];
     }) & components["schemas"]["MessageCommon"];
     ReactionRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataReactionRemove"];
+      data?: components["schemas"]["MessageDataReaction"];
     };
     LinkRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataLinkRemove"];
+      data?: components["schemas"]["MessageDataLink"];
     };
     VerificationRemove: components["schemas"]["MessageCommon"] & {
       data?: components["schemas"]["MessageDataVerificationRemove"];
@@ -475,9 +373,6 @@ export interface components {
     MessageDataReaction: components["schemas"]["MessageDataCommon"] & {
       reactionBody: components["schemas"]["ReactionBody"];
     };
-    MessageDataSignerAdd: components["schemas"]["MessageDataCommon"] & {
-      verificationRemoveBody: components["schemas"]["VerificationRemoveBody"];
-    };
     MessageDataUserDataAdd: components["schemas"]["MessageDataCommon"] & {
       userDataBody: components["schemas"]["UserDataBody"];
     };
@@ -510,11 +405,6 @@ export interface components {
      * @enum {string}
      */
     MessageType: "MESSAGE_TYPE_CAST_ADD" | "MESSAGE_TYPE_CAST_REMOVE" | "MESSAGE_TYPE_REACTION_ADD" | "MESSAGE_TYPE_REACTION_REMOVE" | "MESSAGE_TYPE_LINK_ADD" | "MESSAGE_TYPE_LINK_REMOVE" | "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS" | "MESSAGE_TYPE_VERIFICATION_REMOVE" | "MESSAGE_TYPE_USER_DATA_ADD" | "MESSAGE_TYPE_USERNAME_PROOF";
-    MessagesResponse: {
-      messages: components["schemas"]["Message"][];
-      /** Format: byte */
-      nextPageToken: string;
-    };
     OnChainEvent: components["schemas"]["OnChainEventSigner"] | components["schemas"]["OnChainEventSignerMigrated"] | components["schemas"]["OnChainEventIdRegister"] | components["schemas"]["OnChainEventStorageRent"];
     OnChainEventCommon: {
       /** @example EVENT_TYPE_SIGNER */
@@ -542,21 +432,6 @@ export interface components {
     OnChainEventStorageRent: components["schemas"]["OnChainEventCommon"] & {
       storageRentEventBody: components["schemas"]["StorageRentEventBody"];
     };
-    OnChainEventRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      eventType?: components["schemas"]["OnChainEventType"];
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
-    };
-    OnChainEventResponse: {
-      events?: components["schemas"]["OnChainEvent"][];
-      /** Format: byte */
-      nextPageToken?: string;
-    };
     /**
      * @default EVENT_TYPE_SIGNER
      * @enum {string}
@@ -575,13 +450,6 @@ export interface components {
       /** URL to react to */
       targetUrl?: string;
     };
-    ReactionRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      reactionType?: components["schemas"]["ReactionType"];
-      targetCastId?: components["schemas"]["CastId"];
-      targetUrl?: string;
-    };
     /**
      * * Type of Reaction
      * @description - REACTION_TYPE_LIKE: Like the target cast
@@ -590,26 +458,6 @@ export interface components {
      * @enum {string}
      */
     ReactionType: "REACTION_TYPE_LIKE" | "REACTION_TYPE_RECAST";
-    ReactionsByFidRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      reactionType?: components["schemas"]["ReactionType"];
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
-    };
-    ReactionsByTargetRequest: {
-      targetCastId?: components["schemas"]["CastId"];
-      targetUrl?: string;
-      reactionType?: components["schemas"]["ReactionType"];
-      /** Format: int64 */
-      pageSize?: number;
-      /** Format: byte */
-      pageToken?: string;
-      reverse?: boolean;
-    };
     RevokeMessageBody: {
       message?: components["schemas"]["Message"];
     };
@@ -640,12 +488,6 @@ export interface components {
       /** Format: int64 */
       migratedAt: number;
     };
-    SignerRequest: {
-      /** Format: uint64 */
-      fid?: number;
-      /** Format: byte */
-      signer?: string;
-    };
     StorageLimit: {
       storeType: components["schemas"]["StoreType"];
       /** Format: uint64 */
@@ -667,56 +509,6 @@ export interface components {
      * @enum {string}
      */
     StoreType: "STORE_TYPE_CASTS" | "STORE_TYPE_LINKS" | "STORE_TYPE_REACTIONS" | "STORE_TYPE_USER_DATA" | "STORE_TYPE_VERIFICATIONS" | "STORE_TYPE_USERNAME_PROOFS";
-    SubscribeRequest: {
-      eventTypes?: components["schemas"]["HubEventType"][];
-      /** Format: uint64 */
-      fromId?: number;
-    };
-    SyncIds: {
-      syncIds?: string[];
-    };
-    SyncStatus: {
-      peerId?: string;
-      inSync?: string;
-      shouldSync?: boolean;
-      divergencePrefix?: string;
-      /** Format: int32 */
-      divergenceSecondsAgo?: number;
-      /** Format: uint64 */
-      theirMessages?: number;
-      /** Format: uint64 */
-      ourMessages?: number;
-      /** Format: int64 */
-      lastBadSync?: number;
-    };
-    SyncStatusRequest: {
-      peerId?: string;
-    };
-    SyncStatusResponse: {
-      isSyncing?: boolean;
-      syncStatus?: components["schemas"]["SyncStatus"][];
-      engineStarted?: boolean;
-    };
-    TrieNodeMetadataResponse: {
-      /** Format: byte */
-      prefix?: string;
-      /** Format: uint64 */
-      numMessages?: string;
-      hash?: string;
-      children?: components["schemas"]["TrieNodeMetadataResponse"][];
-    };
-    TrieNodePrefix: {
-      /** Format: byte */
-      prefix?: string;
-    };
-    TrieNodeSnapshotResponse: {
-      /** Format: byte */
-      prefix?: string;
-      excludedHashes?: string[];
-      /** Format: uint64 */
-      numMessages?: string;
-      rootHash?: string;
-    };
     UserDataAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataUserDataAdd"];
     };
@@ -725,11 +517,6 @@ export interface components {
       type: components["schemas"]["UserDataType"];
       /** Value of the metadata */
       value: string;
-    };
-    UserDataRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      userDataType?: components["schemas"]["UserDataType"];
     };
     /**
      * * Type of UserData
@@ -754,18 +541,14 @@ export interface components {
       fid: number;
       type: components["schemas"]["UserNameType"];
     };
+    UsernameProofsResponse: {
+      proofs: components["schemas"]["UserNameProof"][];
+    };
     /**
      * @default USERNAME_TYPE_FNAME
      * @enum {string}
      */
     UserNameType: "USERNAME_TYPE_FNAME" | "USERNAME_TYPE_ENS_L1";
-    UsernameProofRequest: {
-      /** @example gavi */
-      name?: string;
-    };
-    UsernameProofsResponse: {
-      proofs: components["schemas"]["UserNameProof"][];
-    };
     Verification: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataVerificationAdd"];
     };
@@ -785,16 +568,6 @@ export interface components {
     VerificationRemoveBody: {
       /** Address of the Verification to remove */
       address: string;
-    };
-    VerificationRequest: {
-      /** Format: uint64 */
-      fid?: string;
-      /** Format: byte */
-      address?: string;
-    };
-    protobufAny: {
-      "@type"?: string;
-      [key: string]: Record<string, never> | undefined;
     };
   };
   responses: {
@@ -824,119 +597,6 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  /** Bulk Methods */
-  HubService_GetAllCastMessagesByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetAllLinkMessagesByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetAllMessagesBySyncIds: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SyncIds"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetAllReactionMessagesByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetAllSyncIdsByPrefix: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TrieNodePrefix"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["SyncIds"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetAllUserDataMessagesByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetAllVerificationMessagesByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
   /** Get a cast by its FID and Hash. */
   GetCastById: {
     parameters: {
@@ -1105,38 +765,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["FidsResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetIdRegistryOnChainEvent: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["OnChainEvent"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetIdRegistryOnChainEventByAddress: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["IdRegistryEventByAddressRequest"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["OnChainEvent"];
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -1410,54 +1038,6 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetSyncMetadataByPrefix: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TrieNodePrefix"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["TrieNodeMetadataResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetSyncSnapshotByPrefix: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TrieNodePrefix"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["TrieNodeSnapshotResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetSyncStatus: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SyncStatusRequest"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["SyncStatusResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
   /**
    * Get UserData for a FID.
    * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `user_data_type` parameter. If included, a single `UserDataAdd` message is returned (or a `not_found` error). If omitted, a paginated list of `UserDataAdd` messages is returned instead
@@ -1483,22 +1063,6 @@ export interface operations {
             /** Format: byte */
             nextPageToken: string;
           }]>;
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  HubService_GetUserDataByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
-      };
-    };
-    responses: {
-      /** @description The requested Messages. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["MessagesResponse"];
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -1535,23 +1099,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["UserNameProof"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Verifications */
-  HubService_GetVerification: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["VerificationRequest"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Message"];
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -1601,26 +1148,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["Message"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Event Methods */
-  HubService_Subscribe: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SubscribeRequest"];
-      };
-    };
-    responses: {
-      /** @description A successful response.(streaming responses) */
-      200: {
-        content: {
-          "application/json": {
-            result?: components["schemas"]["HubEvent"];
-            error?: components["schemas"]["ErrorResponse"];
-          };
         };
       };
       default: components["responses"]["ErrorResponse"];

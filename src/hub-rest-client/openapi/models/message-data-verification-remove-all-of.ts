@@ -15,25 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Message } from './message';
+import { VerificationRemoveBody } from './verification-remove-body';
 
 /**
  * 
  * @export
- * @interface MessagesResponse
+ * @interface MessageDataVerificationRemoveAllOf
  */
-export interface MessagesResponse {
+export interface MessageDataVerificationRemoveAllOf {
     /**
      * 
-     * @type {Array<Message>}
-     * @memberof MessagesResponse
+     * @type {VerificationRemoveBody}
+     * @memberof MessageDataVerificationRemoveAllOf
      */
-    'messages': Array<Message>;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessagesResponse
-     */
-    'nextPageToken': string;
+    'verificationRemoveBody': VerificationRemoveBody;
 }
 

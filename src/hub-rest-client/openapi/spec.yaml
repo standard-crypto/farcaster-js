@@ -5,154 +5,6 @@ info:
 servers:
 - url: http://hub.farcaster.standardcrypto.vc:2281/
 paths:
-  /HubService/GetAllCastMessagesByFid:
-    post:
-      tags:
-      - Casts
-      summary: Bulk Methods
-      operationId: HubService_GetAllCastMessagesByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetAllLinkMessagesByFid:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetAllLinkMessagesByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetAllMessagesBySyncIds:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetAllMessagesBySyncIds
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SyncIds'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetAllReactionMessagesByFid:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetAllReactionMessagesByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetAllSyncIdsByPrefix:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetAllSyncIdsByPrefix
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TrieNodePrefix'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SyncIds'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetAllUserDataMessagesByFid:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetAllUserDataMessagesByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetAllVerificationMessagesByFid:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetAllVerificationMessagesByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/castById:
     get:
       tags:
@@ -399,48 +251,6 @@ paths:
                 $ref: '#/components/schemas/FidsResponse'
         default:
           $ref: '#/components/responses/ErrorResponse'
-  /HubService/GetIdRegistryOnChainEvent:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetIdRegistryOnChainEvent
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OnChainEvent'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetIdRegistryOnChainEventByAddress:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetIdRegistryOnChainEventByAddress
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/IdRegistryEventByAddressRequest'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OnChainEvent'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/info:
     get:
       tags:
@@ -857,69 +667,6 @@ paths:
                     format: byte
         default:
           $ref: '#/components/responses/ErrorResponse'
-  /HubService/GetSyncMetadataByPrefix:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetSyncMetadataByPrefix
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TrieNodePrefix'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrieNodeMetadataResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetSyncSnapshotByPrefix:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetSyncSnapshotByPrefix
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TrieNodePrefix'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrieNodeSnapshotResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/GetSyncStatus:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetSyncStatus
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SyncStatusRequest'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SyncStatusResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/userDataByFid:
     get:
       tags:
@@ -969,27 +716,6 @@ paths:
                         format: byte
         default:
           $ref: '#/components/responses/ErrorResponse'
-  /HubService/GetUserDataByFid:
-    post:
-      tags:
-      - HubService
-      operationId: HubService_GetUserDataByFid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FidRequest'
-        required: true
-      responses:
-        200:
-          description: The requested Messages.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/userNameProofsByFid:
     get:
       tags:
@@ -1039,28 +765,6 @@ paths:
                 $ref: '#/components/schemas/UserNameProof'
         default:
           $ref: '#/components/responses/ErrorResponse'
-  /HubService/GetVerification:
-    post:
-      tags:
-      - HubService
-      summary: Verifications
-      operationId: HubService_GetVerification
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VerificationRequest'
-        required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/verificationsByFid:
     get:
       tags:
@@ -1129,34 +833,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /HubService/Subscribe:
-    post:
-      tags:
-      - HubService
-      summary: Event Methods
-      operationId: HubService_Subscribe
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SubscribeRequest'
-        required: true
-      responses:
-        200:
-          description: A successful response.(streaming responses)
-          content:
-            application/json:
-              schema:
-                title: Stream result of HubEvent
-                type: object
-                properties:
-                  result:
-                    $ref: '#/components/schemas/HubEvent'
-                  error:
-                    $ref: '#/components/schemas/ErrorResponse'
         default:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
@@ -1287,8 +963,6 @@ components:
           format: uri
         castId:
           $ref: '#/components/schemas/CastId'
-    Empty:
-      type: object
     ErrorResponse:
       required:
       - code
@@ -1318,12 +992,6 @@ components:
               type: array
               items:
                 type: string
-    EventRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uint64
     FarcasterNetwork:
       title: '* Farcaster network the message is intended for'
       type: string
@@ -1336,33 +1004,6 @@ components:
       - FARCASTER_NETWORK_MAINNET
       - FARCASTER_NETWORK_TESTNET
       - FARCASTER_NETWORK_DEVNET
-    FidRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
-    FidsRequest:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
     FidsResponse:
       type: object
       properties:
@@ -1491,11 +1132,6 @@ components:
       - HUB_EVENT_TYPE_REVOKE_MESSAGE
       - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF
       - HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT
-    HubInfoRequest:
-      type: object
-      properties:
-        dbStats:
-          type: boolean
     HubInfoResponse:
       title: Response Types for the Sync RPC Methods
       required:
@@ -1550,12 +1186,6 @@ components:
       - ID_REGISTER_EVENT_TYPE_REGISTER
       - ID_REGISTER_EVENT_TYPE_TRANSFER
       - ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY
-    IdRegistryEventByAddressRequest:
-      type: object
-      properties:
-        address:
-          pattern: ^0x[a-fA-F0-9]{40}$
-          type: string
     LinkAdd:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1580,51 +1210,6 @@ components:
           title: The fid the link relates to
           type: integer
           format: uint64
-    LinkRequest:
-      type: object
-      properties:
-        fid:
-          type: integer
-          format: uint64
-        linkType:
-          type: string
-        targetFid:
-          type: integer
-          format: uint64
-    LinksByFidRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        linkType:
-          type: string
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
-    LinksByTargetRequest:
-      type: object
-      properties:
-        targetFid:
-          type: string
-          format: uint64
-        linkType:
-          type: string
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
     LinkType:
       title: '* Type of Link'
       type: string
@@ -1700,14 +1285,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataReactionRemove'
+              $ref: '#/components/schemas/MessageDataReaction'
     LinkRemove:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataLinkRemove'
+              $ref: '#/components/schemas/MessageDataLink'
     VerificationRemove:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1800,15 +1385,6 @@ components:
           properties:
             reactionBody:
               $ref: '#/components/schemas/ReactionBody'
-    MessageDataSignerAdd:
-      allOf:
-        - $ref: '#/components/schemas/MessageDataCommon'
-        - type: object
-          required:
-            - verificationRemoveBody
-          properties:
-            verificationRemoveBody:
-              $ref: '#/components/schemas/VerificationRemoveBody'
     MessageDataUserDataAdd:
       allOf:
         - $ref: '#/components/schemas/MessageDataCommon'
@@ -1875,20 +1451,6 @@ components:
       - MESSAGE_TYPE_VERIFICATION_REMOVE
       - MESSAGE_TYPE_USER_DATA_ADD
       - MESSAGE_TYPE_USERNAME_PROOF
-    MessagesResponse:
-      required:
-      - messages
-      - nextPageToken
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        nextPageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
     OnChainEvent:
       oneOf:
         - $ref: '#/components/schemas/OnChainEventSigner'
@@ -1972,34 +1534,6 @@ components:
               $ref: '#/components/schemas/StorageRentEventBody'
           required:
             - storageRentEventBody
-    OnChainEventRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        eventType:
-          $ref: '#/components/schemas/OnChainEventType'
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
-    OnChainEventResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnChainEvent'
-        nextPageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
     OnChainEventType:
       type: string
       default: EVENT_TYPE_SIGNER
@@ -2035,18 +1569,6 @@ components:
           type: string
       required:
         - type
-    ReactionRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        reactionType:
-          $ref: '#/components/schemas/ReactionType'
-        targetCastId:
-          $ref: '#/components/schemas/CastId'
-        targetUrl:
-          type: string
     ReactionType:
       title: '* Type of Reaction'
       type: string
@@ -2057,41 +1579,6 @@ components:
       enum:
       - REACTION_TYPE_LIKE
       - REACTION_TYPE_RECAST
-    ReactionsByFidRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        reactionType:
-          $ref: '#/components/schemas/ReactionType'
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
-    ReactionsByTargetRequest:
-      type: object
-      properties:
-        targetCastId:
-          $ref: '#/components/schemas/CastId'
-        targetUrl:
-          type: string
-        reactionType:
-          $ref: '#/components/schemas/ReactionType'
-        pageSize:
-          type: integer
-          format: int64
-        pageToken:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        reverse:
-          type: boolean
     RevokeMessageBody:
       type: object
       properties:
@@ -2146,16 +1633,6 @@ components:
           format: int64
       required:
         - migratedAt
-    SignerRequest:
-      type: object
-      properties:
-        fid:
-          type: integer
-          format: uint64
-        signer:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
     StorageLimit:
       type: object
       properties:
@@ -2203,103 +1680,6 @@ components:
       - STORE_TYPE_USER_DATA
       - STORE_TYPE_VERIFICATIONS
       - STORE_TYPE_USERNAME_PROOFS
-    SubscribeRequest:
-      type: object
-      properties:
-        eventTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/HubEventType'
-        fromId:
-          type: integer
-          format: uint64
-    SyncIds:
-      type: object
-      properties:
-        syncIds:
-          type: array
-          items:
-            pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-            type: string
-            format: byte
-    SyncStatus:
-      type: object
-      properties:
-        peerId:
-          type: string
-        inSync:
-          type: string
-        shouldSync:
-          type: boolean
-        divergencePrefix:
-          type: string
-        divergenceSecondsAgo:
-          type: integer
-          format: int32
-        theirMessages:
-          type: integer
-          format: uint64
-        ourMessages:
-          type: integer
-          format: uint64
-        lastBadSync:
-          type: integer
-          format: int64
-    SyncStatusRequest:
-      type: object
-      properties:
-        peerId:
-          type: string
-    SyncStatusResponse:
-      type: object
-      properties:
-        isSyncing:
-          type: boolean
-        syncStatus:
-          type: array
-          items:
-            $ref: '#/components/schemas/SyncStatus'
-        engineStarted:
-          type: boolean
-    TrieNodeMetadataResponse:
-      type: object
-      properties:
-        prefix:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        numMessages:
-          type: string
-          format: uint64
-        hash:
-          type: string
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrieNodeMetadataResponse'
-    TrieNodePrefix:
-      type: object
-      properties:
-        prefix:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-    TrieNodeSnapshotResponse:
-      type: object
-      properties:
-        prefix:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-        excludedHashes:
-          type: array
-          items:
-            type: string
-        numMessages:
-          type: string
-          format: uint64
-        rootHash:
-          type: string
     UserDataAdd:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -2321,14 +1701,6 @@ components:
       required:
         - type
         - value
-    UserDataRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        userDataType:
-          $ref: '#/components/schemas/UserDataType'
     UserDataType:
       title: '* Type of UserData'
       type: string
@@ -2349,7 +1721,7 @@ components:
       type: object
       properties:
         timestamp:
-          type: number
+          type: integer
           format: uint64
         name:
           type: string
@@ -2373,18 +1745,6 @@ components:
         - signature
         - fid
         - type
-    UserNameType:
-      type: string
-      default: USERNAME_TYPE_FNAME
-      enum:
-      - USERNAME_TYPE_FNAME
-      - USERNAME_TYPE_ENS_L1
-    UsernameProofRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          example: "gavi"
     UsernameProofsResponse:
       type: object
       properties:
@@ -2394,6 +1754,12 @@ components:
             $ref: '#/components/schemas/UserNameProof'
       required:
         - proofs
+    UserNameType:
+      type: string
+      default: USERNAME_TYPE_FNAME
+      enum:
+      - USERNAME_TYPE_FNAME
+      - USERNAME_TYPE_ENS_L1
     Verification:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -2434,23 +1800,6 @@ components:
           type: string
       required:
         - address
-    VerificationRequest:
-      type: object
-      properties:
-        fid:
-          type: string
-          format: uint64
-        address:
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-          type: string
-          format: byte
-    protobufAny:
-      type: object
-      properties:
-        '@type':
-          type: string
-      additionalProperties:
-        type: object
   responses:
     ErrorResponse:
       description: An unexpected error response.

@@ -24,7 +24,7 @@ import { LinkRemoveAllOf } from './link-remove-all-of';
 import { MessageCommon } from './message-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLinkRemove } from './message-data-link-remove';
+import { MessageDataLink } from './message-data-link';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SignatureScheme } from './signature-scheme';
