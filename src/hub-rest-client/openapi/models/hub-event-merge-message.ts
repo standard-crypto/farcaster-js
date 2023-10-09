@@ -15,25 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Reaction } from './reaction';
+import { MergeMessageBody } from './merge-message-body';
 
 /**
  * 
  * @export
- * @interface GetReactionsByCast200Response
+ * @interface HubEventMergeMessage
  */
-export interface GetReactionsByCast200Response {
-    /**
-     * 
-     * @type {Array<Reaction>}
-     * @memberof GetReactionsByCast200Response
-     */
-    'messages': Array<Reaction>;
+export interface HubEventMergeMessage {
     /**
      * 
      * @type {string}
-     * @memberof GetReactionsByCast200Response
+     * @memberof HubEventMergeMessage
      */
-    'nextPageToken': string;
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HubEventMergeMessage
+     */
+    'id': number;
+    /**
+     * 
+     * @type {MergeMessageBody}
+     * @memberof HubEventMergeMessage
+     */
+    'mergeMessageBody': MergeMessageBody;
 }
 

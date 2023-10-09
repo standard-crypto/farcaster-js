@@ -15,21 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventType } from './on-chain-event-type';
+import { MessageDataVerificationRemove } from './message-data-verification-remove';
 
 /**
  * 
  * @export
- * @interface OnChainEventAllOf
+ * @interface VerificationRemoveAllOf
  */
-export interface OnChainEventAllOf {
+export interface VerificationRemoveAllOf {
     /**
      * 
-     * @type {OnChainEventType}
-     * @memberof OnChainEventAllOf
+     * @type {MessageDataVerificationRemove}
+     * @memberof VerificationRemoveAllOf
      */
-    'type': OnChainEventType;
+    'data'?: MessageDataVerificationRemove;
 }
-
-
 

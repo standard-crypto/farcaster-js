@@ -18,45 +18,21 @@
 import { HashScheme } from './hash-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
+import { MessageCommon } from './message-common';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageDataVerificationRemove } from './message-data-verification-remove';
+// May contain unused imports in some cases
+// @ts-ignore
 import { SignatureScheme } from './signature-scheme';
+// May contain unused imports in some cases
+// @ts-ignore
+import { VerificationRemoveAllOf } from './verification-remove-all-of';
 
 /**
- * 
+ * @type VerificationRemove
  * @export
- * @interface MessageCommon
  */
-export interface MessageCommon {
-    /**
-     * 
-     * @type {string}
-     * @memberof MessageCommon
-     */
-    'hash': string;
-    /**
-     * 
-     * @type {HashScheme}
-     * @memberof MessageCommon
-     */
-    'hashScheme': HashScheme;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessageCommon
-     */
-    'signature': string;
-    /**
-     * 
-     * @type {SignatureScheme}
-     * @memberof MessageCommon
-     */
-    'signatureScheme': SignatureScheme;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessageCommon
-     */
-    'signer': string;
-}
-
+export type VerificationRemove = MessageCommon & VerificationRemoveAllOf;
 
 

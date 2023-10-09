@@ -25,6 +25,6 @@ export interface VerificationRemoveBody {
      * @type {string}
      * @memberof VerificationRemoveBody
      */
-    'address'?: string;
+    'address': string;
 }
 

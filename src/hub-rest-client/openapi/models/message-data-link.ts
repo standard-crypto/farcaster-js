@@ -15,30 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastAddBody } from './cast-add-body';
-// May contain unused imports in some cases
-// @ts-ignore
-import { CastRemoveBody } from './cast-remove-body';
-// May contain unused imports in some cases
-// @ts-ignore
 import { FarcasterNetwork } from './farcaster-network';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add';
+import { LinkBody } from './link-body';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastRemove } from './message-data-cast-remove';
+import { MessageDataCommon } from './message-data-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReactionAdd } from './message-data-reaction-add';
+import { MessageDataLinkAllOf } from './message-data-link-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionBody } from './reaction-body';
+import { MessageType } from './message-type';
 
 /**
- * @type MessageData
+ * @type MessageDataLink
  * @export
  */
-export type MessageData = { type: 'MESSAGE_TYPE_CAST_ADD' } & MessageDataCastAdd | { type: 'MESSAGE_TYPE_CAST_REMOVE' } & MessageDataCastRemove | { type: 'MESSAGE_TYPE_REACTION_ADD' } & MessageDataReactionAdd;
+export type MessageDataLink = MessageDataCommon & MessageDataLinkAllOf;
 
 

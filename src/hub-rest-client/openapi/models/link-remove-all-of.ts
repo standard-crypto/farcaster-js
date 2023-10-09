@@ -15,25 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Message } from './message';
+import { MessageDataLinkRemove } from './message-data-link-remove';
 
 /**
  * 
  * @export
- * @interface MessagesResponse
+ * @interface LinkRemoveAllOf
  */
-export interface MessagesResponse {
+export interface LinkRemoveAllOf {
     /**
      * 
-     * @type {Array<Message>}
-     * @memberof MessagesResponse
+     * @type {MessageDataLinkRemove}
+     * @memberof LinkRemoveAllOf
      */
-    'messages': Array<Message>;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessagesResponse
-     */
-    'nextPageToken': string;
+    'data'?: MessageDataLinkRemove;
 }
 

@@ -52,8 +52,13 @@ export interface paths {
     /** Get an FID's storage limits. */
     get: operations["GetStorageLimitsByFid"];
   };
-  "/HubService/GetEvent": {
-    post: operations["HubService_GetEvent"];
+  "/v1/events": {
+    /** Get a page of Hub events */
+    get: operations["ListEvents"];
+  };
+  "/v1/eventById": {
+    /** Get an event by its ID */
+    get: operations["GetEventById"];
   };
   "/v1/fids": {
     /** Get a list of all the FIDs */
@@ -92,7 +97,7 @@ export interface paths {
   "/v1/onChainSignersByFid": {
     /**
      * Get a list of signers provided by an FID
-     * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a paginated list of `OnChainEventSigner` messages is returned instead
+     * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a  non-paginated list of `OnChainEventSigner` messages is returned instead
      */
     get: operations["ListOnChainSignersByFid"];
   };
@@ -146,9 +151,9 @@ export interface paths {
     /** Get a list of verifications provided by an FID */
     get: operations["ListVerificationsByFid"];
   };
-  "/HubService/SubmitMessage": {
-    /** Submit Methods */
-    post: operations["HubService_SubmitMessage"];
+  "/v1/submitMessage": {
+    /** Submit a signed protobuf-serialized message to the Hub */
+    post: operations["SubmitMessage"];
   };
   "/HubService/Subscribe": {
     /** Event Methods */
@@ -181,6 +186,9 @@ export interface components {
       mentionsPositions?: number[];
       /** URLs or cast ids to be embedded in the cast */
       embeds?: components["schemas"]["Embed"][];
+    };
+    CastRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataCastRemove"];
     };
     /** * Identifier used to look up a Cast */
     CastId: {
@@ -265,15 +273,41 @@ export interface components {
      * @enum {string}
      */
     HashScheme: "HASH_SCHEME_BLAKE3";
-    HubEvent: {
-      type?: components["schemas"]["HubEventType"];
+    HubEvent: components["schemas"]["HubEventMergeMessage"] | components["schemas"]["HubEventPruneMessage"] | components["schemas"]["HubEventRevokeMessage"] | components["schemas"]["HubEventMergeUsernameProof"] | components["schemas"]["HubEventMergeOnChainEvent"];
+    HubEventMergeMessage: {
+      /** @example HUB_EVENT_TYPE_MERGE_MESSAGE */
+      type: string;
       /** Format: uint64 */
-      id?: number;
-      mergeMessageBody?: components["schemas"]["MergeMessageBody"];
-      pruneMessageBody?: components["schemas"]["PruneMessageBody"];
-      revokeMessageBody?: components["schemas"]["RevokeMessageBody"];
-      mergeUsernameProofBody?: components["schemas"]["MergeUserNameProofBody"];
-      mergeOnChainEventBody?: components["schemas"]["MergeOnChainEventBody"];
+      id: number;
+      mergeMessageBody: components["schemas"]["MergeMessageBody"];
+    };
+    HubEventPruneMessage: {
+      /** @example HUB_EVENT_TYPE_PRUNE_MESSAGE */
+      type: string;
+      /** Format: uint64 */
+      id: number;
+      pruneMessageBody: components["schemas"]["PruneMessageBody"];
+    };
+    HubEventRevokeMessage: {
+      /** @example HUB_EVENT_TYPE_REVOKE_MESSAGE */
+      type: string;
+      /** Format: uint64 */
+      id: number;
+      revokeMessageBody: components["schemas"]["RevokeMessageBody"];
+    };
+    HubEventMergeUsernameProof: {
+      /** @example HUB_EVENT_TYPE_MERGE_USERNAME_PROOF */
+      type: string;
+      /** Format: uint64 */
+      id: number;
+      mergeUsernameProofBody: components["schemas"]["MergeUserNameProofBody"];
+    };
+    HubEventMergeOnChainEvent: {
+      /** @example HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT */
+      type: string;
+      /** Format: uint64 */
+      id: number;
+      mergeOnChainEventBody: components["schemas"]["MergeOnChainEventBody"];
     };
     /**
      * - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF: Deprecated
@@ -317,7 +351,7 @@ export interface components {
       address?: string;
     };
     LinkAdd: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataLinkAdd"];
+      data: components["schemas"]["MessageDataLink"];
     };
     /** * Adds or removes a Link */
     LinkBody: {
@@ -368,8 +402,8 @@ export interface components {
      */
     LinkType: "follow";
     MergeMessageBody: {
-      message?: components["schemas"]["Message"];
-      deletedMessages?: components["schemas"]["Message"][];
+      message: components["schemas"]["Message"];
+      deletedMessages: components["schemas"]["Message"][];
     };
     MergeOnChainEventBody: {
       onChainEvent?: components["schemas"]["OnChainEvent"];
@@ -385,10 +419,19 @@ export interface components {
      * A Message is a delta operation on the Farcaster network. The message protobuf is an envelope
      * that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
      */
-    Message: Record<string, never>;
+    Message: ({
+      data: components["schemas"]["MessageDataCastAdd"] | components["schemas"]["MessageDataCastRemove"] | components["schemas"]["MessageDataReaction"] | components["schemas"]["MessageDataLink"] | components["schemas"]["MessageDataVerificationAdd"] | components["schemas"]["MessageDataVerificationRemove"] | components["schemas"]["MessageDataUserDataAdd"] | components["schemas"]["MessageDataUsernameProof"];
+    }) & components["schemas"]["MessageCommon"];
+    ReactionRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataReactionRemove"];
+    };
+    LinkRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataLinkRemove"];
+    };
+    VerificationRemove: components["schemas"]["MessageCommon"] & {
+      data?: components["schemas"]["MessageDataVerificationRemove"];
+    };
     MessageCommon: {
-      /** @example MESSAGE_TYPE_CAST_ADD */
-      type: string;
       /**
        * Hash digest of data
        * @example 0xd2b1ddc6c88e865a33cb1a565e0058d757042974
@@ -426,17 +469,26 @@ export interface components {
     MessageDataCastRemove: components["schemas"]["MessageDataCommon"] & {
       castRemoveBody: components["schemas"]["CastRemoveBody"];
     };
-    MessageDataLinkAdd: components["schemas"]["MessageDataCommon"] & {
+    MessageDataLink: components["schemas"]["MessageDataCommon"] & {
       linkBody: components["schemas"]["LinkBody"];
     };
-    MessageDataReactionAdd: components["schemas"]["MessageDataCommon"] & {
+    MessageDataReaction: components["schemas"]["MessageDataCommon"] & {
       reactionBody: components["schemas"]["ReactionBody"];
+    };
+    MessageDataSignerAdd: components["schemas"]["MessageDataCommon"] & {
+      verificationRemoveBody: components["schemas"]["VerificationRemoveBody"];
     };
     MessageDataUserDataAdd: components["schemas"]["MessageDataCommon"] & {
       userDataBody: components["schemas"]["UserDataBody"];
     };
+    MessageDataUsernameProof: components["schemas"]["MessageDataCommon"] & {
+      usernameProofBody: components["schemas"]["UserNameProof"];
+    };
     MessageDataVerificationAdd: components["schemas"]["MessageDataCommon"] & {
       verificationAddEthAddressBody: components["schemas"]["VerificationAddEthAddressBody"];
+    };
+    MessageDataVerificationRemove: components["schemas"]["MessageDataCommon"] & {
+      verificationRemoveBody: components["schemas"]["VerificationRemoveBody"];
     };
     /**
      * * Type of the MessageBody
@@ -514,11 +566,11 @@ export interface components {
       message?: components["schemas"]["Message"];
     };
     Reaction: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataReactionAdd"];
+      data: components["schemas"]["MessageDataReaction"];
     };
     /** * Adds or removes a Reaction from a Cast */
     ReactionBody: {
-      type?: components["schemas"]["ReactionType"];
+      type: components["schemas"]["ReactionType"];
       targetCastId?: components["schemas"]["CastId"];
       /** URL to react to */
       targetUrl?: string;
@@ -720,22 +772,19 @@ export interface components {
     /** * Adds a Verification of ownership of an Ethereum Address */
     VerificationAddEthAddressBody: {
       /** Ethereum address being verified */
-      address?: string;
+      address: string;
       /**
        * Signature produced by the user's Ethereum address
        * Format: byte
        */
-      ethSignature?: string;
+      ethSignature: string;
       /** Hash of the latest Ethereum block when the signature was produced */
-      blockHash?: string;
+      blockHash: string;
     };
     /** * Removes a Verification of any type */
     VerificationRemoveBody: {
-      /**
-       * Address of the Verification to remove
-       * Format: byte
-       */
-      address?: string;
+      /** Address of the Verification to remove */
+      address: string;
     };
     VerificationRequest: {
       /** Format: uint64 */
@@ -1003,10 +1052,33 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetEvent: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["EventRequest"];
+  /** Get a page of Hub events */
+  ListEvents: {
+    parameters: {
+      query?: {
+        /** @description An optional Hub Id to start getting events from.  This is also returned from the API as nextPageEventId, which  can be used to page through all the Hub events. Set it to 0  to start from the first event */
+        from_event_id?: number;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": {
+            nextPageEventId: number;
+            events: components["schemas"]["HubEvent"][];
+          };
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get an event by its ID */
+  GetEventById: {
+    parameters: {
+      query: {
+        /** @description The Hub Id of the event */
+        event_id: number;
       };
     };
     responses: {
@@ -1206,7 +1278,7 @@ export interface operations {
   };
   /**
    * Get a list of signers provided by an FID
-   * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a paginated list of `OnChainEventSigner` messages is returned instead
+   * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a  non-paginated list of `OnChainEventSigner` messages is returned instead
    */
   ListOnChainSignersByFid: {
     parameters: {
@@ -1512,8 +1584,8 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  /** Submit Methods */
-  HubService_SubmitMessage: {
+  /** Submit a signed protobuf-serialized message to the Hub */
+  SubmitMessage: {
     /**
      * @description *
      * A Message is a delta operation on the Farcaster network. The message protobuf is an envelope

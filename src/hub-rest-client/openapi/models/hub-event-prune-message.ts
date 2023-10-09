@@ -15,43 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastId } from './cast-id';
+import { PruneMessageBody } from './prune-message-body';
 
 /**
  * 
  * @export
- * @interface CastsByParentRequest
+ * @interface HubEventPruneMessage
  */
-export interface CastsByParentRequest {
-    /**
-     * 
-     * @type {CastId}
-     * @memberof CastsByParentRequest
-     */
-    'parentCastId'?: CastId;
+export interface HubEventPruneMessage {
     /**
      * 
      * @type {string}
-     * @memberof CastsByParentRequest
+     * @memberof HubEventPruneMessage
      */
-    'parentUrl'?: string;
+    'type': string;
     /**
      * 
      * @type {number}
-     * @memberof CastsByParentRequest
+     * @memberof HubEventPruneMessage
      */
-    'pageSize'?: number;
+    'id': number;
     /**
      * 
-     * @type {string}
-     * @memberof CastsByParentRequest
+     * @type {PruneMessageBody}
+     * @memberof HubEventPruneMessage
      */
-    'pageToken'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CastsByParentRequest
-     */
-    'reverse'?: boolean;
+    'pruneMessageBody': PruneMessageBody;
 }
 

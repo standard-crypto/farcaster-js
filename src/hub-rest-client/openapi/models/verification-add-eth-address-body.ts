@@ -25,18 +25,18 @@ export interface VerificationAddEthAddressBody {
      * @type {string}
      * @memberof VerificationAddEthAddressBody
      */
-    'address'?: string;
+    'address': string;
     /**
      * 
      * @type {string}
      * @memberof VerificationAddEthAddressBody
      */
-    'ethSignature'?: string;
+    'ethSignature': string;
     /**
      * 
      * @type {string}
      * @memberof VerificationAddEthAddressBody
      */
-    'blockHash'?: string;
+    'blockHash': string;
 }
 

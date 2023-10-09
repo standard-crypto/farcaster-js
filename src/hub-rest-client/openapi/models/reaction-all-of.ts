@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReactionAdd } from './message-data-reaction-add';
+import { MessageDataReaction } from './message-data-reaction';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataReactionAdd } from './message-data-reaction-add';
 export interface ReactionAllOf {
     /**
      * 
-     * @type {MessageDataReactionAdd}
+     * @type {MessageDataReaction}
      * @memberof ReactionAllOf
      */
-    'data': MessageDataReactionAdd;
+    'data': MessageDataReaction;
 }
 

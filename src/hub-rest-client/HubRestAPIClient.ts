@@ -27,14 +27,14 @@ import {
   UserNameProof,
   VerificationsApi,
   Verification,
-  OnChainEvent,
-  SignerEventType,
   OnChainEventType,
   OnChainEventSigner,
-  OnChainApi,
+  OnChainEventsApi,
   OnChainEventSignerMigrated,
   OnChainEventIdRegister,
   OnChainEventStorageRent,
+  HubEventsApi,
+  HubEvent,
 } from "./openapi";
 
 type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
@@ -66,9 +66,10 @@ export class HubRestAPIClient {
   public readonly apis: {
     casts: CastsApi;
     fids: FIDsApi;
+    hubEvents: HubEventsApi;
     info: InfoApi;
     links: LinksApi;
-    onChain: OnChainApi;
+    onChainEvents: OnChainEventsApi;
     reactions: ReactionsApi;
     storage: StorageApi;
     userData: UserDataApi;
@@ -114,7 +115,8 @@ export class HubRestAPIClient {
       storage: new StorageApi(config, undefined, axiosInstance),
       usernames: new UsernamesApi(config, undefined, axiosInstance),
       verifications: new VerificationsApi(config, undefined, axiosInstance),
-      onChain: new OnChainApi(config, undefined, axiosInstance),
+      onChainEvents: new OnChainEventsApi(config, undefined, axiosInstance),
+      hubEvents: new HubEventsApi(config, undefined, axiosInstance),
     };
   }
 
@@ -616,7 +618,7 @@ export class HubRestAPIClient {
     fid: number,
     eventType: T
   ): Promise<Array<OnChainEventsReturnType<T>>> {
-    const response = await this.apis.onChain.listOnChainEventsByFid({
+    const response = await this.apis.onChainEvents.listOnChainEventsByFid({
       fid,
       eventType,
     });
@@ -634,7 +636,7 @@ export class HubRestAPIClient {
     signer: string
   ): Promise<OnChainEventSigner | null> {
     try {
-      const response = await this.apis.onChain.listOnChainSignersByFid({
+      const response = await this.apis.onChainEvents.listOnChainSignersByFid({
         fid,
         signer,
       });
@@ -660,7 +662,9 @@ export class HubRestAPIClient {
   ): Promise<OnChainEventIdRegister | null> {
     try {
       const response =
-        await this.apis.onChain.getOnChainIdRegistrationByAddress({ address });
+        await this.apis.onChainEvents.getOnChainIdRegistrationByAddress({
+          address,
+        });
       return response.data;
     } catch (err) {
       if (
@@ -670,6 +674,52 @@ export class HubRestAPIClient {
         return null;
       }
       throw err;
+    }
+  }
+
+  /**
+   * Get an event by its Id
+   * @param eventId The Hub Id of the event
+   * @returns
+   */
+  public async getHubEventById(eventId: number): Promise<HubEvent | null> {
+    try {
+      const response = await this.apis.hubEvents.getEventById({
+        eventId,
+      });
+      return response.data;
+    } catch (err) {
+      if (
+        HubRestAPIClient.isApiErrorResponse(err) &&
+        err.response.data.errCode === "not_found"
+      ) {
+        return null;
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Get a page of Hub events
+   * @param fromEventId An optional Hub Id to start getting events from.
+   */
+  public async *listHubEvents(
+    fromEventId?: number
+  ): AsyncGenerator<HubEvent, void, undefined> {
+    while (true) {
+      // fetch one page
+      const response = await this.apis.hubEvents.listEvents({
+        fromEventId,
+      });
+
+      // yield current page
+      if (response.data.events.length === 0) {
+        break;
+      }
+      yield* response.data.events;
+
+      // prep for next page
+      fromEventId = response.data.nextPageEventId;
     }
   }
 

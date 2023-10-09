@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionBody } from './reaction-body';
+import { MessageDataCastRemove } from './message-data-cast-remove';
 
 /**
  * 
  * @export
- * @interface MessageDataReactionAddAllOf
+ * @interface CastRemoveAllOf
  */
-export interface MessageDataReactionAddAllOf {
+export interface CastRemoveAllOf {
     /**
      * 
-     * @type {ReactionBody}
-     * @memberof MessageDataReactionAddAllOf
+     * @type {MessageDataCastRemove}
+     * @memberof CastRemoveAllOf
      */
-    'reactionBody': ReactionBody;
+    'data'?: MessageDataCastRemove;
 }
 

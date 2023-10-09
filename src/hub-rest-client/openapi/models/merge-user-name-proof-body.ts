@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { Message } from './message';
+// May contain unused imports in some cases
+// @ts-ignore
 import { UserNameProof } from './user-name-proof';
 
 /**
@@ -36,16 +39,16 @@ export interface MergeUserNameProofBody {
      */
     'deletedUsernameProof'?: UserNameProof;
     /**
-     * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {object}
+     * 
+     * @type {Message}
      * @memberof MergeUserNameProofBody
      */
-    'usernameProofMessage'?: object;
+    'usernameProofMessage'?: Message;
     /**
-     * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {object}
+     * 
+     * @type {Message}
      * @memberof MergeUserNameProofBody
      */
-    'deletedUsernameProofMessage'?: object;
+    'deletedUsernameProofMessage'?: Message;
 }
 

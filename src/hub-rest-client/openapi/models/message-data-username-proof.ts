@@ -15,24 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { FarcasterNetwork } from './farcaster-network';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCastAddAllOf } from './message-cast-add-all-of';
+import { MessageDataCommon } from './message-data-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common';
+import { MessageDataUsernameProofAllOf } from './message-data-username-proof-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add';
+import { MessageType } from './message-type';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { UserNameProof } from './user-name-proof';
 
 /**
- * @type MessageCastAdd
+ * @type MessageDataUsernameProof
  * @export
  */
-export type MessageCastAdd = MessageCastAddAllOf & MessageCommon;
+export type MessageDataUsernameProof = MessageDataCommon & MessageDataUsernameProofAllOf;
 
 

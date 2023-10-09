@@ -15,25 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkAdd } from './link-add';
+import { UserNameProof } from './user-name-proof';
 
 /**
  * 
  * @export
- * @interface GetLinksByFid200Response
+ * @interface MessageDataUsernameProofAllOf
  */
-export interface GetLinksByFid200Response {
+export interface MessageDataUsernameProofAllOf {
     /**
      * 
-     * @type {Array<LinkAdd>}
-     * @memberof GetLinksByFid200Response
+     * @type {UserNameProof}
+     * @memberof MessageDataUsernameProofAllOf
      */
-    'messages': Array<LinkAdd>;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetLinksByFid200Response
-     */
-    'nextPageToken': string;
+    'usernameProofBody': UserNameProof;
 }
 

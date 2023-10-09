@@ -16,12 +16,14 @@
 
 export * from './apis/casts-api';
 export * from './apis/fids-api';
+export * from './apis/hub-events-api';
 export * from './apis/hub-service-api';
 export * from './apis/info-api';
 export * from './apis/links-api';
-export * from './apis/on-chain-api';
+export * from './apis/on-chain-events-api';
 export * from './apis/reactions-api';
 export * from './apis/storage-api';
+export * from './apis/submit-message-api';
 export * from './apis/user-data-api';
 export * from './apis/usernames-api';
 export * from './apis/verifications-api';

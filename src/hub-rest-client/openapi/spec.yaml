@@ -323,17 +323,54 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
-  /HubService/GetEvent:
-    post:
+  /v1/events:
+    get:
       tags:
-      - HubService
-      operationId: HubService_GetEvent
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-        required: true
+        - HubEvents
+      operationId: ListEvents
+      summary: Get a page of Hub events
+      parameters:
+        - name: from_event_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: "An optional Hub Id to start getting events from. 
+            This is also returned from the API as nextPageEventId, which 
+            can be used to page through all the Hub events. Set it to 0 
+            to start from the first event"
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nextPageEventId:
+                    type: integer
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HubEvent'
+                required:
+                  - nextPageEventId
+                  - events
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/eventById:
+    get:
+      tags:
+        - HubEvents
+      operationId: GetEventById
+      summary: Get an event by its ID
+      parameters:
+        - name: event_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The Hub Id of the event
       responses:
         200:
           description: A successful response.
@@ -343,7 +380,6 @@ paths:
                 $ref: '#/components/schemas/HubEvent'
         default:
           $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
   /v1/fids:
     get:
       tags:
@@ -550,7 +586,7 @@ paths:
   /v1/onChainIdRegistryEventByAddress:
     get:
       tags:
-        - OnChain
+        - OnChainEvents
       summary: Get an on chain ID Registry Event for a given Address
       operationId: GetOnChainIdRegistrationByAddress
       parameters:
@@ -573,7 +609,7 @@ paths:
   /v1/onChainEventsByFid:
     get:
       tags:
-        - OnChain
+        - OnChainEvents
       summary: Get a list of on-chain events provided by an FID
       operationId: ListOnChainEventsByFid
       parameters:
@@ -608,7 +644,7 @@ paths:
   /v1/onChainSignersByFid:
     get:
       tags:
-        - OnChain
+        - OnChainEvents
       summary: Get a list of signers provided by an FID
       description: "**Note:** one of two different response schemas is returned 
         based on whether the caller provides the `signer` parameter. If included, a single
@@ -1069,12 +1105,14 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
-  /HubService/SubmitMessage:
+  /v1/submitMessage:
     post:
       tags:
-      - HubService
-      summary: Submit Methods
-      operationId: HubService_SubmitMessage
+        - SubmitMessage
+      summary: Submit a signed protobuf-serialized message to the Hub
+      operationId: SubmitMessage
+      security:
+        - usernamePassword: []
       requestBody:
         description: "* \nA Message is a delta operation on the Farcaster network.\
           \ The message protobuf is an envelope \nthat wraps a MessageData object\
@@ -1123,6 +1161,10 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
 components:
+  securitySchemes:
+    usernamePassword:
+      type: http
+      scheme: basic
   parameters:
     pageSize:
       name: pageSize
@@ -1189,6 +1231,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Embed'
+    CastRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataCastRemove'
     CastId:
       title: '* Identifier used to look up a Cast'
       required:
@@ -1337,23 +1386,95 @@ components:
       enum:
       - HASH_SCHEME_BLAKE3
     HubEvent:
+      oneOf:
+        - $ref: '#/components/schemas/HubEventMergeMessage'
+        - $ref: '#/components/schemas/HubEventPruneMessage'
+        - $ref: '#/components/schemas/HubEventRevokeMessage'
+        - $ref: '#/components/schemas/HubEventMergeUsernameProof'
+        - $ref: '#/components/schemas/HubEventMergeOnChainEvent'
+      discriminator:
+        propertyName: type
+        mapping:
+          HUB_EVENT_TYPE_MERGE_MESSAGE: '#/components/schemas/HubEventMergeMessage'
+          HUB_EVENT_TYPE_PRUNE_MESSAGE: '#/components/schemas/HubEventPruneMessage'
+          HUB_EVENT_TYPE_REVOKE_MESSAGE: '#/components/schemas/HubEventRevokeMessage'
+          HUB_EVENT_TYPE_MERGE_USERNAME_PROOF: '#/components/schemas/HubEventMergeUsernameProof'
+          HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT: '#/components/schemas/HubEventMergeOnChainEvent'
+    HubEventMergeMessage:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/HubEventType'
+        type: 
+          type: string
+          example: HUB_EVENT_TYPE_MERGE_MESSAGE
         id:
           type: integer
           format: uint64
         mergeMessageBody:
           $ref: '#/components/schemas/MergeMessageBody'
+      required:
+        - type
+        - id
+        - mergeMessageBody
+    HubEventPruneMessage:
+      type: object
+      properties:
+        type: 
+          type: string
+          example: HUB_EVENT_TYPE_PRUNE_MESSAGE
+        id:
+          type: integer
+          format: uint64
         pruneMessageBody:
           $ref: '#/components/schemas/PruneMessageBody'
+      required:
+        - type
+        - id
+        - pruneMessageBody
+    HubEventRevokeMessage:
+      type: object
+      properties:
+        type: 
+          type: string
+          example: HUB_EVENT_TYPE_REVOKE_MESSAGE
+        id:
+          type: integer
+          format: uint64
         revokeMessageBody:
           $ref: '#/components/schemas/RevokeMessageBody'
+      required:
+        - type
+        - id
+        - revokeMessageBody
+    HubEventMergeUsernameProof:
+      type: object
+      properties:
+        type: 
+          type: string
+          example: HUB_EVENT_TYPE_MERGE_USERNAME_PROOF
+        id:
+          type: integer
+          format: uint64
         mergeUsernameProofBody:
           $ref: '#/components/schemas/MergeUserNameProofBody'
+      required:
+        - type
+        - id
+        - mergeUsernameProofBody
+    HubEventMergeOnChainEvent:
+      type: object
+      properties:
+        type: 
+          type: string
+          example: HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT
+        id:
+          type: integer
+          format: uint64
         mergeOnChainEventBody:
           $ref: '#/components/schemas/MergeOnChainEventBody'
+      required:
+        - type
+        - id
+        - mergeOnChainEventBody
     HubEventType:
       title: |-
         - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF: Deprecated
@@ -1441,7 +1562,7 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataLinkAdd'
+              $ref: '#/components/schemas/MessageDataLink'
           required:
             - data
     LinkBody:
@@ -1521,6 +1642,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Message'
+      required:
+        - message
+        - deletedMessages
     MergeOnChainEventBody:
       type: object
       properties:
@@ -1538,39 +1662,62 @@ components:
         deletedUsernameProofMessage:
           $ref: '#/components/schemas/Message'
     Message:
-      type: object
+      allOf:
+        - type: object
+          properties:
+            data:
+              oneOf:
+                - $ref: '#/components/schemas/MessageDataCastAdd'
+                - $ref: '#/components/schemas/MessageDataCastRemove'
+                - $ref: '#/components/schemas/MessageDataReaction'
+                - $ref: '#/components/schemas/MessageDataLink'
+                - $ref: '#/components/schemas/MessageDataVerificationAdd'
+                - $ref: '#/components/schemas/MessageDataVerificationRemove'
+                - $ref: '#/components/schemas/MessageDataUserDataAdd'
+                - $ref: '#/components/schemas/MessageDataUsernameProof'
+              discriminator:
+                propertyName: type
+                mapping:
+                  MESSAGE_TYPE_CAST_ADD: '#/components/schemas/MessageDataCastAdd'
+                  MESSAGE_TYPE_CAST_REMOVE: '#/components/schemas/MessageDataCastRemove'
+                  MESSAGE_TYPE_REACTION_ADD: '#/components/schemas/MessageDataReaction'
+                  MESSAGE_TYPE_REACTION_REMOVE: '#/components/schemas/MessageDataReaction'
+                  MESSAGE_TYPE_LINK_ADD: '#/components/schemas/MessageDataLink'
+                  MESSAGE_TYPE_LINK_REMOVE: '#/components/schemas/MessageDataLink'
+                  MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS: '#/components/schemas/MessageDataVerificationAdd'
+                  MESSAGE_TYPE_VERIFICATION_REMOVE: '#/components/schemas/MessageDataVerificationRemove'
+                  MESSAGE_TYPE_USER_DATA_ADD: '#/components/schemas/MessageDataUserDataAdd'
+                  MESSAGE_TYPE_USERNAME_PROOF: '#/components/schemas/MessageDataUsernameProof'
+          required:
+            - data
+        - $ref: '#/components/schemas/MessageCommon'
       description: "* \nA Message is a delta operation on the Farcaster network. The\
         \ message protobuf is an envelope \nthat wraps a MessageData object and contains\
         \ a hash and signature which can verify its authenticity."
-    # Message:
-    #   allOf:
-    #     - $ref: '#/components/schemas/MessageCommon'
-    #     - type: object
-    #       required:
-    #         - data
-    #       properties:
-    #         data:
-    #           oneOf:
-    #             - $ref: '#/components/schemas/MessageDataCastAdd'
-    #             - $ref: '#/components/schemas/MessageDataCastRemove'
-    #             - $ref: '#/components/schemas/MessageDataLinkAdd'
-    #             - $ref: '#/components/schemas/MessageDataReactionAdd'
-    #           discriminator:
-    #               propertyName: type
-    #               mapping:
-    #                 MESSAGE_TYPE_CAST_ADD: '#/components/schemas/MessageDataCastAdd'
-    #                 MESSAGE_TYPE_CAST_REMOVE: '#/components/schemas/MessageDataCastRemove'
-    #                 MESSAGE_TYPE_LINK_ADD: '#/components/schemas/MessageDataLinkAdd'
-    #                 MESSAGE_TYPE_REACTION_ADD: '#/components/schemas/MessageDataReactionAdd'
-    #   description: "* \nA Message is a delta operation on the Farcaster network. The\
-    #     \ message protobuf is an envelope \nthat wraps a MessageData object and contains\
-    #     \ a hash and signature which can verify its authenticity."
+    ReactionRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataReactionRemove'
+    LinkRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataLinkRemove'
+    VerificationRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageCommon'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageDataVerificationRemove'
     MessageCommon:
       type: object
       properties:
-        type:
-          type: string
-          example: MESSAGE_TYPE_CAST_ADD
         hash:
           title: Hash digest of data
           pattern: ^0x[0-9a-fA-F]{40}$
@@ -1590,7 +1737,6 @@ components:
           pattern: ^0x[0-9a-fA-F]+$
           type: string
       required:
-        - type
         - hash
         - hashScheme
         - signature
@@ -1636,7 +1782,7 @@ components:
           properties:
             castRemoveBody:
               $ref: '#/components/schemas/CastRemoveBody'
-    MessageDataLinkAdd:
+    MessageDataLink:
       allOf:
         - $ref: '#/components/schemas/MessageDataCommon'
         - type: object
@@ -1645,7 +1791,7 @@ components:
           properties:
             linkBody:
               $ref: '#/components/schemas/LinkBody'
-    MessageDataReactionAdd:
+    MessageDataReaction:
       allOf:
         - $ref: '#/components/schemas/MessageDataCommon'
         - type: object
@@ -1654,6 +1800,15 @@ components:
           properties:
             reactionBody:
               $ref: '#/components/schemas/ReactionBody'
+    MessageDataSignerAdd:
+      allOf:
+        - $ref: '#/components/schemas/MessageDataCommon'
+        - type: object
+          required:
+            - verificationRemoveBody
+          properties:
+            verificationRemoveBody:
+              $ref: '#/components/schemas/VerificationRemoveBody'
     MessageDataUserDataAdd:
       allOf:
         - $ref: '#/components/schemas/MessageDataCommon'
@@ -1663,6 +1818,15 @@ components:
           properties:
             userDataBody:
               $ref: '#/components/schemas/UserDataBody'
+    MessageDataUsernameProof:
+      allOf:
+        - $ref: '#/components/schemas/MessageDataCommon'
+        - type: object
+          required:
+            - usernameProofBody
+          properties:
+            usernameProofBody:
+              $ref: '#/components/schemas/UserNameProof'
     MessageDataVerificationAdd:
       allOf:
         - $ref: '#/components/schemas/MessageDataCommon'
@@ -1672,6 +1836,15 @@ components:
           properties:
             verificationAddEthAddressBody:
               $ref: '#/components/schemas/VerificationAddEthAddressBody'
+    MessageDataVerificationRemove:
+      allOf:
+        - $ref: '#/components/schemas/MessageDataCommon'
+        - type: object
+          required:
+            - verificationRemoveBody
+          properties:
+            verificationRemoveBody:
+              $ref: '#/components/schemas/VerificationRemoveBody'
     MessageType:
       title: '* Type of the MessageBody'
       type: string
@@ -1716,45 +1889,6 @@ components:
           pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
           type: string
           format: byte
-    # OnChainEvent:
-    #   type: object
-    #   properties:
-    #     type:
-    #       $ref: '#/components/schemas/OnChainEventType'
-    #     chainId:
-    #       type: integer
-    #       format: int64
-    #     blockNumber:
-    #       type: integer
-    #       format: int64
-    #     blockHash:
-    #       pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-    #       type: string
-    #       format: byte
-    #     blockTimestamp:
-    #       type: integer
-    #       format: uint64
-    #     transactionHash:
-    #       pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-    #       type: string
-    #       format: byte
-    #     logIndex:
-    #       type: integer
-    #       format: int64
-    #     fid:
-    #       type: integer
-    #       format: uint64
-    #     signerEventBody:
-    #       $ref: '#/components/schemas/SignerEventBody'
-    #     signerMigratedEventBody:
-    #       $ref: '#/components/schemas/SignerMigratedEventBody'
-    #     idRegisterEventBody:
-    #       $ref: '#/components/schemas/IdRegisterEventBody'
-    #     storageRentEventBody:
-    #       $ref: '#/components/schemas/StorageRentEventBody'
-    #     txIndex:
-    #       type: integer
-    #       format: int64
     OnChainEvent:
       oneOf:
         - $ref: '#/components/schemas/OnChainEventSigner'
@@ -1885,7 +2019,7 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataReactionAdd'
+              $ref: '#/components/schemas/MessageDataReaction'
           required:
             - data
     ReactionBody:
@@ -1899,6 +2033,8 @@ components:
         targetUrl:
           title: URL to react to
           type: string
+      required:
+        - type
     ReactionRequest:
       type: object
       properties:
@@ -2284,15 +2420,20 @@ components:
           title: Hash of the latest Ethereum block when the signature was produced
           pattern: ^0x[a-fA-F0-9]{64}$
           type: string
+      required:
+        - address
+        - ethSignature
+        - blockHash
     VerificationRemoveBody:
       title: '* Removes a Verification of any type'
       type: object
       properties:
         address:
           title: Address of the Verification to remove
-          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          pattern: ^0x[A-Za-z0-9]{40}$
           type: string
-          format: byte
+      required:
+        - address
     VerificationRequest:
       type: object
       properties:

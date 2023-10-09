@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLinkAdd } from './message-data-link-add';
+import { MessageDataLink } from './message-data-link';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataLinkAdd } from './message-data-link-add';
 export interface LinkAddAllOf {
     /**
      * 
-     * @type {MessageDataLinkAdd}
+     * @type {MessageDataLink}
      * @memberof LinkAddAllOf
      */
-    'data': MessageDataLinkAdd;
+    'data': MessageDataLink;
 }
 

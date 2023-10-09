@@ -24,13 +24,11 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
-import { EventRequest } from '../models';
-// @ts-ignore
 import { FidRequest } from '../models';
 // @ts-ignore
-import { HubEvent } from '../models';
-// @ts-ignore
 import { IdRegistryEventByAddressRequest } from '../models';
+// @ts-ignore
+import { Message } from '../models';
 // @ts-ignore
 import { MessagesResponse } from '../models';
 // @ts-ignore
@@ -244,41 +242,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
             // verify required parameter 'body' is not null or undefined
             assertParamExists('hubServiceGetAllVerificationMessagesByFid', 'body', body)
             const localVarPath = `/HubService/GetAllVerificationMessagesByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {EventRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetEvent: async (body: EventRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetEvent', 'body', body)
-            const localVarPath = `/HubService/GetEvent`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -552,42 +515,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @summary Submit Methods
-         * @param {object} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceSubmitMessage: async (body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceSubmitMessage', 'body', body)
-            const localVarPath = `/HubService/SubmitMessage`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Event Methods
          * @param {SubscribeRequest} body 
          * @param {*} [options] Override http request option.
@@ -694,16 +621,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {EventRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetEvent(body: EventRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HubEvent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetEvent(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {FidRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -769,19 +686,8 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hubServiceGetVerification(body: VerificationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async hubServiceGetVerification(body: VerificationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetVerification(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Submit Methods
-         * @param {object} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceSubmitMessage(body: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceSubmitMessage(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -861,15 +767,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @param {HubServiceApiHubServiceGetEventRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetEvent(requestParameters: HubServiceApiHubServiceGetEventRequest, options?: AxiosRequestConfig): AxiosPromise<HubEvent> {
-            return localVarFp.hubServiceGetEvent(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {HubServiceApiHubServiceGetIdRegistryOnChainEventRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -929,18 +826,8 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+        hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig): AxiosPromise<Message> {
             return localVarFp.hubServiceGetVerification(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Submit Methods
-         * @param {HubServiceApiHubServiceSubmitMessageRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceSubmitMessage(requestParameters: HubServiceApiHubServiceSubmitMessageRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
-            return localVarFp.hubServiceSubmitMessage(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1037,20 +924,6 @@ export interface HubServiceApiHubServiceGetAllVerificationMessagesByFidRequest {
      * @memberof HubServiceApiHubServiceGetAllVerificationMessagesByFid
      */
     readonly body: FidRequest
-}
-
-/**
- * Request parameters for hubServiceGetEvent operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetEventRequest
- */
-export interface HubServiceApiHubServiceGetEventRequest {
-    /**
-     * 
-     * @type {EventRequest}
-     * @memberof HubServiceApiHubServiceGetEvent
-     */
-    readonly body: EventRequest
 }
 
 /**
@@ -1152,20 +1025,6 @@ export interface HubServiceApiHubServiceGetVerificationRequest {
 }
 
 /**
- * Request parameters for hubServiceSubmitMessage operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceSubmitMessageRequest
- */
-export interface HubServiceApiHubServiceSubmitMessageRequest {
-    /**
-     * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {object}
-     * @memberof HubServiceApiHubServiceSubmitMessage
-     */
-    readonly body: object
-}
-
-/**
  * Request parameters for hubServiceSubscribe operation in HubServiceApi.
  * @export
  * @interface HubServiceApiHubServiceSubscribeRequest
@@ -1254,17 +1113,6 @@ export class HubServiceApi extends BaseAPI {
 
     /**
      * 
-     * @param {HubServiceApiHubServiceGetEventRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetEvent(requestParameters: HubServiceApiHubServiceGetEventRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetEvent(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {HubServiceApiHubServiceGetIdRegistryOnChainEventRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1339,18 +1187,6 @@ export class HubServiceApi extends BaseAPI {
      */
     public hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig) {
         return HubServiceApiFp(this.configuration).hubServiceGetVerification(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Submit Methods
-     * @param {HubServiceApiHubServiceSubmitMessageRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceSubmitMessage(requestParameters: HubServiceApiHubServiceSubmitMessageRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceSubmitMessage(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

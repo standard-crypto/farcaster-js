@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add';
+import { LinkBody } from './link-body';
 
 /**
  * 
  * @export
- * @interface MessageCastAddAllOf
+ * @interface MessageDataLinkAllOf
  */
-export interface MessageCastAddAllOf {
+export interface MessageDataLinkAllOf {
     /**
      * 
-     * @type {MessageDataCastAdd}
-     * @memberof MessageCastAddAllOf
+     * @type {LinkBody}
+     * @memberof MessageDataLinkAllOf
      */
-    'data': MessageDataCastAdd;
+    'linkBody': LinkBody;
 }
 

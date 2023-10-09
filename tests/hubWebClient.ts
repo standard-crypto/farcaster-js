@@ -593,10 +593,11 @@ describe.only("HubWebClient", function () {
           OnChainEventType.IdRegister,
           OnChainEventType.StorageRent,
         ]) {
-          const response = await client.apis.onChain.listOnChainEventsByFid({
-            fid: 3,
-            eventType,
-          });
+          const response =
+            await client.apis.onChainEvents.listOnChainEventsByFid({
+              fid: 3,
+              eventType,
+            });
           expect(response.data.events).to.not.be.empty;
           const validator = new OpenAPIResponseValidator({
             responses: apiSpec.paths["/v1/onChainEventsByFid"].get
@@ -657,11 +658,12 @@ describe.only("HubWebClient", function () {
     describe("#getOnChainSignerEventBySigner", function () {
       it("validates against OpenAPI spec", async function () {
         // Provide the `signer` param
-        const response = await client.apis.onChain.listOnChainSignersByFid({
-          fid: 6833,
-          signer:
-            "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd",
-        });
+        const response =
+          await client.apis.onChainEvents.listOnChainSignersByFid({
+            fid: 6833,
+            signer:
+              "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd",
+          });
         expect(response.data).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
           responses: apiSpec.paths["/v1/onChainSignersByFid"].get
@@ -672,9 +674,10 @@ describe.only("HubWebClient", function () {
         expect(errors, JSON.stringify(errors)).is.undefined;
 
         // Omit the `signer` param
-        const listResponse = await client.apis.onChain.listOnChainSignersByFid({
-          fid: 6833,
-        });
+        const listResponse =
+          await client.apis.onChainEvents.listOnChainSignersByFid({
+            fid: 6833,
+          });
         expect(listResponse.data).to.have.property("events");
         expect(
           (listResponse.data as ListOnChainSignersByFid200ResponseOneOf).events
@@ -704,7 +707,7 @@ describe.only("HubWebClient", function () {
     describe("#getOnChainIdRegistryEventByAddress", function () {
       it("validates against OpenAPI spec", async function () {
         const response =
-          await client.apis.onChain.getOnChainIdRegistrationByAddress({
+          await client.apis.onChainEvents.getOnChainIdRegistrationByAddress({
             address: "0x74232bf61e994655592747e20bdf6fa9b9476f79",
           });
         expect(response.data).to.not.be.empty;
@@ -729,6 +732,56 @@ describe.only("HubWebClient", function () {
         const event = await client.getOnChainIdRegistryEventByAddress(
           "0x0000000000000000000000000000000000000000"
         );
+        expect(event).to.be.null;
+      });
+    });
+  });
+
+  describe.only("Hub Events API", function () {
+    describe("#listHubEvents", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.hubEvents.listEvents();
+        expect(response.data.events).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/events"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("returns some hub events", async function () {
+        const eventsIter = client.listHubEvents();
+        const eventOne = await eventsIter.next();
+        const eventTwo = await eventsIter.next();
+        expectDefinedNonNull(eventOne.value);
+        expectDefinedNonNull(eventTwo.value);
+      });
+    });
+
+    describe("#getEventById", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.hubEvents.getEventById({
+          eventId: 357040145145856,
+        });
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/eventById"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch an event", async function () {
+        const eventId = 357040145145856;
+        const event = await client.getHubEventById(eventId);
+        expectDefinedNonNull(event);
+        expect(event.id).eq(eventId);
+      });
+
+      it("returns null when event not found", async function () {
+        const eventId = 0;
+        const event = await client.getHubEventById(eventId);
         expect(event).to.be.null;
       });
     });

@@ -15,36 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastId } from './cast-id';
+import { HashScheme } from './hash-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionType } from './reaction-type';
+import { LinkRemoveAllOf } from './link-remove-all-of';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageCommon } from './message-common';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageDataLinkRemove } from './message-data-link-remove';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SignatureScheme } from './signature-scheme';
 
 /**
- * 
+ * @type LinkRemove
  * @export
- * @interface ReactionBody
  */
-export interface ReactionBody {
-    /**
-     * 
-     * @type {ReactionType}
-     * @memberof ReactionBody
-     */
-    'type': ReactionType;
-    /**
-     * 
-     * @type {CastId}
-     * @memberof ReactionBody
-     */
-    'targetCastId'?: CastId;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReactionBody
-     */
-    'targetUrl'?: string;
-}
-
+export type LinkRemove = LinkRemoveAllOf & MessageCommon;
 
 

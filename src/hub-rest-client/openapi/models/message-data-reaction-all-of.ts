@@ -15,31 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProtobufAny } from './protobuf-any';
+import { ReactionBody } from './reaction-body';
 
 /**
  * 
  * @export
- * @interface RpcStatus
+ * @interface MessageDataReactionAllOf
  */
-export interface RpcStatus {
+export interface MessageDataReactionAllOf {
     /**
      * 
-     * @type {number}
-     * @memberof RpcStatus
+     * @type {ReactionBody}
+     * @memberof MessageDataReactionAllOf
      */
-    'code'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof RpcStatus
-     */
-    'message'?: string;
-    /**
-     * 
-     * @type {Array<ProtobufAny>}
-     * @memberof RpcStatus
-     */
-    'details'?: Array<ProtobufAny>;
+    'reactionBody': ReactionBody;
 }
 

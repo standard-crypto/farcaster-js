@@ -15,24 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { FarcasterNetwork } from './farcaster-network';
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkAddAllOf } from './link-add-all-of';
+import { MessageDataCommon } from './message-data-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common';
+import { MessageDataSignerAddAllOf } from './message-data-signer-add-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLink } from './message-data-link';
+import { MessageType } from './message-type';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { VerificationRemoveBody } from './verification-remove-body';
 
 /**
- * @type LinkAdd
+ * @type MessageDataVerificationRemove
  * @export
  */
-export type LinkAdd = LinkAddAllOf & MessageCommon;
+export type MessageDataVerificationRemove = MessageDataCommon & MessageDataSignerAddAllOf;
 
 

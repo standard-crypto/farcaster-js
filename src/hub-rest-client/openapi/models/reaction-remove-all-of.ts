@@ -15,25 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Message } from './message';
+import { MessageDataReactionRemove } from './message-data-reaction-remove';
 
 /**
  * 
  * @export
- * @interface MessagesResponse
+ * @interface ReactionRemoveAllOf
  */
-export interface MessagesResponse {
+export interface ReactionRemoveAllOf {
     /**
      * 
-     * @type {Array<Message>}
-     * @memberof MessagesResponse
+     * @type {MessageDataReactionRemove}
+     * @memberof ReactionRemoveAllOf
      */
-    'messages': Array<Message>;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessagesResponse
-     */
-    'nextPageToken': string;
+    'data'?: MessageDataReactionRemove;
 }
 

@@ -15,25 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastAdd } from './cast-add';
+import { HubEvent } from './hub-event';
 
 /**
  * 
  * @export
- * @interface GetCastsByFid200Response
+ * @interface ListEvents200Response
  */
-export interface GetCastsByFid200Response {
+export interface ListEvents200Response {
     /**
      * 
-     * @type {Array<CastAdd>}
-     * @memberof GetCastsByFid200Response
+     * @type {number}
+     * @memberof ListEvents200Response
      */
-    'messages': Array<CastAdd>;
+    'nextPageEventId': number;
     /**
      * 
-     * @type {string}
-     * @memberof GetCastsByFid200Response
+     * @type {Array<HubEvent>}
+     * @memberof ListEvents200Response
      */
-    'nextPageToken': string;
+    'events': Array<HubEvent>;
 }
 

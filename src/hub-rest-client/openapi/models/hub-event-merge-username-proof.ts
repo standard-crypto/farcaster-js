@@ -15,25 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Message } from './message';
+import { MergeUserNameProofBody } from './merge-user-name-proof-body';
 
 /**
  * 
  * @export
- * @interface MessagesResponse
+ * @interface HubEventMergeUsernameProof
  */
-export interface MessagesResponse {
-    /**
-     * 
-     * @type {Array<Message>}
-     * @memberof MessagesResponse
-     */
-    'messages': Array<Message>;
+export interface HubEventMergeUsernameProof {
     /**
      * 
      * @type {string}
-     * @memberof MessagesResponse
+     * @memberof HubEventMergeUsernameProof
      */
-    'nextPageToken': string;
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HubEventMergeUsernameProof
+     */
+    'id': number;
+    /**
+     * 
+     * @type {MergeUserNameProofBody}
+     * @memberof HubEventMergeUsernameProof
+     */
+    'mergeUsernameProofBody': MergeUserNameProofBody;
 }
 

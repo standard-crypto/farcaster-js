@@ -15,19 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkBody } from './link-body';
+import { MergeOnChainEventBody } from './merge-on-chain-event-body';
 
 /**
  * 
  * @export
- * @interface MessageDataLinkAddAllOf
+ * @interface HubEventMergeOnChainEvent
  */
-export interface MessageDataLinkAddAllOf {
+export interface HubEventMergeOnChainEvent {
     /**
      * 
-     * @type {LinkBody}
-     * @memberof MessageDataLinkAddAllOf
+     * @type {string}
+     * @memberof HubEventMergeOnChainEvent
      */
-    'linkBody': LinkBody;
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HubEventMergeOnChainEvent
+     */
+    'id': number;
+    /**
+     * 
+     * @type {MergeOnChainEventBody}
+     * @memberof HubEventMergeOnChainEvent
+     */
+    'mergeOnChainEventBody': MergeOnChainEventBody;
 }
 

@@ -15,7 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEventType } from './hub-event-type';
+import { HubEventMergeMessage } from './hub-event-merge-message';
+// May contain unused imports in some cases
+// @ts-ignore
+import { HubEventMergeOnChainEvent } from './hub-event-merge-on-chain-event';
+// May contain unused imports in some cases
+// @ts-ignore
+import { HubEventMergeUsernameProof } from './hub-event-merge-username-proof';
+// May contain unused imports in some cases
+// @ts-ignore
+import { HubEventPruneMessage } from './hub-event-prune-message';
+// May contain unused imports in some cases
+// @ts-ignore
+import { HubEventRevokeMessage } from './hub-event-revoke-message';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MergeMessageBody } from './merge-message-body';
@@ -33,54 +45,9 @@ import { PruneMessageBody } from './prune-message-body';
 import { RevokeMessageBody } from './revoke-message-body';
 
 /**
- * 
+ * @type HubEvent
  * @export
- * @interface HubEvent
  */
-export interface HubEvent {
-    /**
-     * 
-     * @type {HubEventType}
-     * @memberof HubEvent
-     */
-    'type'?: HubEventType;
-    /**
-     * 
-     * @type {number}
-     * @memberof HubEvent
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {MergeMessageBody}
-     * @memberof HubEvent
-     */
-    'mergeMessageBody'?: MergeMessageBody;
-    /**
-     * 
-     * @type {PruneMessageBody}
-     * @memberof HubEvent
-     */
-    'pruneMessageBody'?: PruneMessageBody;
-    /**
-     * 
-     * @type {RevokeMessageBody}
-     * @memberof HubEvent
-     */
-    'revokeMessageBody'?: RevokeMessageBody;
-    /**
-     * 
-     * @type {MergeUserNameProofBody}
-     * @memberof HubEvent
-     */
-    'mergeUsernameProofBody'?: MergeUserNameProofBody;
-    /**
-     * 
-     * @type {MergeOnChainEventBody}
-     * @memberof HubEvent
-     */
-    'mergeOnChainEventBody'?: MergeOnChainEventBody;
-}
-
+export type HubEvent = { type: 'HUB_EVENT_TYPE_MERGE_MESSAGE' } & HubEventMergeMessage | { type: 'HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT' } & HubEventMergeOnChainEvent | { type: 'HUB_EVENT_TYPE_MERGE_USERNAME_PROOF' } & HubEventMergeUsernameProof | { type: 'HUB_EVENT_TYPE_PRUNE_MESSAGE' } & HubEventPruneMessage | { type: 'HUB_EVENT_TYPE_REVOKE_MESSAGE' } & HubEventRevokeMessage;
 
 

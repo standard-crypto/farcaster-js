@@ -18,45 +18,22 @@
 import { HashScheme } from './hash-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
+import { MessageAllOf } from './message-all-of';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageAllOfData } from './message-all-of-data';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageCommon } from './message-common';
+// May contain unused imports in some cases
+// @ts-ignore
 import { SignatureScheme } from './signature-scheme';
 
 /**
- * 
+ * @type Message
+ * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
  * @export
- * @interface MessageCommon
  */
-export interface MessageCommon {
-    /**
-     * 
-     * @type {string}
-     * @memberof MessageCommon
-     */
-    'hash': string;
-    /**
-     * 
-     * @type {HashScheme}
-     * @memberof MessageCommon
-     */
-    'hashScheme': HashScheme;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessageCommon
-     */
-    'signature': string;
-    /**
-     * 
-     * @type {SignatureScheme}
-     * @memberof MessageCommon
-     */
-    'signatureScheme': SignatureScheme;
-    /**
-     * 
-     * @type {string}
-     * @memberof MessageCommon
-     */
-    'signer': string;
-}
-
+export type Message = MessageAllOf & MessageCommon;
 
 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { DataLinkAdd|MessageDataCastAdd|MessageDataCastRemove|MessageDataReactionAdd } from './data-link-add|message-data-cast-add|message-data-cast-remove|message-data-reaction-add';
+import { MessageAllOfData } from './message-all-of-data';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { DataLinkAdd|MessageDataCastAdd|MessageDataCastRemove|MessageDataReactio
 export interface MessageAllOf {
     /**
      * 
-     * @type {MessageDataCastAdd | MessageDataCastRemove | MessageDataLinkAdd | MessageDataReactionAdd}
+     * @type {MessageAllOfData}
      * @memberof MessageAllOf
      */
-    'data': MessageDataCastAdd | MessageDataCastRemove | MessageDataLinkAdd | MessageDataReactionAdd;
+    'data': MessageAllOfData;
 }
 

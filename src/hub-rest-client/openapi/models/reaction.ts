@@ -21,7 +21,7 @@ import { HashScheme } from './hash-scheme';
 import { MessageCommon } from './message-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReactionAdd } from './message-data-reaction-add';
+import { MessageDataReaction } from './message-data-reaction';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ReactionAllOf } from './reaction-all-of';

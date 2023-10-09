@@ -15,25 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Message } from './message';
+import { RevokeMessageBody } from './revoke-message-body';
 
 /**
  * 
  * @export
- * @interface MessagesResponse
+ * @interface HubEventRevokeMessage
  */
-export interface MessagesResponse {
-    /**
-     * 
-     * @type {Array<Message>}
-     * @memberof MessagesResponse
-     */
-    'messages': Array<Message>;
+export interface HubEventRevokeMessage {
     /**
      * 
      * @type {string}
-     * @memberof MessagesResponse
+     * @memberof HubEventRevokeMessage
      */
-    'nextPageToken': string;
+    'type': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof HubEventRevokeMessage
+     */
+    'id': number;
+    /**
+     * 
+     * @type {RevokeMessageBody}
+     * @memberof HubEventRevokeMessage
+     */
+    'revokeMessageBody': RevokeMessageBody;
 }
 

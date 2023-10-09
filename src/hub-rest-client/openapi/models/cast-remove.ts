@@ -15,24 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { FarcasterNetwork } from './farcaster-network';
+import { CastRemoveAllOf } from './cast-remove-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkBody } from './link-body';
+import { HashScheme } from './hash-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCommon } from './message-data-common';
+import { MessageCommon } from './message-common';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLinkAddAllOf } from './message-data-link-add-all-of';
+import { MessageDataCastRemove } from './message-data-cast-remove';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type';
+import { SignatureScheme } from './signature-scheme';
 
 /**
- * @type MessageDataLinkAdd
+ * @type CastRemove
  * @export
  */
-export type MessageDataLinkAdd = MessageDataCommon & MessageDataLinkAddAllOf;
+export type CastRemove = CastRemoveAllOf & MessageCommon;
 
 
