@@ -28,6 +28,6 @@ export interface UsernameProofsResponse {
      * @type {Array<UserNameProof>}
      * @memberof UsernameProofsResponse
      */
-    'proofs'?: Array<UserNameProof>;
+    'proofs': Array<UserNameProof>;
 }
 

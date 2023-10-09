@@ -13,15 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageDataVerificationAdd } from './message-data-verification-add';
 
-export * from './apis/casts-api';
-export * from './apis/fids-api';
-export * from './apis/hub-service-api';
-export * from './apis/info-api';
-export * from './apis/links-api';
-export * from './apis/reactions-api';
-export * from './apis/storage-api';
-export * from './apis/user-data-api';
-export * from './apis/usernames-api';
-export * from './apis/verifications-api';
+/**
+ * 
+ * @export
+ * @interface VerificationAllOf
+ */
+export interface VerificationAllOf {
+    /**
+     * 
+     * @type {MessageDataVerificationAdd}
+     * @memberof VerificationAllOf
+     */
+    'data': MessageDataVerificationAdd;
+}
 

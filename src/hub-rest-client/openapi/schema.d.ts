@@ -38,24 +38,26 @@ export interface paths {
   };
   "/v1/castsByFid": {
     /** Fetch all casts authored by an FID. */
-    get: operations["GetCastsByFid"];
+    get: operations["ListCastsByFid"];
   };
   "/v1/castsByMention": {
     /** Fetch all casts that mention an FID */
-    get: operations["GetCastsByMention"];
+    get: operations["ListCastsByMention"];
   };
   "/v1/castsByParent": {
     /** Fetch all casts by parent cast's FID and Hash OR by the parent's URL */
-    get: operations["GetCastsByParent"];
+    get: operations["ListCastsByParent"];
   };
-  "/HubService/GetCurrentStorageLimitsByFid": {
-    post: operations["HubService_GetCurrentStorageLimitsByFid"];
+  "/v1/storageLimitsByFid": {
+    /** Get an FID's storage limits. */
+    get: operations["GetStorageLimitsByFid"];
   };
   "/HubService/GetEvent": {
     post: operations["HubService_GetEvent"];
   };
-  "/HubService/GetFids": {
-    post: operations["HubService_GetFids"];
+  "/v1/fids": {
+    /** Get a list of all the FIDs */
+    get: operations["ListFids"];
   };
   "/HubService/GetIdRegistryOnChainEvent": {
     post: operations["HubService_GetIdRegistryOnChainEvent"];
@@ -73,11 +75,11 @@ export interface paths {
   };
   "/v1/linksByFid": {
     /** Get all links from a source FID */
-    get: operations["GetLinksByFid"];
+    get: operations["ListLinksByFid"];
   };
   "/v1/linksByTargetFid": {
     /** Get all links to a target FID */
-    get: operations["GetLinksByTargetFid"];
+    get: operations["ListLinksByTargetFid"];
   };
   "/HubService/GetOnChainEvents": {
     post: operations["HubService_GetOnChainEvents"];
@@ -95,14 +97,14 @@ export interface paths {
   };
   "/v1/reactionsByCast": {
     /** Get all reactions to a cast */
-    get: operations["GetReactionsByCast"];
+    get: operations["ListReactionsByCast"];
   };
   "/v1/reactionsByFid": {
     /** Get all reactions by an FID */
-    get: operations["GetReactionsByFid"];
+    get: operations["ListReactionsByFid"];
   };
   "/v1/reactionsByTarget": {
-    get: operations["GetReactionsByTarget"];
+    get: operations["ListReactionsByTarget"];
   };
   "/HubService/GetSyncMetadataByPrefix": {
     post: operations["HubService_GetSyncMetadataByPrefix"];
@@ -123,19 +125,21 @@ export interface paths {
   "/HubService/GetUserDataByFid": {
     post: operations["HubService_GetUserDataByFid"];
   };
-  "/HubService/GetUserNameProofsByFid": {
-    post: operations["HubService_GetUserNameProofsByFid"];
+  "/v1/userNameProofsByFid": {
+    /** Get a list of proofs provided by an FID */
+    get: operations["ListUsernameProofsByFid"];
   };
-  "/HubService/GetUsernameProof": {
-    /** Username Proof */
-    post: operations["HubService_GetUsernameProof"];
+  "/v1/userNameProofByName": {
+    /** Get an proof for a username by the Farcaster username */
+    get: operations["GetUsernameProof"];
   };
   "/HubService/GetVerification": {
     /** Verifications */
     post: operations["HubService_GetVerification"];
   };
-  "/HubService/GetVerificationsByFid": {
-    post: operations["HubService_GetVerificationsByFid"];
+  "/v1/verificationsByFid": {
+    /** Get a list of verifications provided by an FID */
+    get: operations["ListVerificationsByFid"];
   };
   "/HubService/SubmitMessage": {
     /** Submit Methods */
@@ -245,9 +249,9 @@ export interface components {
       reverse?: boolean;
     };
     FidsResponse: {
-      fids?: string[];
+      fids: number[];
       /** Format: byte */
-      nextPageToken?: string;
+      nextPageToken: string;
     };
     /**
      * * Type of hashing scheme used to produce a digest of MessageData
@@ -430,32 +434,8 @@ export interface components {
     MessageDataUserDataAdd: components["schemas"]["MessageDataCommon"] & {
       userDataBody: components["schemas"]["UserDataBody"];
     };
-    /**
-     * @description *
-     * A MessageData object contains properties common to all messages and wraps a body object which
-     * contains properties specific to the MessageType.
-     */
-    MessageDataOld: {
-      type: components["schemas"]["MessageType"];
-      /**
-       * Farcaster ID of the user producing the message
-       * Format: uint64
-       */
-      fid: number;
-      /**
-       * Farcaster epoch timestamp in seconds
-       * Format: int64
-       */
-      timestamp: number;
-      network: components["schemas"]["FarcasterNetwork"];
-      castAddBody?: components["schemas"]["CastAddBody"];
-      castRemoveBody?: components["schemas"]["CastRemoveBody"];
-      reactionBody?: components["schemas"]["ReactionBody"];
-      verificationAddEthAddressBody?: components["schemas"]["VerificationAddEthAddressBody"];
-      verificationRemoveBody?: components["schemas"]["VerificationRemoveBody"];
-      userDataBody?: components["schemas"]["UserDataBody"];
-      linkBody?: components["schemas"]["LinkBody"];
-      usernameProofBody?: components["schemas"]["UserNameProof"];
+    MessageDataVerificationAdd: components["schemas"]["MessageDataCommon"] & {
+      verificationAddEthAddressBody: components["schemas"]["VerificationAddEthAddressBody"];
     };
     /**
      * * Type of the MessageBody
@@ -611,12 +591,12 @@ export interface components {
       signer?: string;
     };
     StorageLimit: {
-      storeType?: components["schemas"]["StoreType"];
+      storeType: components["schemas"]["StoreType"];
       /** Format: uint64 */
-      limit?: number;
+      limit: number;
     };
     StorageLimitsResponse: {
-      limits?: components["schemas"]["StorageLimit"][];
+      limits: components["schemas"]["StorageLimit"][];
     };
     StorageRentEventBody: {
       /** Format: byte */
@@ -708,16 +688,16 @@ export interface components {
     UserDataType: "USER_DATA_TYPE_PFP" | "USER_DATA_TYPE_DISPLAY" | "USER_DATA_TYPE_BIO" | "USER_DATA_TYPE_URL" | "USER_DATA_TYPE_USERNAME";
     UserNameProof: {
       /** Format: uint64 */
-      timestamp?: string;
+      timestamp: number;
       /** Format: byte */
-      name?: string;
+      name: string;
       /** Format: byte */
-      owner?: string;
+      owner: string;
       /** Format: byte */
-      signature?: string;
+      signature: string;
       /** Format: uint64 */
-      fid?: string;
-      type?: components["schemas"]["UserNameType"];
+      fid: number;
+      type: components["schemas"]["UserNameType"];
     };
     /**
      * @default USERNAME_TYPE_FNAME
@@ -729,7 +709,10 @@ export interface components {
       name?: string;
     };
     UsernameProofsResponse: {
-      proofs?: components["schemas"]["UserNameProof"][];
+      proofs: components["schemas"]["UserNameProof"][];
+    };
+    Verification: components["schemas"]["MessageCommon"] & {
+      data: components["schemas"]["MessageDataVerificationAdd"];
     };
     /** * Adds a Verification of ownership of an Ethereum Address */
     VerificationAddEthAddressBody: {
@@ -929,7 +912,7 @@ export interface operations {
     };
   };
   /** Fetch all casts authored by an FID. */
-  GetCastsByFid: {
+  ListCastsByFid: {
     parameters: {
       query: {
         /** @description The FID of the casts' creator */
@@ -954,7 +937,7 @@ export interface operations {
     };
   };
   /** Fetch all casts that mention an FID */
-  GetCastsByMention: {
+  ListCastsByMention: {
     parameters: {
       query: {
         /** @description The FID that is mentioned in a cast */
@@ -979,7 +962,7 @@ export interface operations {
     };
   };
   /** Fetch all casts by parent cast's FID and Hash OR by the parent's URL */
-  GetCastsByParent: {
+  ListCastsByParent: {
     parameters: {
       query?: {
         /** @description The FID of the parent cast */
@@ -1006,10 +989,11 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetCurrentStorageLimitsByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
+  /** Get an FID's storage limits. */
+  GetStorageLimitsByFid: {
+    parameters: {
+      query: {
+        fid: number;
       };
     };
     responses: {
@@ -1038,10 +1022,13 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetFids: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidsRequest"];
+  /** Get a list of all the FIDs */
+  ListFids: {
+    parameters: {
+      query?: {
+        pageSize?: components["parameters"]["pageSize"];
+        reverse?: components["parameters"]["paginationReverse"];
+        pageToken?: components["parameters"]["pageToken"];
       };
     };
     responses: {
@@ -1127,7 +1114,7 @@ export interface operations {
     };
   };
   /** Get all links from a source FID */
-  GetLinksByFid: {
+  ListLinksByFid: {
     parameters: {
       query: {
         /** @description The FID of the link's originator */
@@ -1154,7 +1141,7 @@ export interface operations {
     };
   };
   /** Get all links to a target FID */
-  GetLinksByTargetFid: {
+  ListLinksByTargetFid: {
     parameters: {
       query: {
         /** @description The FID of the target of the link */
@@ -1254,7 +1241,7 @@ export interface operations {
     };
   };
   /** Get all reactions to a cast */
-  GetReactionsByCast: {
+  ListReactionsByCast: {
     parameters: {
       query: {
         /** @description The FID of the cast's creator */
@@ -1283,7 +1270,7 @@ export interface operations {
     };
   };
   /** Get all reactions by an FID */
-  GetReactionsByFid: {
+  ListReactionsByFid: {
     parameters: {
       query: {
         /** @description The FID of the reaction's creator */
@@ -1309,7 +1296,7 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  GetReactionsByTarget: {
+  ListReactionsByTarget: {
     parameters: {
       query: {
         /** @description The URL of the parent cast */
@@ -1429,10 +1416,12 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetUserNameProofsByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
+  /** Get a list of proofs provided by an FID */
+  ListUsernameProofsByFid: {
+    parameters: {
+      query: {
+        /** @description The FID being requested */
+        fid: number;
       };
     };
     responses: {
@@ -1445,11 +1434,12 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  /** Username Proof */
-  HubService_GetUsernameProof: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UsernameProofRequest"];
+  /** Get an proof for a username by the Farcaster username */
+  GetUsernameProof: {
+    parameters: {
+      query: {
+        /** @description The Farcaster username or ENS address */
+        name: string;
       };
     };
     responses: {
@@ -1479,17 +1469,28 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
-  HubService_GetVerificationsByFid: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["FidRequest"];
+  /** Get a list of verifications provided by an FID */
+  ListVerificationsByFid: {
+    parameters: {
+      query: {
+        /** @description The FID being requested */
+        fid: number;
+        /** @description The optional ETH address to filter by */
+        address?: string;
+        pageSize?: components["parameters"]["pageSize"];
+        reverse?: components["parameters"]["paginationReverse"];
+        pageToken?: components["parameters"]["pageToken"];
       };
     };
     responses: {
-      /** @description The requested Messages. */
+      /** @description The requested Reactions. */
       200: {
         content: {
-          "application/json": components["schemas"]["MessagesResponse"];
+          "application/json": {
+            messages: components["schemas"]["Verification"][];
+            /** Format: byte */
+            nextPageToken: string;
+          };
         };
       };
       default: components["responses"]["ErrorResponse"];

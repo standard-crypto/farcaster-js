@@ -28,10 +28,6 @@ import { EventRequest } from '../models';
 // @ts-ignore
 import { FidRequest } from '../models';
 // @ts-ignore
-import { FidsRequest } from '../models';
-// @ts-ignore
-import { FidsResponse } from '../models';
-// @ts-ignore
 import { HubEvent } from '../models';
 // @ts-ignore
 import { IdRegistryEventByAddressRequest } from '../models';
@@ -45,8 +41,6 @@ import { OnChainEventRequest } from '../models';
 import { OnChainEventResponse } from '../models';
 // @ts-ignore
 import { SignerRequest } from '../models';
-// @ts-ignore
-import { StorageLimitsResponse } from '../models';
 // @ts-ignore
 import { StreamResultOfHubEvent } from '../models';
 // @ts-ignore
@@ -63,12 +57,6 @@ import { TrieNodeMetadataResponse } from '../models';
 import { TrieNodePrefix } from '../models';
 // @ts-ignore
 import { TrieNodeSnapshotResponse } from '../models';
-// @ts-ignore
-import { UserNameProof } from '../models';
-// @ts-ignore
-import { UsernameProofRequest } from '../models';
-// @ts-ignore
-import { UsernameProofsResponse } from '../models';
 // @ts-ignore
 import { VerificationRequest } from '../models';
 /**
@@ -289,41 +277,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetCurrentStorageLimitsByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetCurrentStorageLimitsByFid', 'body', body)
-            const localVarPath = `/HubService/GetCurrentStorageLimitsByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {EventRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -332,41 +285,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
             // verify required parameter 'body' is not null or undefined
             assertParamExists('hubServiceGetEvent', 'body', body)
             const localVarPath = `/HubService/GetEvent`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {FidsRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetFids: async (body: FidsRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetFids', 'body', body)
-            const localVarPath = `/HubService/GetFids`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -710,77 +628,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetUserNameProofsByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetUserNameProofsByFid', 'body', body)
-            const localVarPath = `/HubService/GetUserNameProofsByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Username Proof
-         * @param {UsernameProofRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetUsernameProof: async (body: UsernameProofRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetUsernameProof', 'body', body)
-            const localVarPath = `/HubService/GetUsernameProof`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Verifications
          * @param {VerificationRequest} body 
          * @param {*} [options] Override http request option.
@@ -790,41 +637,6 @@ export const HubServiceApiAxiosParamCreator = function (configuration?: Configur
             // verify required parameter 'body' is not null or undefined
             assertParamExists('hubServiceGetVerification', 'body', body)
             const localVarPath = `/HubService/GetVerification`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetVerificationsByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetVerificationsByFid', 'body', body)
-            const localVarPath = `/HubService/GetVerificationsByFid`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -994,32 +806,12 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetCurrentStorageLimitsByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StorageLimitsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetCurrentStorageLimitsByFid(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {EventRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async hubServiceGetEvent(body: EventRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HubEvent>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetEvent(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {FidsRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetFids(body: FidsRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FidsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetFids(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1115,27 +907,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetUserNameProofsByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsernameProofsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetUserNameProofsByFid(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Username Proof
-         * @param {UsernameProofRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetUsernameProof(body: UsernameProofRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserNameProof>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetUsernameProof(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Verifications
          * @param {VerificationRequest} body 
          * @param {*} [options] Override http request option.
@@ -1143,16 +914,6 @@ export const HubServiceApiFp = function(configuration?: Configuration) {
          */
         async hubServiceGetVerification(body: VerificationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetVerification(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetVerificationsByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetVerificationsByFid(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1243,30 +1004,12 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @param {HubServiceApiHubServiceGetCurrentStorageLimitsByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetCurrentStorageLimitsByFid(requestParameters: HubServiceApiHubServiceGetCurrentStorageLimitsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<StorageLimitsResponse> {
-            return localVarFp.hubServiceGetCurrentStorageLimitsByFid(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {HubServiceApiHubServiceGetEventRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         hubServiceGetEvent(requestParameters: HubServiceApiHubServiceGetEventRequest, options?: AxiosRequestConfig): AxiosPromise<HubEvent> {
             return localVarFp.hubServiceGetEvent(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetFidsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetFids(requestParameters: HubServiceApiHubServiceGetFidsRequest, options?: AxiosRequestConfig): AxiosPromise<FidsResponse> {
-            return localVarFp.hubServiceGetFids(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1352,25 +1095,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @param {HubServiceApiHubServiceGetUserNameProofsByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetUserNameProofsByFid(requestParameters: HubServiceApiHubServiceGetUserNameProofsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<UsernameProofsResponse> {
-            return localVarFp.hubServiceGetUserNameProofsByFid(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Username Proof
-         * @param {HubServiceApiHubServiceGetUsernameProofRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetUsernameProof(requestParameters: HubServiceApiHubServiceGetUsernameProofRequest, options?: AxiosRequestConfig): AxiosPromise<UserNameProof> {
-            return localVarFp.hubServiceGetUsernameProof(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Verifications
          * @param {HubServiceApiHubServiceGetVerificationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1378,15 +1102,6 @@ export const HubServiceApiFactory = function (configuration?: Configuration, bas
          */
         hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.hubServiceGetVerification(requestParameters.body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {HubServiceApiHubServiceGetVerificationsByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetVerificationsByFid(requestParameters: HubServiceApiHubServiceGetVerificationsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
-            return localVarFp.hubServiceGetVerificationsByFid(requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1496,20 +1211,6 @@ export interface HubServiceApiHubServiceGetAllVerificationMessagesByFidRequest {
 }
 
 /**
- * Request parameters for hubServiceGetCurrentStorageLimitsByFid operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetCurrentStorageLimitsByFidRequest
- */
-export interface HubServiceApiHubServiceGetCurrentStorageLimitsByFidRequest {
-    /**
-     * 
-     * @type {FidRequest}
-     * @memberof HubServiceApiHubServiceGetCurrentStorageLimitsByFid
-     */
-    readonly body: FidRequest
-}
-
-/**
  * Request parameters for hubServiceGetEvent operation in HubServiceApi.
  * @export
  * @interface HubServiceApiHubServiceGetEventRequest
@@ -1521,20 +1222,6 @@ export interface HubServiceApiHubServiceGetEventRequest {
      * @memberof HubServiceApiHubServiceGetEvent
      */
     readonly body: EventRequest
-}
-
-/**
- * Request parameters for hubServiceGetFids operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetFidsRequest
- */
-export interface HubServiceApiHubServiceGetFidsRequest {
-    /**
-     * 
-     * @type {FidsRequest}
-     * @memberof HubServiceApiHubServiceGetFids
-     */
-    readonly body: FidsRequest
 }
 
 /**
@@ -1664,34 +1351,6 @@ export interface HubServiceApiHubServiceGetUserDataByFidRequest {
 }
 
 /**
- * Request parameters for hubServiceGetUserNameProofsByFid operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetUserNameProofsByFidRequest
- */
-export interface HubServiceApiHubServiceGetUserNameProofsByFidRequest {
-    /**
-     * 
-     * @type {FidRequest}
-     * @memberof HubServiceApiHubServiceGetUserNameProofsByFid
-     */
-    readonly body: FidRequest
-}
-
-/**
- * Request parameters for hubServiceGetUsernameProof operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetUsernameProofRequest
- */
-export interface HubServiceApiHubServiceGetUsernameProofRequest {
-    /**
-     * 
-     * @type {UsernameProofRequest}
-     * @memberof HubServiceApiHubServiceGetUsernameProof
-     */
-    readonly body: UsernameProofRequest
-}
-
-/**
  * Request parameters for hubServiceGetVerification operation in HubServiceApi.
  * @export
  * @interface HubServiceApiHubServiceGetVerificationRequest
@@ -1703,20 +1362,6 @@ export interface HubServiceApiHubServiceGetVerificationRequest {
      * @memberof HubServiceApiHubServiceGetVerification
      */
     readonly body: VerificationRequest
-}
-
-/**
- * Request parameters for hubServiceGetVerificationsByFid operation in HubServiceApi.
- * @export
- * @interface HubServiceApiHubServiceGetVerificationsByFidRequest
- */
-export interface HubServiceApiHubServiceGetVerificationsByFidRequest {
-    /**
-     * 
-     * @type {FidRequest}
-     * @memberof HubServiceApiHubServiceGetVerificationsByFid
-     */
-    readonly body: FidRequest
 }
 
 /**
@@ -1822,17 +1467,6 @@ export class HubServiceApi extends BaseAPI {
 
     /**
      * 
-     * @param {HubServiceApiHubServiceGetCurrentStorageLimitsByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetCurrentStorageLimitsByFid(requestParameters: HubServiceApiHubServiceGetCurrentStorageLimitsByFidRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetCurrentStorageLimitsByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {HubServiceApiHubServiceGetEventRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1840,17 +1474,6 @@ export class HubServiceApi extends BaseAPI {
      */
     public hubServiceGetEvent(requestParameters: HubServiceApiHubServiceGetEventRequest, options?: AxiosRequestConfig) {
         return HubServiceApiFp(this.configuration).hubServiceGetEvent(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetFidsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetFids(requestParameters: HubServiceApiHubServiceGetFidsRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetFids(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1955,29 +1578,6 @@ export class HubServiceApi extends BaseAPI {
 
     /**
      * 
-     * @param {HubServiceApiHubServiceGetUserNameProofsByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetUserNameProofsByFid(requestParameters: HubServiceApiHubServiceGetUserNameProofsByFidRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetUserNameProofsByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Username Proof
-     * @param {HubServiceApiHubServiceGetUsernameProofRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetUsernameProof(requestParameters: HubServiceApiHubServiceGetUsernameProofRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetUsernameProof(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Verifications
      * @param {HubServiceApiHubServiceGetVerificationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1986,17 +1586,6 @@ export class HubServiceApi extends BaseAPI {
      */
     public hubServiceGetVerification(requestParameters: HubServiceApiHubServiceGetVerificationRequest, options?: AxiosRequestConfig) {
         return HubServiceApiFp(this.configuration).hubServiceGetVerification(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {HubServiceApiHubServiceGetVerificationsByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HubServiceApi
-     */
-    public hubServiceGetVerificationsByFid(requestParameters: HubServiceApiHubServiceGetVerificationsByFidRequest, options?: AxiosRequestConfig) {
-        return HubServiceApiFp(this.configuration).hubServiceGetVerificationsByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

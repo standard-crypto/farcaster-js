@@ -28,6 +28,6 @@ export interface StorageLimitsResponse {
      * @type {Array<StorageLimit>}
      * @memberof StorageLimitsResponse
      */
-    'limits'?: Array<StorageLimit>;
+    'limits': Array<StorageLimit>;
 }
 

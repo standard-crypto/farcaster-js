@@ -15,27 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StoreType } from './store-type';
+import { Verification } from './verification';
 
 /**
  * 
  * @export
- * @interface StorageLimit
+ * @interface ListVerificationsByFid200Response
  */
-export interface StorageLimit {
+export interface ListVerificationsByFid200Response {
     /**
      * 
-     * @type {StoreType}
-     * @memberof StorageLimit
+     * @type {Array<Verification>}
+     * @memberof ListVerificationsByFid200Response
      */
-    'storeType': StoreType;
+    'messages': Array<Verification>;
     /**
      * 
-     * @type {number}
-     * @memberof StorageLimit
+     * @type {string}
+     * @memberof ListVerificationsByFid200Response
      */
-    'limit': number;
+    'nextPageToken': string;
 }
-
-
 

@@ -15,27 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StoreType } from './store-type';
+import { CastAdd } from './cast-add';
 
 /**
  * 
  * @export
- * @interface StorageLimit
+ * @interface ListCastsByFid200Response
  */
-export interface StorageLimit {
+export interface ListCastsByFid200Response {
     /**
      * 
-     * @type {StoreType}
-     * @memberof StorageLimit
+     * @type {Array<CastAdd>}
+     * @memberof ListCastsByFid200Response
      */
-    'storeType': StoreType;
+    'messages': Array<CastAdd>;
     /**
      * 
-     * @type {number}
-     * @memberof StorageLimit
+     * @type {string}
+     * @memberof ListCastsByFid200Response
      */
-    'limit': number;
+    'nextPageToken': string;
 }
-
-
 

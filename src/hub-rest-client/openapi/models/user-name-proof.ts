@@ -25,40 +25,40 @@ import { UserNameType } from './user-name-type';
 export interface UserNameProof {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof UserNameProof
      */
-    'timestamp'?: string;
+    'timestamp': number;
     /**
      * 
      * @type {string}
      * @memberof UserNameProof
      */
-    'name'?: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof UserNameProof
      */
-    'owner'?: string;
+    'owner': string;
     /**
      * 
      * @type {string}
      * @memberof UserNameProof
      */
-    'signature'?: string;
+    'signature': string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof UserNameProof
      */
-    'fid'?: string;
+    'fid': number;
     /**
      * 
      * @type {UserNameType}
      * @memberof UserNameProof
      */
-    'type'?: UserNameType;
+    'type': UserNameType;
 }
 
 

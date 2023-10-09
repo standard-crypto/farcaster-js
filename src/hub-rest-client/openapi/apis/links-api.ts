@@ -24,11 +24,11 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
-import { GetLinksByFid200Response } from '../models';
-// @ts-ignore
 import { LinkAdd } from '../models';
 // @ts-ignore
 import { LinkType } from '../models';
+// @ts-ignore
+import { ListLinksByFid200Response } from '../models';
 /**
  * LinksApi - axios parameter creator
  * @export
@@ -97,9 +97,9 @@ export const LinksApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLinksByFid: async (fid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listLinksByFid: async (fid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'fid' is not null or undefined
-            assertParamExists('getLinksByFid', 'fid', fid)
+            assertParamExists('listLinksByFid', 'fid', fid)
             const localVarPath = `/v1/linksByFid`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -154,9 +154,9 @@ export const LinksApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLinksByTargetFid: async (targetFid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listLinksByTargetFid: async (targetFid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'targetFid' is not null or undefined
-            assertParamExists('getLinksByTargetFid', 'targetFid', targetFid)
+            assertParamExists('listLinksByTargetFid', 'targetFid', targetFid)
             const localVarPath = `/v1/linksByTargetFid`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -234,8 +234,8 @@ export const LinksApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLinksByFid(fid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLinksByFid200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLinksByFid(fid, linkType, pageSize, reverse, pageToken, options);
+        async listLinksByFid(fid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListLinksByFid200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listLinksByFid(fid, linkType, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -249,8 +249,8 @@ export const LinksApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLinksByTargetFid(targetFid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLinksByFid200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLinksByTargetFid(targetFid, linkType, pageSize, reverse, pageToken, options);
+        async listLinksByTargetFid(targetFid: number, linkType?: LinkType, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListLinksByFid200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listLinksByTargetFid(targetFid, linkType, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -276,22 +276,22 @@ export const LinksApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary Get all links from a source FID
-         * @param {LinksApiGetLinksByFidRequest} requestParameters Request parameters.
+         * @param {LinksApiListLinksByFidRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLinksByFid(requestParameters: LinksApiGetLinksByFidRequest, options?: AxiosRequestConfig): AxiosPromise<GetLinksByFid200Response> {
-            return localVarFp.getLinksByFid(requestParameters.fid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
+        listLinksByFid(requestParameters: LinksApiListLinksByFidRequest, options?: AxiosRequestConfig): AxiosPromise<ListLinksByFid200Response> {
+            return localVarFp.listLinksByFid(requestParameters.fid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get all links to a target FID
-         * @param {LinksApiGetLinksByTargetFidRequest} requestParameters Request parameters.
+         * @param {LinksApiListLinksByTargetFidRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLinksByTargetFid(requestParameters: LinksApiGetLinksByTargetFidRequest, options?: AxiosRequestConfig): AxiosPromise<GetLinksByFid200Response> {
-            return localVarFp.getLinksByTargetFid(requestParameters.targetFid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
+        listLinksByTargetFid(requestParameters: LinksApiListLinksByTargetFidRequest, options?: AxiosRequestConfig): AxiosPromise<ListLinksByFid200Response> {
+            return localVarFp.listLinksByTargetFid(requestParameters.targetFid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -325,85 +325,85 @@ export interface LinksApiGetLinkByIdRequest {
 }
 
 /**
- * Request parameters for getLinksByFid operation in LinksApi.
+ * Request parameters for listLinksByFid operation in LinksApi.
  * @export
- * @interface LinksApiGetLinksByFidRequest
+ * @interface LinksApiListLinksByFidRequest
  */
-export interface LinksApiGetLinksByFidRequest {
+export interface LinksApiListLinksByFidRequest {
     /**
      * The FID of the link\&#39;s originator
      * @type {number}
-     * @memberof LinksApiGetLinksByFid
+     * @memberof LinksApiListLinksByFid
      */
     readonly fid: number
 
     /**
      * The type of link, as a string value
      * @type {LinkType}
-     * @memberof LinksApiGetLinksByFid
+     * @memberof LinksApiListLinksByFid
      */
     readonly linkType?: LinkType
 
     /**
      * Maximum number of messages to return in a single response
      * @type {number}
-     * @memberof LinksApiGetLinksByFid
+     * @memberof LinksApiListLinksByFid
      */
     readonly pageSize?: number
 
     /**
      * Reverse the sort order, returning latest messages first
      * @type {boolean}
-     * @memberof LinksApiGetLinksByFid
+     * @memberof LinksApiListLinksByFid
      */
     readonly reverse?: boolean
 
     /**
      * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
      * @type {string}
-     * @memberof LinksApiGetLinksByFid
+     * @memberof LinksApiListLinksByFid
      */
     readonly pageToken?: string
 }
 
 /**
- * Request parameters for getLinksByTargetFid operation in LinksApi.
+ * Request parameters for listLinksByTargetFid operation in LinksApi.
  * @export
- * @interface LinksApiGetLinksByTargetFidRequest
+ * @interface LinksApiListLinksByTargetFidRequest
  */
-export interface LinksApiGetLinksByTargetFidRequest {
+export interface LinksApiListLinksByTargetFidRequest {
     /**
      * The FID of the target of the link
      * @type {number}
-     * @memberof LinksApiGetLinksByTargetFid
+     * @memberof LinksApiListLinksByTargetFid
      */
     readonly targetFid: number
 
     /**
      * The type of link, as a string value
      * @type {LinkType}
-     * @memberof LinksApiGetLinksByTargetFid
+     * @memberof LinksApiListLinksByTargetFid
      */
     readonly linkType?: LinkType
 
     /**
      * Maximum number of messages to return in a single response
      * @type {number}
-     * @memberof LinksApiGetLinksByTargetFid
+     * @memberof LinksApiListLinksByTargetFid
      */
     readonly pageSize?: number
 
     /**
      * Reverse the sort order, returning latest messages first
      * @type {boolean}
-     * @memberof LinksApiGetLinksByTargetFid
+     * @memberof LinksApiListLinksByTargetFid
      */
     readonly reverse?: boolean
 
     /**
      * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
      * @type {string}
-     * @memberof LinksApiGetLinksByTargetFid
+     * @memberof LinksApiListLinksByTargetFid
      */
     readonly pageToken?: string
 }
@@ -430,24 +430,24 @@ export class LinksApi extends BaseAPI {
     /**
      * 
      * @summary Get all links from a source FID
-     * @param {LinksApiGetLinksByFidRequest} requestParameters Request parameters.
+     * @param {LinksApiListLinksByFidRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LinksApi
      */
-    public getLinksByFid(requestParameters: LinksApiGetLinksByFidRequest, options?: AxiosRequestConfig) {
-        return LinksApiFp(this.configuration).getLinksByFid(requestParameters.fid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
+    public listLinksByFid(requestParameters: LinksApiListLinksByFidRequest, options?: AxiosRequestConfig) {
+        return LinksApiFp(this.configuration).listLinksByFid(requestParameters.fid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Get all links to a target FID
-     * @param {LinksApiGetLinksByTargetFidRequest} requestParameters Request parameters.
+     * @param {LinksApiListLinksByTargetFidRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LinksApi
      */
-    public getLinksByTargetFid(requestParameters: LinksApiGetLinksByTargetFidRequest, options?: AxiosRequestConfig) {
-        return LinksApiFp(this.configuration).getLinksByTargetFid(requestParameters.targetFid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
+    public listLinksByTargetFid(requestParameters: LinksApiListLinksByTargetFidRequest, options?: AxiosRequestConfig) {
+        return LinksApiFp(this.configuration).listLinksByTargetFid(requestParameters.targetFid, requestParameters.linkType, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
     }
 }

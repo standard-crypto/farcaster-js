@@ -15,27 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StoreType } from './store-type';
+import { LinkAdd } from './link-add';
 
 /**
  * 
  * @export
- * @interface StorageLimit
+ * @interface ListLinksByFid200Response
  */
-export interface StorageLimit {
+export interface ListLinksByFid200Response {
     /**
      * 
-     * @type {StoreType}
-     * @memberof StorageLimit
+     * @type {Array<LinkAdd>}
+     * @memberof ListLinksByFid200Response
      */
-    'storeType': StoreType;
+    'messages': Array<LinkAdd>;
     /**
      * 
-     * @type {number}
-     * @memberof StorageLimit
+     * @type {string}
+     * @memberof ListLinksByFid200Response
      */
-    'limit': number;
+    'nextPageToken': string;
 }
-
-
 

@@ -15,27 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StoreType } from './store-type';
+import { Reaction } from './reaction';
 
 /**
  * 
  * @export
- * @interface StorageLimit
+ * @interface ListReactionsByCast200Response
  */
-export interface StorageLimit {
+export interface ListReactionsByCast200Response {
     /**
      * 
-     * @type {StoreType}
-     * @memberof StorageLimit
+     * @type {Array<Reaction>}
+     * @memberof ListReactionsByCast200Response
      */
-    'storeType': StoreType;
+    'messages': Array<Reaction>;
     /**
      * 
-     * @type {number}
-     * @memberof StorageLimit
+     * @type {string}
+     * @memberof ListReactionsByCast200Response
      */
-    'limit': number;
+    'nextPageToken': string;
 }
-
-
 

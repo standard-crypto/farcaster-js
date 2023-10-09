@@ -20,6 +20,13 @@ import {
   UserDataType,
   UserDataAdd,
   GetUserDataByFid200ResponseOneOf,
+  FIDsApi,
+  StorageApi,
+  StorageLimit,
+  UsernamesApi,
+  UserNameProof,
+  VerificationsApi,
+  Verification,
 } from "./openapi";
 
 export const DEFAULT_SERVER = "http://hub.farcaster.standardcrypto.vc:2281";
@@ -39,11 +46,15 @@ export class HubRestAPIClient {
   private readonly logger: Logger;
 
   public readonly apis: {
-    info: InfoApi;
     casts: CastsApi;
+    fids: FIDsApi;
+    info: InfoApi;
     links: LinksApi;
     reactions: ReactionsApi;
+    storage: StorageApi;
     userData: UserDataApi;
+    usernames: UsernamesApi;
+    verifications: VerificationsApi;
   };
 
   /**
@@ -80,6 +91,10 @@ export class HubRestAPIClient {
       links: new LinksApi(config, undefined, axiosInstance),
       reactions: new ReactionsApi(config, undefined, axiosInstance),
       userData: new UserDataApi(config, undefined, axiosInstance),
+      fids: new FIDsApi(config, undefined, axiosInstance),
+      storage: new StorageApi(config, undefined, axiosInstance),
+      usernames: new UsernamesApi(config, undefined, axiosInstance),
+      verifications: new VerificationsApi(config, undefined, axiosInstance),
     };
   }
 
@@ -116,7 +131,7 @@ export class HubRestAPIClient {
    * @param fid The FID of the cast's creator
    * @param options
    */
-  public async *getCastsByFid(
+  public async *listCastsByFid(
     fid: number,
     options?: PaginationOptions
   ): AsyncGenerator<CastAdd, void, undefined> {
@@ -124,7 +139,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.casts.getCastsByFid({
+      const response = await this.apis.casts.listCastsByFid({
         fid,
         ...options,
         pageToken,
@@ -146,7 +161,7 @@ export class HubRestAPIClient {
    * @param fid The FID that is mentioned in a cast
    * @param options
    */
-  public async *getCastsByMention(
+  public async *listCastsByMention(
     fid: number,
     options?: PaginationOptions
   ): AsyncGenerator<CastAdd, void, undefined> {
@@ -154,7 +169,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.casts.getCastsByMention({
+      const response = await this.apis.casts.listCastsByMention({
         ...options,
         fid,
         pageToken,
@@ -176,7 +191,7 @@ export class HubRestAPIClient {
    * @param parent
    * @param options
    */
-  public async *getCastsByParent(
+  public async *listCastsByParent(
     parent: CastId | { url: string },
     options?: PaginationOptions
   ): AsyncGenerator<CastAdd, void, undefined> {
@@ -184,7 +199,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.casts.getCastsByParent({
+      const response = await this.apis.casts.listCastsByParent({
         ...parent,
         ...options,
         pageToken,
@@ -229,7 +244,7 @@ export class HubRestAPIClient {
    * @param reactionType The type of reaction
    * @param options
    */
-  public async *getReactionsByFid(
+  public async *listReactionsByFid(
     fid: number,
     reactionType: ReactionType,
     options?: PaginationOptions
@@ -238,7 +253,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.reactions.getReactionsByFid({
+      const response = await this.apis.reactions.listReactionsByFid({
         fid,
         reactionType,
         ...options,
@@ -263,7 +278,7 @@ export class HubRestAPIClient {
    * @param reactionType The type of reaction
    * @param options
    */
-  public async *getReactionsByCast(
+  public async *listReactionsByCast(
     targetFid: number,
     targetHash: string,
     reactionType: ReactionType,
@@ -273,7 +288,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.reactions.getReactionsByCast({
+      const response = await this.apis.reactions.listReactionsByCast({
         targetFid,
         targetHash,
         reactionType,
@@ -298,7 +313,7 @@ export class HubRestAPIClient {
    * @param reactionType The type of reaction
    * @param options
    */
-  public async *getReactionsByTarget(
+  public async *listReactionsByTarget(
     url: string,
     reactionType: ReactionType,
     options?: PaginationOptions
@@ -307,7 +322,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.reactions.getReactionsByTarget({
+      const response = await this.apis.reactions.listReactionsByTarget({
         url,
         reactionType,
         ...options,
@@ -355,7 +370,7 @@ export class HubRestAPIClient {
    * @param fid The FID of the link's originator
    * @param options
    */
-  public async *getLinksByFid(
+  public async *listLinksByFid(
     fid: number,
     options?: PaginationOptions
   ): AsyncGenerator<LinkAdd, void, undefined> {
@@ -363,7 +378,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.links.getLinksByFid({
+      const response = await this.apis.links.listLinksByFid({
         fid,
         linkType: LinkType.Follow,
         ...options,
@@ -386,7 +401,7 @@ export class HubRestAPIClient {
    * @param targetFid
    * @param options
    */
-  public async *getLinksByTargetFid(
+  public async *listLinksByTargetFid(
     targetFid: number,
     options?: PaginationOptions
   ): AsyncGenerator<LinkAdd, void, undefined> {
@@ -394,7 +409,7 @@ export class HubRestAPIClient {
 
     while (true) {
       // fetch one page
-      const response = await this.apis.links.getLinksByTargetFid({
+      const response = await this.apis.links.listLinksByTargetFid({
         targetFid,
         linkType: LinkType.Follow,
         ...options,
@@ -444,7 +459,7 @@ export class HubRestAPIClient {
    * @param fid The FID that's being requested
    * @returns
    */
-  public async *getAllUserDataByFid(
+  public async *listAllUserDataByFid(
     fid: number,
     options?: PaginationOptions
   ): AsyncGenerator<UserDataAdd, void, undefined> {
@@ -467,6 +482,107 @@ export class HubRestAPIClient {
         break;
       }
       pageToken = data.nextPageToken;
+    }
+  }
+
+  /**
+   * Get a list of all the FIDs
+   * @param options
+   */
+  public async *listFids(
+    options?: PaginationOptions
+  ): AsyncGenerator<number, void, undefined> {
+    let pageToken: string | undefined;
+
+    while (true) {
+      // fetch one page
+      const response = await this.apis.fids.listFids({
+        ...options,
+        pageToken,
+      });
+
+      // yield current page
+      yield* response.data.fids;
+
+      // prep for next page
+      if (response.data.nextPageToken === "") {
+        break;
+      }
+      pageToken = response.data.nextPageToken;
+    }
+  }
+
+  /**
+   * Get an FID's storage limits.
+   * @param fid The FID that's being requested
+   * @returns
+   */
+  public async getStorageLimitsByFid(fid: number): Promise<StorageLimit[]> {
+    const response = await this.apis.storage.getStorageLimitsByFid({ fid });
+    return response.data.limits;
+  }
+
+  /**
+   * Get an proof for a username by the Farcaster username
+   * @param username The Farcaster username or ENS address
+   * @returns
+   */
+  public async getUsernameProof(
+    username: string
+  ): Promise<UserNameProof | null> {
+    try {
+      const response = await this.apis.usernames.getUsernameProof({
+        name: username,
+      });
+      return response.data;
+    } catch (err) {
+      if (
+        HubRestAPIClient.isApiErrorResponse(err) &&
+        err.response.data.errCode === "not_found"
+      ) {
+        return null;
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Get a list of proofs provided by an FID
+   * @param fid The FID being requested
+   * @returns
+   */
+  public async listUsernameProofsForFid(fid: number): Promise<UserNameProof[]> {
+    const response = await this.apis.usernames.listUsernameProofsByFid({ fid });
+    return response.data.proofs;
+  }
+
+  /**
+   * Get a list of verifications provided by an FID
+   * @param fid The FID being requested
+   * @param options The optional ETH address to filter by
+   */
+  public async *listVerificationsByFid(
+    fid: number,
+    options?: PaginationOptions & { address?: string }
+  ): AsyncGenerator<Verification, void, undefined> {
+    let pageToken: string | undefined;
+
+    while (true) {
+      // fetch one page
+      const response = await this.apis.verifications.listVerificationsByFid({
+        fid,
+        ...options,
+        pageToken,
+      });
+
+      // yield current page
+      yield* response.data.messages;
+
+      // prep for next page
+      if (response.data.nextPageToken === "") {
+        break;
+      }
+      pageToken = response.data.nextPageToken;
     }
   }
 

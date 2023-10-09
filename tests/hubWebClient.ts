@@ -105,9 +105,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getCastsByFid", function () {
+    describe("#listCastsByFid", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.casts.getCastsByFid({
+        const response = await client.apis.casts.listCastsByFid({
           fid: userGaviFid,
         });
         expect(response.data.messages).to.not.be.empty;
@@ -124,7 +124,7 @@ describe.only("HubWebClient", function () {
         const castHashesSeen = new Set<string>();
 
         let castCount = 0;
-        for await (const cast of client.getCastsByFid(userGaviFid, {
+        for await (const cast of client.listCastsByFid(userGaviFid, {
           pageSize,
         })) {
           expect(castHashesSeen).to.not.contain(cast.hash);
@@ -139,9 +139,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getCastsByParent", function () {
+    describe("#listCastsByParent", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.casts.getCastsByParent({
+        const response = await client.apis.casts.listCastsByParent({
           fid: 226,
           hash: "0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9",
         });
@@ -156,7 +156,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch by parent Cast ID", async function () {
         const pageSize = 1;
-        const casts = client.getCastsByParent(
+        const casts = client.listCastsByParent(
           { fid: 226, hash: "0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9" },
           {
             pageSize,
@@ -168,7 +168,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch by parent URL", async function () {
         const pageSize = 1;
-        const casts = client.getCastsByParent(
+        const casts = client.listCastsByParent(
           {
             url: "chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2",
           },
@@ -181,9 +181,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getCastsByMention", function () {
+    describe("#listCastsByMention", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.casts.getCastsByMention({
+        const response = await client.apis.casts.listCastsByMention({
           fid: 6833,
         });
         expect(response.data.messages).to.not.be.empty;
@@ -197,7 +197,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch a cast by mention", async function () {
         const pageSize = 1;
-        const casts = client.getCastsByMention(6833, {
+        const casts = client.listCastsByMention(6833, {
           pageSize,
         });
         const cast = await casts.next();
@@ -244,9 +244,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getReactionsByFid", function () {
+    describe("#listReactionsByFid", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.reactions.getReactionsByFid({
+        const response = await client.apis.reactions.listReactionsByFid({
           fid: 2,
           reactionType: ReactionType.Like,
         });
@@ -261,7 +261,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch a reaction by FID", async function () {
         const pageSize = 1;
-        const reactions = client.getReactionsByFid(2, ReactionType.Like, {
+        const reactions = client.listReactionsByFid(2, ReactionType.Like, {
           pageSize,
         });
         const reaction = await reactions.next();
@@ -269,9 +269,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getReactionsByCast", function () {
+    describe("#listReactionsByCast", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.reactions.getReactionsByCast({
+        const response = await client.apis.reactions.listReactionsByCast({
           targetFid: 1795,
           targetHash: "0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0",
           reactionType: ReactionType.Like,
@@ -287,7 +287,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch a reaction by cast", async function () {
         const pageSize = 1;
-        const reactions = client.getReactionsByCast(
+        const reactions = client.listReactionsByCast(
           1795,
           "0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0",
           ReactionType.Like,
@@ -300,9 +300,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getReactionsByTarget", function () {
+    describe("#listReactionsByTarget", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.reactions.getReactionsByTarget({
+        const response = await client.apis.reactions.listReactionsByTarget({
           url: "chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2",
           reactionType: ReactionType.Like,
         });
@@ -318,7 +318,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch a reaction by cast", async function () {
         const pageSize = 1;
-        const reactions = client.getReactionsByTarget(
+        const reactions = client.listReactionsByTarget(
           "chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2",
           ReactionType.Like,
           {
@@ -358,9 +358,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getLinksByFid", function () {
+    describe("#listLinksByFid", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.links.getLinksByFid({
+        const response = await client.apis.links.listLinksByFid({
           fid: 6833,
         });
         expect(response.data.messages).to.not.be.empty;
@@ -374,7 +374,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch a link by ID", async function () {
         const pageSize = 1;
-        const links = client.getLinksByFid(6833, {
+        const links = client.listLinksByFid(6833, {
           pageSize,
         });
         const link = await links.next();
@@ -382,9 +382,9 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getLinksByTargetFid", function () {
+    describe("#listLinksByTargetFid", function () {
       it("validates against OpenAPI spec", async function () {
-        const response = await client.apis.links.getLinksByTargetFid({
+        const response = await client.apis.links.listLinksByTargetFid({
           targetFid: 6833,
         });
         expect(response.data.messages).to.not.be.empty;
@@ -398,7 +398,7 @@ describe.only("HubWebClient", function () {
 
       it("can fetch a link by target ID", async function () {
         const pageSize = 1;
-        const links = client.getLinksByTargetFid(6833, {
+        const links = client.listLinksByTargetFid(6833, {
           pageSize,
         });
         const link = await links.next();
@@ -449,7 +449,7 @@ describe.only("HubWebClient", function () {
       });
     });
 
-    describe("#getAllUserDataByFid", function () {
+    describe("#listAllUserDataByFid", function () {
       it("validates against OpenAPI spec", async function () {
         const response = await client.apis.userData.getUserDataByFid({
           fid: 6833,
@@ -466,9 +466,116 @@ describe.only("HubWebClient", function () {
 
       it("can fetch existing user data", async function () {
         const pageSize = 1;
-        const userData = await client.getAllUserDataByFid(6833, { pageSize });
+        const userData = await client.listAllUserDataByFid(6833, { pageSize });
         const singleData = await userData.next();
         expectDefinedNonNull(singleData);
+      });
+    });
+  });
+
+  describe.skip("FIDs API", function () {
+    describe("#listFids", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.fids.listFids();
+        expect(response.data.fids).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/fids"].get.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("can fetch some FIDs", async function () {
+        const pageSize = 1;
+        const fids = client.listFids({
+          pageSize,
+        });
+        const fidOne = await fids.next();
+        const fidTwo = await fids.next();
+        expectDefinedNonNull(fidOne.value);
+        expectDefinedNonNull(fidTwo.value);
+      });
+    });
+  });
+
+  describe("Storage API", function () {
+    describe("#getStorageLimitsByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.storage.getStorageLimitsByFid({
+          fid: 6833,
+        });
+        expect(response.data).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/storageLimitsByFid"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("returns some storage limits", async function () {
+        const limits = await client.getStorageLimitsByFid(6833);
+        expect(limits).to.not.be.empty;
+      });
+    });
+  });
+
+  describe("Usernames API", function () {
+    describe("#getUsernameProof", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.usernames.getUsernameProof({
+          name: "gavi",
+        });
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/userNameProofByName"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+
+      it("returns null for nonexistent name", async function () {
+        const response = await client.getUsernameProof("xxxxxxxx");
+        expect(response).to.be.null;
+      });
+    });
+
+    describe.skip("#listUsernameProofsForFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.usernames.listUsernameProofsByFid({
+          fid: 2,
+        });
+        expect(response.data.proofs).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/userNameProofsByFid"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+      });
+    });
+  });
+
+  describe.only("Verifications API", function () {
+    describe("#listVerificationsByFid", function () {
+      it("validates against OpenAPI spec", async function () {
+        const response = await client.apis.verifications.listVerificationsByFid(
+          {
+            fid: 2,
+          }
+        );
+        expect(response.data.messages).to.not.be.empty;
+        const validator = new OpenAPIResponseValidator({
+          responses: apiSpec.paths["/v1/verificationsByFid"].get
+            .responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, response.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
       });
     });
   });

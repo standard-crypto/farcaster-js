@@ -15,27 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StoreType } from './store-type';
+import { VerificationAddEthAddressBody } from './verification-add-eth-address-body';
 
 /**
  * 
  * @export
- * @interface StorageLimit
+ * @interface MessageDataVerificationAddAllOf
  */
-export interface StorageLimit {
+export interface MessageDataVerificationAddAllOf {
     /**
      * 
-     * @type {StoreType}
-     * @memberof StorageLimit
+     * @type {VerificationAddEthAddressBody}
+     * @memberof MessageDataVerificationAddAllOf
      */
-    'storeType': StoreType;
-    /**
-     * 
-     * @type {number}
-     * @memberof StorageLimit
-     */
-    'limit': number;
+    'verificationAddEthAddressBody': VerificationAddEthAddressBody;
 }
-
-
 

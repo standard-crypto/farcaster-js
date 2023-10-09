@@ -22,15 +22,15 @@
 export interface FidsResponse {
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<number>}
      * @memberof FidsResponse
      */
-    'fids'?: Array<string>;
+    'fids': Array<number>;
     /**
      * 
      * @type {string}
      * @memberof FidsResponse
      */
-    'nextPageToken'?: string;
+    'nextPageToken': string;
 }
 

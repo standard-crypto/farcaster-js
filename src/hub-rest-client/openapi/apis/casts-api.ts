@@ -28,7 +28,7 @@ import { ErrorResponse } from '../models';
 // @ts-ignore
 import { FidRequest } from '../models';
 // @ts-ignore
-import { GetCastsByFid200Response } from '../models';
+import { ListCastsByFid200Response } from '../models';
 // @ts-ignore
 import { MessagesResponse } from '../models';
 /**
@@ -83,6 +83,42 @@ export const CastsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Bulk Methods
+         * @param {FidRequest} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        hubServiceGetAllCastMessagesByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('hubServiceGetAllCastMessagesByFid', 'body', body)
+            const localVarPath = `/HubService/GetAllCastMessagesByFid`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Fetch all casts authored by an FID.
          * @param {number} fid The FID of the casts\&#39; creator
          * @param {number} [pageSize] Maximum number of messages to return in a single response
@@ -91,9 +127,9 @@ export const CastsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastsByFid: async (fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listCastsByFid: async (fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'fid' is not null or undefined
-            assertParamExists('getCastsByFid', 'fid', fid)
+            assertParamExists('listCastsByFid', 'fid', fid)
             const localVarPath = `/v1/castsByFid`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -143,9 +179,9 @@ export const CastsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastsByMention: async (fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listCastsByMention: async (fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'fid' is not null or undefined
-            assertParamExists('getCastsByMention', 'fid', fid)
+            assertParamExists('listCastsByMention', 'fid', fid)
             const localVarPath = `/v1/castsByMention`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -197,7 +233,7 @@ export const CastsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCastsByParent: async (fid?: number, hash?: string, url?: string, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listCastsByParent: async (fid?: number, hash?: string, url?: string, pageSize?: number, reverse?: boolean, pageToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/castsByParent`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -245,42 +281,6 @@ export const CastsApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @summary Bulk Methods
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hubServiceGetAllCastMessagesByFid: async (body: FidRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('hubServiceGetAllCastMessagesByFid', 'body', body)
-            const localVarPath = `/HubService/GetAllCastMessagesByFid`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -305,6 +305,17 @@ export const CastsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Bulk Methods
+         * @param {FidRequest} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async hubServiceGetAllCastMessagesByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetAllCastMessagesByFid(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Fetch all casts authored by an FID.
          * @param {number} fid The FID of the casts\&#39; creator
          * @param {number} [pageSize] Maximum number of messages to return in a single response
@@ -313,8 +324,8 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastsByFid(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCastsByFid200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCastsByFid(fid, pageSize, reverse, pageToken, options);
+        async listCastsByFid(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListCastsByFid200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listCastsByFid(fid, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -327,8 +338,8 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastsByMention(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCastsByFid200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCastsByMention(fid, pageSize, reverse, pageToken, options);
+        async listCastsByMention(fid: number, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListCastsByFid200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listCastsByMention(fid, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -343,19 +354,8 @@ export const CastsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCastsByParent(fid?: number, hash?: string, url?: string, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCastsByFid200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCastsByParent(fid, hash, url, pageSize, reverse, pageToken, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Bulk Methods
-         * @param {FidRequest} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hubServiceGetAllCastMessagesByFid(body: FidRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hubServiceGetAllCastMessagesByFid(body, options);
+        async listCastsByParent(fid?: number, hash?: string, url?: string, pageSize?: number, reverse?: boolean, pageToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListCastsByFid200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listCastsByParent(fid, hash, url, pageSize, reverse, pageToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -380,36 +380,6 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @summary Fetch all casts authored by an FID.
-         * @param {CastsApiGetCastsByFidRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCastsByFid(requestParameters: CastsApiGetCastsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<GetCastsByFid200Response> {
-            return localVarFp.getCastsByFid(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Fetch all casts that mention an FID
-         * @param {CastsApiGetCastsByMentionRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCastsByMention(requestParameters: CastsApiGetCastsByMentionRequest, options?: AxiosRequestConfig): AxiosPromise<GetCastsByFid200Response> {
-            return localVarFp.getCastsByMention(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Fetch all casts by parent cast\'s FID and Hash OR by the parent\'s URL
-         * @param {CastsApiGetCastsByParentRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCastsByParent(requestParameters: CastsApiGetCastsByParentRequest = {}, options?: AxiosRequestConfig): AxiosPromise<GetCastsByFid200Response> {
-            return localVarFp.getCastsByParent(requestParameters.fid, requestParameters.hash, requestParameters.url, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Bulk Methods
          * @param {CastsApiHubServiceGetAllCastMessagesByFidRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -417,6 +387,36 @@ export const CastsApiFactory = function (configuration?: Configuration, basePath
          */
         hubServiceGetAllCastMessagesByFid(requestParameters: CastsApiHubServiceGetAllCastMessagesByFidRequest, options?: AxiosRequestConfig): AxiosPromise<MessagesResponse> {
             return localVarFp.hubServiceGetAllCastMessagesByFid(requestParameters.body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Fetch all casts authored by an FID.
+         * @param {CastsApiListCastsByFidRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCastsByFid(requestParameters: CastsApiListCastsByFidRequest, options?: AxiosRequestConfig): AxiosPromise<ListCastsByFid200Response> {
+            return localVarFp.listCastsByFid(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Fetch all casts that mention an FID
+         * @param {CastsApiListCastsByMentionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCastsByMention(requestParameters: CastsApiListCastsByMentionRequest, options?: AxiosRequestConfig): AxiosPromise<ListCastsByFid200Response> {
+            return localVarFp.listCastsByMention(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Fetch all casts by parent cast\'s FID and Hash OR by the parent\'s URL
+         * @param {CastsApiListCastsByParentRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCastsByParent(requestParameters: CastsApiListCastsByParentRequest = {}, options?: AxiosRequestConfig): AxiosPromise<ListCastsByFid200Response> {
+            return localVarFp.listCastsByParent(requestParameters.fid, requestParameters.hash, requestParameters.url, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -443,125 +443,6 @@ export interface CastsApiGetCastByIdRequest {
 }
 
 /**
- * Request parameters for getCastsByFid operation in CastsApi.
- * @export
- * @interface CastsApiGetCastsByFidRequest
- */
-export interface CastsApiGetCastsByFidRequest {
-    /**
-     * The FID of the casts\&#39; creator
-     * @type {number}
-     * @memberof CastsApiGetCastsByFid
-     */
-    readonly fid: number
-
-    /**
-     * Maximum number of messages to return in a single response
-     * @type {number}
-     * @memberof CastsApiGetCastsByFid
-     */
-    readonly pageSize?: number
-
-    /**
-     * Reverse the sort order, returning latest messages first
-     * @type {boolean}
-     * @memberof CastsApiGetCastsByFid
-     */
-    readonly reverse?: boolean
-
-    /**
-     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
-     * @type {string}
-     * @memberof CastsApiGetCastsByFid
-     */
-    readonly pageToken?: string
-}
-
-/**
- * Request parameters for getCastsByMention operation in CastsApi.
- * @export
- * @interface CastsApiGetCastsByMentionRequest
- */
-export interface CastsApiGetCastsByMentionRequest {
-    /**
-     * The FID that is mentioned in a cast
-     * @type {number}
-     * @memberof CastsApiGetCastsByMention
-     */
-    readonly fid: number
-
-    /**
-     * Maximum number of messages to return in a single response
-     * @type {number}
-     * @memberof CastsApiGetCastsByMention
-     */
-    readonly pageSize?: number
-
-    /**
-     * Reverse the sort order, returning latest messages first
-     * @type {boolean}
-     * @memberof CastsApiGetCastsByMention
-     */
-    readonly reverse?: boolean
-
-    /**
-     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
-     * @type {string}
-     * @memberof CastsApiGetCastsByMention
-     */
-    readonly pageToken?: string
-}
-
-/**
- * Request parameters for getCastsByParent operation in CastsApi.
- * @export
- * @interface CastsApiGetCastsByParentRequest
- */
-export interface CastsApiGetCastsByParentRequest {
-    /**
-     * The FID of the parent cast
-     * @type {number}
-     * @memberof CastsApiGetCastsByParent
-     */
-    readonly fid?: number
-
-    /**
-     * The parent cast\&#39;s hash
-     * @type {string}
-     * @memberof CastsApiGetCastsByParent
-     */
-    readonly hash?: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof CastsApiGetCastsByParent
-     */
-    readonly url?: string
-
-    /**
-     * Maximum number of messages to return in a single response
-     * @type {number}
-     * @memberof CastsApiGetCastsByParent
-     */
-    readonly pageSize?: number
-
-    /**
-     * Reverse the sort order, returning latest messages first
-     * @type {boolean}
-     * @memberof CastsApiGetCastsByParent
-     */
-    readonly reverse?: boolean
-
-    /**
-     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
-     * @type {string}
-     * @memberof CastsApiGetCastsByParent
-     */
-    readonly pageToken?: string
-}
-
-/**
  * Request parameters for hubServiceGetAllCastMessagesByFid operation in CastsApi.
  * @export
  * @interface CastsApiHubServiceGetAllCastMessagesByFidRequest
@@ -573,6 +454,125 @@ export interface CastsApiHubServiceGetAllCastMessagesByFidRequest {
      * @memberof CastsApiHubServiceGetAllCastMessagesByFid
      */
     readonly body: FidRequest
+}
+
+/**
+ * Request parameters for listCastsByFid operation in CastsApi.
+ * @export
+ * @interface CastsApiListCastsByFidRequest
+ */
+export interface CastsApiListCastsByFidRequest {
+    /**
+     * The FID of the casts\&#39; creator
+     * @type {number}
+     * @memberof CastsApiListCastsByFid
+     */
+    readonly fid: number
+
+    /**
+     * Maximum number of messages to return in a single response
+     * @type {number}
+     * @memberof CastsApiListCastsByFid
+     */
+    readonly pageSize?: number
+
+    /**
+     * Reverse the sort order, returning latest messages first
+     * @type {boolean}
+     * @memberof CastsApiListCastsByFid
+     */
+    readonly reverse?: boolean
+
+    /**
+     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+     * @type {string}
+     * @memberof CastsApiListCastsByFid
+     */
+    readonly pageToken?: string
+}
+
+/**
+ * Request parameters for listCastsByMention operation in CastsApi.
+ * @export
+ * @interface CastsApiListCastsByMentionRequest
+ */
+export interface CastsApiListCastsByMentionRequest {
+    /**
+     * The FID that is mentioned in a cast
+     * @type {number}
+     * @memberof CastsApiListCastsByMention
+     */
+    readonly fid: number
+
+    /**
+     * Maximum number of messages to return in a single response
+     * @type {number}
+     * @memberof CastsApiListCastsByMention
+     */
+    readonly pageSize?: number
+
+    /**
+     * Reverse the sort order, returning latest messages first
+     * @type {boolean}
+     * @memberof CastsApiListCastsByMention
+     */
+    readonly reverse?: boolean
+
+    /**
+     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+     * @type {string}
+     * @memberof CastsApiListCastsByMention
+     */
+    readonly pageToken?: string
+}
+
+/**
+ * Request parameters for listCastsByParent operation in CastsApi.
+ * @export
+ * @interface CastsApiListCastsByParentRequest
+ */
+export interface CastsApiListCastsByParentRequest {
+    /**
+     * The FID of the parent cast
+     * @type {number}
+     * @memberof CastsApiListCastsByParent
+     */
+    readonly fid?: number
+
+    /**
+     * The parent cast\&#39;s hash
+     * @type {string}
+     * @memberof CastsApiListCastsByParent
+     */
+    readonly hash?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof CastsApiListCastsByParent
+     */
+    readonly url?: string
+
+    /**
+     * Maximum number of messages to return in a single response
+     * @type {number}
+     * @memberof CastsApiListCastsByParent
+     */
+    readonly pageSize?: number
+
+    /**
+     * Reverse the sort order, returning latest messages first
+     * @type {boolean}
+     * @memberof CastsApiListCastsByParent
+     */
+    readonly reverse?: boolean
+
+    /**
+     * The page token returned by the previous query, to fetch the next page. If this parameter is empty, fetch the first page
+     * @type {string}
+     * @memberof CastsApiListCastsByParent
+     */
+    readonly pageToken?: string
 }
 
 /**
@@ -596,42 +596,6 @@ export class CastsApi extends BaseAPI {
 
     /**
      * 
-     * @summary Fetch all casts authored by an FID.
-     * @param {CastsApiGetCastsByFidRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CastsApi
-     */
-    public getCastsByFid(requestParameters: CastsApiGetCastsByFidRequest, options?: AxiosRequestConfig) {
-        return CastsApiFp(this.configuration).getCastsByFid(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Fetch all casts that mention an FID
-     * @param {CastsApiGetCastsByMentionRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CastsApi
-     */
-    public getCastsByMention(requestParameters: CastsApiGetCastsByMentionRequest, options?: AxiosRequestConfig) {
-        return CastsApiFp(this.configuration).getCastsByMention(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Fetch all casts by parent cast\'s FID and Hash OR by the parent\'s URL
-     * @param {CastsApiGetCastsByParentRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CastsApi
-     */
-    public getCastsByParent(requestParameters: CastsApiGetCastsByParentRequest = {}, options?: AxiosRequestConfig) {
-        return CastsApiFp(this.configuration).getCastsByParent(requestParameters.fid, requestParameters.hash, requestParameters.url, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Bulk Methods
      * @param {CastsApiHubServiceGetAllCastMessagesByFidRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -640,5 +604,41 @@ export class CastsApi extends BaseAPI {
      */
     public hubServiceGetAllCastMessagesByFid(requestParameters: CastsApiHubServiceGetAllCastMessagesByFidRequest, options?: AxiosRequestConfig) {
         return CastsApiFp(this.configuration).hubServiceGetAllCastMessagesByFid(requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Fetch all casts authored by an FID.
+     * @param {CastsApiListCastsByFidRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CastsApi
+     */
+    public listCastsByFid(requestParameters: CastsApiListCastsByFidRequest, options?: AxiosRequestConfig) {
+        return CastsApiFp(this.configuration).listCastsByFid(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Fetch all casts that mention an FID
+     * @param {CastsApiListCastsByMentionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CastsApi
+     */
+    public listCastsByMention(requestParameters: CastsApiListCastsByMentionRequest, options?: AxiosRequestConfig) {
+        return CastsApiFp(this.configuration).listCastsByMention(requestParameters.fid, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Fetch all casts by parent cast\'s FID and Hash OR by the parent\'s URL
+     * @param {CastsApiListCastsByParentRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CastsApi
+     */
+    public listCastsByParent(requestParameters: CastsApiListCastsByParentRequest = {}, options?: AxiosRequestConfig) {
+        return CastsApiFp(this.configuration).listCastsByParent(requestParameters.fid, requestParameters.hash, requestParameters.url, requestParameters.pageSize, requestParameters.reverse, requestParameters.pageToken, options).then((request) => request(this.axios, this.basePath));
     }
 }
