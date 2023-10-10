@@ -9,13 +9,22 @@ A tool for interacting with the Farcaster social network.
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Setup](#setup)
 - [Examples](#examples)
-  - [Merkle API](#merkle-api)
+  - [Neynar API](#neynar-api)
     - [Publish a Cast](#publish-a-cast)
     - [Lookup a User](#lookup-a-user)
     - [Fetch User Activity](#fetch-user-activity)
     - [Reply to a Cast](#reply-to-a-cast)
     - [Follow a User](#follow-a-user)
     - [Parse an API Error Response](#parse-an-api-error-response)
+    - [Create and Register a Signer](#create-and-register-a-signer)
+    - [Fetch a Signer](#fetch-a-signer)
+  - [Merkle API](#merkle-api)
+    - [Publish a Cast](#publish-a-cast-1)
+    - [Lookup a User](#lookup-a-user-1)
+    - [Fetch User Activity](#fetch-user-activity-1)
+    - [Reply to a Cast](#reply-to-a-cast-1)
+    - [Follow a User](#follow-a-user-1)
+    - [Parse an API Error Response](#parse-an-api-error-response-1)
     - [Use a User-Supplied Auth Token](#use-a-user-supplied-auth-token)
 - [Documentation](#documentation)
   - [Warpcast API Client](#warpcast-api-client)
@@ -34,6 +43,192 @@ npm install @standard-crypto/farcaster-js
 Then grab a copy of the private key or mnemonic registered to your Farcaster user for use in authenticating to the platform. In the app, this can be found within settings -> Recovery Phrase
 
 ## Examples
+
+### Neynar API
+
+#### Publish a Cast
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/publishCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/publishCast.ts -->
+```ts
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const signerUuid = "signerUUID";
+const apiClient = new NeynarAPIClient(apiKey);
+
+const cast = await apiClient.publishCast(signerUuid, "Hellow, Farcaster!");
+
+console.log(`New cast hash: ${cast.hash}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Lookup a User
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/lookupUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/lookupUser.ts -->
+```ts
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+const apiKey = "NeynarAPIKey";
+const client = new NeynarAPIClient(apiKey);
+
+// by farcaster ID ('fid')
+await client.lookupUserByFid(3);
+
+// by username
+await client.lookupUserByUsername("dwr");
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Fetch User Activity
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/fetchUserActivity.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/fetchUserActivity.ts -->
+```ts
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const apiClient = new NeynarAPIClient(apiKey);
+
+// fetch handle to a user
+const user = await apiClient.lookupUserByUsername("dwr");
+if (user === undefined) throw new Error("no such user");
+
+// fetch user's casts
+for await (const cast of apiClient.fetchCastsForUser(user)) {
+  console.log(cast.text);
+}
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Reply to a Cast
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/replyToCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/replyToCast.ts -->
+```ts
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const signerUuid = "signerUUID";
+const apiClient = new NeynarAPIClient(apiKey);
+
+// fetch cast to reply to
+const user = await apiClient.lookupUserByUsername("dwr");
+if (user === undefined) throw new Error("no such user");
+const replyTo = await apiClient.fetchLatestCastForUser(user);
+if (replyTo === undefined) throw new Error("no such user");
+
+// post a reply
+await apiClient.publishCast(signerUuid, "Replying to your cast!", replyTo);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Follow a User
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/followUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/followUser.ts -->
+```ts
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const signerUuid = "signerUUID";
+const apiClient = new NeynarAPIClient(apiKey);
+const user = await apiClient.lookupUserByUsername("dwr");
+if (user === undefined) throw new Error("no such user");
+
+// follow an existing user
+await apiClient.followUser(signerUuid, user);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Parse an API Error Response
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/errorParsing.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/errorParsing.ts -->
+```ts
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const signerUuid = "signerUUID";
+const apiClient = new NeynarAPIClient(apiKey);
+
+// parse an error response from the API server
+try {
+  await apiClient.deleteCast(signerUuid, "SomeInvalidCastHash");
+} catch (error) {
+  if (NeynarAPIClient.isApiErrorResponse(error)) {
+    const apiError = error.response.data;
+    console.log(`API Error: ${apiError.message}`);
+    console.log(`Status code: ${error.response.status}`);
+  }
+}
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Create and Register a Signer
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/createSigner.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/createSigner.ts -->
+```ts
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import {
+  NeynarAPIClient,
+  generateSignature,
+} from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const apiClient = new NeynarAPIClient(apiKey);
+
+// signer params
+const publicKey = "publicKeyForSignerAccount";
+const fid = 123;
+const privateKey = "accountMnemonic";
+
+const deadline = Math.floor(Date.now() / 1000) + 86400;
+const signer = await apiClient.createSigner();
+const signature = await generateSignature(publicKey, fid, privateKey, deadline);
+const registeredSigner = await apiClient.registerSigner(
+  signer.signer_uuid,
+  fid,
+  deadline,
+  signature
+);
+console.log(
+  `Approve Signer iOS deeplink: ${registeredSigner.signer_approval_url}`
+);
+console.log(
+  "Update url to format https://client.warpcast.com/deeplinks/signed-key-request?token=0x1234 on android"
+);
+console.log(`Signer Status: ${registeredSigner.status}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Fetch a Signer
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/fetchSigner.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/fetchSigner.ts -->
+```ts
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const signerUuid = "signerUUID";
+const apiClient = new NeynarAPIClient(apiKey);
+
+const signer = await apiClient.fetchSigner(signerUuid);
+console.log(`Signer: ${signer}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ### Merkle API
 
