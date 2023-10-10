@@ -32,7 +32,7 @@ import {
   BulkFollowResponse,
 } from "./neynarV2API/swagger";
 import axios, { AxiosError, AxiosInstance } from "axios";
-import { silentLogger, Logger } from "./logger";
+import { silentLogger, Logger } from "../logger";
 import type { WithRequired } from "../utils";
 
 const BASE_PATH = "https://api.neynar.com/";
@@ -224,7 +224,7 @@ export class NeynarAPIClient {
   public async publishCast(
     signerUuid: string,
     text: string,
-    replyTo?: v2Cast | { fid?: number; hash: string },
+    replyTo?: v2Cast | { hash: string },
     embeds?: string[]
   ): Promise<PostCastResponseCast> {
     const body: PostCastReqBody = {
@@ -312,6 +312,21 @@ export class NeynarAPIClient {
   ): Promise<v1Cast[] | undefined> {
     const response = await this.apis.v1Cast.allCastsInThread(threadParent.hash);
     return response.data.result.casts;
+  }
+
+  /**
+   * Fetch the latest cast for the user, if there is one
+   */
+  public async fetchLatestCastForUser(user: {
+    fid: number;
+  }): Promise<v1Cast | undefined> {
+    // eslint-disable-next-line no-unreachable-loop
+    for await (const cast of this.fetchCastsForUser(user, {
+      pageSize: 5,
+    })) {
+      return cast;
+    }
+    return undefined;
   }
 
   /**

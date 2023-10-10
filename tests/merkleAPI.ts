@@ -2,7 +2,7 @@ import { MerkleAPIClient } from "../src/merkleAPI";
 import { Wallet } from "ethers";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { Logger, silentLogger } from "../src/merkleAPI/logger";
+import { Logger, silentLogger } from "../src/logger";
 import { expectDefined } from "./utils";
 import { AuthToken, Cast, CastReaction } from "./merkleAPI/swagger";
 import OpenAPIResponseValidator from "openapi-response-validator";

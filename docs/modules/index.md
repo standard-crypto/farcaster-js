@@ -19,6 +19,7 @@
 - [FollowsApi](../classes/index.FollowsApi.md)
 - [MerkleAPIClient](../classes/index.MerkleAPIClient.md)
 - [MiscellaneousApi](../classes/index.MiscellaneousApi.md)
+- [NeynarAPIClient](../classes/index.NeynarAPIClient.md)
 - [NotificationsApi](../classes/index.NotificationsApi.md)
 - [RequiredError](../classes/index.RequiredError.md)
 - [SignerRequestsApi](../classes/index.SignerRequestsApi.md)
@@ -199,6 +200,7 @@
 - [WatchesApiAxiosParamCreator](index.md#watchesapiaxiosparamcreator)
 - [WatchesApiFactory](index.md#watchesapifactory)
 - [WatchesApiFp](index.md#watchesapifp)
+- [generateSignature](index.md#generatesignature)
 - [publishCast](index.md#publishcast)
 
 ## Type Aliases
@@ -299,7 +301,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:13](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L13)
+[src/logger.ts:13](https://github.com/standard-crypto/farcaster-js/blob/main/src/logger.ts#L13)
 
 ## Functions
 
@@ -1330,6 +1332,29 @@ WatchesApi - functional programming interface
 #### Defined in
 
 [src/merkleAPI/swagger/apis/watches-api.ts:183](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/apis/watches-api.ts#L183)
+
+___
+
+### generateSignature
+
+▸ **generateSignature**(`publicKey`, `appFid`, `accountMnemonic`, `deadline`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `publicKey` | `string` |
+| `appFid` | `number` |
+| `accountMnemonic` | `string` |
+| `deadline` | `number` |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[src/neynarAPI/utils.ts:3](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/utils.ts#L3)
 
 ___
 

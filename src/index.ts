@@ -28,4 +28,6 @@ export async function publishCast(
 }
 
 export * from "./merkleAPI";
+export * from "./neynarAPI";
+export * from "./logger";
 export { WithRequired } from "./utils";

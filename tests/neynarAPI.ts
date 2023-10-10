@@ -1,7 +1,12 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { expectDefined, generateSignature } from "./utils";
-import { NeynarAPIClient, Logger, silentLogger } from "../src/neynarAPI/";
+import { expectDefined } from "./utils";
+import {
+  NeynarAPIClient,
+  Logger,
+  silentLogger,
+  generateSignature,
+} from "../src/";
 import {
   Cast as v2Cast,
   PostCastResponseCast,
@@ -50,40 +55,40 @@ if (apiKey !== undefined && apiKey !== "") {
       /**
        * Note: While testing please reuse the signer, it costs money to approve a signer.
        * Steps to create & register a signer:
-       * 1. Set INTEGRATION_TEST_USER_MNEMONIC in the .env file and replace userBotFid with it's fid
-       * 2. Run "yarn add viem --dev"
-       *    - Note: the project will not compile with this dependency installed
-       * 3. Uncomment the code for `generateSignature()` in /tests/utils.ts
-       * 4. Remove the skip on "can generate a signer"
-       * 5. Set the values for your signer UUID & public key in your .env file
-       * 6. Replace the skip to "can generate a signer" and remove the skip on "can register a signer"
+       * 1. Remove the skip on "can create a signer" and capture the Signer UUID & public key from the logs
+       * 2. Set the values for your Signer UUID & public key in your .env file
+       * 3. Replace the skip to "can create a signer" and remove the skip on "can register a signer"
        *   - Update the deadline if you want to use the signer for a longer period
-       * 7. Open the signer_approval_url from the logged registeredSigner on a mobile device
+       * 4. Open the signer_approval_url from the logged registeredSigner on a mobile device
        *    that is logged into the same account
        *    - if android -> update the deeplink to follow this format
        *     https://client.warpcast.com/deeplinks/signed-key-request?token=0x1234
-       * 8. Approve the signer (costs $0.99)
-       * 9. Replace the skip on "can register a signer" and run the tests
+       * 5. Approve the signer (costs $0.99)
+       * 6. Replace the skip on "can register a signer" and run the tests
        */
+      let signature: string | undefined;
+      const deadline = Math.floor(Date.now() / 1000) + 86400;
       it.skip("can create a signer", async function () {
         const signer = await client.createSigner();
         expectDefined(signer);
         // eslint-disable-next-line no-console
         console.log(signer);
       });
-      it.skip("can register a signer", async function () {
-        const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now
-        const signature = await generateSignature(
+      it("can generate a signature", async function () {
+        signature = await generateSignature(
           signerPublicKey ?? "",
           userBotFid,
           privateKey ?? "",
           deadline
         );
+        expectDefined(signature);
+      });
+      it.skip("can register a signer", async function () {
         const registeredSigner = await client.registerSigner(
           signerUuid ?? "",
           userBotFid,
           deadline,
-          signature
+          signature ?? ""
         );
         expectDefined(registeredSigner);
         expect(registeredSigner.signer_uuid).to.be.eq(signerUuid);
@@ -209,7 +214,7 @@ if (apiKey !== undefined && apiKey !== "") {
           }
         )) {
           expectDefined(cast);
-          expectDefined(cast.cast?.cast_hash);
+          expectDefined(cast.reaction?.reaction_target_hash);
           expect(cast.reaction?.reaction_type).to.eq("like");
           castCount++;
           if (castCount === 10) break;

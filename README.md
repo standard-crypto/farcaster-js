@@ -9,13 +9,14 @@ A tool for interacting with the Farcaster social network.
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Setup](#setup)
 - [Examples](#examples)
-  - [Publish a Cast](#publish-a-cast)
-  - [Lookup a User](#lookup-a-user)
-  - [Fetch User Activity](#fetch-user-activity)
-  - [Reply to a Cast](#reply-to-a-cast)
-  - [Follow a User](#follow-a-user)
-  - [Parse an API Error Response](#parse-an-api-error-response)
-  - [Use a User-Supplied Auth Token](#use-a-user-supplied-auth-token)
+  - [Merkle API](#merkle-api)
+    - [Publish a Cast](#publish-a-cast)
+    - [Lookup a User](#lookup-a-user)
+    - [Fetch User Activity](#fetch-user-activity)
+    - [Reply to a Cast](#reply-to-a-cast)
+    - [Follow a User](#follow-a-user)
+    - [Parse an API Error Response](#parse-an-api-error-response)
+    - [Use a User-Supplied Auth Token](#use-a-user-supplied-auth-token)
 - [Documentation](#documentation)
   - [Warpcast API Client](#warpcast-api-client)
   - [Hubs](#hubs)
@@ -34,10 +35,12 @@ Then grab a copy of the private key or mnemonic registered to your Farcaster use
 
 ## Examples
 
-### Publish a Cast
+### Merkle API
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishCast.ts) -->
-<!-- The below code snippet is automatically added from ./examples/publishCast.ts -->
+#### Publish a Cast
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/publishCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/publishCast.ts -->
 ```ts
 import { publishCast } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
@@ -50,10 +53,10 @@ console.log(`New cast hash: ${cast.hash}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Lookup a User
+#### Lookup a User
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/lookupUser.ts) -->
-<!-- The below code snippet is automatically added from ./examples/lookupUser.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/lookupUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/lookupUser.ts -->
 ```ts
 import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
@@ -69,10 +72,10 @@ await client.lookupUserByUsername("dwr");
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Fetch User Activity
+#### Fetch User Activity
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/fetchUserActivity.ts) -->
-<!-- The below code snippet is automatically added from ./examples/fetchUserActivity.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/fetchUserActivity.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/fetchUserActivity.ts -->
 ```ts
 import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
@@ -92,10 +95,10 @@ for await (const cast of apiClient.fetchCastsForUser(user)) {
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Reply to a Cast
+#### Reply to a Cast
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/replyToCast.ts) -->
-<!-- The below code snippet is automatically added from ./examples/replyToCast.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/replyToCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/replyToCast.ts -->
 ```ts
 import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
@@ -115,10 +118,10 @@ await apiClient.publishCast("Replying to your cast!", replyTo);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Follow a User
+#### Follow a User
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/followUser.ts) -->
-<!-- The below code snippet is automatically added from ./examples/followUser.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/followUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/followUser.ts -->
 ```ts
 import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
@@ -134,10 +137,10 @@ await apiClient.followUser(user);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Parse an API Error Response
+#### Parse an API Error Response
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/errorParsing.ts) -->
-<!-- The below code snippet is automatically added from ./examples/errorParsing.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/errorParsing.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/errorParsing.ts -->
 ```ts
 import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 import { Wallet } from "ethers";
@@ -162,10 +165,10 @@ try {
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
-### Use a User-Supplied Auth Token
+#### Use a User-Supplied Auth Token
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/userSuppliedAuthTokens.ts) -->
-<!-- The below code snippet is automatically added from ./examples/userSuppliedAuthTokens.ts -->
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/merkle/userSuppliedAuthTokens.ts) -->
+<!-- The below code snippet is automatically added from ./examples/merkle/userSuppliedAuthTokens.ts -->
 ```ts
 import { MerkleAPIClient } from "@standard-crypto/farcaster-js";
 

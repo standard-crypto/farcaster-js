@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:6](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L6)
+[src/logger.ts:6](https://github.com/standard-crypto/farcaster-js/blob/main/src/logger.ts#L6)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:9](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L9)
+[src/logger.ts:9](https://github.com/standard-crypto/farcaster-js/blob/main/src/logger.ts#L9)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:7](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L7)
+[src/logger.ts:7](https://github.com/standard-crypto/farcaster-js/blob/main/src/logger.ts#L7)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:5](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L5)
+[src/logger.ts:5](https://github.com/standard-crypto/farcaster-js/blob/main/src/logger.ts#L5)
 
 ___
 
@@ -141,4 +141,4 @@ ___
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:8](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L8)
+[src/logger.ts:8](https://github.com/standard-crypto/farcaster-js/blob/main/src/logger.ts#L8)
