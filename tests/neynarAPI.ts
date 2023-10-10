@@ -383,8 +383,10 @@ if (apiKey !== undefined && apiKey !== "") {
         it("can reply to an existing cast", async function () {
           const text = "this is a reply to the test cast";
           expectDefined(publishedCast);
+          await sleep(1000);
           reply = await client.publishCast(signerUuid, text, publishedCast);
           expect(reply.text).to.eq(text);
+          await sleep(1000);
           const replyCast = await client.fetchCast(reply.hash);
           expect(replyCast?.parent_hash).to.eq(publishedCast?.hash);
         });
