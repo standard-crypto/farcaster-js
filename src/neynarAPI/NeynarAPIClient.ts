@@ -30,6 +30,7 @@ import {
   FollowApi as FollowApiV2,
   FollowReqBody,
   BulkFollowResponse,
+  CastEmbeds,
 } from "./neynarV2API/swagger";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { silentLogger, Logger } from "../logger";
@@ -225,12 +226,12 @@ export class NeynarAPIClient {
     signerUuid: string,
     text: string,
     replyTo?: v2Cast | { hash: string },
-    embeds?: string[]
+    embeds?: CastEmbeds[]
   ): Promise<PostCastResponseCast> {
     const body: PostCastReqBody = {
       signer_uuid: signerUuid,
       text: text,
-      embeds: embeds !== undefined ? [{ url: embeds[0] }] : undefined,
+      embeds: embeds,
       parent: replyTo !== undefined ? replyTo.hash : undefined,
     };
     const response = await this.apis.v2Cast.postCast(body);

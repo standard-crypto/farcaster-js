@@ -430,7 +430,7 @@ if (apiKey !== undefined && apiKey !== "") {
             signerUuid,
             text,
             undefined /* replyTo */,
-            [embedURL]
+            [{ url: embedURL }]
           );
           expectDefined(publishCastResp);
 
@@ -454,7 +454,7 @@ if (apiKey !== undefined && apiKey !== "") {
             signerUuid,
             text,
             undefined /* replyTo */,
-            [embedURL]
+            [{ url: embedURL }]
           );
           expectDefined(publishCastResp);
 
@@ -468,6 +468,33 @@ if (apiKey !== undefined && apiKey !== "") {
           expect(images).to.have.length(1);
           const publishedEmbed: EmbedUrl = images[0] as EmbedUrl;
           expect(publishedEmbed.url).to.be.eq(embedURL);
+          await client.deleteCast(signerUuid, publishedCast);
+        });
+
+        it("can publish a cast with multiple embeds", async function () {
+          const embedURL = "https://www.farcaster.xyz/";
+          const imageURL = "https://i.imgur.com/YPEZebo.png";
+          const text = "this is a cast testing URL embed functionality";
+          const publishCastResp = await client.publishCast(
+            signerUuid,
+            text,
+            undefined /* replyTo */,
+            [{ url: embedURL }, { url: imageURL }]
+          );
+          expectDefined(publishCastResp);
+
+          // re-fetch the cast again, since the warpcast API might not return it in response to our POST
+          await sleep(1000);
+          const publishedCast = await client.fetchCast(publishCastResp.hash);
+          expectDefined(publishedCast);
+
+          expectDefined(publishedCast.embeds);
+          const embeds = publishedCast.embeds;
+          expect(embeds).to.have.length(2);
+          const publishedUrlEmbed: EmbedUrl = embeds[0] as EmbedUrl;
+          const publishedImageEmbed: EmbedUrl = embeds[1] as EmbedUrl;
+          expect(publishedUrlEmbed.url).to.be.eq(embedURL);
+          expect(publishedImageEmbed.url).to.be.eq(imageURL);
           await client.deleteCast(signerUuid, publishedCast);
         });
       });
