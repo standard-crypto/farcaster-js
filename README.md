@@ -10,14 +10,14 @@ A tool for interacting with the Farcaster social network.
 - [Setup](#setup)
 - [Examples](#examples)
   - [Neynar API](#neynar-api)
+    - [Create and Register a Signer](#create-and-register-a-signer)
+    - [Fetch a Signer](#fetch-a-signer)
     - [Publish a Cast](#publish-a-cast)
     - [Lookup a User](#lookup-a-user)
     - [Fetch User Activity](#fetch-user-activity)
     - [Reply to a Cast](#reply-to-a-cast)
     - [Follow a User](#follow-a-user)
     - [Parse an API Error Response](#parse-an-api-error-response)
-    - [Create and Register a Signer](#create-and-register-a-signer)
-    - [Fetch a Signer](#fetch-a-signer)
   - [Merkle API](#merkle-api)
     - [Publish a Cast](#publish-a-cast-1)
     - [Lookup a User](#lookup-a-user-1)
@@ -46,6 +46,65 @@ Then grab a copy of the private key or mnemonic registered to your Farcaster use
 
 ### Neynar API
 
+#### Create and Register a Signer
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/createSigner.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/createSigner.ts -->
+```ts
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import {
+  NeynarAPIClient,
+  generateSignature,
+} from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const apiClient = new NeynarAPIClient(apiKey);
+
+// signer params
+const publicKey = "publicKeyForSignerAccount";
+const fid = 123;
+const privateKey = "accountMnemonic";
+
+const deadline = Math.floor(Date.now() / 1000) + 86400;
+const signer = await apiClient.createSigner();
+const signature = await generateSignature(publicKey, fid, privateKey, deadline);
+const registeredSigner = await apiClient.registerSigner(
+  signer.signer_uuid,
+  fid,
+  deadline,
+  signature
+);
+console.log(
+  `Approve Signer iOS deeplink: ${registeredSigner.signer_approval_url}`
+);
+console.log(
+  "Update url to format https://client.warpcast.com/deeplinks/signed-key-request?token=0x1234 on android"
+);
+console.log(`Signer Status: ${registeredSigner.status}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### Fetch a Signer
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/fetchSigner.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar/fetchSigner.ts -->
+```ts
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+
+// init
+const apiKey = "NeynarAPIKey";
+const signerUuid = "signerUUID";
+const apiClient = new NeynarAPIClient(apiKey);
+
+const signer = await apiClient.fetchSigner(signerUuid);
+console.log(`Signer: ${signer}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 #### Publish a Cast
 
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/publishCast.ts) -->
@@ -58,7 +117,7 @@ const apiKey = "NeynarAPIKey";
 const signerUuid = "signerUUID";
 const apiClient = new NeynarAPIClient(apiKey);
 
-const cast = await apiClient.publishCast(signerUuid, "Hellow, Farcaster!");
+const cast = await apiClient.publishCast(signerUuid, "Hello, Farcaster!");
 
 console.log(`New cast hash: ${cast.hash}`);
 ```
@@ -168,65 +227,6 @@ try {
     console.log(`Status code: ${error.response.status}`);
   }
 }
-```
-<!-- AUTO-GENERATED-CONTENT:END -->
-
-#### Create and Register a Signer
-
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/createSigner.ts) -->
-<!-- The below code snippet is automatically added from ./examples/neynar/createSigner.ts -->
-```ts
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import {
-  NeynarAPIClient,
-  generateSignature,
-} from "@standard-crypto/farcaster-js";
-
-// init
-const apiKey = "NeynarAPIKey";
-const apiClient = new NeynarAPIClient(apiKey);
-
-// signer params
-const publicKey = "publicKeyForSignerAccount";
-const fid = 123;
-const privateKey = "accountMnemonic";
-
-const deadline = Math.floor(Date.now() / 1000) + 86400;
-const signer = await apiClient.createSigner();
-const signature = await generateSignature(publicKey, fid, privateKey, deadline);
-const registeredSigner = await apiClient.registerSigner(
-  signer.signer_uuid,
-  fid,
-  deadline,
-  signature
-);
-console.log(
-  `Approve Signer iOS deeplink: ${registeredSigner.signer_approval_url}`
-);
-console.log(
-  "Update url to format https://client.warpcast.com/deeplinks/signed-key-request?token=0x1234 on android"
-);
-console.log(`Signer Status: ${registeredSigner.status}`);
-```
-<!-- AUTO-GENERATED-CONTENT:END -->
-
-#### Fetch a Signer
-
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar/fetchSigner.ts) -->
-<!-- The below code snippet is automatically added from ./examples/neynar/fetchSigner.ts -->
-```ts
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
-
-// init
-const apiKey = "NeynarAPIKey";
-const signerUuid = "signerUUID";
-const apiClient = new NeynarAPIClient(apiKey);
-
-const signer = await apiClient.fetchSigner(signerUuid);
-console.log(`Signer: ${signer}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
