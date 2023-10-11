@@ -491,10 +491,9 @@ export class NeynarAPIClient {
 
   /**
    * Checks if a given Ethereum address has a Farcaster user associated with it.
-   * TODO: Confirm the statement below is true
    * Note: if an address is associated with multiple users, the API will return
    * the user who most recently published a verification with the address
-   * (based on when Neynar received the proof, not a self-reported timestamp).
+   * (based on when Warpcast received the proof, not a self-reported timestamp).
    * See [Neynar documentation](https://docs.neynar.com/reference/get-user-by-verification)
    */
   public async lookupUserByVerification(address: string): Promise<User | null> {
