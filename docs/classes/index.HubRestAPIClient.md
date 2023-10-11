@@ -48,9 +48,7 @@
 
 • **new HubRestAPIClient**(`«destructured»?`)
 
-Instantiates a MerkleAPIClient
-
-Note: A Wallet must be provided if the API client is to mint new AuthTokens
+Instantiates a HubRestAPIClient
 
 #### Parameters
 
@@ -60,7 +58,7 @@ Note: A Wallet must be provided if the API client is to mint new AuthTokens
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:85](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L85)
+[src/hub-rest-client/HubRestAPIClient.ts:83](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L83)
 
 ## Properties
 
@@ -95,6 +93,7 @@ Note: A Wallet must be provided if the API client is to mint new AuthTokens
 ▸ **getCastById**(`«destructured»`): `Promise`<``null`` \| `CastAdd`\>
 
 Get a cast by its FID and Hash.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castbyid)
 
 #### Parameters
 
@@ -116,7 +115,8 @@ ___
 
 ▸ **getHubEventById**(`eventId`): `Promise`<``null`` \| `HubEvent`\>
 
-Get an event by its Id
+Get a hub event by its Id.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#eventbyid)
 
 #### Parameters
 
@@ -130,7 +130,7 @@ Get an event by its Id
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:685](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L685)
+[src/hub-rest-client/HubRestAPIClient.ts:706](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L706)
 
 ___
 
@@ -138,7 +138,8 @@ ___
 
 ▸ **getHubInfo**(`«destructured»?`): `Promise`<`HubInfoResponse`\>
 
-Get the Hub's info
+Get the Hub's info.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
 
 #### Parameters
 
@@ -153,7 +154,7 @@ Get the Hub's info
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:126](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L126)
+[src/hub-rest-client/HubRestAPIClient.ts:125](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L125)
 
 ___
 
@@ -162,6 +163,7 @@ ___
 ▸ **getLinkById**(`sourceFid`, `targetFid`): `Promise`<``null`` \| `LinkAdd`\>
 
 Get a link by its FID and target FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linkbyid)
 
 #### Parameters
 
@@ -176,7 +178,7 @@ Get a link by its FID and target FID.
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:368](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L368)
+[src/hub-rest-client/HubRestAPIClient.ts:376](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L376)
 
 ___
 
@@ -184,7 +186,8 @@ ___
 
 ▸ **getOnChainIdRegistryEventByAddress**(`address`): `Promise`<``null`` \| `OnChainEventIdRegister`\>
 
-Get a specific on-chain ID registration event by address
+Get a specific on-chain ID registration event by address.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchainidregistryeventbyaddress)
 
 #### Parameters
 
@@ -198,7 +201,7 @@ Get a specific on-chain ID registration event by address
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:660](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L660)
+[src/hub-rest-client/HubRestAPIClient.ts:680](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L680)
 
 ___
 
@@ -206,7 +209,8 @@ ___
 
 ▸ **getOnChainSignerEventBySigner**(`fid`, `signer`): `Promise`<``null`` \| `OnChainEventSigner`\>
 
-Get a specific on-chain signer event by FID and signer
+Get a specific on-chain signer event by FID and signer.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchainsignersbyfid)
 
 #### Parameters
 
@@ -221,7 +225,7 @@ Get a specific on-chain signer event by FID and signer
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:634](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L634)
+[src/hub-rest-client/HubRestAPIClient.ts:653](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L653)
 
 ___
 
@@ -230,12 +234,13 @@ ___
 ▸ **getReactionById**(`id`): `Promise`<``null`` \| `Reaction`\>
 
 Get a reaction by its created FID and target Cast.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionbyid)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `id` | `ReactionsApiGetReactionByIdRequest` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `ReactionsApiGetReactionByIdRequest` | The source and target of the reaction, and the reaction type |
 
 #### Returns
 
@@ -243,7 +248,7 @@ Get a reaction by its created FID and target Cast.
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:246](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L246)
+[src/hub-rest-client/HubRestAPIClient.ts:250](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L250)
 
 ___
 
@@ -252,6 +257,7 @@ ___
 ▸ **getSpecificUserDataByFid**(`fid`, `userDataType`): `Promise`<``null`` \| `UserDataAdd`\>
 
 Get a specific type of UserData for a FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.html#userdatabyfid)
 
 #### Parameters
 
@@ -266,7 +272,7 @@ Get a specific type of UserData for a FID.
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:458](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L458)
+[src/hub-rest-client/HubRestAPIClient.ts:469](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L469)
 
 ___
 
@@ -275,6 +281,7 @@ ___
 ▸ **getStorageLimitsByFid**(`fid`): `Promise`<`StorageLimit`[]\>
 
 Get an FID's storage limits.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/storagelimits.html#storagelimitsbyfid)
 
 #### Parameters
 
@@ -288,7 +295,7 @@ Get an FID's storage limits.
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:542](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L542)
+[src/hub-rest-client/HubRestAPIClient.ts:556](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L556)
 
 ___
 
@@ -296,7 +303,8 @@ ___
 
 ▸ **getUsernameProof**(`username`): `Promise`<``null`` \| `UserNameProof`\>
 
-Get an proof for a username by the Farcaster username
+Get an proof for a username by the Farcaster username.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernameproof.html#usernameproofbyname)
 
 #### Parameters
 
@@ -310,7 +318,7 @@ Get an proof for a username by the Farcaster username
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:552](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L552)
+[src/hub-rest-client/HubRestAPIClient.ts:567](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L567)
 
 ___
 
@@ -318,7 +326,8 @@ ___
 
 ▸ **listAllUserDataByFid**(`fid`, `options?`): `AsyncGenerator`<`UserDataAdd`, `void`, `undefined`\>
 
-Get all UserData for a FID.
+Get all UserData for a FID. Returns an empty iterator if FID has no user data or does not exist.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.html#userdatabyfid)
 
 #### Parameters
 
@@ -333,7 +342,7 @@ Get all UserData for a FID.
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:484](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L484)
+[src/hub-rest-client/HubRestAPIClient.ts:496](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L496)
 
 ___
 
@@ -342,6 +351,7 @@ ___
 ▸ **listCastsByFid**(`fid`, `options?`): `AsyncGenerator`<`CastAdd`, `void`, `undefined`\>
 
 Fetch all casts for authored by an FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbyfid)
 
 #### Parameters
 
@@ -356,7 +366,7 @@ Fetch all casts for authored by an FID.
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:156](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L156)
+[src/hub-rest-client/HubRestAPIClient.ts:157](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L157)
 
 ___
 
@@ -364,7 +374,8 @@ ___
 
 ▸ **listCastsByMention**(`fid`, `options?`): `AsyncGenerator`<`CastAdd`, `void`, `undefined`\>
 
-Fetch all casts that mention an FID
+Fetch all casts that mention an FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbymention)
 
 #### Parameters
 
@@ -379,7 +390,7 @@ Fetch all casts that mention an FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:186](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L186)
+[src/hub-rest-client/HubRestAPIClient.ts:188](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L188)
 
 ___
 
@@ -387,7 +398,8 @@ ___
 
 ▸ **listCastsByParent**(`parent`, `options?`): `AsyncGenerator`<`CastAdd`, `void`, `undefined`\>
 
-Fetch all casts by parent cast's FID and Hash OR by the parent's URL
+Fetch all casts by parent cast's FID and Hash OR by the parent's URL.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbyparent)
 
 #### Parameters
 
@@ -402,7 +414,7 @@ Fetch all casts by parent cast's FID and Hash OR by the parent's URL
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:216](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L216)
+[src/hub-rest-client/HubRestAPIClient.ts:219](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L219)
 
 ___
 
@@ -410,7 +422,8 @@ ___
 
 ▸ **listFids**(`options?`): `AsyncGenerator`<`number`, `void`, `undefined`\>
 
-Get a list of all the FIDs
+Get a list of all the FIDs.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#fids)
 
 #### Parameters
 
@@ -424,7 +437,7 @@ Get a list of all the FIDs
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:514](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L514)
+[src/hub-rest-client/HubRestAPIClient.ts:527](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L527)
 
 ___
 
@@ -432,7 +445,8 @@ ___
 
 ▸ **listHubEvents**(`fromEventId?`): `AsyncGenerator`<`HubEvent`, `void`, `undefined`\>
 
-Get a page of Hub events
+Get a page of Hub events.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#events)
 
 #### Parameters
 
@@ -446,7 +460,7 @@ Get a page of Hub events
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:706](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L706)
+[src/hub-rest-client/HubRestAPIClient.ts:728](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L728)
 
 ___
 
@@ -454,7 +468,8 @@ ___
 
 ▸ **listLinksByFid**(`fid`, `options?`): `AsyncGenerator`<`LinkAdd`, `void`, `undefined`\>
 
-Get all links from a source FID
+Get all links from a source FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linksbyfid)
 
 #### Parameters
 
@@ -469,7 +484,7 @@ Get all links from a source FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:395](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L395)
+[src/hub-rest-client/HubRestAPIClient.ts:404](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L404)
 
 ___
 
@@ -477,7 +492,8 @@ ___
 
 ▸ **listLinksByTargetFid**(`targetFid`, `options?`): `AsyncGenerator`<`LinkAdd`, `void`, `undefined`\>
 
-Get all links to a target FID
+Get all links to a target FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linksbytargetfid)
 
 #### Parameters
 
@@ -492,7 +508,7 @@ Get all links to a target FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:426](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L426)
+[src/hub-rest-client/HubRestAPIClient.ts:436](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L436)
 
 ___
 
@@ -500,7 +516,8 @@ ___
 
 ▸ **listOnChainEventsByFid**<`T`\>(`fid`, `eventType`): `Promise`<`OnChainEventsReturnType`<`T`\>[]\>
 
-Get a list of on-chain events by an FID
+Get a list of on-chain events by an FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchaineventsbyfid)
 
 #### Type parameters
 
@@ -521,7 +538,7 @@ Get a list of on-chain events by an FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:617](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L617)
+[src/hub-rest-client/HubRestAPIClient.ts:635](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L635)
 
 ___
 
@@ -529,7 +546,8 @@ ___
 
 ▸ **listReactionsByCast**(`targetFid`, `targetHash`, `reactionType`, `options?`): `AsyncGenerator`<`Reaction`, `void`, `undefined`\>
 
-Get all reactions to a cast
+Get all reactions to a cast.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbycast)
 
 #### Parameters
 
@@ -546,7 +564,7 @@ Get all reactions to a cast
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:303](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L303)
+[src/hub-rest-client/HubRestAPIClient.ts:309](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L309)
 
 ___
 
@@ -554,7 +572,8 @@ ___
 
 ▸ **listReactionsByFid**(`fid`, `reactionType`, `options?`): `AsyncGenerator`<`Reaction`, `void`, `undefined`\>
 
-Get all reactions by an FID
+Get all reactions by an FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbyfid)
 
 #### Parameters
 
@@ -570,7 +589,7 @@ Get all reactions by an FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:269](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L269)
+[src/hub-rest-client/HubRestAPIClient.ts:274](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L274)
 
 ___
 
@@ -578,7 +597,8 @@ ___
 
 ▸ **listReactionsByTarget**(`url`, `reactionType`, `options?`): `AsyncGenerator`<`Reaction`, `void`, `undefined`\>
 
-Get all reactions to cast's target URL
+Get all reactions to cast's target URL.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbytarget)
 
 #### Parameters
 
@@ -594,7 +614,7 @@ Get all reactions to cast's target URL
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:338](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L338)
+[src/hub-rest-client/HubRestAPIClient.ts:345](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L345)
 
 ___
 
@@ -602,7 +622,8 @@ ___
 
 ▸ **listUsernameProofsForFid**(`fid`): `Promise`<`UserNameProof`[]\>
 
-Get a list of proofs provided by an FID
+Get a list of proofs provided by an FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernameproof.html#usernameproofsbyfid)
 
 #### Parameters
 
@@ -616,7 +637,7 @@ Get a list of proofs provided by an FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:576](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L576)
+[src/hub-rest-client/HubRestAPIClient.ts:592](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L592)
 
 ___
 
@@ -624,7 +645,8 @@ ___
 
 ▸ **listVerificationsByFid**(`fid`, `options?`): `AsyncGenerator`<`Verification`, `void`, `undefined`\>
 
-Get a list of verifications provided by an FID
+Get a list of verifications provided by an FID.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/verification.html)
 
 #### Parameters
 
@@ -639,7 +661,7 @@ Get a list of verifications provided by an FID
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:586](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L586)
+[src/hub-rest-client/HubRestAPIClient.ts:603](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L603)
 
 ___
 
@@ -663,4 +685,4 @@ error is Object
 
 #### Defined in
 
-[src/hub-rest-client/HubRestAPIClient.ts:731](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L731)
+[src/hub-rest-client/HubRestAPIClient.ts:753](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L753)

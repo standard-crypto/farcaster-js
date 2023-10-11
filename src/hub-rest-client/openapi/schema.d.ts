@@ -142,7 +142,7 @@ export interface components {
       /** Positions of the mentions in the text */
       mentionsPositions?: number[];
       /** URLs or cast ids to be embedded in the cast */
-      embeds?: Array<components["schemas"]["Embed"]>;
+      embeds?: components["schemas"]["Embed"][];
     };
     CastRemove: components["schemas"]["MessageCommon"] & {
       data?: components["schemas"]["MessageDataCastRemove"];
@@ -325,7 +325,7 @@ export interface components {
     LinkType: "follow";
     MergeMessageBody: {
       message: components["schemas"]["Message"];
-      deletedMessages: Array<components["schemas"]["Message"]>;
+      deletedMessages: components["schemas"]["Message"][];
     };
     MergeOnChainEventBody: {
       onChainEvent?: components["schemas"]["OnChainEvent"];
@@ -541,7 +541,7 @@ export interface components {
       limit: number;
     };
     StorageLimitsResponse: {
-      limits: Array<components["schemas"]["StorageLimit"]>;
+      limits: components["schemas"]["StorageLimit"][];
     };
     StorageRentEventBody: {
       /** Format: byte */
@@ -600,7 +600,7 @@ export interface components {
       type: components["schemas"]["UserNameType"];
     };
     UsernameProofsResponse: {
-      proofs: Array<components["schemas"]["UserNameProof"]>;
+      proofs: components["schemas"]["UserNameProof"][];
     };
     /**
      * @default USERNAME_TYPE_FNAME
@@ -693,7 +693,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["CastAdd"]>;
+            messages: components["schemas"]["CastAdd"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -718,7 +718,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["CastAdd"]>;
+            messages: components["schemas"]["CastAdd"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -746,7 +746,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["CastAdd"]>;
+            messages: components["schemas"]["CastAdd"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -786,7 +786,7 @@ export interface operations {
         content: {
           "application/json": {
             nextPageEventId: number;
-            events: Array<components["schemas"]["HubEvent"]>;
+            events: components["schemas"]["HubEvent"][];
           };
         };
       };
@@ -888,7 +888,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["LinkAdd"]>;
+            messages: components["schemas"]["LinkAdd"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -915,7 +915,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["LinkAdd"]>;
+            messages: components["schemas"]["LinkAdd"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -957,7 +957,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            events: Array<components["schemas"]["OnChainEvent"]>;
+            events: components["schemas"]["OnChainEvent"][];
           };
         };
       };
@@ -988,7 +988,7 @@ export interface operations {
             [
               components["schemas"]["OnChainEventSigner"],
               {
-                events: Array<components["schemas"]["OnChainEventSigner"]>;
+                events: components["schemas"]["OnChainEventSigner"][];
               }
             ]
           >;
@@ -1041,7 +1041,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["Reaction"]>;
+            messages: components["schemas"]["Reaction"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1068,7 +1068,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["Reaction"]>;
+            messages: components["schemas"]["Reaction"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1094,7 +1094,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["Reaction"]>;
+            messages: components["schemas"]["Reaction"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1127,7 +1127,7 @@ export interface operations {
             [
               components["schemas"]["UserDataAdd"],
               {
-                messages: Array<components["schemas"]["UserDataAdd"]>;
+                messages: components["schemas"]["UserDataAdd"][];
                 /** Format: byte */
                 nextPageToken: string;
               }
@@ -1192,7 +1192,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: Array<components["schemas"]["Verification"]>;
+            messages: components["schemas"]["Verification"][];
             /** Format: byte */
             nextPageToken: string;
           };

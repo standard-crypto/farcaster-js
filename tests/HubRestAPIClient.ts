@@ -137,6 +137,14 @@ describe("HubWebClient", function () {
         }
         expect(castCount).to.be.greaterThan(pageSize);
       });
+
+      it("handles end of pagination correctly", async function () {
+        let castCount = 0;
+        for await (const _ of client.listCastsByFid(userGaviFid)) {
+          castCount++;
+        }
+        expect(castCount > 0);
+      });
     });
 
     describe("#listCastsByParent", function () {
@@ -263,13 +271,16 @@ describe("HubWebClient", function () {
         expect(errors, JSON.stringify(errors)).is.undefined;
       });
 
-      it("can fetch a reaction by FID", async function () {
+      it("can fetch multiple reactions by FID", async function () {
         const pageSize = 1;
         const reactions = client.listReactionsByFid(2, ReactionType.Like, {
           pageSize,
         });
-        const reaction = await reactions.next();
-        expectDefinedNonNull(reaction.value);
+        const reactionOne = await reactions.next();
+        const reactionTwo = await reactions.next();
+        expectDefinedNonNull(reactionOne.value);
+        expectDefinedNonNull(reactionTwo.value);
+        expect(reactionOne.value?.hash).to.not.eq(reactionTwo.value?.hash);
       });
     });
 
@@ -290,7 +301,7 @@ describe("HubWebClient", function () {
         expect(errors, JSON.stringify(errors)).is.undefined;
       });
 
-      it("can fetch a reaction by cast", async function () {
+      it("can fetch multiple reactions by cast", async function () {
         const pageSize = 1;
         const reactions = client.listReactionsByCast(
           1795,
@@ -300,8 +311,11 @@ describe("HubWebClient", function () {
             pageSize,
           }
         );
-        const reaction = await reactions.next();
-        expectDefinedNonNull(reaction.value);
+        const reactionOne = await reactions.next();
+        const reactionTwo = await reactions.next();
+        expectDefinedNonNull(reactionOne.value);
+        expectDefinedNonNull(reactionTwo.value);
+        expect(reactionOne.value?.hash).to.not.eq(reactionTwo.value?.hash);
       });
     });
 
@@ -322,7 +336,7 @@ describe("HubWebClient", function () {
         expect(errors, JSON.stringify(errors)).is.undefined;
       });
 
-      it("can fetch a reaction by cast", async function () {
+      it("can fetch multiple reactions by cast", async function () {
         const pageSize = 1;
         const reactions = client.listReactionsByTarget(
           "chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2",
@@ -331,8 +345,11 @@ describe("HubWebClient", function () {
             pageSize,
           }
         );
-        const reaction = await reactions.next();
-        expectDefinedNonNull(reaction.value);
+        const reactionOne = await reactions.next();
+        const reactionTwo = await reactions.next();
+        expectDefinedNonNull(reactionOne.value);
+        expectDefinedNonNull(reactionTwo.value);
+        expect(reactionOne.value?.hash).to.not.eq(reactionTwo.value?.hash);
       });
     });
   });
@@ -477,14 +494,21 @@ describe("HubWebClient", function () {
 
       it("can fetch existing user data", async function () {
         const pageSize = 1;
-        const userData = await client.listAllUserDataByFid(6833, { pageSize });
+        const userData = client.listAllUserDataByFid(6833, { pageSize });
         const singleData = await userData.next();
         expectDefinedNonNull(singleData);
+      });
+
+      it("returns empty list for nonexistent FID", async function () {
+        const userData = client.listAllUserDataByFid(4294967295);
+        const iter = await userData.next();
+        expect(iter.done).to.be.true;
+        expect(iter.value).to.be.undefined;
       });
     });
   });
 
-  describe.skip("FIDs API", function () {
+  describe("FIDs API", function () {
     describe("#listFids", function () {
       it("validates against OpenAPI spec", async function () {
         const response = await client.apis.fids.listFids();

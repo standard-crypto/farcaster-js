@@ -119,7 +119,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get the Hub's info
+   * Get the Hub's info.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
    */
   public async getHubInfo({
     includeDbStats = false,
@@ -130,6 +131,7 @@ export class HubRestAPIClient {
 
   /**
    * Get a cast by its FID and Hash.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castbyid)
    */
   public async getCastById({ fid, hash }: CastId): Promise<CastAdd | null> {
     try {
@@ -148,6 +150,7 @@ export class HubRestAPIClient {
 
   /**
    * Fetch all casts for authored by an FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbyfid)
    * @param fid The FID of the cast's creator
    * @param options
    */
@@ -177,7 +180,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Fetch all casts that mention an FID
+   * Fetch all casts that mention an FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbymention)
    * @param fid The FID that is mentioned in a cast
    * @param options
    */
@@ -207,7 +211,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Fetch all casts by parent cast's FID and Hash OR by the parent's URL
+   * Fetch all casts by parent cast's FID and Hash OR by the parent's URL.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbyparent)
    * @param parent
    * @param options
    */
@@ -238,7 +243,8 @@ export class HubRestAPIClient {
 
   /**
    * Get a reaction by its created FID and target Cast.
-   * @param id
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionbyid)
+   * @param id The source and target of the reaction, and the reaction type
    * @returns
    */
   public async getReactionById(
@@ -259,7 +265,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get all reactions by an FID
+   * Get all reactions by an FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbyfid)
    * @param fid The FID of the reaction's creator
    * @param reactionType The type of reaction
    * @param options
@@ -292,7 +299,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get all reactions to a cast
+   * Get all reactions to a cast.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbycast)
    * @param targetFid The FID of the cast's creator
    * @param targetHash The hash of the cast
    * @param reactionType The type of reaction
@@ -328,7 +336,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get all reactions to cast's target URL
+   * Get all reactions to cast's target URL.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbytarget)
    * @param url The URL of the parent cast
    * @param reactionType The type of reaction
    * @param options
@@ -362,6 +371,7 @@ export class HubRestAPIClient {
 
   /**
    * Get a link by its FID and target FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linkbyid)
    */
   public async getLinkById(
     sourceFid: number,
@@ -386,7 +396,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get all links from a source FID
+   * Get all links from a source FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linksbyfid)
    * @param fid The FID of the link's originator
    * @param options
    */
@@ -417,7 +428,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get all links to a target FID
+   * Get all links to a target FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linksbytargetfid)
    * @param targetFid
    * @param options
    */
@@ -449,6 +461,7 @@ export class HubRestAPIClient {
 
   /**
    * Get a specific type of UserData for a FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.html#userdatabyfid)
    * @param fid The FID that's being requested
    * @param userDataType The type of UserData requested
    * @returns
@@ -475,7 +488,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get all UserData for a FID.
+   * Get all UserData for a FID. Returns an empty iterator if FID has no user data or does not exist.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.html#userdatabyfid)
    * @param fid The FID that's being requested
    * @returns
    */
@@ -506,7 +520,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a list of all the FIDs
+   * Get a list of all the FIDs.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#fids)
    * @param options
    */
   public async *listFids(
@@ -534,6 +549,7 @@ export class HubRestAPIClient {
 
   /**
    * Get an FID's storage limits.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/storagelimits.html#storagelimitsbyfid)
    * @param fid The FID that's being requested
    * @returns
    */
@@ -543,7 +559,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get an proof for a username by the Farcaster username
+   * Get an proof for a username by the Farcaster username.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernameproof.html#usernameproofbyname)
    * @param username The Farcaster username or ENS address
    * @returns
    */
@@ -567,7 +584,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a list of proofs provided by an FID
+   * Get a list of proofs provided by an FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernameproof.html#usernameproofsbyfid)
    * @param fid The FID being requested
    * @returns
    */
@@ -577,7 +595,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a list of verifications provided by an FID
+   * Get a list of verifications provided by an FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/verification.html)
    * @param fid The FID being requested
    * @param options The optional ETH address to filter by
    */
@@ -607,7 +626,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a list of on-chain events by an FID
+   * Get a list of on-chain events by an FID.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchaineventsbyfid)
    * @param fid The FID being requested
    * @param eventType The event type being requested
    * @returns
@@ -624,7 +644,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a specific on-chain signer event by FID and signer
+   * Get a specific on-chain signer event by FID and signer.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchainsignersbyfid)
    * @param fid The FID being requested
    * @param signer The key of signer
    * @returns
@@ -651,7 +672,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a specific on-chain ID registration event by address
+   * Get a specific on-chain ID registration event by address.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchainidregistryeventbyaddress)
    * @param address The ETH address being requested
    * @returns
    */
@@ -676,7 +698,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get an event by its Id
+   * Get a hub event by its Id.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#eventbyid)
    * @param eventId The Hub Id of the event
    * @returns
    */
@@ -698,7 +721,8 @@ export class HubRestAPIClient {
   }
 
   /**
-   * Get a page of Hub events
+   * Get a page of Hub events.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#events)
    * @param fromEventId An optional Hub Id to start getting events from.
    */
   public async *listHubEvents(

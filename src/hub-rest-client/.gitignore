@@ -1,5 +1,0 @@
-wwwroot/*.js
-node_modules
-typings
-dist
-openapi/git_push.sh
