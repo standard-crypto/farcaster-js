@@ -277,7 +277,7 @@ if (privateKey !== undefined && privateKey !== "") {
         expectDefined(publishedCast);
         reply = await client.publishCast(text, publishedCast);
         expect(reply.text).to.eq(text);
-        expect(reply.parentHash).to.eq(publishedCast?.hash);
+        expect(reply.parentHash).to.eq(publishedCast.hash);
       });
 
       it("can delete a cast", async function () {

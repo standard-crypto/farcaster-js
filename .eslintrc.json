@@ -30,6 +30,9 @@
     "prettier"
   ],
   "rules": {
+    "@typescript-eslint/no-unnecessary-condition": ["error", {
+      "allowConstantLoopConditions": true
+    }],
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": "error",

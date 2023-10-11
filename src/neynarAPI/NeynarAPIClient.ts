@@ -68,7 +68,7 @@ export class NeynarAPIClient {
   ) {
     this.logger = logger;
 
-    if (apiKey === undefined) {
+    if (apiKey === "") {
       throw new Error(
         "Attempt to use an authenticated API method without first providing an api key"
       );
@@ -121,11 +121,7 @@ export class NeynarAPIClient {
     error: any
   ): error is WithRequired<AxiosError<ErrorRes>, "response"> {
     if (!(error instanceof AxiosError)) return false;
-    return (
-      error.response?.data !== undefined &&
-      error.response?.status !== undefined &&
-      error.response?.status >= 400
-    );
+    return error.response?.data !== undefined;
   }
 
   /**
@@ -175,22 +171,6 @@ export class NeynarAPIClient {
     };
     const response = await this.apis.signer.registerSignedKey(body);
     return response.data;
-  }
-
-  /**
-   * Gets information about an individual cast using neynar v1 API. See [Neynar documentation](https://docs.neynar.com/reference/get-cast-information)
-   */
-  public async v1FetchCast(
-    castOrCastHash: v1Cast | string
-  ): Promise<v1Cast | null> {
-    let castHash: string;
-    if (typeof castOrCastHash === "string") {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
-    const response = await this.apis.v1Cast.cast(castHash);
-    return response.data.result.cast;
   }
 
   /**
@@ -353,7 +333,7 @@ export class NeynarAPIClient {
       yield* response.data.result.casts;
 
       // prep for next page
-      if (response.data.result.next?.cursor === null) {
+      if (response.data.result.next.cursor === null) {
         break;
       }
       cursor = response.data.result.next.cursor;
@@ -383,7 +363,7 @@ export class NeynarAPIClient {
       yield* response.data.result.casts;
 
       // prep for next page
-      if (response.data.result.next?.cursor === null) {
+      if (response.data.result.next.cursor === null) {
         break;
       }
       cursor = response.data.result.next.cursor;
@@ -411,7 +391,7 @@ export class NeynarAPIClient {
 
       yield* response.data.result.users;
       // prep for next page
-      if (response.data.result.next?.cursor === null) {
+      if (response.data.result.next.cursor === null) {
         break;
       }
       cursor = response.data.result.next.cursor;
@@ -424,7 +404,7 @@ export class NeynarAPIClient {
   public async *fetchUserCastLikes(
     fid: number,
     { pageSize = 100 } = {}
-  ): AsyncGenerator<ReactionWithCastMeta[], void, undefined> {
+  ): AsyncGenerator<ReactionWithCastMeta, void, undefined> {
     let cursor: string | undefined;
     let viewer: number | undefined;
 
@@ -437,10 +417,10 @@ export class NeynarAPIClient {
         cursor
       );
 
-      yield response.data.result.likes;
+      yield* response.data.result.likes;
 
       // prep for next page
-      if (response.data.result.next?.cursor === null) {
+      if (response.data.result.next.cursor === null) {
         break;
       }
       cursor = response.data.result.next.cursor;
@@ -453,7 +433,7 @@ export class NeynarAPIClient {
   public async lookupUserByFid(fid: number): Promise<User | null> {
     try {
       const response = await this.apis.user.user(fid);
-      return response.data.result?.user;
+      return response.data.result.user;
     } catch (error) {
       if (NeynarAPIClient.isApiErrorResponse(error)) {
         if (error.response.status === 404) return null;
@@ -468,6 +448,8 @@ export class NeynarAPIClient {
   public async lookupUserByUsername(username: string): Promise<User | null> {
     let viewer: number | undefined;
     const response = await this.apis.user.userByUsername(username, viewer);
+    // result.user is undefined if not found
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     return response.data.result.user ?? null;
   }
 
@@ -476,7 +458,7 @@ export class NeynarAPIClient {
    */
   public async fetchCustodyAddressForUser(fid: number): Promise<string | null> {
     const response = await this.apis.user.custodyAddress(fid);
-    return response.data.result.custodyAddress ?? null;
+    return response.data.result.custodyAddress;
   }
 
   /**
@@ -534,7 +516,7 @@ export class NeynarAPIClient {
       yield* response.data.result.notifications;
 
       // prep for next page
-      if (response.data.result.next?.cursor === null) {
+      if (response.data.result.next.cursor === null) {
         break;
       }
       cursor = response.data.result.next.cursor;
@@ -568,7 +550,7 @@ export class NeynarAPIClient {
       yield* response.data.result.likes;
 
       // prep for next page
-      if (response.data.result.next?.cursor === null) {
+      if (response.data.result.next.cursor === null) {
         break;
       }
       cursor = response.data.result.next.cursor;

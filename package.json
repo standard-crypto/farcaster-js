@@ -30,7 +30,7 @@
     "format:check": "prettier 'src/**/*.ts' 'tests/**/*.ts' --check",
     "generate:swagger": "openapi-generator-cli generate -i src/merkleAPI/swagger/spec.json -g typescript-axios -o src/merkleAPI/swagger-tmp --skip-validate-spec --config openapi-generator-config.json",
     "generate:openapi:neynarv1": "openapi-generator-cli generate -i src/neynarAPI/neynarV1API/openapi/spec.json -g typescript-axios -o src/neynarAPI/neynarV1API/openapi-tmp --skip-validate-spec --config openapi-generator-config.json",
-    "generate:openapi:neynarv1": "openapi-generator-cli generate -i src/neynarAPI/neynarV2API/openapi/spec.json -g typescript-axios -o src/neynarAPI/neynarV2API/openapi-tmp --skip-validate-spec --config openapi-generator-config.json",
+    "generate:openapi:neynarv2": "openapi-generator-cli generate -i src/neynarAPI/neynarV2API/openapi/spec.json -g typescript-axios -o src/neynarAPI/neynarV2API/openapi-tmp --skip-validate-spec --config openapi-generator-config.json",
     "lint": "eslint . --ext .ts --fix",
     "lint:check": "eslint . --ext .ts",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -r dotenv/config -p tsconfig.json tests/**/*.ts",

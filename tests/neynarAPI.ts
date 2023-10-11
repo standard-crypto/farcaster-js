@@ -103,22 +103,6 @@ if (apiKey !== undefined && apiKey !== "") {
       });
     });
 
-    describe("#v1fetchCast", function () {
-      it("can fetch an existing cast", async function () {
-        const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
-        const cast = await client.v1FetchCast(existingCastHash);
-        expectDefined(cast);
-        expect(cast.hash).to.eq(existingCastHash);
-      });
-
-      it("returns null for nonexistent cast", async function () {
-        const nonexistentCastHash =
-          "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
-        const cast = await client.v1FetchCast(nonexistentCastHash);
-        expect(cast).to.be.null;
-      });
-    });
-
     describe("#fetchCast", function () {
       it("can fetch an existing cast", async function () {
         const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
@@ -220,17 +204,15 @@ if (apiKey !== undefined && apiKey !== "") {
       it("can fetch multiple pages of likes", async function () {
         let castCount = 0;
         const castSet = new Set();
-        for await (const casts of client.fetchUserCastLikes(userDwrFid, {
+        for await (const cast of client.fetchUserCastLikes(userDwrFid, {
           pageSize: 5,
         })) {
-          expectDefined(casts);
-          for (const cast of casts) {
-            expectDefined(cast.reaction);
-            expect(cast.reaction.reaction_type).to.eq("like");
-            expect(castSet.has(cast.reaction.reaction_target_hash)).to.be.false;
-            castSet.add(cast.reaction?.reaction_target_hash);
-            castCount++;
-          }
+          expectDefined(cast);
+          expectDefined(cast.reaction);
+          expect(cast.reaction.reaction_type).to.eq("like");
+          expect(castSet).not.to.contain(cast.reaction.reaction_target_hash);
+          castSet.add(cast.reaction.reaction_target_hash);
+          castCount++;
           if (castCount === 10) break;
         }
         expect(castCount).to.eq(10);
@@ -283,6 +265,11 @@ if (apiKey !== undefined && apiKey !== "") {
           "0x6b0bda3f2ffed5efc83fa8c024acff1dd45793f1";
         const custodyAddr = await client.fetchCustodyAddressForUser(userDwrFid);
         expect(custodyAddr).to.eq(expectedCustodyAddr);
+      });
+
+      it("returns null if address not found", async function () {
+        const user = await client.fetchCustodyAddressForUser(1111111111111111);
+        expect(user).to.be.null;
       });
     });
 
@@ -352,7 +339,7 @@ if (apiKey !== undefined && apiKey !== "") {
         let followersFound = 0;
         const followersSet = new Set();
         const followers = await client.fetchUserFollowers(userGaviFid);
-        for (const follower of followers ?? []) {
+        for (const follower of followers) {
           expectDefined(follower);
           expectDefined(follower.fid);
           expect(followersSet.has(follower.fid)).to.be.false;
@@ -370,7 +357,7 @@ if (apiKey !== undefined && apiKey !== "") {
         let dwrFound = false;
         const followingSet = new Set();
         const following = await client.fetchUserFollowers(userGaviFid);
-        for (const follow of following ?? []) {
+        for (const follow of following) {
           if (follow.fid === userDwrFid) {
             dwrFound = true;
             break;
@@ -408,7 +395,7 @@ if (apiKey !== undefined && apiKey !== "") {
           expect(reply.text).to.eq(text);
           await sleep(1000);
           const replyCast = await client.fetchCast(reply.hash);
-          expect(replyCast?.parent_hash).to.eq(publishedCast?.hash);
+          expect(replyCast?.parent_hash).to.eq(publishedCast.hash);
         });
 
         it("can reply to a url", async function () {
