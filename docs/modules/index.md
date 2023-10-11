@@ -17,6 +17,7 @@
 - [CastsApi](../classes/index.CastsApi.md)
 - [Configuration](../classes/index.Configuration.md)
 - [FollowsApi](../classes/index.FollowsApi.md)
+- [HubRestAPIClient](../classes/index.HubRestAPIClient.md)
 - [MerkleAPIClient](../classes/index.MerkleAPIClient.md)
 - [MiscellaneousApi](../classes/index.MiscellaneousApi.md)
 - [NotificationsApi](../classes/index.NotificationsApi.md)
@@ -63,6 +64,7 @@
 - [FollowNotificationGroup](../interfaces/index.FollowNotificationGroup.md)
 - [GetCastResponse](../interfaces/index.GetCastResponse.md)
 - [GetCastResponseResult](../interfaces/index.GetCastResponseResult.md)
+- [HubRestAPIClientConfig](../interfaces/index.HubRestAPIClientConfig.md)
 - [InlineResponse200](../interfaces/index.InlineResponse200.md)
 - [InlineResponse2001](../interfaces/index.InlineResponse2001.md)
 - [InlineResponse20010](../interfaces/index.InlineResponse20010.md)
@@ -111,6 +113,7 @@
 - [NotificationWatchedCastReplyContent](../interfaces/index.NotificationWatchedCastReplyContent.md)
 - [PFP](../interfaces/index.PFP.md)
 - [PaginationInfo](../interfaces/index.PaginationInfo.md)
+- [PaginationOptions](../interfaces/index.PaginationOptions.md)
 - [RecastNotificationGroup](../interfaces/index.RecastNotificationGroup.md)
 - [Recaster](../interfaces/index.Recaster.md)
 - [RecentUsersGetResponse](../interfaces/index.RecentUsersGetResponse.md)
@@ -156,12 +159,12 @@
 - [AssetEventVerb](index.md#asseteventverb)
 - [CastReactionType](index.md#castreactiontype)
 - [Notification](index.md#notification)
-- [WithRequired](index.md#withrequired)
 
 ### Variables
 
 - [BASE\_PATH](index.md#base_path)
 - [COLLECTION\_FORMATS](index.md#collection_formats)
+- [DEFAULT\_SERVER](index.md#default_server)
 - [silentLogger](index.md#silentlogger)
 
 ### Functions
@@ -241,25 +244,6 @@ ___
 
 [src/merkleAPI/swagger/models/Notification.ts:8](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/swagger/models/Notification.ts#L8)
 
-___
-
-### WithRequired
-
-Ƭ **WithRequired**<`T`, `K`\>: `T` & { [P in K]-?: T[P] }
-
-Typescript utility type to convert specific properties of a given type from optional to required
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | `T` |
-| `K` | extends keyof `T` |
-
-#### Defined in
-
-[src/utils.ts:4](https://github.com/standard-crypto/farcaster-js/blob/main/src/utils.ts#L4)
-
 ## Variables
 
 ### BASE\_PATH
@@ -293,13 +277,23 @@ ___
 
 ___
 
+### DEFAULT\_SERVER
+
+• `Const` **DEFAULT\_SERVER**: ``"http://hub.farcaster.standardcrypto.vc:2281"``
+
+#### Defined in
+
+[src/hub-rest-client/HubRestAPIClient.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/src/hub-rest-client/HubRestAPIClient.ts#L50)
+
+___
+
 ### silentLogger
 
 • `Const` **silentLogger**: [`Logger`](../interfaces/index.Logger.md)
 
 #### Defined in
 
-[src/merkleAPI/logger.ts:13](https://github.com/standard-crypto/farcaster-js/blob/main/src/merkleAPI/logger.ts#L13)
+[src/common/logger.ts:14](https://github.com/standard-crypto/farcaster-js/blob/main/src/common/logger.ts#L14)
 
 ## Functions
 

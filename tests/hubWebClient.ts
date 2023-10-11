@@ -3,20 +3,18 @@ import chaiAsPromised from "chai-as-promised";
 import OpenAPIResponseValidator from "openapi-response-validator";
 import { promises as fs } from "fs";
 import yaml from "yaml";
-import { OpenAPIV3 } from "openapi-types";
+import { OpenAPIV3 } from "openapi-types"; // cspell:disable-line
 import type { OverrideProperties } from "type-fest";
 
 import { HubRestAPIClient } from "../src/hub-rest-client";
 import { Logger, silentLogger } from "../src/common/logger";
-import { expectDefinedNonNull, expectFalse } from "./utils";
+import { expectDefinedNonNull } from "./utils";
 import {
   GetUserDataByFid200ResponseOneOf,
   LinkType,
-  ListOnChainSignersByFid200Response,
   ListOnChainSignersByFid200ResponseOneOf,
   OnChainEventType,
   ReactionType,
-  UserDataAdd,
   UserDataType,
 } from "../src/hub-rest-client/openapi";
 import type { paths as SchemaPaths } from "./hub-rest-client/openapi/schema";
@@ -36,9 +34,9 @@ const testLogger: Logger = {
   /* eslint-enable no-console */
 };
 
-describe.only("HubWebClient", function () {
+describe("HubWebClient", function () {
   let client: HubRestAPIClient;
-  let apiSpec: OverrideProperties<OpenAPIV3.Document, { paths: SchemaPaths }>;
+  let apiSpec: OverrideProperties<OpenAPIV3.Document, { paths: SchemaPaths }>; // cspell:disable-line
 
   before("setup", async function () {
     client = new HubRestAPIClient({
@@ -53,14 +51,11 @@ describe.only("HubWebClient", function () {
     apiSpec = yaml.parse(apiSpecYaml);
   });
 
-  describe("Farcaster epoch timestamps", function () {
-    // TODO
-  });
-
   describe("Info API", function () {
     it("validates against OpenAPI spec", async function () {
       const info = await client.apis.info.getInfo({ dbstats: true });
       const validator = new OpenAPIResponseValidator({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         responses: apiSpec.paths["/v1/info"].get.responses as any,
         components: apiSpec.components,
       });
@@ -84,6 +79,7 @@ describe.only("HubWebClient", function () {
           hash: "0xd2b1ddc6c88e865a33cb1a565e0058d757042974",
         });
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/castById"].get.responses as any,
           components: apiSpec.components,
         });
@@ -115,6 +111,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/castsByFid"].get.responses as any,
           components: apiSpec.components,
         });
@@ -150,6 +147,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/castsByParent"].get.responses as any,
           components: apiSpec.components,
         });
@@ -191,6 +189,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/castsByMention"].get.responses as any,
           components: apiSpec.components,
         });
@@ -220,6 +219,7 @@ describe.only("HubWebClient", function () {
         });
         const validator = new OpenAPIResponseValidator({
           components: apiSpec.components,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/reactionById"].get.responses as any,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -255,6 +255,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/reactionsByFid"].get.responses as any,
           components: apiSpec.components,
         });
@@ -281,6 +282,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/reactionsByCast"].get.responses as any,
           components: apiSpec.components,
         });
@@ -311,8 +313,9 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/reactionsByTarget"].get
-            .responses as any,
+          responses:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            apiSpec.paths["/v1/reactionsByTarget"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -344,6 +347,7 @@ describe.only("HubWebClient", function () {
         });
         const validator = new OpenAPIResponseValidator({
           components: apiSpec.components,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/linkById"].get.responses as any,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -368,6 +372,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/linksByFid"].get.responses as any,
           components: apiSpec.components,
         });
@@ -392,6 +397,7 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/linksByTargetFid"].get.responses as any,
           components: apiSpec.components,
         });
@@ -419,6 +425,7 @@ describe.only("HubWebClient", function () {
         });
         const validator = new OpenAPIResponseValidator({
           components: apiSpec.components,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/userDataByFid"].get.responses as any,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -461,6 +468,7 @@ describe.only("HubWebClient", function () {
           .not.be.empty;
         const validator = new OpenAPIResponseValidator({
           components: apiSpec.components,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/userDataByFid"].get.responses as any,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -482,6 +490,7 @@ describe.only("HubWebClient", function () {
         const response = await client.apis.fids.listFids();
         expect(response.data.fids).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/fids"].get.responses as any,
           components: apiSpec.components,
         });
@@ -510,8 +519,9 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/storageLimitsByFid"].get
-            .responses as any,
+          responses:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            apiSpec.paths["/v1/storageLimitsByFid"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -532,8 +542,9 @@ describe.only("HubWebClient", function () {
           name: "gavi",
         });
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/userNameProofByName"].get
-            .responses as any,
+          responses:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            apiSpec.paths["/v1/userNameProofByName"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -553,8 +564,9 @@ describe.only("HubWebClient", function () {
         });
         expect(response.data.proofs).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/userNameProofsByFid"].get
-            .responses as any,
+          responses:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            apiSpec.paths["/v1/userNameProofsByFid"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -573,8 +585,9 @@ describe.only("HubWebClient", function () {
         );
         expect(response.data.messages).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/verificationsByFid"].get
-            .responses as any,
+          responses:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            apiSpec.paths["/v1/verificationsByFid"].get.responses as any,
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -600,8 +613,9 @@ describe.only("HubWebClient", function () {
             });
           expect(response.data.events).to.not.be.empty;
           const validator = new OpenAPIResponseValidator({
-            responses: apiSpec.paths["/v1/onChainEventsByFid"].get
-              .responses as any,
+            responses:
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              apiSpec.paths["/v1/onChainEventsByFid"].get.responses as any,
             components: apiSpec.components,
           });
           const errors = validator.validateResponse(200, response.data);
@@ -666,8 +680,9 @@ describe.only("HubWebClient", function () {
           });
         expect(response.data).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
-          responses: apiSpec.paths["/v1/onChainSignersByFid"].get
-            .responses as any,
+          responses:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            apiSpec.paths["/v1/onChainSignersByFid"].get.responses as any,
           components: apiSpec.components,
         });
         let errors = validator.validateResponse(200, response.data);
@@ -713,7 +728,7 @@ describe.only("HubWebClient", function () {
         expect(response.data).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
           responses: apiSpec.paths["/v1/onChainIdRegistryEventByAddress"].get
-            .responses as any,
+            .responses as any, // eslint-disable-line @typescript-eslint/no-explicit-any
           components: apiSpec.components,
         });
         const errors = validator.validateResponse(200, response.data);
@@ -737,12 +752,13 @@ describe.only("HubWebClient", function () {
     });
   });
 
-  describe.only("Hub Events API", function () {
+  describe("Hub Events API", function () {
     describe("#listHubEvents", function () {
       it("validates against OpenAPI spec", async function () {
         const response = await client.apis.hubEvents.listEvents();
         expect(response.data.events).to.not.be.empty;
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/events"].get.responses as any,
           components: apiSpec.components,
         });
@@ -765,6 +781,7 @@ describe.only("HubWebClient", function () {
           eventId: 357040145145856,
         });
         const validator = new OpenAPIResponseValidator({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths["/v1/eventById"].get.responses as any,
           components: apiSpec.components,
         });

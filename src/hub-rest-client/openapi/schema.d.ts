@@ -3,11 +3,16 @@
  * Do not make direct changes to the file.
  */
 
-
 /** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
-type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+type XOR<T, U> = T | U extends object
+  ? (Without<T, U> & U) | (Without<U, T> & T)
+  : T | U;
+type OneOf<T extends any[]> = T extends [infer Only]
+  ? Only
+  : T extends [infer A, infer B, ...infer Rest]
+  ? OneOf<[XOR<A, B>, ...Rest]>
+  : never;
 
 export interface paths {
   "/v1/castById": {
@@ -137,7 +142,7 @@ export interface components {
       /** Positions of the mentions in the text */
       mentionsPositions?: number[];
       /** URLs or cast ids to be embedded in the cast */
-      embeds?: components["schemas"]["Embed"][];
+      embeds?: Array<components["schemas"]["Embed"]>;
     };
     CastRemove: components["schemas"]["MessageCommon"] & {
       data?: components["schemas"]["MessageDataCastRemove"];
@@ -191,7 +196,10 @@ export interface components {
      * @default FARCASTER_NETWORK_MAINNET
      * @enum {string}
      */
-    FarcasterNetwork: "FARCASTER_NETWORK_MAINNET" | "FARCASTER_NETWORK_TESTNET" | "FARCASTER_NETWORK_DEVNET";
+    FarcasterNetwork:
+      | "FARCASTER_NETWORK_MAINNET"
+      | "FARCASTER_NETWORK_TESTNET"
+      | "FARCASTER_NETWORK_DEVNET";
     FidsResponse: {
       fids: number[];
       /** Format: byte */
@@ -204,7 +212,12 @@ export interface components {
      * @enum {string}
      */
     HashScheme: "HASH_SCHEME_BLAKE3";
-    HubEvent: components["schemas"]["HubEventMergeMessage"] | components["schemas"]["HubEventPruneMessage"] | components["schemas"]["HubEventRevokeMessage"] | components["schemas"]["HubEventMergeUsernameProof"] | components["schemas"]["HubEventMergeOnChainEvent"];
+    HubEvent:
+      | components["schemas"]["HubEventMergeMessage"]
+      | components["schemas"]["HubEventPruneMessage"]
+      | components["schemas"]["HubEventRevokeMessage"]
+      | components["schemas"]["HubEventMergeUsernameProof"]
+      | components["schemas"]["HubEventMergeOnChainEvent"];
     HubEventMergeMessage: {
       /** @example HUB_EVENT_TYPE_MERGE_MESSAGE */
       type: string;
@@ -250,7 +263,12 @@ export interface components {
      * @default HUB_EVENT_TYPE_MERGE_MESSAGE
      * @enum {string}
      */
-    HubEventType: "HUB_EVENT_TYPE_MERGE_MESSAGE" | "HUB_EVENT_TYPE_PRUNE_MESSAGE" | "HUB_EVENT_TYPE_REVOKE_MESSAGE" | "HUB_EVENT_TYPE_MERGE_USERNAME_PROOF" | "HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT";
+    HubEventType:
+      | "HUB_EVENT_TYPE_MERGE_MESSAGE"
+      | "HUB_EVENT_TYPE_PRUNE_MESSAGE"
+      | "HUB_EVENT_TYPE_REVOKE_MESSAGE"
+      | "HUB_EVENT_TYPE_MERGE_USERNAME_PROOF"
+      | "HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT";
     /** Response Types for the Sync RPC Methods */
     HubInfoResponse: {
       version: string;
@@ -274,7 +292,10 @@ export interface components {
      * @default ID_REGISTER_EVENT_TYPE_REGISTER
      * @enum {string}
      */
-    IdRegisterEventType: "ID_REGISTER_EVENT_TYPE_REGISTER" | "ID_REGISTER_EVENT_TYPE_TRANSFER" | "ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY";
+    IdRegisterEventType:
+      | "ID_REGISTER_EVENT_TYPE_REGISTER"
+      | "ID_REGISTER_EVENT_TYPE_TRANSFER"
+      | "ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY";
     LinkAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataLink"];
     };
@@ -304,7 +325,7 @@ export interface components {
     LinkType: "follow";
     MergeMessageBody: {
       message: components["schemas"]["Message"];
-      deletedMessages: components["schemas"]["Message"][];
+      deletedMessages: Array<components["schemas"]["Message"]>;
     };
     MergeOnChainEventBody: {
       onChainEvent?: components["schemas"]["OnChainEvent"];
@@ -320,9 +341,17 @@ export interface components {
      * A Message is a delta operation on the Farcaster network. The message protobuf is an envelope
      * that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
      */
-    Message: ({
-      data: components["schemas"]["MessageDataCastAdd"] | components["schemas"]["MessageDataCastRemove"] | components["schemas"]["MessageDataReaction"] | components["schemas"]["MessageDataLink"] | components["schemas"]["MessageDataVerificationAdd"] | components["schemas"]["MessageDataVerificationRemove"] | components["schemas"]["MessageDataUserDataAdd"] | components["schemas"]["MessageDataUsernameProof"];
-    }) & components["schemas"]["MessageCommon"];
+    Message: {
+      data:
+        | components["schemas"]["MessageDataCastAdd"]
+        | components["schemas"]["MessageDataCastRemove"]
+        | components["schemas"]["MessageDataReaction"]
+        | components["schemas"]["MessageDataLink"]
+        | components["schemas"]["MessageDataVerificationAdd"]
+        | components["schemas"]["MessageDataVerificationRemove"]
+        | components["schemas"]["MessageDataUserDataAdd"]
+        | components["schemas"]["MessageDataUsernameProof"];
+    } & components["schemas"]["MessageCommon"];
     MessageCommon: {
       /**
        * Hash digest of data
@@ -398,8 +427,22 @@ export interface components {
      * @default MESSAGE_TYPE_CAST_ADD
      * @enum {string}
      */
-    MessageType: "MESSAGE_TYPE_CAST_ADD" | "MESSAGE_TYPE_CAST_REMOVE" | "MESSAGE_TYPE_REACTION_ADD" | "MESSAGE_TYPE_REACTION_REMOVE" | "MESSAGE_TYPE_LINK_ADD" | "MESSAGE_TYPE_LINK_REMOVE" | "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS" | "MESSAGE_TYPE_VERIFICATION_REMOVE" | "MESSAGE_TYPE_USER_DATA_ADD" | "MESSAGE_TYPE_USERNAME_PROOF";
-    OnChainEvent: components["schemas"]["OnChainEventSigner"] | components["schemas"]["OnChainEventSignerMigrated"] | components["schemas"]["OnChainEventIdRegister"] | components["schemas"]["OnChainEventStorageRent"];
+    MessageType:
+      | "MESSAGE_TYPE_CAST_ADD"
+      | "MESSAGE_TYPE_CAST_REMOVE"
+      | "MESSAGE_TYPE_REACTION_ADD"
+      | "MESSAGE_TYPE_REACTION_REMOVE"
+      | "MESSAGE_TYPE_LINK_ADD"
+      | "MESSAGE_TYPE_LINK_REMOVE"
+      | "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS"
+      | "MESSAGE_TYPE_VERIFICATION_REMOVE"
+      | "MESSAGE_TYPE_USER_DATA_ADD"
+      | "MESSAGE_TYPE_USERNAME_PROOF";
+    OnChainEvent:
+      | components["schemas"]["OnChainEventSigner"]
+      | components["schemas"]["OnChainEventSignerMigrated"]
+      | components["schemas"]["OnChainEventIdRegister"]
+      | components["schemas"]["OnChainEventStorageRent"];
     OnChainEventCommon: {
       /** @example EVENT_TYPE_SIGNER */
       type: string;
@@ -430,7 +473,11 @@ export interface components {
      * @default EVENT_TYPE_SIGNER
      * @enum {string}
      */
-    OnChainEventType: "EVENT_TYPE_SIGNER" | "EVENT_TYPE_SIGNER_MIGRATED" | "EVENT_TYPE_ID_REGISTER" | "EVENT_TYPE_STORAGE_RENT";
+    OnChainEventType:
+      | "EVENT_TYPE_SIGNER"
+      | "EVENT_TYPE_SIGNER_MIGRATED"
+      | "EVENT_TYPE_ID_REGISTER"
+      | "EVENT_TYPE_STORAGE_RENT";
     PruneMessageBody: {
       message?: components["schemas"]["Message"];
     };
@@ -480,7 +527,10 @@ export interface components {
      * @default SIGNER_EVENT_TYPE_ADD
      * @enum {string}
      */
-    SignerEventType: "SIGNER_EVENT_TYPE_ADD" | "SIGNER_EVENT_TYPE_REMOVE" | "SIGNER_EVENT_TYPE_ADMIN_RESET";
+    SignerEventType:
+      | "SIGNER_EVENT_TYPE_ADD"
+      | "SIGNER_EVENT_TYPE_REMOVE"
+      | "SIGNER_EVENT_TYPE_ADMIN_RESET";
     SignerMigratedEventBody: {
       /** Format: int64 */
       migratedAt: number;
@@ -491,7 +541,7 @@ export interface components {
       limit: number;
     };
     StorageLimitsResponse: {
-      limits: components["schemas"]["StorageLimit"][];
+      limits: Array<components["schemas"]["StorageLimit"]>;
     };
     StorageRentEventBody: {
       /** Format: byte */
@@ -505,7 +555,13 @@ export interface components {
      * @default STORE_TYPE_CASTS
      * @enum {string}
      */
-    StoreType: "STORE_TYPE_CASTS" | "STORE_TYPE_LINKS" | "STORE_TYPE_REACTIONS" | "STORE_TYPE_USER_DATA" | "STORE_TYPE_VERIFICATIONS" | "STORE_TYPE_USERNAME_PROOFS";
+    StoreType:
+      | "STORE_TYPE_CASTS"
+      | "STORE_TYPE_LINKS"
+      | "STORE_TYPE_REACTIONS"
+      | "STORE_TYPE_USER_DATA"
+      | "STORE_TYPE_VERIFICATIONS"
+      | "STORE_TYPE_USERNAME_PROOFS";
     UserDataAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataUserDataAdd"];
     };
@@ -525,7 +581,12 @@ export interface components {
      * @default USER_DATA_TYPE_PFP
      * @enum {string}
      */
-    UserDataType: "USER_DATA_TYPE_PFP" | "USER_DATA_TYPE_DISPLAY" | "USER_DATA_TYPE_BIO" | "USER_DATA_TYPE_URL" | "USER_DATA_TYPE_USERNAME";
+    UserDataType:
+      | "USER_DATA_TYPE_PFP"
+      | "USER_DATA_TYPE_DISPLAY"
+      | "USER_DATA_TYPE_BIO"
+      | "USER_DATA_TYPE_URL"
+      | "USER_DATA_TYPE_USERNAME";
     UserNameProof: {
       /** Format: uint64 */
       timestamp: number;
@@ -539,7 +600,7 @@ export interface components {
       type: components["schemas"]["UserNameType"];
     };
     UsernameProofsResponse: {
-      proofs: components["schemas"]["UserNameProof"][];
+      proofs: Array<components["schemas"]["UserNameProof"]>;
     };
     /**
      * @default USERNAME_TYPE_FNAME
@@ -596,7 +657,6 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
   /** Get a cast by its FID and Hash. */
   GetCastById: {
     parameters: {
@@ -633,7 +693,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["CastAdd"][];
+            messages: Array<components["schemas"]["CastAdd"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -658,7 +718,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["CastAdd"][];
+            messages: Array<components["schemas"]["CastAdd"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -686,7 +746,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["CastAdd"][];
+            messages: Array<components["schemas"]["CastAdd"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -726,7 +786,7 @@ export interface operations {
         content: {
           "application/json": {
             nextPageEventId: number;
-            events: components["schemas"]["HubEvent"][];
+            events: Array<components["schemas"]["HubEvent"]>;
           };
         };
       };
@@ -828,7 +888,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["LinkAdd"][];
+            messages: Array<components["schemas"]["LinkAdd"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -855,7 +915,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["LinkAdd"][];
+            messages: Array<components["schemas"]["LinkAdd"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -897,7 +957,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            events: components["schemas"]["OnChainEvent"][];
+            events: Array<components["schemas"]["OnChainEvent"]>;
           };
         };
       };
@@ -924,9 +984,14 @@ export interface operations {
       /** @description A successful response. */
       200: {
         content: {
-          "application/json": OneOf<[components["schemas"]["OnChainEventSigner"], {
-            events: components["schemas"]["OnChainEventSigner"][];
-          }]>;
+          "application/json": OneOf<
+            [
+              components["schemas"]["OnChainEventSigner"],
+              {
+                events: Array<components["schemas"]["OnChainEventSigner"]>;
+              }
+            ]
+          >;
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -976,7 +1041,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["Reaction"][];
+            messages: Array<components["schemas"]["Reaction"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1003,7 +1068,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["Reaction"][];
+            messages: Array<components["schemas"]["Reaction"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1029,7 +1094,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["Reaction"][];
+            messages: Array<components["schemas"]["Reaction"]>;
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1058,11 +1123,16 @@ export interface operations {
       /** @description The requested UserData. */
       200: {
         content: {
-          "application/json": OneOf<[components["schemas"]["UserDataAdd"], {
-            messages: components["schemas"]["UserDataAdd"][];
-            /** Format: byte */
-            nextPageToken: string;
-          }]>;
+          "application/json": OneOf<
+            [
+              components["schemas"]["UserDataAdd"],
+              {
+                messages: Array<components["schemas"]["UserDataAdd"]>;
+                /** Format: byte */
+                nextPageToken: string;
+              }
+            ]
+          >;
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -1122,7 +1192,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            messages: components["schemas"]["Verification"][];
+            messages: Array<components["schemas"]["Verification"]>;
             /** Format: byte */
             nextPageToken: string;
           };

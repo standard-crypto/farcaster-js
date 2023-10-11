@@ -18,6 +18,7 @@
     "rollup.config.js",
     "src/contracts/*",
     "src/merkleAPI/swagger/*",
+    "src/hub-rest-client/openapi/*",
     "dist/*",
     "types/*"
   ],

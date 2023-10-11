@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
@@ -18,5 +19,6 @@ export const silentLogger: Logger = {
   error: (_message?: any, ..._optionalParams: any[]) => {},
 };
 
+/* eslint-enable @typescript-eslint/no-unused-vars */
 /* eslint-enable @typescript-eslint/no-explicit-any */
 /* eslint-enable @typescript-eslint/no-empty-function */

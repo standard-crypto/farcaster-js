@@ -956,7 +956,7 @@ ___
 
 ### isApiErrorResponse
 
-▸ `Static` **isApiErrorResponse**(`error`): error is WithRequired<AxiosError<ApiErrorResponse, any\>, "response"\>
+▸ `Static` **isApiErrorResponse**(`error`): error is Object
 
 Utility for parsing errors returned by the Merkle API server. Returns true
 if the given error is caused by an error response from the server, and
@@ -970,7 +970,7 @@ narrows the type of `error` accordingly.
 
 #### Returns
 
-error is WithRequired<AxiosError<ApiErrorResponse, any\>, "response"\>
+error is Object
 
 #### Defined in
 
