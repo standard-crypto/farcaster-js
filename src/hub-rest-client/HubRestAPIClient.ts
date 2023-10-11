@@ -78,9 +78,7 @@ export class HubRestAPIClient {
   };
 
   /**
-   * Instantiates a MerkleAPIClient
-   *
-   * Note: A Wallet must be provided if the API client is to mint new AuthTokens
+   * Instantiates a HubRestAPIClient
    */
   constructor({
     axiosInstance,
