@@ -12,7 +12,7 @@ import {
   Reaction,
   ReactionWithCastMeta,
   VerificationResponseResult,
-} from "./neynarV1API/swagger";
+} from "./neynarV1API/openapi";
 import {
   CastApi as CastApiV2,
   SignerApi,
@@ -31,7 +31,7 @@ import {
   FollowReqBody,
   BulkFollowResponse,
   CastEmbeds,
-} from "./neynarV2API/swagger";
+} from "./neynarV2API/openapi";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { silentLogger, Logger } from "../logger";
 import type { WithRequired } from "../utils";
@@ -112,7 +112,7 @@ export class NeynarAPIClient {
   }
 
   /**
-   * Utility for parsing errors returned by the Merkle API server. Returns true
+   * Utility for parsing errors returned by the Neynar API servers. Returns true
    * if the given error is caused by an error response from the server, and
    * narrows the type of `error` accordingly.
    */
@@ -121,7 +121,11 @@ export class NeynarAPIClient {
     error: any
   ): error is WithRequired<AxiosError<ErrorRes>, "response"> {
     if (!(error instanceof AxiosError)) return false;
-    return error.response?.data !== undefined;
+    return (
+      error.response?.data !== undefined &&
+      error.response?.status !== undefined &&
+      error.response?.status >= 400
+    );
   }
 
   /**
@@ -138,7 +142,7 @@ export class NeynarAPIClient {
    * for more details.
    *
    */
-  public async fetchSigner(signerUuid: string): Promise<Signer | undefined> {
+  public async fetchSigner(signerUuid: string): Promise<Signer | null> {
     try {
       const response = await this.apis.signer.signer(signerUuid);
       return response.data;
@@ -146,7 +150,7 @@ export class NeynarAPIClient {
       if (NeynarAPIClient.isApiErrorResponse(error)) {
         const status = error.response.status;
         if (status === 404) {
-          return undefined;
+          return null;
         }
       }
       throw error;
@@ -174,11 +178,11 @@ export class NeynarAPIClient {
   }
 
   /**
-   * Gets information about an individual cast using neynar v1 API
+   * Gets information about an individual cast using neynar v1 API. See [Neynar documentation](https://docs.neynar.com/reference/get-cast-information)
    */
   public async v1FetchCast(
     castOrCastHash: v1Cast | string
-  ): Promise<v1Cast | undefined> {
+  ): Promise<v1Cast | null> {
     let castHash: string;
     if (typeof castOrCastHash === "string") {
       castHash = castOrCastHash;
@@ -186,16 +190,15 @@ export class NeynarAPIClient {
       castHash = castOrCastHash.hash;
     }
     const response = await this.apis.v1Cast.cast(castHash);
-    if (response.status === 404) return undefined;
-    return response.data.result.cast ?? undefined;
+    return response.data.result.cast;
   }
 
   /**
-   * Gets information about an individual cast
+   * Gets information about an individual cast. See [Neynar documentation](https://docs.neynar.com/reference/get-cast)
    */
   public async fetchCast(
     castOrCastHash: v2Cast | string
-  ): Promise<v2Cast | undefined> {
+  ): Promise<v2Cast | null> {
     let castHash: string;
     if (typeof castOrCastHash === "string") {
       castHash = castOrCastHash;
@@ -207,12 +210,12 @@ export class NeynarAPIClient {
         CastParamType.Hash,
         castHash
       );
-      return response.data.cast ?? undefined;
+      return response.data.cast;
     } catch (error) {
       if (NeynarAPIClient.isApiErrorResponse(error)) {
         const status = error.response.status;
         if (status === 404) {
-          return undefined;
+          return null;
         }
       }
       throw error;
@@ -220,26 +223,26 @@ export class NeynarAPIClient {
   }
 
   /**
-   * Publishes a cast for the currently authenticated user
+   * Publishes a cast for the currently authenticated user. See [Neynar documentation](https://docs.neynar.com/reference/post-a-cast)
    */
   public async publishCast(
     signerUuid: string,
     text: string,
-    replyTo?: v2Cast | { hash: string },
+    replyTo?: string,
     embeds?: CastEmbeds[]
   ): Promise<PostCastResponseCast> {
     const body: PostCastReqBody = {
       signer_uuid: signerUuid,
       text: text,
       embeds: embeds,
-      parent: replyTo !== undefined ? replyTo.hash : undefined,
+      parent: replyTo,
     };
     const response = await this.apis.v2Cast.postCast(body);
     return response.data.cast;
   }
 
   /**
-   * Delete a cast
+   * Delete a cast. See [Neynar documentation](https://docs.neynar.com/reference/delete-a-cast)
    */
   public async deleteCast(
     signerUuid: string,
@@ -259,7 +262,7 @@ export class NeynarAPIClient {
   }
 
   /**
-   * React to a cast
+   * React to a cast. See [Neynar documentation](https://docs.neynar.com/reference/post-a-reaction)
    */
   public async reactToCast(
     signerUuid: string,
@@ -282,7 +285,7 @@ export class NeynarAPIClient {
   }
 
   /**
-   * Remove a reaction to a cast
+   * Remove a reaction to a cast. See [Neynar documentation](https://docs.neynar.com/reference/delete-a-reaction)
    */
   public async removeReactionToCast(
     signerUuid: string,
@@ -305,66 +308,63 @@ export class NeynarAPIClient {
   }
 
   /**
-   * Fetches casts in a given thread.
+   * Fetches casts in a given thread. See [Neynar documentation](https://docs.neynar.com/reference/get-all-casts-in-thread)
    * Note that the parent provided by the caller is included in the response.
    */
   public async fetchCastsInThread(
     threadParent: v1Cast | { hash: string }
-  ): Promise<v1Cast[] | undefined> {
+  ): Promise<v1Cast[] | null> {
     const response = await this.apis.v1Cast.allCastsInThread(threadParent.hash);
     return response.data.result.casts;
   }
 
   /**
-   * Fetch the latest cast for the user, if there is one
+   * Fetch the latest cast for the user, if there is one. See [Neynar documentation](https://docs.neynar.com/reference/get-all-casts-from-user)
    */
-  public async fetchLatestCastForUser(user: {
-    fid: number;
-  }): Promise<v1Cast | undefined> {
+  public async fetchLatestCastForUser(fid: number): Promise<v1Cast | null> {
     // eslint-disable-next-line no-unreachable-loop
-    for await (const cast of this.fetchCastsForUser(user, {
+    for await (const cast of this.fetchCastsForUser(fid, {
       pageSize: 5,
     })) {
       return cast;
     }
-    return undefined;
+    return null;
   }
 
   /**
-   * Gets all casts (including replies and recasts) created by the specified user.
+   * Gets all casts (including replies and recasts) created by the specified user. See [Neynar documentation](https://docs.neynar.com/reference/get-all-casts-from-user)
    *
-   * @Note: Deleted cast filtering is applied server-side while recast filtering is applied
-   * client-side.
    */
   public async *fetchCastsForUser(
-    user: { fid: number },
+    fid: number,
     { pageSize = 100 } = {}
   ): AsyncGenerator<v1Cast, void, undefined> {
     let cursor: string | undefined;
     let viewer: number | undefined;
 
     while (true) {
-      // fetch one page of casts (with refreshed auth if necessary)
       const response = await this.apis.v1Cast.casts(
-        user.fid,
+        fid,
         viewer,
         cursor,
         pageSize
       );
 
       // yield current page of casts
-      for (const cast of response.data.result.casts) {
-        yield cast;
-      }
+      yield* response.data.result.casts;
 
       // prep for next page
-      if (response.data.result?.next?.cursor === undefined) {
+      if (response.data.result.next?.cursor === null) {
         break;
       }
-      cursor = response.data.result.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor;
     }
   }
 
+  /**
+   * Gets recent casts created by the specified user. See [Neynar documentation](https://docs.neynar.com/reference/get-recent-casts-from-protocol)
+   *
+   */
   public async *fetchRecentCasts({ pageSize = 100 } = {}): AsyncGenerator<
     v1Cast,
     void,
@@ -381,19 +381,18 @@ export class NeynarAPIClient {
         pageSize
       );
 
-      // yield current page of casts
       yield* response.data.result.casts;
 
       // prep for next page
-      if (response.data.result?.next?.cursor === undefined) {
+      if (response.data.result.next?.cursor === null) {
         break;
       }
-      cursor = response.data.result.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor;
     }
   }
 
   /**
-   * A list of users in reverse chronological order based on sign up.
+   * A list of users in reverse chronological order based on sign up. See [Neynar documentation](https://docs.neynar.com/reference/get-recent-users-from-protocol)
    */
   public async *fetchRecentUsers({ pageSize = 100 } = {}): AsyncGenerator<
     User,
@@ -411,129 +410,112 @@ export class NeynarAPIClient {
         pageSize
       );
 
-      // Extract the users array from the response (or provide an empty array as a default)
-      const users =
-        response.data.result?.users != null ? response.data.result.users : [];
-
-      // Create an async iterable for the users
-      for (const user of users) {
-        yield user;
-      }
-
+      yield* response.data.result.users;
       // prep for next page
-      if (response.data.result?.next?.cursor === undefined) {
+      if (response.data.result.next?.cursor === null) {
         break;
       }
-      cursor = response.data.result.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor;
     }
   }
 
   /**
-   * Fetch all likes by a given user.
+   * Fetch all likes by a given user. See [Neynar documentation](https://docs.neynar.com/reference/get-user-cast-likes)
    */
   public async *fetchUserCastLikes(
-    user: { fid: number },
+    fid: number,
     { pageSize = 100 } = {}
-  ): AsyncGenerator<ReactionWithCastMeta, void, undefined> {
+  ): AsyncGenerator<ReactionWithCastMeta[], void, undefined> {
     let cursor: string | undefined;
     let viewer: number | undefined;
 
     while (true) {
       // fetch one page of likes
       const response = await this.apis.user.userCastLikes(
-        user.fid,
+        fid,
         viewer,
         pageSize,
         cursor
       );
 
-      // Extract the likes array from the response (or provide an empty array as a default)
-      const likes =
-        response.data.result?.likes != null ? response.data.result.likes : [];
-
-      // Create an async iterable for the likes
-      for (const like of likes) {
-        yield like;
-      }
+      yield response.data.result.likes;
 
       // prep for next page
-      if (response.data.result?.next?.cursor === undefined) {
+      if (response.data.result.next?.cursor === null) {
         break;
       }
-      cursor = response.data.result.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor;
     }
   }
 
   /**
-   * Gets the specified user via their FID (if found)
+   * Gets the specified user via their FID (if found). See [Neynar documentation](https://docs.neynar.com/reference/get-user-information-by-fid)
    */
-  public async lookupUserByFid(fid: number): Promise<User | undefined> {
+  public async lookupUserByFid(fid: number): Promise<User | null> {
     try {
       const response = await this.apis.user.user(fid);
       return response.data.result?.user;
     } catch (error) {
       if (NeynarAPIClient.isApiErrorResponse(error)) {
-        if (error.response.status === 404) return undefined;
+        if (error.response.status === 404) return null;
       }
       throw error;
     }
   }
 
   /**
-   * Gets the specified user via their username (if found)
+   * Gets the specified user via their username (if found). See [Neynar documentation](https://docs.neynar.com/reference/get-user-information-by-username)
    */
-  public async lookupUserByUsername(
-    username: string
-  ): Promise<User | undefined> {
+  public async lookupUserByUsername(username: string): Promise<User | null> {
     let viewer: number | undefined;
-    const response = await this.apis.user.userByUsername(username, viewer, {
-      validateStatus: (status: number) => {
-        return status === 200 || status === 404;
-      },
-    });
-    if (response.status === 404) return undefined;
-    return response.data.result?.user;
+    const response = await this.apis.user.userByUsername(username, viewer);
+    return response.data.result.user ?? null;
   }
 
   /**
-   * Gets the custody address for the specified user via their username (if found)
+   * Gets the custody address for the specified user via their username (if found). See [Neynar documentation](https://docs.neynar.com/reference/get-custody-address)
    */
-  public async fetchCustodyAddressForUser(
-    fid: number
-  ): Promise<string | undefined> {
+  public async fetchCustodyAddressForUser(fid: number): Promise<string | null> {
     const response = await this.apis.user.custodyAddress(fid);
-    return response.data.result.custodyAddress ?? undefined;
+    return response.data.result.custodyAddress ?? null;
   }
 
-  public async fetchUserVerifications(user: {
-    fid: number;
-  }): Promise<VerificationResponseResult | undefined> {
-    const response = await this.apis.verification.verifications(user.fid);
+  /**
+   * Gets all known verifications of a user. See [Neynar documentation](https://docs.neynar.com/reference/get-user-verifications)
+   */
+  public async fetchUserVerifications(
+    fid: number
+  ): Promise<VerificationResponseResult | null> {
+    const response = await this.apis.verification.verifications(fid);
     return response.data.result;
   }
 
   /**
    * Checks if a given Ethereum address has a Farcaster user associated with it.
+   * TODO: Confirm the statement below is true
    * Note: if an address is associated with multiple users, the API will return
    * the user who most recently published a verification with the address
-   * (based on when Merkle received the proof, not a self-reported timestamp).
+   * (based on when Neynar received the proof, not a self-reported timestamp).
+   * See [Neynar documentation](https://docs.neynar.com/reference/get-user-by-verification)
    */
-  public async lookupUserByVerification(
-    address: string
-  ): Promise<User | undefined> {
+  public async lookupUserByVerification(address: string): Promise<User | null> {
     try {
       const response = await this.apis.verification.userByVerification(address);
-      return response.data.result?.user?.fid != null
-        ? response.data.result.user
-        : undefined;
+      return response.data.result.user;
     } catch (error) {
       if (NeynarAPIClient.isApiErrorResponse(error)) {
-        if (error.response.status === 404) return undefined;
+        const status = error.response.status;
+        if (status === 404) {
+          return null;
+        }
       }
       throw error;
     }
   }
 
+  /**
+   * Gets a list of mentions and replies to the user’s casts in reverse chronological order. See [Neynar documentation](https://docs.neynar.com/reference/get-user-mentions-and-replies)
+   */
   public async *fetchMentionAndReplyNotifications(
     fid: number,
     { pageSize = 100 } = {}
@@ -554,15 +536,15 @@ export class NeynarAPIClient {
       yield* response.data.result.notifications;
 
       // prep for next page
-      if (response.data.result.next?.cursor === undefined) {
+      if (response.data.result.next?.cursor === null) {
         break;
       }
-      cursor = response.data.result.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor;
     }
   }
 
   /**
-   * Lists a given cast's likes
+   * Lists a given cast's likes. See [Neynar documentation](https://docs.neynar.com/reference/get-all-like-reactions-for-a-cast)
    */
   public async *fetchCastLikes(
     castOrCastHash: v1Cast | string,
@@ -588,52 +570,48 @@ export class NeynarAPIClient {
       yield* response.data.result.likes;
 
       // prep for next page
-      if (response.data.result.next?.cursor === undefined) {
+      if (response.data.result.next?.cursor === null) {
         break;
       }
-      cursor = response.data.result.next.cursor ?? undefined;
+      cursor = response.data.result.next.cursor;
     }
   }
 
   /**
-   * Get all users that follow the specified user
+   * Get all users that follow the specified user. See [Neynar documentation](https://docs.neynar.com/reference/get-list-of-followers)
    */
-  public async fetchUserFollowers(user: {
-    fid: number;
-  }): Promise<User[] | undefined> {
-    const response = await this.apis.v1Follows.followers(user.fid);
+  public async fetchUserFollowers(fid: number): Promise<User[]> {
+    const response = await this.apis.v1Follows.followers(fid);
 
-    return response.data.result.users ?? undefined;
+    return response.data.result.users;
   }
 
   /**
-   * Get all users the specified user is following.
+   * Get all users the specified user is following. See [Neynar documentation](https://docs.neynar.com/reference/get-list-of-following)
    */
-  public async fetchUserFollowing(user: {
-    fid: number;
-  }): Promise<User[] | undefined> {
-    const response = await this.apis.v1Follows.following(user.fid);
+  public async fetchUserFollowing(fid: number): Promise<User[]> {
+    const response = await this.apis.v1Follows.following(fid);
 
-    return response.data.result.users ?? undefined;
+    return response.data.result.users;
   }
 
   /**
-   * Follow a user
+   * Follow a user. See [Neynar documentation](https://docs.neynar.com/reference/follow-a-user)
    */
   public async followUser(
     signerUuid: string,
-    user: { fid: number }
+    fid: number
   ): Promise<BulkFollowResponse> {
     const body: FollowReqBody = {
       signer_uuid: signerUuid,
-      target_fids: [user.fid],
+      target_fids: [fid],
     };
     const response = await this.apis.v2Follow.followUser(body);
     return response.data;
   }
 
   /**
-   * Follow multiple users
+   * Follow multiple users. See [Neynar documentation](https://docs.neynar.com/reference/follow-a-user)
    */
   public async followUsers(
     signerUuid: string,
@@ -648,22 +626,22 @@ export class NeynarAPIClient {
   }
 
   /**
-   * Unfollow a user
+   * Unfollow a user. See [Neynar documentation](https://docs.neynar.com/reference/unfollow-a-user)
    */
   public async unfollowUser(
     signerUuid: string,
-    user: { fid: number }
+    fid: number
   ): Promise<BulkFollowResponse> {
     const body: FollowReqBody = {
       signer_uuid: signerUuid,
-      target_fids: [user.fid],
+      target_fids: [fid],
     };
     const response = await this.apis.v2Follow.unfollowUser(body);
     return response.data;
   }
 
   /**
-   * Unfollow multiple users
+   * Unfollow multiple users. See [Neynar documentation](https://docs.neynar.com/reference/unfollow-a-user)
    */
   public async unfollowUsers(
     signerUuid: string,

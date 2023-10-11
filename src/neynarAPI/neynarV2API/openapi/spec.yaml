@@ -215,14 +215,6 @@ components:
                   nullable: true
         author:
           $ref: "#/components/schemas/User"
-          # oneOf:
-          #   - $ref: '#/components/schemas/User'
-          #   - type: object
-          #     required:
-          #       - fid
-          #     properties:
-          #       fid:
-          #         type: string
         text:
           type: string
         timestamp:

@@ -154,10 +154,10 @@ const apiClient = new NeynarAPIClient(apiKey);
 
 // fetch handle to a user
 const user = await apiClient.lookupUserByUsername("dwr");
-if (user === undefined) throw new Error("no such user");
+if (user === null) throw new Error("no such user");
 
 // fetch user's casts
-for await (const cast of apiClient.fetchCastsForUser(user)) {
+for await (const cast of apiClient.fetchCastsForUser(user.fid)) {
   console.log(cast.text);
 }
 ```
@@ -177,12 +177,12 @@ const apiClient = new NeynarAPIClient(apiKey);
 
 // fetch cast to reply to
 const user = await apiClient.lookupUserByUsername("dwr");
-if (user === undefined) throw new Error("no such user");
-const replyTo = await apiClient.fetchLatestCastForUser(user);
-if (replyTo === undefined) throw new Error("no such user");
+if (user === null) throw new Error("no such user");
+const replyTo = await apiClient.fetchLatestCastForUser(user.fid);
+if (replyTo === null) throw new Error("no such user");
 
 // post a reply
-await apiClient.publishCast(signerUuid, "Replying to your cast!", replyTo);
+await apiClient.publishCast(signerUuid, "Replying to your cast!", replyTo.hash);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -198,10 +198,10 @@ const apiKey = "NeynarAPIKey";
 const signerUuid = "signerUUID";
 const apiClient = new NeynarAPIClient(apiKey);
 const user = await apiClient.lookupUserByUsername("dwr");
-if (user === undefined) throw new Error("no such user");
+if (user === null) throw new Error("no such user");
 
 // follow an existing user
-await apiClient.followUser(signerUuid, user);
+await apiClient.followUser(signerUuid, user.fid);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 

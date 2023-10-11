@@ -111,11 +111,11 @@ if (apiKey !== undefined && apiKey !== "") {
         expect(cast.hash).to.eq(existingCastHash);
       });
 
-      it("returns undefined for nonexistent cast", async function () {
+      it("returns null for nonexistent cast", async function () {
         const nonexistentCastHash =
           "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
         const cast = await client.v1FetchCast(nonexistentCastHash);
-        expect(cast).to.be.undefined;
+        expect(cast).to.be.null;
       });
     });
 
@@ -127,23 +127,26 @@ if (apiKey !== undefined && apiKey !== "") {
         expect(cast.hash).to.eq(existingCastHash);
       });
 
-      it("returns undefined for nonexistent cast", async function () {
+      it("returns null for nonexistent cast", async function () {
         const nonexistentCastHash =
           "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
         const cast = await client.fetchCast(nonexistentCastHash);
-        expect(cast).to.be.undefined;
+        expect(cast).to.be.null;
       });
     });
 
     describe("#fetchCastsInThread", function () {
       it("can fetch multiple pages of casts", async function () {
         const threadHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+        const castSet = new Set();
         const castsInThread = await client.fetchCastsInThread({
           hash: threadHash,
         });
         expectDefined(castsInThread);
         for (const cast of castsInThread) {
           expectDefined(cast.hash);
+          expect(castSet.has(cast.hash)).to.be.false;
+          castSet.add(cast.hash);
         }
         expect(castsInThread.length).to.be.greaterThan(10);
       });
@@ -153,9 +156,7 @@ if (apiKey !== undefined && apiKey !== "") {
       it("can fetch at least one cast", async function () {
         let foundCast = false;
         // eslint-disable-next-line no-unreachable-loop
-        for await (const cast of client.fetchCastsForUser({
-          fid: userGaviFid,
-        })) {
+        for await (const cast of client.fetchCastsForUser(userGaviFid)) {
           foundCast = true;
           expect(cast.author.fid).to.eq(userGaviFid.toString());
           expectDefined(cast.timestamp);
@@ -166,9 +167,14 @@ if (apiKey !== undefined && apiKey !== "") {
 
       it("can fetch multiple pages worth of casts", async function () {
         let castCount = 0;
+        const castSet = new Set();
         const castCountBiggerThanPageSize = 150;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for await (const _ of client.fetchCastsForUser({ fid: userDwrFid })) {
+        for await (const cast of client.fetchCastsForUser(userDwrFid, {
+          pageSize: 100,
+        })) {
+          expect(castSet.has(cast.hash)).to.be.false;
+          castSet.add(cast.hash);
           castCount++;
           if (castCount >= castCountBiggerThanPageSize) {
             break;
@@ -181,9 +187,12 @@ if (apiKey !== undefined && apiKey !== "") {
     describe("#fetchRecentCasts", function () {
       it("can fetch multiple pages of casts", async function () {
         let castCount = 0;
+        const castSet = new Set();
         for await (const cast of client.fetchRecentCasts({ pageSize: 5 })) {
           expectDefined(cast);
           expectDefined(cast.hash);
+          expect(castSet.has(cast.hash)).to.be.false;
+          castSet.add(cast.hash);
           castCount++;
           if (castCount === 10) break;
         }
@@ -194,9 +203,12 @@ if (apiKey !== undefined && apiKey !== "") {
     describe("#fetchRecentUsers", function () {
       it("can fetch multiple pages of users", async function () {
         let userCount = 0;
+        const userSet = new Set();
         for await (const user of client.fetchRecentUsers({ pageSize: 5 })) {
           expectDefined(user);
           expectDefined(user.username);
+          expect(userSet.has(user.fid)).to.be.false;
+          userSet.add(user.fid);
           userCount++;
           if (userCount === 10) break;
         }
@@ -207,16 +219,18 @@ if (apiKey !== undefined && apiKey !== "") {
     describe("#fetchUserCastLikes", function () {
       it("can fetch multiple pages of likes", async function () {
         let castCount = 0;
-        for await (const cast of client.fetchUserCastLikes(
-          { fid: userDwrFid },
-          {
-            pageSize: 5,
+        const castSet = new Set();
+        for await (const casts of client.fetchUserCastLikes(userDwrFid, {
+          pageSize: 5,
+        })) {
+          expectDefined(casts);
+          for (const cast of casts) {
+            expectDefined(cast.reaction);
+            expect(cast.reaction.reaction_type).to.eq("like");
+            expect(castSet.has(cast.reaction.reaction_target_hash)).to.be.false;
+            castSet.add(cast.reaction?.reaction_target_hash);
+            castCount++;
           }
-        )) {
-          expectDefined(cast);
-          expectDefined(cast.reaction?.reaction_target_hash);
-          expect(cast.reaction?.reaction_type).to.eq("like");
-          castCount++;
           if (castCount === 10) break;
         }
         expect(castCount).to.eq(10);
@@ -229,9 +243,9 @@ if (apiKey !== undefined && apiKey !== "") {
         expect(user?.username).to.eq("gavi");
       });
 
-      it("returns undefined if user not found", async function () {
+      it("returns null if user not found", async function () {
         const user = await client.lookupUserByFid(111111111111);
-        expect(user).to.be.undefined;
+        expect(user).to.be.null;
       });
     });
 
@@ -241,9 +255,9 @@ if (apiKey !== undefined && apiKey !== "") {
         expect(user?.username).to.eq("dwr.eth");
       });
 
-      it("returns undefined if user not found", async function () {
+      it("returns null if user not found", async function () {
         const user = await client.lookupUserByUsername("nosuchusername11"); // cSpell:disable-line
-        expect(user).to.be.undefined;
+        expect(user).to.be.null;
       });
     });
 
@@ -255,11 +269,11 @@ if (apiKey !== undefined && apiKey !== "") {
         expect(user?.username).to.eq("gavi-bot");
       });
 
-      it("returns undefined if address not found", async function () {
+      it("returns null if address not found", async function () {
         const user = await client.lookupUserByVerification(
           "0x0000000000000000000000000000000000000000"
         );
-        expect(user).to.be.undefined;
+        expect(user).to.be.null;
       });
     });
 
@@ -274,17 +288,13 @@ if (apiKey !== undefined && apiKey !== "") {
 
     describe("verifications", function () {
       it("can fetch a user's verifications", async function () {
-        const verifications = await client.fetchUserVerifications({
-          fid: userDwrFid,
-        });
+        const verifications = await client.fetchUserVerifications(userDwrFid);
         expect(verifications?.fid).eq(userDwrFid.toString());
         expect(verifications?.verifications.length).to.be.greaterThan(0);
       });
 
       it("returns empty generator for user with no verifications", async function () {
-        const verifications = await client.fetchUserVerifications({
-          fid: 100,
-        });
+        const verifications = await client.fetchUserVerifications(100);
         expect(verifications?.verifications.length).to.eq(0);
       });
     });
@@ -292,6 +302,7 @@ if (apiKey !== undefined && apiKey !== "") {
     describe("notifications", function () {
       it("can fetch mention and reply notifications", async function () {
         let castCount = 0;
+        const notificationSet = new Set();
         let notificationFound = false;
         for await (const notification of client.fetchMentionAndReplyNotifications(
           userDwrFid,
@@ -302,6 +313,8 @@ if (apiKey !== undefined && apiKey !== "") {
           expectDefined(notification);
           expectDefined(notification.hash);
           expectDefined(notification.text);
+          expect(notificationSet.has(notification.hash)).to.be.false;
+          notificationSet.add(notification.hash);
           castCount++;
           notificationFound = true;
           if (castCount === 10) break;
@@ -315,12 +328,15 @@ if (apiKey !== undefined && apiKey !== "") {
       it("can fetch reactions to a cast", async function () {
         const existingCastHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
         let castCount = 0;
+        const reactionSet = new Set();
         let reactionFound = false;
         for await (const observedReaction of client.fetchCastLikes(
           existingCastHash,
           { pageSize: 5 }
         )) {
           expect(observedReaction.type).eq(ReactionTypeEnum.Like);
+          expect(reactionSet.has(observedReaction.hash)).to.be.false;
+          reactionSet.add(observedReaction.hash);
           castCount++;
           reactionFound = true;
           if (castCount === 10) break;
@@ -334,12 +350,13 @@ if (apiKey !== undefined && apiKey !== "") {
       it("can fetch followers of a user", async function () {
         let followerFound = false;
         let followersFound = 0;
-        const followers = await client.fetchUserFollowers({
-          fid: userGaviFid,
-        });
+        const followersSet = new Set();
+        const followers = await client.fetchUserFollowers(userGaviFid);
         for (const follower of followers ?? []) {
           expectDefined(follower);
           expectDefined(follower.fid);
+          expect(followersSet.has(follower.fid)).to.be.false;
+          followersSet.add(follower.fid);
           followerFound = true;
           followersFound++;
           if (followersFound === 50) break;
@@ -351,9 +368,8 @@ if (apiKey !== undefined && apiKey !== "") {
       it("can fetch users followed by a user", async function () {
         let followingFound = false;
         let dwrFound = false;
-        const following = await client.fetchUserFollowers({
-          fid: userGaviFid,
-        });
+        const followingSet = new Set();
+        const following = await client.fetchUserFollowers(userGaviFid);
         for (const follow of following ?? []) {
           if (follow.fid === userDwrFid) {
             dwrFound = true;
@@ -361,6 +377,8 @@ if (apiKey !== undefined && apiKey !== "") {
           }
           expectDefined(follow);
           expectDefined(follow.fid);
+          expect(followingSet.has(follow.fid)).to.be.false;
+          followingSet.add(follow.fid);
           followingFound = true;
         }
         expect(followingFound).to.be.true;
@@ -370,8 +388,8 @@ if (apiKey !== undefined && apiKey !== "") {
 
     if (signerUuid !== undefined && signerUuid !== "") {
       describe("publish / delete casts", function () {
-        let publishedCast: PostCastResponseCast | undefined;
-        let reply: PostCastResponseCast | undefined;
+        let publishedCast: PostCastResponseCast | null;
+        let reply: PostCastResponseCast | null;
 
         it("can publish a basic cast with no parent", async function () {
           const text = "this is a test cast";
@@ -384,11 +402,27 @@ if (apiKey !== undefined && apiKey !== "") {
           const text = "this is a reply to the test cast";
           expectDefined(publishedCast);
           await sleep(1000);
-          reply = await client.publishCast(signerUuid, text, publishedCast);
+          reply = await client.publishCast(
+            signerUuid,
+            text,
+            publishedCast.hash
+          );
           expect(reply.text).to.eq(text);
           await sleep(1000);
           const replyCast = await client.fetchCast(reply.hash);
           expect(replyCast?.parent_hash).to.eq(publishedCast?.hash);
+        });
+
+        it("can reply to an arbitrary string (FIP 2)", async function () {
+          const text = "this is a reply to the test cast";
+          const replyTo = "random";
+          await sleep(1000);
+          reply = await client.publishCast(signerUuid, text, replyTo);
+          expect(reply.text).to.eq(text);
+          await sleep(1000);
+          const replyCast = await client.fetchCast(reply.hash);
+          await client.deleteCast(signerUuid, reply.hash);
+          expect(replyCast?.parent_url).to.eq(replyTo);
         });
 
         it("can delete a cast", async function () {
@@ -434,8 +468,8 @@ if (apiKey !== undefined && apiKey !== "") {
           );
           expectDefined(publishCastResp);
 
-          // re-fetch the cast again, since the warpcast API might not return it in response to our POST
-          await sleep(1000);
+          // Fetch the cast, the PostCastResponseCast does not contain the embeds
+          // await sleep(1000);
           const publishedCast = await client.fetchCast(publishCastResp.hash);
           expectDefined(publishedCast);
 
@@ -458,8 +492,8 @@ if (apiKey !== undefined && apiKey !== "") {
           );
           expectDefined(publishCastResp);
 
-          // re-fetch the cast again, since the warpcast API might not return it in response to our POST
-          await sleep(1000);
+          // Fetch the cast, the PostCastResponseCast does not contain the embeds
+          // await sleep(1000);
           const publishedCast = await client.fetchCast(publishCastResp.hash);
           expectDefined(publishedCast);
 
@@ -483,8 +517,8 @@ if (apiKey !== undefined && apiKey !== "") {
           );
           expectDefined(publishCastResp);
 
-          // re-fetch the cast again, since the warpcast API might not return it in response to our POST
-          await sleep(1000);
+          // Fetch the cast, the PostCastResponseCast does not contain the embeds
+          // await sleep(1000);
           const publishedCast = await client.fetchCast(publishCastResp.hash);
           expectDefined(publishedCast);
 
@@ -500,7 +534,7 @@ if (apiKey !== undefined && apiKey !== "") {
       });
 
       describe("post reactions", function () {
-        let cast: v2Cast | undefined;
+        let cast: v2Cast | null;
 
         it("can react to a cast", async function () {
           const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
@@ -526,7 +560,7 @@ if (apiKey !== undefined && apiKey !== "") {
       });
 
       describe("recasts", function () {
-        let cast: v2Cast | undefined;
+        let cast: v2Cast | null;
         it("can recast a cast", async function () {
           const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
           cast = await client.fetchCast(existingCastHash);
@@ -552,18 +586,14 @@ if (apiKey !== undefined && apiKey !== "") {
 
       describe("post follows", function () {
         it("can follow a user", async function () {
-          const response = await client.followUser(signerUuid, {
-            fid: userDwrFid,
-          });
+          const response = await client.followUser(signerUuid, userDwrFid);
           expect(response.success).to.be.true;
           expect(response.details[0].success).to.be.true;
           expect(response.details[0].target_fid).to.be.eq(userDwrFid);
         });
 
         it("can unfollow a user", async function () {
-          const response = await client.unfollowUser(signerUuid, {
-            fid: userDwrFid,
-          });
+          const response = await client.unfollowUser(signerUuid, userDwrFid);
           expect(response.success).to.be.true;
           expect(response.details[0].success).to.be.true;
           expect(response.details[0].target_fid).to.be.eq(userDwrFid);
