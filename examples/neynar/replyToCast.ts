@@ -12,4 +12,6 @@ const replyTo = await apiClient.fetchLatestCastForUser(user.fid);
 if (replyTo === null) throw new Error("no such user");
 
 // post a reply
-await apiClient.publishCast(signerUuid, "Replying to your cast!", replyTo.hash);
+await apiClient.publishCast(signerUuid, "Replying to your cast!", {
+  replyTo: replyTo.hash,
+});

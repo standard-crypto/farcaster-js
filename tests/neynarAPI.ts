@@ -402,11 +402,9 @@ if (apiKey !== undefined && apiKey !== "") {
           const text = "this is a reply to the test cast";
           expectDefined(publishedCast);
           await sleep(1000);
-          reply = await client.publishCast(
-            signerUuid,
-            text,
-            publishedCast.hash
-          );
+          reply = await client.publishCast(signerUuid, text, {
+            replyTo: publishedCast.hash,
+          });
           expect(reply.text).to.eq(text);
           await sleep(1000);
           const replyCast = await client.fetchCast(reply.hash);
@@ -417,7 +415,7 @@ if (apiKey !== undefined && apiKey !== "") {
           const text = "this is a reply to the test cast";
           const replyTo = "random";
           await sleep(1000);
-          reply = await client.publishCast(signerUuid, text, replyTo);
+          reply = await client.publishCast(signerUuid, text, { replyTo });
           expect(reply.text).to.eq(text);
           await sleep(1000);
           const replyCast = await client.fetchCast(reply.hash);
@@ -460,16 +458,13 @@ if (apiKey !== undefined && apiKey !== "") {
         it("can publish a cast with URL embeds", async function () {
           const embedURL = "https://www.farcaster.xyz/";
           const text = "this is a cast testing URL embed functionality";
-          const publishCastResp = await client.publishCast(
-            signerUuid,
-            text,
-            undefined /* replyTo */,
-            [{ url: embedURL }]
-          );
+          const publishCastResp = await client.publishCast(signerUuid, text, {
+            embeds: [{ url: embedURL }],
+          });
           expectDefined(publishCastResp);
 
           // Fetch the cast, the PostCastResponseCast does not contain the embeds
-          // await sleep(1000);
+          await sleep(1000);
           const publishedCast = await client.fetchCast(publishCastResp.hash);
           expectDefined(publishedCast);
 
@@ -484,16 +479,13 @@ if (apiKey !== undefined && apiKey !== "") {
         it("can publish a cast with image embeds", async function () {
           const embedURL = "https://i.imgur.com/YPEZebo.png";
           const text = "this is a cast testing image embed functionality";
-          const publishCastResp = await client.publishCast(
-            signerUuid,
-            text,
-            undefined /* replyTo */,
-            [{ url: embedURL }]
-          );
+          const publishCastResp = await client.publishCast(signerUuid, text, {
+            embeds: [{ url: embedURL }],
+          });
           expectDefined(publishCastResp);
 
           // Fetch the cast, the PostCastResponseCast does not contain the embeds
-          // await sleep(1000);
+          await sleep(1000);
           const publishedCast = await client.fetchCast(publishCastResp.hash);
           expectDefined(publishedCast);
 
@@ -509,16 +501,13 @@ if (apiKey !== undefined && apiKey !== "") {
           const embedURL = "https://www.farcaster.xyz/";
           const imageURL = "https://i.imgur.com/YPEZebo.png";
           const text = "this is a cast testing URL embed functionality";
-          const publishCastResp = await client.publishCast(
-            signerUuid,
-            text,
-            undefined /* replyTo */,
-            [{ url: embedURL }, { url: imageURL }]
-          );
+          const publishCastResp = await client.publishCast(signerUuid, text, {
+            embeds: [{ url: embedURL }, { url: imageURL }],
+          });
           expectDefined(publishCastResp);
 
           // Fetch the cast, the PostCastResponseCast does not contain the embeds
-          // await sleep(1000);
+          await sleep(1000);
           const publishedCast = await client.fetchCast(publishCastResp.hash);
           expectDefined(publishedCast);
 

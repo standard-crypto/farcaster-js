@@ -132,7 +132,7 @@ Delete a cast. See [Neynar documentation](https://docs.neynar.com/reference/dele
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:247](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L247)
+[src/neynarAPI/NeynarAPIClient.ts:246](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L246)
 
 ___
 
@@ -178,7 +178,7 @@ Lists a given cast's likes. See [Neynar documentation](https://docs.neynar.com/r
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:549](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L549)
+[src/neynarAPI/NeynarAPIClient.ts:548](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L548)
 
 ___
 
@@ -202,7 +202,7 @@ Gets all casts (including replies and recasts) created by the specified user. Se
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:338](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L338)
+[src/neynarAPI/NeynarAPIClient.ts:337](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L337)
 
 ___
 
@@ -225,7 +225,7 @@ Note that the parent provided by the caller is included in the response.
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:314](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L314)
+[src/neynarAPI/NeynarAPIClient.ts:313](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L313)
 
 ___
 
@@ -247,7 +247,7 @@ Gets the custody address for the specified user via their username (if found). S
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:478](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L478)
+[src/neynarAPI/NeynarAPIClient.ts:477](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L477)
 
 ___
 
@@ -269,7 +269,7 @@ Fetch the latest cast for the user, if there is one. See [Neynar documentation](
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:324](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L324)
+[src/neynarAPI/NeynarAPIClient.ts:323](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L323)
 
 ___
 
@@ -293,7 +293,7 @@ Gets a list of mentions and replies to the user’s casts in reverse chronologic
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:519](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L519)
+[src/neynarAPI/NeynarAPIClient.ts:518](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L518)
 
 ___
 
@@ -316,7 +316,7 @@ Gets recent casts created by the specified user. See [Neynar documentation](http
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:368](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L368)
+[src/neynarAPI/NeynarAPIClient.ts:367](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L367)
 
 ___
 
@@ -339,7 +339,7 @@ A list of users in reverse chronological order based on sign up. See [Neynar doc
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:397](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L397)
+[src/neynarAPI/NeynarAPIClient.ts:396](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L396)
 
 ___
 
@@ -386,7 +386,7 @@ Fetch all likes by a given user. See [Neynar documentation](https://docs.neynar.
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:425](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L425)
+[src/neynarAPI/NeynarAPIClient.ts:424](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L424)
 
 ___
 
@@ -408,7 +408,7 @@ Get all users that follow the specified user. See [Neynar documentation](https:/
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:583](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L583)
+[src/neynarAPI/NeynarAPIClient.ts:582](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L582)
 
 ___
 
@@ -430,7 +430,7 @@ Get all users the specified user is following. See [Neynar documentation](https:
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:592](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L592)
+[src/neynarAPI/NeynarAPIClient.ts:591](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L591)
 
 ___
 
@@ -452,7 +452,7 @@ Gets all known verifications of a user. See [Neynar documentation](https://docs.
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:486](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L486)
+[src/neynarAPI/NeynarAPIClient.ts:485](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L485)
 
 ___
 
@@ -475,7 +475,7 @@ Follow a user. See [Neynar documentation](https://docs.neynar.com/reference/foll
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:601](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L601)
+[src/neynarAPI/NeynarAPIClient.ts:600](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L600)
 
 ___
 
@@ -498,7 +498,7 @@ Follow multiple users. See [Neynar documentation](https://docs.neynar.com/refere
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:616](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L616)
+[src/neynarAPI/NeynarAPIClient.ts:615](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L615)
 
 ___
 
@@ -520,7 +520,7 @@ Gets the specified user via their FID (if found). See [Neynar documentation](htt
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:454](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L454)
+[src/neynarAPI/NeynarAPIClient.ts:453](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L453)
 
 ___
 
@@ -542,7 +542,7 @@ Gets the specified user via their username (if found). See [Neynar documentation
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:469](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L469)
+[src/neynarAPI/NeynarAPIClient.ts:468](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L468)
 
 ___
 
@@ -569,13 +569,13 @@ See [Neynar documentation](https://docs.neynar.com/reference/get-user-by-verific
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:501](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L501)
+[src/neynarAPI/NeynarAPIClient.ts:500](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L500)
 
 ___
 
 ### publishCast
 
-▸ **publishCast**(`signerUuid`, `text`, `replyTo?`, `embeds?`): `Promise`<`PostCastResponseCast`\>
+▸ **publishCast**(`signerUuid`, `text`, `options?`): `Promise`<`PostCastResponseCast`\>
 
 Publishes a cast for the currently authenticated user. See [Neynar documentation](https://docs.neynar.com/reference/post-a-cast)
 
@@ -585,8 +585,9 @@ Publishes a cast for the currently authenticated user. See [Neynar documentation
 | :------ | :------ |
 | `signerUuid` | `string` |
 | `text` | `string` |
-| `replyTo?` | `string` |
-| `embeds?` | `CastEmbeds`[] |
+| `options` | `Object` |
+| `options.embeds?` | `CastEmbeds`[] |
+| `options.replyTo?` | `string` |
 
 #### Returns
 
@@ -618,7 +619,7 @@ React to a cast. See [Neynar documentation](https://docs.neynar.com/reference/po
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:267](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L267)
+[src/neynarAPI/NeynarAPIClient.ts:266](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L266)
 
 ___
 
@@ -668,7 +669,7 @@ Remove a reaction to a cast. See [Neynar documentation](https://docs.neynar.com/
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:290](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L290)
+[src/neynarAPI/NeynarAPIClient.ts:289](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L289)
 
 ___
 
@@ -691,7 +692,7 @@ Unfollow a user. See [Neynar documentation](https://docs.neynar.com/reference/un
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:631](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L631)
+[src/neynarAPI/NeynarAPIClient.ts:630](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L630)
 
 ___
 
@@ -714,7 +715,7 @@ Unfollow multiple users. See [Neynar documentation](https://docs.neynar.com/refe
 
 #### Defined in
 
-[src/neynarAPI/NeynarAPIClient.ts:646](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L646)
+[src/neynarAPI/NeynarAPIClient.ts:645](https://github.com/standard-crypto/farcaster-js/blob/main/src/neynarAPI/NeynarAPIClient.ts#L645)
 
 ___
 

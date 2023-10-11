@@ -228,14 +228,13 @@ export class NeynarAPIClient {
   public async publishCast(
     signerUuid: string,
     text: string,
-    replyTo?: string,
-    embeds?: CastEmbeds[]
+    options: { embeds?: CastEmbeds[]; replyTo?: string } = {}
   ): Promise<PostCastResponseCast> {
     const body: PostCastReqBody = {
       signer_uuid: signerUuid,
       text: text,
-      embeds: embeds,
-      parent: replyTo,
+      embeds: options.embeds,
+      parent: options.replyTo,
     };
     const response = await this.apis.v2Cast.postCast(body);
     return response.data.cast;
