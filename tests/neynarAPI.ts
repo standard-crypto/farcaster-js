@@ -411,6 +411,20 @@ if (apiKey !== undefined && apiKey !== "") {
           expect(replyCast?.parent_hash).to.eq(publishedCast?.hash);
         });
 
+        it("can reply to a url", async function () {
+          const text = "this is a reply to the test cast";
+          const replyToUrl = "https://www.farcaster.xyz/";
+          await sleep(1000);
+          reply = await client.publishCast(signerUuid, text, {
+            replyTo: replyToUrl,
+          });
+          expect(reply.text).to.eq(text);
+          await sleep(1000);
+          const replyCast = await client.fetchCast(reply.hash);
+          await client.deleteCast(signerUuid, reply.hash);
+          expect(replyCast?.parent_url).to.eq(replyToUrl);
+        });
+
         it("can reply to an arbitrary string (FIP 2)", async function () {
           const text = "this is a reply to the test cast";
           const replyTo = "random";
