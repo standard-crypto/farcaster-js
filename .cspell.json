@@ -2,6 +2,7 @@
   "version": "0.1",
   "language": "en",
   "words": [
+    "accountdefinitelydoesnotexistwiththisprefix",
     "arrayify",
     "bignumber",
     "deeplink",
@@ -13,6 +14,7 @@
     "merkle",
     "neynar",
     "Networkish",
+    "nosuchusername",
     "octocat",
     "recasters",
     "rmrf",

@@ -4,7 +4,7 @@ const apiKey = "NeynarAPIKey";
 const client = new NeynarAPIClient(apiKey);
 
 // by farcaster ID ('fid')
-await client.lookupUserByFid(3);
+await client.clients.v1.lookupUserByFid(3);
 
 // by username
-await client.lookupUserByUsername("dwr");
+await client.clients.v1.lookupUserByUsername("dwr");

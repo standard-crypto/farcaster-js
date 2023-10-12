@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -42,6 +40,10 @@ import {
 // @ts-ignore
 import { ErrorRes } from "../models";
 // @ts-ignore
+import { OperationResponse } from "../models";
+// @ts-ignore
+import { UpdateUserReqBody } from "../models";
+// @ts-ignore
 import { UserSearchResponse } from "../models";
 /**
  * UserApi - axios parameter creator
@@ -51,6 +53,63 @@ export const UserApiAxiosParamCreator = function (
   configuration?: Configuration
 ) {
   return {
+    /**
+     * Update user profile \\ (In order to update user\'s profile `signer_uuid` must be approved)
+     * @summary Update user profile
+     * @param {UpdateUserReqBody} updateUserReqBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateUser: async (
+      updateUserReqBody: UpdateUserReqBody,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'updateUserReqBody' is not null or undefined
+      assertParamExists("updateUser", "updateUserReqBody", updateUserReqBody);
+      const localVarPath = `/farcaster/user`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "PATCH",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication ApiKeyAuth required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        "api_key",
+        configuration
+      );
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        updateUserReqBody,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      * Search for Usernames
      * @summary Search for Usernames
@@ -124,6 +183,33 @@ export const UserApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration);
   return {
     /**
+     * Update user profile \\ (In order to update user\'s profile `signer_uuid` must be approved)
+     * @summary Update user profile
+     * @param {UpdateUserReqBody} updateUserReqBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateUser(
+      updateUserReqBody: UpdateUserReqBody,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<OperationResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(
+        updateUserReqBody,
+        options
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      );
+    },
+    /**
      * Search for Usernames
      * @summary Search for Usernames
      * @param {number} viewerFid
@@ -168,24 +254,72 @@ export const UserApiFactory = function (
   const localVarFp = UserApiFp(configuration);
   return {
     /**
+     * Update user profile \\ (In order to update user\'s profile `signer_uuid` must be approved)
+     * @summary Update user profile
+     * @param {UserApiUpdateUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateUser(
+      requestParameters: UserApiUpdateUserRequest,
+      options?: AxiosRequestConfig
+    ): AxiosPromise<OperationResponse> {
+      return localVarFp
+        .updateUser(requestParameters.updateUserReqBody, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Search for Usernames
      * @summary Search for Usernames
-     * @param {number} viewerFid
-     * @param {string} q
+     * @param {UserApiUserSearchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     userSearch(
-      viewerFid: number,
-      q: string,
-      options?: any
+      requestParameters: UserApiUserSearchRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<UserSearchResponse> {
       return localVarFp
-        .userSearch(viewerFid, q, options)
+        .userSearch(requestParameters.viewerFid, requestParameters.q, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for updateUser operation in UserApi.
+ * @export
+ * @interface UserApiUpdateUserRequest
+ */
+export interface UserApiUpdateUserRequest {
+  /**
+   *
+   * @type {UpdateUserReqBody}
+   * @memberof UserApiUpdateUser
+   */
+  readonly updateUserReqBody: UpdateUserReqBody;
+}
+
+/**
+ * Request parameters for userSearch operation in UserApi.
+ * @export
+ * @interface UserApiUserSearchRequest
+ */
+export interface UserApiUserSearchRequest {
+  /**
+   *
+   * @type {number}
+   * @memberof UserApiUserSearch
+   */
+  readonly viewerFid: number;
+
+  /**
+   *
+   * @type {string}
+   * @memberof UserApiUserSearch
+   */
+  readonly q: string;
+}
 
 /**
  * UserApi - object-oriented interface
@@ -195,21 +329,36 @@ export const UserApiFactory = function (
  */
 export class UserApi extends BaseAPI {
   /**
+   * Update user profile \\ (In order to update user\'s profile `signer_uuid` must be approved)
+   * @summary Update user profile
+   * @param {UserApiUpdateUserRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public updateUser(
+    requestParameters: UserApiUpdateUserRequest,
+    options?: AxiosRequestConfig
+  ) {
+    return UserApiFp(this.configuration)
+      .updateUser(requestParameters.updateUserReqBody, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * Search for Usernames
    * @summary Search for Usernames
-   * @param {number} viewerFid
-   * @param {string} q
+   * @param {UserApiUserSearchRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
   public userSearch(
-    viewerFid: number,
-    q: string,
+    requestParameters: UserApiUserSearchRequest,
     options?: AxiosRequestConfig
   ) {
     return UserApiFp(this.configuration)
-      .userSearch(viewerFid, q, options)
+      .userSearch(requestParameters.viewerFid, requestParameters.q, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

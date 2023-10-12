@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -248,35 +246,63 @@ export const FollowApiFactory = function (
     /**
      * Follow a user \\ (In order to follow a user `signer_uuid` must be approved)
      * @summary Follow a user
-     * @param {FollowReqBody} followReqBody
+     * @param {FollowApiFollowUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     followUser(
-      followReqBody: FollowReqBody,
-      options?: any
+      requestParameters: FollowApiFollowUserRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<BulkFollowResponse> {
       return localVarFp
-        .followUser(followReqBody, options)
+        .followUser(requestParameters.followReqBody, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Unfollow a user \\ (In order to unfollow a user `signer_uuid` must be approved)
      * @summary Unfollow a user
-     * @param {FollowReqBody} followReqBody
+     * @param {FollowApiUnfollowUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     unfollowUser(
-      followReqBody: FollowReqBody,
-      options?: any
+      requestParameters: FollowApiUnfollowUserRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<BulkFollowResponse> {
       return localVarFp
-        .unfollowUser(followReqBody, options)
+        .unfollowUser(requestParameters.followReqBody, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for followUser operation in FollowApi.
+ * @export
+ * @interface FollowApiFollowUserRequest
+ */
+export interface FollowApiFollowUserRequest {
+  /**
+   *
+   * @type {FollowReqBody}
+   * @memberof FollowApiFollowUser
+   */
+  readonly followReqBody: FollowReqBody;
+}
+
+/**
+ * Request parameters for unfollowUser operation in FollowApi.
+ * @export
+ * @interface FollowApiUnfollowUserRequest
+ */
+export interface FollowApiUnfollowUserRequest {
+  /**
+   *
+   * @type {FollowReqBody}
+   * @memberof FollowApiUnfollowUser
+   */
+  readonly followReqBody: FollowReqBody;
+}
 
 /**
  * FollowApi - object-oriented interface
@@ -288,34 +314,34 @@ export class FollowApi extends BaseAPI {
   /**
    * Follow a user \\ (In order to follow a user `signer_uuid` must be approved)
    * @summary Follow a user
-   * @param {FollowReqBody} followReqBody
+   * @param {FollowApiFollowUserRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof FollowApi
    */
   public followUser(
-    followReqBody: FollowReqBody,
+    requestParameters: FollowApiFollowUserRequest,
     options?: AxiosRequestConfig
   ) {
     return FollowApiFp(this.configuration)
-      .followUser(followReqBody, options)
+      .followUser(requestParameters.followReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Unfollow a user \\ (In order to unfollow a user `signer_uuid` must be approved)
    * @summary Unfollow a user
-   * @param {FollowReqBody} followReqBody
+   * @param {FollowApiUnfollowUserRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof FollowApi
    */
   public unfollowUser(
-    followReqBody: FollowReqBody,
+    requestParameters: FollowApiUnfollowUserRequest,
     options?: AxiosRequestConfig
   ) {
     return FollowApiFp(this.configuration)
-      .unfollowUser(followReqBody, options)
+      .unfollowUser(requestParameters.followReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

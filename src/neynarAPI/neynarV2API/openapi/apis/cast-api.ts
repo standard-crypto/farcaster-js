@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -430,67 +428,128 @@ export const CastApiFactory = function (
     /**
      * Gets information about an individual cast by passing in a web URL or cast hash
      * @summary Retrieve cast for a given hash
-     * @param {CastParamType} type
-     * @param {string} identifier Cast identifier (Its either a url or a hash)
+     * @param {CastApiCastRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     cast(
-      type: CastParamType,
-      identifier: string,
-      options?: any
+      requestParameters: CastApiCastRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastResponse> {
       return localVarFp
-        .cast(type, identifier, options)
+        .cast(requestParameters.type, requestParameters.identifier, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Retrieve multiple casts using their respective hashes.
      * @summary Gets information about an array of casts
-     * @param {GetCastsReqBody} getCastsReqBody
+     * @param {CastApiCastsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     casts(
-      getCastsReqBody: GetCastsReqBody,
-      options?: any
+      requestParameters: CastApiCastsRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastsResponse> {
       return localVarFp
-        .casts(getCastsReqBody, options)
+        .casts(requestParameters.getCastsReqBody, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Delete an existing cast. \\ (In order to delete a cast `signer_uuid` must be approved)
      * @summary Delete a cast
-     * @param {DeleteCastReqBody} deleteCastReqBody
+     * @param {CastApiDeleteCastRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     deleteCast(
-      deleteCastReqBody: DeleteCastReqBody,
-      options?: any
+      requestParameters: CastApiDeleteCastRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<OperationResponse> {
       return localVarFp
-        .deleteCast(deleteCastReqBody, options)
+        .deleteCast(requestParameters.deleteCastReqBody, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Posts a cast or cast reply. Works with mentions and embeds.   (In order to post a cast `signer_uuid` must be approved)
      * @summary Posts a cast
-     * @param {PostCastReqBody} postCastReqBody
+     * @param {CastApiPostCastRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     postCast(
-      postCastReqBody: PostCastReqBody,
-      options?: any
+      requestParameters: CastApiPostCastRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<PostCastResponse> {
       return localVarFp
-        .postCast(postCastReqBody, options)
+        .postCast(requestParameters.postCastReqBody, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for cast operation in CastApi.
+ * @export
+ * @interface CastApiCastRequest
+ */
+export interface CastApiCastRequest {
+  /**
+   *
+   * @type {CastParamType}
+   * @memberof CastApiCast
+   */
+  readonly type: CastParamType;
+
+  /**
+   * Cast identifier (Its either a url or a hash)
+   * @type {string}
+   * @memberof CastApiCast
+   */
+  readonly identifier: string;
+}
+
+/**
+ * Request parameters for casts operation in CastApi.
+ * @export
+ * @interface CastApiCastsRequest
+ */
+export interface CastApiCastsRequest {
+  /**
+   *
+   * @type {GetCastsReqBody}
+   * @memberof CastApiCasts
+   */
+  readonly getCastsReqBody: GetCastsReqBody;
+}
+
+/**
+ * Request parameters for deleteCast operation in CastApi.
+ * @export
+ * @interface CastApiDeleteCastRequest
+ */
+export interface CastApiDeleteCastRequest {
+  /**
+   *
+   * @type {DeleteCastReqBody}
+   * @memberof CastApiDeleteCast
+   */
+  readonly deleteCastReqBody: DeleteCastReqBody;
+}
+
+/**
+ * Request parameters for postCast operation in CastApi.
+ * @export
+ * @interface CastApiPostCastRequest
+ */
+export interface CastApiPostCastRequest {
+  /**
+   *
+   * @type {PostCastReqBody}
+   * @memberof CastApiPostCast
+   */
+  readonly postCastReqBody: PostCastReqBody;
+}
 
 /**
  * CastApi - object-oriented interface
@@ -502,67 +561,68 @@ export class CastApi extends BaseAPI {
   /**
    * Gets information about an individual cast by passing in a web URL or cast hash
    * @summary Retrieve cast for a given hash
-   * @param {CastParamType} type
-   * @param {string} identifier Cast identifier (Its either a url or a hash)
+   * @param {CastApiCastRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
   public cast(
-    type: CastParamType,
-    identifier: string,
+    requestParameters: CastApiCastRequest,
     options?: AxiosRequestConfig
   ) {
     return CastApiFp(this.configuration)
-      .cast(type, identifier, options)
+      .cast(requestParameters.type, requestParameters.identifier, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Retrieve multiple casts using their respective hashes.
    * @summary Gets information about an array of casts
-   * @param {GetCastsReqBody} getCastsReqBody
+   * @param {CastApiCastsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
-  public casts(getCastsReqBody: GetCastsReqBody, options?: AxiosRequestConfig) {
+  public casts(
+    requestParameters: CastApiCastsRequest,
+    options?: AxiosRequestConfig
+  ) {
     return CastApiFp(this.configuration)
-      .casts(getCastsReqBody, options)
+      .casts(requestParameters.getCastsReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Delete an existing cast. \\ (In order to delete a cast `signer_uuid` must be approved)
    * @summary Delete a cast
-   * @param {DeleteCastReqBody} deleteCastReqBody
+   * @param {CastApiDeleteCastRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
   public deleteCast(
-    deleteCastReqBody: DeleteCastReqBody,
+    requestParameters: CastApiDeleteCastRequest,
     options?: AxiosRequestConfig
   ) {
     return CastApiFp(this.configuration)
-      .deleteCast(deleteCastReqBody, options)
+      .deleteCast(requestParameters.deleteCastReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Posts a cast or cast reply. Works with mentions and embeds.   (In order to post a cast `signer_uuid` must be approved)
    * @summary Posts a cast
-   * @param {PostCastReqBody} postCastReqBody
+   * @param {CastApiPostCastRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
   public postCast(
-    postCastReqBody: PostCastReqBody,
+    requestParameters: CastApiPostCastRequest,
     options?: AxiosRequestConfig
   ) {
     return CastApiFp(this.configuration)
-      .postCast(postCastReqBody, options)
+      .postCast(requestParameters.postCastReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

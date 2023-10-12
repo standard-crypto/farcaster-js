@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -241,35 +239,63 @@ export const VerificationApiFactory = function (
     /**
      * Checks if a given Ethereum address has a Farcaster user associated with it. Note: if an address is associated with multiple users, the API will return the user who most recently published a verification with the address (based on when Warpcast received the proof, not a self-reported timestamp).
      * @summary Retrieve user for a given ethereum address
-     * @param {string} address
+     * @param {VerificationApiUserByVerificationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     userByVerification(
-      address: string,
-      options?: any
+      requestParameters: VerificationApiUserByVerificationRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<User200Response> {
       return localVarFp
-        .userByVerification(address, options)
+        .userByVerification(requestParameters.address, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Get all known verifications of a user
      * @summary Retrieve verifications for a given FID
-     * @param {number} fid FID of the user
+     * @param {VerificationApiVerificationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     verifications(
-      fid: number,
-      options?: any
+      requestParameters: VerificationApiVerificationsRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<VerificationResponse> {
       return localVarFp
-        .verifications(fid, options)
+        .verifications(requestParameters.fid, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for userByVerification operation in VerificationApi.
+ * @export
+ * @interface VerificationApiUserByVerificationRequest
+ */
+export interface VerificationApiUserByVerificationRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof VerificationApiUserByVerification
+   */
+  readonly address: string;
+}
+
+/**
+ * Request parameters for verifications operation in VerificationApi.
+ * @export
+ * @interface VerificationApiVerificationsRequest
+ */
+export interface VerificationApiVerificationsRequest {
+  /**
+   * FID of the user
+   * @type {number}
+   * @memberof VerificationApiVerifications
+   */
+  readonly fid: number;
+}
 
 /**
  * VerificationApi - object-oriented interface
@@ -281,28 +307,34 @@ export class VerificationApi extends BaseAPI {
   /**
    * Checks if a given Ethereum address has a Farcaster user associated with it. Note: if an address is associated with multiple users, the API will return the user who most recently published a verification with the address (based on when Warpcast received the proof, not a self-reported timestamp).
    * @summary Retrieve user for a given ethereum address
-   * @param {string} address
+   * @param {VerificationApiUserByVerificationRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof VerificationApi
    */
-  public userByVerification(address: string, options?: AxiosRequestConfig) {
+  public userByVerification(
+    requestParameters: VerificationApiUserByVerificationRequest,
+    options?: AxiosRequestConfig
+  ) {
     return VerificationApiFp(this.configuration)
-      .userByVerification(address, options)
+      .userByVerification(requestParameters.address, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Get all known verifications of a user
    * @summary Retrieve verifications for a given FID
-   * @param {number} fid FID of the user
+   * @param {VerificationApiVerificationsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof VerificationApi
    */
-  public verifications(fid: number, options?: AxiosRequestConfig) {
+  public verifications(
+    requestParameters: VerificationApiVerificationsRequest,
+    options?: AxiosRequestConfig
+  ) {
     return VerificationApiFp(this.configuration)
-      .verifications(fid, options)
+      .verifications(requestParameters.fid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

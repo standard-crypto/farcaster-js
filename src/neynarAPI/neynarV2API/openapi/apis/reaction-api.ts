@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -248,35 +246,63 @@ export const ReactionApiFactory = function (
     /**
      * Delete a reaction (like or recast) to a given cast \\ (In order to delete a reaction `signer_uuid` must be approved)
      * @summary Delete a reaction
-     * @param {ReactionReqBody} reactionReqBody
+     * @param {ReactionApiDeleteReactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     deleteReaction(
-      reactionReqBody: ReactionReqBody,
-      options?: any
+      requestParameters: ReactionApiDeleteReactionRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<OperationResponse> {
       return localVarFp
-        .deleteReaction(reactionReqBody, options)
+        .deleteReaction(requestParameters.reactionReqBody, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Post a reaction (like or recast) to a given cast \\ (In order to post a reaction `signer_uuid` must be approved)
      * @summary Posts a reaction
-     * @param {ReactionReqBody} reactionReqBody
+     * @param {ReactionApiPostReactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     postReaction(
-      reactionReqBody: ReactionReqBody,
-      options?: any
+      requestParameters: ReactionApiPostReactionRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<OperationResponse> {
       return localVarFp
-        .postReaction(reactionReqBody, options)
+        .postReaction(requestParameters.reactionReqBody, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for deleteReaction operation in ReactionApi.
+ * @export
+ * @interface ReactionApiDeleteReactionRequest
+ */
+export interface ReactionApiDeleteReactionRequest {
+  /**
+   *
+   * @type {ReactionReqBody}
+   * @memberof ReactionApiDeleteReaction
+   */
+  readonly reactionReqBody: ReactionReqBody;
+}
+
+/**
+ * Request parameters for postReaction operation in ReactionApi.
+ * @export
+ * @interface ReactionApiPostReactionRequest
+ */
+export interface ReactionApiPostReactionRequest {
+  /**
+   *
+   * @type {ReactionReqBody}
+   * @memberof ReactionApiPostReaction
+   */
+  readonly reactionReqBody: ReactionReqBody;
+}
 
 /**
  * ReactionApi - object-oriented interface
@@ -288,34 +314,34 @@ export class ReactionApi extends BaseAPI {
   /**
    * Delete a reaction (like or recast) to a given cast \\ (In order to delete a reaction `signer_uuid` must be approved)
    * @summary Delete a reaction
-   * @param {ReactionReqBody} reactionReqBody
+   * @param {ReactionApiDeleteReactionRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ReactionApi
    */
   public deleteReaction(
-    reactionReqBody: ReactionReqBody,
+    requestParameters: ReactionApiDeleteReactionRequest,
     options?: AxiosRequestConfig
   ) {
     return ReactionApiFp(this.configuration)
-      .deleteReaction(reactionReqBody, options)
+      .deleteReaction(requestParameters.reactionReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Post a reaction (like or recast) to a given cast \\ (In order to post a reaction `signer_uuid` must be approved)
    * @summary Posts a reaction
-   * @param {ReactionReqBody} reactionReqBody
+   * @param {ReactionApiPostReactionRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ReactionApi
    */
   public postReaction(
-    reactionReqBody: ReactionReqBody,
+    requestParameters: ReactionApiPostReactionRequest,
     options?: AxiosRequestConfig
   ) {
     return ReactionApiFp(this.configuration)
-      .postReaction(reactionReqBody, options)
+      .postReaction(requestParameters.reactionReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

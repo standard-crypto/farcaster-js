@@ -7,5 +7,5 @@ const apiKey = "NeynarAPIKey";
 const signerUuid = "signerUUID";
 const apiClient = new NeynarAPIClient(apiKey);
 
-const signer = await apiClient.fetchSigner(signerUuid);
+const signer = await apiClient.clients.v2.fetchSigner(signerUuid);
 console.log(`Signer: ${signer}`);

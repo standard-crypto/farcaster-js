@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -252,39 +250,77 @@ export const FollowsApiFactory = function (
     /**
      * Gets a list of users who follow a given user in reverse chronological order.
      * @summary Gets all followers for a given FID
-     * @param {number} fid FID of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {FollowsApiFollowersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     followers(
-      fid: number,
-      viewerFid?: number,
-      options?: any
+      requestParameters: FollowsApiFollowersRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<FollowResponse> {
       return localVarFp
-        .followers(fid, viewerFid, options)
+        .followers(requestParameters.fid, requestParameters.viewerFid, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Gets a list of users who is following a given user in reverse chronological order.
      * @summary Gets all following users of a FID
-     * @param {number} fid FID of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {FollowsApiFollowingRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     following(
-      fid: number,
-      viewerFid?: number,
-      options?: any
+      requestParameters: FollowsApiFollowingRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<FollowResponse> {
       return localVarFp
-        .following(fid, viewerFid, options)
+        .following(requestParameters.fid, requestParameters.viewerFid, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for followers operation in FollowsApi.
+ * @export
+ * @interface FollowsApiFollowersRequest
+ */
+export interface FollowsApiFollowersRequest {
+  /**
+   * FID of the user
+   * @type {number}
+   * @memberof FollowsApiFollowers
+   */
+  readonly fid: number;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof FollowsApiFollowers
+   */
+  readonly viewerFid?: number;
+}
+
+/**
+ * Request parameters for following operation in FollowsApi.
+ * @export
+ * @interface FollowsApiFollowingRequest
+ */
+export interface FollowsApiFollowingRequest {
+  /**
+   * FID of the user
+   * @type {number}
+   * @memberof FollowsApiFollowing
+   */
+  readonly fid: number;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof FollowsApiFollowing
+   */
+  readonly viewerFid?: number;
+}
 
 /**
  * FollowsApi - object-oriented interface
@@ -296,38 +332,34 @@ export class FollowsApi extends BaseAPI {
   /**
    * Gets a list of users who follow a given user in reverse chronological order.
    * @summary Gets all followers for a given FID
-   * @param {number} fid FID of the user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {FollowsApiFollowersRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof FollowsApi
    */
   public followers(
-    fid: number,
-    viewerFid?: number,
+    requestParameters: FollowsApiFollowersRequest,
     options?: AxiosRequestConfig
   ) {
     return FollowsApiFp(this.configuration)
-      .followers(fid, viewerFid, options)
+      .followers(requestParameters.fid, requestParameters.viewerFid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Gets a list of users who is following a given user in reverse chronological order.
    * @summary Gets all following users of a FID
-   * @param {number} fid FID of the user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {FollowsApiFollowingRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof FollowsApi
    */
   public following(
-    fid: number,
-    viewerFid?: number,
+    requestParameters: FollowsApiFollowingRequest,
     options?: AxiosRequestConfig
   ) {
     return FollowsApiFp(this.configuration)
-      .following(fid, viewerFid, options)
+      .following(requestParameters.fid, requestParameters.viewerFid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

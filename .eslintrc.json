@@ -18,6 +18,8 @@
     "rollup.config.js",
     "src/contracts/*",
     "src/merkleAPI/swagger/*",
+    "src/neynarAPI/neynarV1API/openapi/*",
+    "src/neynarAPI/neynarV2API/openapi/*",
     "dist/*",
     "types/*"
   ],

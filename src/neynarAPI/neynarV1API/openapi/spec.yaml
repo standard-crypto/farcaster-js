@@ -12,7 +12,7 @@ components:
       type: apiKey
       in: header
       name: api_key
-      description: API key required for authentication
+      description: API key required for authentication. use value --> NEYNAR_API_DOCS<-- for testing
 
   schemas:
     ViewerContext:
@@ -43,6 +43,22 @@ components:
         The status of a user.
           - active: The user is currently active.
           - inactive: The user is not currently active.
+    ReactionType:
+      type: string
+      enum:
+        - like
+        - recast
+      description: |
+        The reaction type of a cast.
+          - like: Cast is being liked by a user.
+          - recast: Cast is being recasted by a user.
+    CastType:
+      type: string
+      enum:
+        - cast-mention
+        - cast-reply
+      description: |
+        The notification type of a cast.
     Address:
       type: string
       default: "0x5A927Ac639636E534b678e81768CA19e2C6280B7"
@@ -108,7 +124,6 @@ components:
                   type: array
                   items:
                     type: string
-                    properties: {}
         followerCount:
           type: integer
           format: int32
@@ -243,6 +258,13 @@ components:
             followedBy:
               type: boolean
               description: Indicates if the recaster is followed by the viewer.
+    EmbedUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
     ReactionWithCastMeta:
       type: object
       description: "Reaction of a user (either like or recast), along with its associated cast"
@@ -261,10 +283,7 @@ components:
             reactor_fid:
               $ref: "#/components/schemas/Fid"
             reaction_type:
-              type: string
-              enum:
-                - like
-                - recast
+              $ref: "#/components/schemas/ReactionType"
             reaction_hash:
               type: string
             reaction_target_hash:
@@ -290,12 +309,7 @@ components:
             cast_embeds:
               type: array
               items:
-                type: object
-                required:
-                  - url
-                properties:
-                  url:
-                    type: string
+                $ref: "#/components/schemas/EmbedUrl"
             cast_timestamp:
               type: string
               format: date-time
@@ -311,10 +325,7 @@ components:
         - castHash
       properties:
         type:
-          type: string
-          enum:
-            - like
-            - recast
+          $ref: "#/components/schemas/ReactionType"
         hash:
           $ref: "#/components/schemas/Address"
         reactor:
@@ -334,11 +345,6 @@ components:
         - text
         - timestamp
         - embeds
-        - reactions
-        - recasts
-        - recasters
-        - replies
-        - threadHash
       properties:
         hash:
           type: string
@@ -350,7 +356,6 @@ components:
           nullable: true
         parentAuthor:
           type: object
-
           allOf:
             - $ref: "#/components/schemas/Fid"
             - required:
@@ -359,7 +364,6 @@ components:
                 fid:
                   type: string
                   nullable: true
-
         author:
           oneOf:
             - $ref: "#/components/schemas/User"
@@ -376,57 +380,56 @@ components:
         embeds:
           type: array
           items:
-            type: object
-            required:
-              - url
-            properties:
-              url:
-                type: string
+            $ref: "#/components/schemas/EmbedUrl"
         type:
-          type: string
-        reactions:
-          type: object
-          required:
-            - count
-            - fids
-          properties:
-            count:
-              type: integer
-              format: int32
-            fids:
-              type: array
-              items:
-                $ref: "#/components/schemas/Fid"
-        recasts:
-          type: object
-          required:
-            - count
-            - fids
-          properties:
-            count:
-              type: integer
-              format: int32
-            fids:
-              type: array
-              items:
-                $ref: "#/components/schemas/Fid"
-        recasters:
+          $ref: "#/components/schemas/CastType"
+    CastWithInteractionsReactionsOrRecasts:
+      type: object
+      required:
+        - count
+        - fids
+      properties:
+        count:
+          type: integer
+          format: int32
+        fids:
           type: array
           items:
-            type: string
-        viewerContext:
-          $ref: "#/components/schemas/ViewerContext"
-        replies:
-          type: object
-          required:
-            - count
+            $ref: "#/components/schemas/Fid"
+    CastWithInteractionsReplies:
+      type: object
+      required:
+        - count
+      properties:
+        count:
+          type: integer
+          format: int32
+    CastWithInteractions:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Cast"
+        - required:
+            - reactions
+            - recasts
+            - recasters
+            - replies
+            - threadHash
           properties:
-            count:
-              type: integer
-              format: int32
-        threadHash:
-          type: string
-          nullable: true
+            reactions:
+              $ref: "#/components/schemas/CastWithInteractionsReactionsOrRecasts"
+            recasts:
+              $ref: "#/components/schemas/CastWithInteractionsReactionsOrRecasts"
+            recasters:
+              type: array
+              items:
+                type: string
+            viewerContext:
+              $ref: "#/components/schemas/ViewerContext"
+            replies:
+              $ref: "#/components/schemas/CastWithInteractionsReplies"
+            threadHash:
+              type: string
+              nullable: true
     NextCursor:
       type: object
       description: Returns next cursor
@@ -436,6 +439,18 @@ components:
         cursor:
           type: string
           nullable: true
+    ReactionsAndRecastsNotification:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Cast"
+        - type: object
+          properties:
+            reactors:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+            reactionType:
+              $ref: "#/components/schemas/ReactionType"
     UserCastLikeResponse:
       type: object
       required:
@@ -484,7 +499,7 @@ components:
             - cast
           properties:
             cast:
-              $ref: "#/components/schemas/Cast"
+              $ref: "#/components/schemas/CastWithInteractions"
     AllCastsInThreadResponse:
       type: object
       required:
@@ -498,7 +513,7 @@ components:
             casts:
               type: array
               items:
-                $ref: "#/components/schemas/Cast"
+                $ref: "#/components/schemas/CastWithInteractions"
     CastsResponse:
       type: object
       required:
@@ -513,7 +528,7 @@ components:
             casts:
               type: array
               items:
-                $ref: "#/components/schemas/Cast"
+                $ref: "#/components/schemas/CastWithInteractions"
             next:
               $ref: "#/components/schemas/NextCursor"
     RecentCastsResponse:
@@ -530,7 +545,7 @@ components:
             casts:
               type: array
               items:
-                $ref: "#/components/schemas/Cast"
+                $ref: "#/components/schemas/CastWithInteractions"
             next:
               $ref: "#/components/schemas/NextCursor"
     VerificationResponse:
@@ -570,7 +585,24 @@ components:
             notifications:
               type: array
               items:
-                $ref: "#/components/schemas/Cast"
+                $ref: "#/components/schemas/CastWithInteractions"
+            next:
+              $ref: "#/components/schemas/NextCursor"
+    ReactionsAndRecastsResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: object
+          required:
+            - notifications
+            - next
+          properties:
+            notifications:
+              type: array
+              items:
+                $ref: "#/components/schemas/ReactionsAndRecastsNotification"
             next:
               $ref: "#/components/schemas/NextCursor"
     CustodyAddressResponse:
@@ -964,6 +996,14 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/Fid"
+        - name: parent_url
+          in: query
+          description: >-
+            A cast can be part of a certain channel. The channel is identified by `parent_url`. All casts in the channel ladder up to the same parent_url.
+          required: false
+          example: https://ethereum.org
+          schema:
+            type: string
         - name: cursor
           in: query
           description: Pagination cursor.
@@ -1116,6 +1156,54 @@ paths:
                 $ref: "#/components/schemas/MentionsAndRepliesResponse"
         "400":
           $ref: "#/components/responses/400Response"
+  /farcaster/reactions-and-recasts:
+    get:
+      tags:
+        - Notifications
+      summary: Get reactions and recasts
+      description: Get a list of reactions and recasts to the users’s casts in reverse chronological order
+      operationId: reactions-and-recasts
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          description: fid of a user
+          example: 6131
+          schema:
+            $ref: "#/components/schemas/Fid"
+        - name: viewerFid
+          in: query
+          description: >-
+            fid of the user viewing this information, needed for contextual
+            information.
+          required: false
+          example: 3
+          schema:
+            $ref: "#/components/schemas/Fid"
+        - name: cursor
+          in: query
+          description: Pagination cursor.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results to retrieve (default 25, max 150)
+          required: false
+          schema:
+            type: integer
+            default: 25
+            minimum: 1
+            maximum: 150
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReactionsAndRecastsResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
   /farcaster/cast-likes:
     get:
       tags:
@@ -1194,7 +1282,7 @@ paths:
             type: string
         - name: limit
           in: query
-          description: Number of results to retrieve (default 25, max 100)
+          description: Number of results to retrieve (default 25, max 150)
           required: false
           schema:
             type: integer

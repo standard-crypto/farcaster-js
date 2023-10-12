@@ -1,6 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable eslint-comments/no-unlimited-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -21,9 +18,7 @@
  * @enum {string}
  */
 
-export const ReactionType = {
-  Like: "like",
-  Recast: "recast",
-} as const;
-
-export type ReactionType = (typeof ReactionType)[keyof typeof ReactionType];
+export enum ReactionType {
+  Like = "like",
+  Recast = "recast",
+}

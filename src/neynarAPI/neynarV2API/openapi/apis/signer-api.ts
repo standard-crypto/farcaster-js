@@ -1,6 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable eslint-comments/no-unlimited-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -55,7 +52,7 @@ export const SignerApiAxiosParamCreator = function (
 ) {
   return {
     /**
-     * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
+     * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
      * @summary Creates a signer and returns the signer status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -226,7 +223,7 @@ export const SignerApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = SignerApiAxiosParamCreator(configuration);
   return {
     /**
-     * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
+     * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
      * @summary Creates a signer and returns the signer status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -310,12 +307,12 @@ export const SignerApiFactory = function (
   const localVarFp = SignerApiFp(configuration);
   return {
     /**
-     * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
+     * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
      * @summary Creates a signer and returns the signer status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createSigner(options?: any): AxiosPromise<Signer> {
+    createSigner(options?: AxiosRequestConfig): AxiosPromise<Signer> {
       return localVarFp
         .createSigner(options)
         .then((request) => request(axios, basePath));
@@ -323,32 +320,63 @@ export const SignerApiFactory = function (
     /**
      * Registers an app fid, deadline and a signature. Returns the signer status with an approval url.
      * @summary Register Signed Key
-     * @param {RegisterSignerKeyReqBody} registerSignerKeyReqBody
+     * @param {SignerApiRegisterSignedKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     registerSignedKey(
-      registerSignerKeyReqBody: RegisterSignerKeyReqBody,
-      options?: any
+      requestParameters: SignerApiRegisterSignedKeyRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<Signer> {
       return localVarFp
-        .registerSignedKey(registerSignerKeyReqBody, options)
+        .registerSignedKey(requestParameters.registerSignerKeyReqBody, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Gets information status of a signer by passing in a signer_uuid (Use post API to generate a signer)
      * @summary Fetches the status of a signer
-     * @param {string} signerUuid
+     * @param {SignerApiSignerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    signer(signerUuid: string, options?: any): AxiosPromise<Signer> {
+    signer(
+      requestParameters: SignerApiSignerRequest,
+      options?: AxiosRequestConfig
+    ): AxiosPromise<Signer> {
       return localVarFp
-        .signer(signerUuid, options)
+        .signer(requestParameters.signerUuid, options)
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for registerSignedKey operation in SignerApi.
+ * @export
+ * @interface SignerApiRegisterSignedKeyRequest
+ */
+export interface SignerApiRegisterSignedKeyRequest {
+  /**
+   *
+   * @type {RegisterSignerKeyReqBody}
+   * @memberof SignerApiRegisterSignedKey
+   */
+  readonly registerSignerKeyReqBody: RegisterSignerKeyReqBody;
+}
+
+/**
+ * Request parameters for signer operation in SignerApi.
+ * @export
+ * @interface SignerApiSignerRequest
+ */
+export interface SignerApiSignerRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof SignerApiSigner
+   */
+  readonly signerUuid: string;
+}
 
 /**
  * SignerApi - object-oriented interface
@@ -358,7 +386,7 @@ export const SignerApiFactory = function (
  */
 export class SignerApi extends BaseAPI {
   /**
-   * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
+   * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
    * @summary Creates a signer and returns the signer status
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -373,31 +401,34 @@ export class SignerApi extends BaseAPI {
   /**
    * Registers an app fid, deadline and a signature. Returns the signer status with an approval url.
    * @summary Register Signed Key
-   * @param {RegisterSignerKeyReqBody} registerSignerKeyReqBody
+   * @param {SignerApiRegisterSignedKeyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SignerApi
    */
   public registerSignedKey(
-    registerSignerKeyReqBody: RegisterSignerKeyReqBody,
+    requestParameters: SignerApiRegisterSignedKeyRequest,
     options?: AxiosRequestConfig
   ) {
     return SignerApiFp(this.configuration)
-      .registerSignedKey(registerSignerKeyReqBody, options)
+      .registerSignedKey(requestParameters.registerSignerKeyReqBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Gets information status of a signer by passing in a signer_uuid (Use post API to generate a signer)
    * @summary Fetches the status of a signer
-   * @param {string} signerUuid
+   * @param {SignerApiSignerRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SignerApi
    */
-  public signer(signerUuid: string, options?: AxiosRequestConfig) {
+  public signer(
+    requestParameters: SignerApiSignerRequest,
+    options?: AxiosRequestConfig
+  ) {
     return SignerApiFp(this.configuration)
-      .signer(signerUuid, options)
+      .signer(requestParameters.signerUuid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

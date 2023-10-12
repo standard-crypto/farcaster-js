@@ -1,19 +1,16 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { expectDefined } from "./utils";
+import { Logger, silentLogger, generateSignature } from "../src/";
 import {
-  NeynarAPIClient,
-  Logger,
-  silentLogger,
-  generateSignature,
-} from "../src/";
-import {
-  Cast as v2Cast,
+  Cast,
   PostCastResponseCast,
   EmbedUrl,
   ReactionType,
+  NeynarV2APIClient,
+  Signer,
 } from "../src/neynarAPI/neynarV2API";
-import { ReactionTypeEnum } from "../src/neynarAPI/neynarV1API";
+import { NeynarAPIClient } from "../src/neynarAPI";
 
 chai.use(chaiAsPromised);
 
@@ -36,6 +33,7 @@ const testLogger: Logger = {
 const userDwrFid = 3;
 const userGaviFid = 69; // @gavi
 const userBotFid = 6365; // @gavi-bot
+const invalidUserFid = 1111111111111111;
 
 async function sleep(ms: number): Promise<void> {
   return await new Promise((resolve) => setTimeout(resolve, ms));
@@ -47,576 +45,872 @@ if (apiKey !== undefined && apiKey !== "") {
 
     let client: NeynarAPIClient;
 
-    before("create client", function () {
+    before("create client", async function () {
       client = new NeynarAPIClient(apiKey, { logger: testLogger });
     });
 
-    describe("#signer", function () {
-      /**
-       * Note: While testing please reuse the signer, it costs money to approve a signer.
-       * Steps to create & register a signer:
-       * 1. Remove the skip on "can create a signer" and capture the Signer UUID & public key from the logs
-       * 2. Set the values for your Signer UUID & public key in your .env file
-       * 3. Replace the skip to "can create a signer" and remove the skip on "can register a signer"
-       *   - Update the deadline if you want to use the signer for a longer period
-       * 4. Open the signer_approval_url from the logged registeredSigner on a mobile device
-       *    that is logged into the same account
-       *    - if android -> update the deeplink to follow this format
-       *     https://client.warpcast.com/deeplinks/signed-key-request?token=0x1234
-       * 5. Approve the signer (costs $0.99)
-       * 6. Replace the skip on "can register a signer" and run the tests
-       */
-      let signature: string | undefined;
-      const deadline = Math.floor(Date.now() / 1000) + 86400;
-      it.skip("can create a signer", async function () {
-        const signer = await client.createSigner();
-        expectDefined(signer);
-        // eslint-disable-next-line no-console
-        console.log(signer);
-      });
-      it("can generate a signature", async function () {
-        signature = await generateSignature(
-          signerPublicKey ?? "",
-          userBotFid,
-          privateKey ?? "",
-          deadline
-        );
-        expectDefined(signature);
-      });
-      it.skip("can register a signer", async function () {
-        const registeredSigner = await client.registerSigner(
-          signerUuid ?? "",
-          userBotFid,
-          deadline,
-          signature ?? ""
-        );
-        expectDefined(registeredSigner);
-        expect(registeredSigner.signer_uuid).to.be.eq(signerUuid);
-        expect(registeredSigner.public_key).to.be.eq(signerPublicKey);
-        // eslint-disable-next-line no-console
-        console.log(registeredSigner);
-      });
-      it("can fetch a signer", async function () {
-        const signer = await client.fetchSigner(signerUuid ?? "");
-        expectDefined(signer);
-        expect(signer.public_key).to.be.eq(signerPublicKey);
-      });
-    });
-
-    describe("#fetchCast", function () {
-      it("can fetch an existing cast", async function () {
-        const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
-        const cast = await client.fetchCast(existingCastHash);
-        expectDefined(cast);
-        expect(cast.hash).to.eq(existingCastHash);
-      });
-
-      it("returns null for nonexistent cast", async function () {
-        const nonexistentCastHash =
-          "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
-        const cast = await client.fetchCast(nonexistentCastHash);
-        expect(cast).to.be.null;
-      });
-    });
-
-    describe("#fetchCastsInThread", function () {
-      it("can fetch multiple pages of casts", async function () {
-        const threadHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
-        const castSet = new Set();
-        const castsInThread = await client.fetchCastsInThread({
-          hash: threadHash,
-        });
-        expectDefined(castsInThread);
-        for (const cast of castsInThread) {
-          expectDefined(cast.hash);
-          expect(castSet.has(cast.hash)).to.be.false;
-          castSet.add(cast.hash);
-        }
-        expect(castsInThread.length).to.be.greaterThan(10);
-      });
-    });
-
-    describe("#fetchCastsForUser", function () {
-      it("can fetch at least one cast", async function () {
-        let foundCast = false;
-        // eslint-disable-next-line no-unreachable-loop
-        for await (const cast of client.fetchCastsForUser(userGaviFid)) {
-          foundCast = true;
-          expect(cast.author.fid).to.eq(userGaviFid.toString());
-          expectDefined(cast.timestamp);
-          break;
-        }
-        expect(foundCast).to.be.true;
-      });
-
-      it("can fetch multiple pages worth of casts", async function () {
-        let castCount = 0;
-        const castSet = new Set();
-        const castCountBiggerThanPageSize = 150;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for await (const cast of client.fetchCastsForUser(userDwrFid, {
-          pageSize: 100,
-        })) {
-          expect(castSet.has(cast.hash)).to.be.false;
-          castSet.add(cast.hash);
-          castCount++;
-          if (castCount >= castCountBiggerThanPageSize) {
-            break;
-          }
-        }
-        expect(castCount).to.be.greaterThanOrEqual(castCountBiggerThanPageSize);
-      });
-    });
-
-    describe("#fetchRecentCasts", function () {
-      it("can fetch multiple pages of casts", async function () {
-        let castCount = 0;
-        const castSet = new Set();
-        for await (const cast of client.fetchRecentCasts({ pageSize: 5 })) {
-          expectDefined(cast);
-          expectDefined(cast.hash);
-          expect(castSet.has(cast.hash)).to.be.false;
-          castSet.add(cast.hash);
-          castCount++;
-          if (castCount === 10) break;
-        }
-        expect(castCount).to.eq(10);
-      });
-    });
-
-    describe("#fetchRecentUsers", function () {
-      it("can fetch multiple pages of users", async function () {
-        let userCount = 0;
-        const userSet = new Set();
-        for await (const user of client.fetchRecentUsers({ pageSize: 5 })) {
-          expectDefined(user);
-          expectDefined(user.username);
-          expect(userSet.has(user.fid)).to.be.false;
-          userSet.add(user.fid);
-          userCount++;
-          if (userCount === 10) break;
-        }
-        expect(userCount).to.eq(10);
-      });
-    });
-
-    describe("#fetchUserCastLikes", function () {
-      it("can fetch multiple pages of likes", async function () {
-        let castCount = 0;
-        const castSet = new Set();
-        for await (const cast of client.fetchUserCastLikes(userDwrFid, {
-          pageSize: 5,
-        })) {
-          expectDefined(cast);
-          expectDefined(cast.reaction);
-          expect(cast.reaction.reaction_type).to.eq("like");
-          expect(castSet).not.to.contain(cast.reaction.reaction_target_hash);
-          castSet.add(cast.reaction.reaction_target_hash);
-          castCount++;
-          if (castCount === 10) break;
-        }
-        expect(castCount).to.eq(10);
-      });
-    });
-
-    describe("#lookupUserByFid", function () {
-      it("can find existing user", async function () {
-        const user = await client.lookupUserByFid(userGaviFid);
-        expect(user?.username).to.eq("gavi");
-      });
-
-      it("returns null if user not found", async function () {
-        const user = await client.lookupUserByFid(111111111111);
-        expect(user).to.be.null;
-      });
-    });
-
-    describe("#lookupUserByUsername", function () {
-      it("can find existing user", async function () {
-        const user = await client.lookupUserByUsername("dwr.eth");
-        expect(user?.username).to.eq("dwr.eth");
-      });
-
-      it("returns null if user not found", async function () {
-        const user = await client.lookupUserByUsername("nosuchusername11"); // cSpell:disable-line
-        expect(user).to.be.null;
-      });
-    });
-
-    describe("#lookupUserByVerification", function () {
-      it("can find existing user", async function () {
-        const user = await client.lookupUserByVerification(
-          "0xAA8b53BE5670d56bA9795AFCEdF6d39b96f5f1E2"
-        );
-        expect(user?.username).to.eq("gavi-bot");
-      });
-
-      it("returns null if address not found", async function () {
-        const user = await client.lookupUserByVerification(
-          "0x0000000000000000000000000000000000000000"
-        );
-        expect(user).to.be.null;
-      });
-    });
-
-    describe("#fetchCustodyAddress", function () {
-      it("can lookup by fid", async function () {
-        const expectedCustodyAddr =
-          "0x6b0bda3f2ffed5efc83fa8c024acff1dd45793f1";
-        const custodyAddr = await client.fetchCustodyAddressForUser(userDwrFid);
-        expect(custodyAddr).to.eq(expectedCustodyAddr);
-      });
-
-      it("returns null if address not found", async function () {
-        const user = await client.fetchCustodyAddressForUser(1111111111111111);
-        expect(user).to.be.null;
-      });
-    });
-
-    describe("verifications", function () {
-      it("can fetch a user's verifications", async function () {
-        const verifications = await client.fetchUserVerifications(userDwrFid);
-        expect(verifications?.fid).eq(userDwrFid.toString());
-        expect(verifications?.verifications.length).to.be.greaterThan(0);
-      });
-
-      it("returns empty generator for user with no verifications", async function () {
-        const verifications = await client.fetchUserVerifications(100);
-        expect(verifications?.verifications.length).to.eq(0);
-      });
-    });
-
-    describe("notifications", function () {
-      it("can fetch mention and reply notifications", async function () {
-        let castCount = 0;
-        const notificationSet = new Set();
-        let notificationFound = false;
-        for await (const notification of client.fetchMentionAndReplyNotifications(
-          userDwrFid,
-          {
-            pageSize: 5,
-          }
-        )) {
-          expectDefined(notification);
-          expectDefined(notification.hash);
-          expectDefined(notification.text);
-          expect(notificationSet.has(notification.hash)).to.be.false;
-          notificationSet.add(notification.hash);
-          castCount++;
-          notificationFound = true;
-          if (castCount === 10) break;
-        }
-        expect(castCount).to.eq(10);
-        expect(notificationFound).to.be.true;
-      });
-    });
-
-    describe("get reactions", function () {
-      it("can fetch reactions to a cast", async function () {
-        const existingCastHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
-        let castCount = 0;
-        const reactionSet = new Set();
-        let reactionFound = false;
-        for await (const observedReaction of client.fetchCastLikes(
-          existingCastHash,
-          { pageSize: 5 }
-        )) {
-          expect(observedReaction.type).eq(ReactionTypeEnum.Like);
-          expect(reactionSet.has(observedReaction.hash)).to.be.false;
-          reactionSet.add(observedReaction.hash);
-          castCount++;
-          reactionFound = true;
-          if (castCount === 10) break;
-        }
-        expect(castCount).to.eq(10);
-        expect(reactionFound).to.be.true;
-      });
-    });
-
-    describe("get follows", function () {
-      it("can fetch followers of a user", async function () {
-        let followerFound = false;
-        let followersFound = 0;
-        const followersSet = new Set();
-        const followers = await client.fetchUserFollowers(userGaviFid);
-        for (const follower of followers) {
-          expectDefined(follower);
-          expectDefined(follower.fid);
-          expect(followersSet.has(follower.fid)).to.be.false;
-          followersSet.add(follower.fid);
-          followerFound = true;
-          followersFound++;
-          if (followersFound === 50) break;
-        }
-        expect(followersFound).to.eq(50);
-        expect(followerFound).to.be.true;
-      });
-
-      it("can fetch users followed by a user", async function () {
-        let followingFound = false;
-        let dwrFound = false;
-        const followingSet = new Set();
-        const following = await client.fetchUserFollowers(userGaviFid);
-        for (const follow of following) {
-          if (follow.fid === userDwrFid) {
-            dwrFound = true;
-            break;
-          }
-          expectDefined(follow);
-          expectDefined(follow.fid);
-          expect(followingSet.has(follow.fid)).to.be.false;
-          followingSet.add(follow.fid);
-          followingFound = true;
-        }
-        expect(followingFound).to.be.true;
-        expect(dwrFound).to.be.true;
-      });
-    });
-
-    if (signerUuid !== undefined && signerUuid !== "") {
-      describe("publish / delete casts", function () {
-        let publishedCast: PostCastResponseCast | null;
-        let reply: PostCastResponseCast | null;
-
-        it("can publish a basic cast with no parent", async function () {
-          const text = "this is a test cast";
-          publishedCast = await client.publishCast(signerUuid, text);
-          expectDefined(publishedCast);
-          expect(publishedCast.text).to.eq(text);
-        });
-
-        it("can reply to an existing cast", async function () {
-          const text = "this is a reply to the test cast";
-          expectDefined(publishedCast);
-          await sleep(1000);
-          reply = await client.publishCast(signerUuid, text, {
-            replyTo: publishedCast.hash,
-          });
-          expect(reply.text).to.eq(text);
-          await sleep(1000);
-          const replyCast = await client.fetchCast(reply.hash);
-          expect(replyCast?.parent_hash).to.eq(publishedCast.hash);
-        });
-
-        it("can reply to a url", async function () {
-          const text = "this is a reply to the test cast";
-          const replyToUrl = "https://www.farcaster.xyz/";
-          await sleep(1000);
-          reply = await client.publishCast(signerUuid, text, {
-            replyTo: replyToUrl,
-          });
-          expect(reply.text).to.eq(text);
-          await sleep(1000);
-          const replyCast = await client.fetchCast(reply.hash);
-          await client.deleteCast(signerUuid, reply.hash);
-          expect(replyCast?.parent_url).to.eq(replyToUrl);
-        });
-
-        it("can reply to an arbitrary string (FIP 2)", async function () {
-          const text = "this is a reply to the test cast";
-          const replyTo = "random";
-          await sleep(1000);
-          reply = await client.publishCast(signerUuid, text, { replyTo });
-          expect(reply.text).to.eq(text);
-          await sleep(1000);
-          const replyCast = await client.fetchCast(reply.hash);
-          await client.deleteCast(signerUuid, reply.hash);
-          expect(replyCast?.parent_url).to.eq(replyTo);
-        });
-
-        it("can delete a cast", async function () {
-          expectDefined(reply);
-          expectDefined(publishedCast);
-          await sleep(1000);
-          await client.deleteCast(signerUuid, reply.hash);
-          await client.deleteCast(signerUuid, publishedCast.hash);
-        });
-
-        // no error thrown at the moment
-        it.skip("cannot delete a cast from a different author", async function () {
-          let errorThrownAndParsedCorrectly = false;
-          try {
-            await client.deleteCast(
-              signerUuid,
-              "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1"
-            ); // a cast by @dwr
-          } catch (error) {
-            expect(NeynarAPIClient.isApiErrorResponse(error)).is.true;
-            if (NeynarAPIClient.isApiErrorResponse(error)) {
-              // repeating the above just for the type inference
-              expect(error.response.status).to.eq(400);
-              expect(error.response.data.code).to.contain(
-                "Could not remove cast"
-              );
-              errorThrownAndParsedCorrectly = true;
+    describe("v1 Client", function () {
+      describe("Cast API", function () {
+        describe("#fetchCastsInThread", function () {
+          it("can fetch multiple pages of casts", async function () {
+            const threadHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+            const castSet = new Set();
+            const castsInThread = await client.clients.v1.fetchCastsInThread({
+              hash: threadHash,
+            });
+            expectDefined(castsInThread);
+            for (const cast of castsInThread) {
+              expectDefined(cast.hash);
+              expect(castSet.has(cast.hash)).to.be.false;
+              castSet.add(cast.hash);
             }
-          }
-          expect(errorThrownAndParsedCorrectly).to.be.true;
-        });
-      });
-
-      describe("cast embeds", function () {
-        it("can publish a cast with URL embeds", async function () {
-          const embedURL = "https://www.farcaster.xyz/";
-          const text = "this is a cast testing URL embed functionality";
-          const publishCastResp = await client.publishCast(signerUuid, text, {
-            embeds: [{ url: embedURL }],
+            expect(castsInThread.length).to.be.greaterThan(10);
           });
-          expectDefined(publishCastResp);
-
-          // Fetch the cast, the PostCastResponseCast does not contain the embeds
-          await sleep(1000);
-          const publishedCast = await client.fetchCast(publishCastResp.hash);
-          expectDefined(publishedCast);
-
-          expectDefined(publishedCast.embeds);
-          const urls = publishedCast.embeds;
-          expect(urls).to.have.length(1);
-          const publishedEmbed: EmbedUrl = urls[0] as EmbedUrl;
-          expect(publishedEmbed.url).to.be.eq(embedURL);
-          await client.deleteCast(signerUuid, publishedCast);
-        });
-
-        it("can publish a cast with image embeds", async function () {
-          const embedURL = "https://i.imgur.com/YPEZebo.png";
-          const text = "this is a cast testing image embed functionality";
-          const publishCastResp = await client.publishCast(signerUuid, text, {
-            embeds: [{ url: embedURL }],
+          it("returns empty generator for an invalid cast hash", async function () {
+            const threadHash = "0x0000000000000000000000000000000000000000";
+            const castsInThread = await client.clients.v1.fetchCastsInThread({
+              hash: threadHash,
+            });
+            expect(castsInThread).to.be.empty;
           });
-          expectDefined(publishCastResp);
-
-          // Fetch the cast, the PostCastResponseCast does not contain the embeds
-          await sleep(1000);
-          const publishedCast = await client.fetchCast(publishCastResp.hash);
-          expectDefined(publishedCast);
-
-          expectDefined(publishedCast.embeds);
-          const images = publishedCast.embeds;
-          expect(images).to.have.length(1);
-          const publishedEmbed: EmbedUrl = images[0] as EmbedUrl;
-          expect(publishedEmbed.url).to.be.eq(embedURL);
-          await client.deleteCast(signerUuid, publishedCast);
         });
-
-        it("can publish a cast with multiple embeds", async function () {
-          const embedURL = "https://www.farcaster.xyz/";
-          const imageURL = "https://i.imgur.com/YPEZebo.png";
-          const text = "this is a cast testing URL embed functionality";
-          const publishCastResp = await client.publishCast(signerUuid, text, {
-            embeds: [{ url: embedURL }, { url: imageURL }],
+        describe("#fetchCastsForUser", function () {
+          it("can fetch at least one cast", async function () {
+            let foundCast = false;
+            // eslint-disable-next-line no-unreachable-loop
+            for await (const cast of client.clients.v1.fetchCastsForUser(
+              userGaviFid
+            )) {
+              foundCast = true;
+              expect(cast.author.fid).to.eq(userGaviFid.toString());
+              expectDefined(cast.timestamp);
+              break;
+            }
+            expect(foundCast).to.be.true;
           });
-          expectDefined(publishCastResp);
 
-          // Fetch the cast, the PostCastResponseCast does not contain the embeds
-          await sleep(1000);
-          const publishedCast = await client.fetchCast(publishCastResp.hash);
-          expectDefined(publishedCast);
+          it("can fetch multiple pages worth of casts", async function () {
+            let castCount = 0;
+            const castSet = new Set();
+            const castCountBiggerThanPageSize = 150;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            for await (const cast of client.clients.v1.fetchCastsForUser(
+              userDwrFid,
+              {
+                pageSize: 100,
+              }
+            )) {
+              expect(castSet.has(cast.hash)).to.be.false;
+              castSet.add(cast.hash);
+              castCount++;
+              if (castCount >= castCountBiggerThanPageSize) {
+                break;
+              }
+            }
+            expect(castCount).to.be.greaterThanOrEqual(
+              castCountBiggerThanPageSize
+            );
+          });
 
-          expectDefined(publishedCast.embeds);
-          const embeds = publishedCast.embeds;
-          expect(embeds).to.have.length(2);
-          const publishedUrlEmbed: EmbedUrl = embeds[0] as EmbedUrl;
-          const publishedImageEmbed: EmbedUrl = embeds[1] as EmbedUrl;
-          expect(publishedUrlEmbed.url).to.be.eq(embedURL);
-          expect(publishedImageEmbed.url).to.be.eq(imageURL);
-          await client.deleteCast(signerUuid, publishedCast);
+          it("returns empty generator for an invalid user", async function () {
+            const casts = client.clients.v1.fetchCastsForUser(invalidUserFid);
+            expect(casts).to.be.empty;
+          });
+        });
+        describe("#fetchRecentCasts", function () {
+          it("can fetch multiple pages of casts", async function () {
+            let castCount = 0;
+            const castSet = new Set();
+            for await (const cast of client.clients.v1.fetchRecentCasts({
+              pageSize: 5,
+            })) {
+              expectDefined(cast);
+              expectDefined(cast.hash);
+              expect(castSet.has(cast.hash)).to.be.false;
+              castSet.add(cast.hash);
+              castCount++;
+              if (castCount === 10) break;
+            }
+            expect(castCount).to.eq(10);
+          });
         });
       });
-
-      describe("post reactions", function () {
-        let cast: v2Cast | null;
-
-        it("can react to a cast", async function () {
-          const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
-          cast = await client.fetchCast(existingCastHash);
-          expectDefined(cast);
-          const response = await client.reactToCast(
-            signerUuid,
-            ReactionType.Like,
-            cast
-          );
-          expect(response.success).to.be.true;
+      describe("User API", function () {
+        describe("#fetchRecentUsers", function () {
+          it("can fetch multiple pages of users", async function () {
+            let userCount = 0;
+            const userSet = new Set();
+            for await (const user of client.clients.v1.fetchRecentUsers({
+              pageSize: 5,
+            })) {
+              expectDefined(user);
+              expectDefined(user.username);
+              expect(userSet.has(user.fid)).to.be.false;
+              userSet.add(user.fid);
+              userCount++;
+              if (userCount === 10) break;
+            }
+            expect(userCount).to.eq(10);
+          });
         });
+        describe("#fetchUserCastLikes", function () {
+          it("can fetch multiple pages of likes", async function () {
+            let castCount = 0;
+            const castSet = new Set();
+            for await (const cast of client.clients.v1.fetchUserCastLikes(
+              userDwrFid,
+              {
+                pageSize: 5,
+              }
+            )) {
+              expectDefined(cast);
+              expectDefined(cast.reaction);
+              expect(cast.reaction.reaction_type).to.eq("like");
+              expect(castSet).not.to.contain(
+                cast.reaction.reaction_target_hash
+              );
+              castSet.add(cast.reaction.reaction_target_hash);
+              castCount++;
+              if (castCount === 10) break;
+            }
+            expect(castCount).to.eq(10);
+          });
+          it("can returns empty generator for an invalid user", async function () {
+            const casts = client.clients.v1.fetchUserCastLikes(invalidUserFid, {
+              pageSize: 5,
+            });
+            expect(casts).to.be.empty;
+          });
+        });
+        describe("#lookupUserByFid", function () {
+          it("can find existing user", async function () {
+            const user = await client.clients.v1.lookupUserByFid(userGaviFid);
+            expect(user?.username).to.eq("gavi");
+          });
 
-        it("can un-react to a cast", async function () {
-          expectDefined(cast);
-          const response = await client.removeReactionToCast(
-            signerUuid,
-            ReactionType.Like,
-            cast
-          );
-          expect(response.success).to.be.true;
+          it("returns null if user not found", async function () {
+            const user = await client.clients.v1.lookupUserByFid(
+              invalidUserFid
+            );
+            expect(user).to.be.null;
+          });
+        });
+        describe("#lookupUserByUsername", function () {
+          it("can find existing user", async function () {
+            const user = await client.clients.v1.lookupUserByUsername(
+              "dwr.eth"
+            );
+            expect(user?.username).to.eq("dwr.eth");
+          });
+
+          it("returns null if user not found", async function () {
+            const user = await client.clients.v1.lookupUserByUsername(
+              "nosuchusername11"
+            ); // cSpell:disable-line
+            expect(user).to.be.null;
+          });
+        });
+        describe("#fetchCustodyAddress", function () {
+          it("can lookup by fid", async function () {
+            const expectedCustodyAddr =
+              "0x6b0bda3f2ffed5efc83fa8c024acff1dd45793f1";
+            const custodyAddr =
+              await client.clients.v1.fetchCustodyAddressForUser(userDwrFid);
+            expect(custodyAddr).to.eq(expectedCustodyAddr);
+          });
+
+          it("returns null if address not found", async function () {
+            const user = await client.clients.v1.fetchCustodyAddressForUser(
+              invalidUserFid
+            );
+            expect(user).to.be.null;
+          });
         });
       });
-
-      describe("recasts", function () {
-        let cast: v2Cast | null;
-        it("can recast a cast", async function () {
-          const existingCastHash = "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
-          cast = await client.fetchCast(existingCastHash);
-          expectDefined(cast);
-          const response = await client.reactToCast(
-            signerUuid,
-            ReactionType.Recast,
-            cast
-          );
-          expect(response.success).to.be.true;
+      describe("Verifications API", function () {
+        describe("#fetchUserVerifications", function () {
+          it("can fetch a user's verifications", async function () {
+            const verifications =
+              await client.clients.v1.fetchUserVerifications(userDwrFid);
+            expect(verifications?.fid).eq(userDwrFid.toString());
+            expect(verifications?.verifications.length).to.be.greaterThan(0);
+          });
+          it("returns empty generator for user with no verifications", async function () {
+            const verifications =
+              await client.clients.v1.fetchUserVerifications(100);
+            expectDefined(verifications);
+            expect(verifications.verifications).to.be.empty;
+          });
         });
-
-        it("can delete a recast", async function () {
-          expectDefined(cast);
-          const response = await client.removeReactionToCast(
-            signerUuid,
-            ReactionType.Recast,
-            cast
-          );
-          expect(response.success).to.be.true;
+        describe("#lookupUserByVerification", function () {
+          it("can find existing user", async function () {
+            const user = await client.clients.v1.lookupUserByVerification(
+              "0xAA8b53BE5670d56bA9795AFCEdF6d39b96f5f1E2"
+            );
+            expect(user?.username).to.eq("gavi-bot");
+          });
+          it("returns null if address not found", async function () {
+            const user = await client.clients.v1.lookupUserByVerification(
+              "0x0000000000000000000000000000000000000000"
+            );
+            expect(user).to.be.null;
+          });
         });
       });
-
-      describe("post follows", function () {
-        it("can follow a user", async function () {
-          const response = await client.followUser(signerUuid, userDwrFid);
-          expect(response.success).to.be.true;
-          expect(response.details[0].success).to.be.true;
-          expect(response.details[0].target_fid).to.be.eq(userDwrFid);
+      describe("Notifications API", function () {
+        describe("#fetchMentionAndReplyNotifications", function () {
+          it("can fetch mention and reply notifications", async function () {
+            let castCount = 0;
+            const notificationSet = new Set();
+            let notificationFound = false;
+            for await (const notification of client.clients.v1.fetchMentionAndReplyNotifications(
+              userDwrFid,
+              {
+                pageSize: 5,
+              }
+            )) {
+              expectDefined(notification);
+              expectDefined(notification.hash);
+              expectDefined(notification.text);
+              expect(notificationSet.has(notification.hash)).to.be.false;
+              notificationSet.add(notification.hash);
+              castCount++;
+              notificationFound = true;
+              if (castCount === 10) break;
+            }
+            expect(castCount).to.eq(10);
+            expect(notificationFound).to.be.true;
+          });
+          it("returns empty generator for an invalid user", async function () {
+            const notifications =
+              client.clients.v1.fetchMentionAndReplyNotifications(
+                invalidUserFid
+              );
+            expect(notifications).to.be.empty;
+          });
         });
-
-        it("can unfollow a user", async function () {
-          const response = await client.unfollowUser(signerUuid, userDwrFid);
-          expect(response.success).to.be.true;
-          expect(response.details[0].success).to.be.true;
-          expect(response.details[0].target_fid).to.be.eq(userDwrFid);
+        describe("#fetchUserLikesAndRecasts", function () {
+          it("can fetch a user's likes and recasts", async function () {
+            let castCount = 0;
+            let notificationFound = false;
+            for await (const notification of client.clients.v1.fetchUserLikesAndRecasts(
+              userDwrFid,
+              {
+                pageSize: 5,
+              }
+            )) {
+              expectDefined(notification);
+              expectDefined(notification.hash);
+              expectDefined(notification.text);
+              expectDefined(notification.reactors);
+              expectDefined(notification.reactionType);
+              castCount++;
+              notificationFound = true;
+              if (castCount === 10) break;
+            }
+            expect(castCount).to.eq(10);
+            expect(notificationFound).to.be.true;
+          });
+          it("returns empty generator for an invalid user", async function () {
+            const notifications =
+              client.clients.v1.fetchUserLikesAndRecasts(invalidUserFid);
+            expect(notifications).to.be.empty;
+          });
         });
-
-        it("can follow multiple users", async function () {
-          const response = await client.followUsers(signerUuid, [
-            userDwrFid,
-            userGaviFid,
-          ]);
-          expect(response.success).to.be.true;
-          expect(response.details[0].success).to.be.true;
-          expect(response.details[0].target_fid).to.be.eq(userDwrFid);
-          expect(response.details[1].success).to.be.true;
-          expect(response.details[1].target_fid).to.be.eq(userGaviFid);
+      });
+      describe("Reactions API", function () {
+        describe("#fetchCastLikes", function () {
+          it("can fetch cast likes", async function () {
+            const existingCastHash =
+              "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+            let castCount = 0;
+            const reactionSet = new Set();
+            let reactionFound = false;
+            for await (const observedReaction of client.clients.v1.fetchCastLikes(
+              existingCastHash,
+              { pageSize: 5 }
+            )) {
+              expect(observedReaction.type).eq(ReactionType.Like);
+              expect(reactionSet.has(observedReaction.hash)).to.be.false;
+              reactionSet.add(observedReaction.hash);
+              castCount++;
+              reactionFound = true;
+              if (castCount === 10) break;
+            }
+            expect(castCount).to.eq(10);
+            expect(reactionFound).to.be.true;
+          });
+          it("can returns empty generator for an invalid cast hash", async function () {
+            const invalidCastHash =
+              "0x0000000000000000000000000000000000000000";
+            const reactions = client.clients.v1.fetchCastLikes(invalidCastHash);
+            expect(reactions).to.be.empty;
+          });
         });
+        describe("#fetchCastReactions", function () {
+          it("can fetch reactions to a cast", async function () {
+            const existingCastHash =
+              "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+            let castCount = 0;
+            const reactionSet = new Set();
+            let reactionFound = false;
+            for await (const observedReaction of client.clients.v1.fetchCastReactions(
+              existingCastHash,
+              { pageSize: 5 }
+            )) {
+              // expect(observedReaction.type).eq(ReactionType.Like);
+              expect(reactionSet.has(observedReaction.hash)).to.be.false;
+              reactionSet.add(observedReaction.hash);
+              castCount++;
+              reactionFound = true;
+              if (castCount === 10) break;
+            }
+            expect(castCount).to.eq(10);
+            expect(reactionFound).to.be.true;
+          });
+          it("can returns empty generator for an invalid cast hash", async function () {
+            const invalidCastHash =
+              "0x0000000000000000000000000000000000000000";
+            const reactions =
+              client.clients.v1.fetchCastReactions(invalidCastHash);
+            expect(reactions).to.be.empty;
+          });
+        });
+        describe("#fetchRecasters", function () {
+          it("can fetch recasters of a cast", async function () {
+            const existingCastHash =
+              "0xc6764a88086279ccae9d0bc502e2554a92c48d94";
+            let recasterCount = 0;
+            const recasterSet = new Set();
+            let recasterFound = false;
+            for await (const recaster of client.clients.v1.fetchRecasters(
+              existingCastHash,
+              { pageSize: 5 }
+            )) {
+              expect(recasterSet).not.to.contain(recaster.fid);
+              recasterSet.add(recaster.fid);
+              recasterCount++;
+              recasterFound = true;
+              if (recasterCount === 10) break;
+            }
+            expect(recasterCount).to.eq(10);
+            expect(recasterFound).to.be.true;
+          });
+          it("can returns empty generator for an invalid cast hash", async function () {
+            const invalidCastHash =
+              "0x0000000000000000000000000000000000000000";
+            const recasters = client.clients.v1.fetchRecasters(invalidCastHash);
+            expect(recasters).to.be.empty;
+          });
+        });
+      });
+      describe("Follows API", function () {
+        describe("#fetchUserFollowers", function () {
+          it("can fetch followers of a user", async function () {
+            let followerFound = false;
+            let followersFound = 0;
+            const followersSet = new Set();
+            const followers = await client.clients.v1.fetchUserFollowers(
+              userGaviFid
+            );
+            for (const follower of followers) {
+              expectDefined(follower);
+              expectDefined(follower.fid);
+              expect(followersSet.has(follower.fid)).to.be.false;
+              followersSet.add(follower.fid);
+              followerFound = true;
+              followersFound++;
+              if (followersFound === 50) break;
+            }
+            expect(followersFound).to.eq(50);
+            expect(followerFound).to.be.true;
+          });
+          it("returns empty generator for an invalid user", async function () {
+            const followers = await client.clients.v1.fetchUserFollowers(
+              invalidUserFid
+            );
+            expect(followers).to.be.empty;
+          });
+        });
+        describe("#fetchUserFollowing", function () {
+          it("can fetch users followed by a user", async function () {
+            let followingFound = false;
+            let dwrFound = false;
+            const followingSet = new Set();
+            const following = await client.clients.v1.fetchUserFollowing(
+              userGaviFid
+            );
+            for (const follow of following) {
+              if (follow.fid === userDwrFid) {
+                dwrFound = true;
+                break;
+              }
+              expectDefined(follow);
+              expectDefined(follow.fid);
+              expect(followingSet.has(follow.fid)).to.be.false;
+              followingSet.add(follow.fid);
+              followingFound = true;
+            }
+            expect(followingFound).to.be.true;
+            expect(dwrFound).to.be.true;
+          });
+          it("returns empty generator for an invalid user", async function () {
+            const following = await client.clients.v1.fetchUserFollowing(
+              invalidUserFid
+            );
+            expect(following).to.be.empty;
+          });
+        });
+      });
+    });
+    if (
+      signerUuid !== undefined &&
+      signerUuid !== "" &&
+      signerPublicKey !== undefined &&
+      signerPublicKey !== "" &&
+      privateKey !== undefined &&
+      privateKey !== ""
+    ) {
+      describe("v2 Client", function () {
+        describe("Signer API", function () {
+          let signature: string;
+          let signer: Signer;
+          const deadline = Math.floor(Date.now() / 1000) + 86400;
+          describe("#createSigner", function () {
+            it.skip("can create a signer", async function () {
+              signer = await client.clients.v2.createSigner();
+              expectDefined(signer);
+            });
+          });
+          describe("#registerSigner", function () {
+            it("can generate a signature", async function () {
+              signature = await generateSignature(
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                signer?.public_key ?? signerPublicKey,
+                userBotFid,
+                privateKey,
+                deadline
+              );
+              expectDefined(signature);
+            });
+            it.skip("can register a signer", async function () {
+              const registeredSigner = await client.clients.v2.registerSigner(
+                signer.signer_uuid,
+                userBotFid,
+                deadline,
+                signature
+              );
+              expectDefined(registeredSigner);
+              expectDefined(registeredSigner.signer_approval_url);
+              expect(registeredSigner.signer_uuid).to.be.eq(signer.signer_uuid);
+              expect(registeredSigner.public_key).to.be.eq(signer.public_key);
+              // eslint-disable-next-line no-console
+              console.log(
+                `Set env var INTEGRATION_TEST_NEYNAR_SIGNER_UUID=${registeredSigner.signer_uuid}`
+              );
+              // eslint-disable-next-line no-console
+              console.log(
+                `Set env var INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY=${registeredSigner.public_key}`
+              );
+              // eslint-disable-next-line no-console
+              console.log(
+                `Open url ${registeredSigner.signer_approval_url} on a logged in ios device to approve signer`
+              );
+              const androidUrl =
+                "https://client.warpcast.com/deeplinks/signed-key-request?token=" +
+                registeredSigner.signer_approval_url.split("=")[1];
+              // eslint-disable-next-line no-console
+              console.log(`If using an android device, use url ${androidUrl}`);
+            });
+          });
+          describe("#fetchSigner", function () {
+            it("can fetch a signer", async function () {
+              const fetchSigner = await client.clients.v2.fetchSigner(
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                signer?.signer_uuid ?? signerUuid
+              );
+              expectDefined(fetchSigner);
+              expect(fetchSigner.public_key).to.be.eq(
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                signer?.public_key ?? signerPublicKey
+              );
+            });
+          });
+        });
+        describe("Feed API", function () {
+          describe("#fetchFeed", function () {
+            it("can get a feed", async function () {
+              const castSet = new Set();
+              let castCount = 0;
+              for await (const cast of client.clients.v2.fetchFeed(userBotFid, {
+                pageSize: 5,
+              })) {
+                expectDefined(cast);
+                expectDefined(cast.hash);
+                expectDefined(cast.text);
+                expect(castSet).not.to.contain(cast.hash);
+                castSet.add(cast.hash);
+                castCount++;
+                if (castCount === 10) break;
+              }
+              expect(castCount).to.be.eq(10);
+            });
+          });
+        });
+        describe("Casts API", function () {
+          describe("#fetchCast", function () {
+            it("can fetch an existing cast", async function () {
+              const existingCastHash =
+                "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
+              const cast = await client.clients.v2.fetchCast(existingCastHash);
+              expectDefined(cast);
+              expect(cast.hash).to.eq(existingCastHash);
+            });
 
-        it("can unfollow multiple users", async function () {
-          const response = await client.unfollowUsers(signerUuid, [
-            userDwrFid,
-            userGaviFid,
-          ]);
-          expect(response.success).to.be.true;
-          expect(response.details[0].success).to.be.true;
-          expect(response.details[0].target_fid).to.be.eq(userDwrFid);
-          expect(response.details[1].success).to.be.true;
-          expect(response.details[1].target_fid).to.be.eq(userGaviFid);
+            it("returns null for nonexistent cast", async function () {
+              const nonexistentCastHash =
+                "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+              const cast = await client.clients.v2.fetchCast(
+                nonexistentCastHash
+              );
+              expect(cast).to.be.null;
+            });
+          });
+          describe("#fetchCasts", function () {
+            it("can fetch multiple existing casts", async function () {
+              const existingCastHashOne =
+                "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
+              const existingCastHashTwo =
+                "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+
+              const casts = await client.clients.v2.fetchCasts([
+                existingCastHashOne,
+                existingCastHashTwo,
+              ]);
+              expectDefined(casts);
+              expect(casts).to.have.length(2);
+              expect(casts[0].hash).to.be.eq(existingCastHashOne);
+              expect(casts[1].hash).to.be.eq(existingCastHashTwo);
+            });
+            it("can fetch multiple casts when an invalid hash is included", async function () {
+              const existingCastHashOne =
+                "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
+              const existingCastHashTwo =
+                "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+              const nonexistentCastHash =
+                "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+              const casts = await client.clients.v2.fetchCasts([
+                existingCastHashOne,
+                existingCastHashTwo,
+                nonexistentCastHash,
+              ]);
+              expectDefined(casts);
+              expect(casts).to.have.length(2);
+              expect(casts[0].hash).to.be.eq(existingCastHashOne);
+              expect(casts[1].hash).to.be.eq(existingCastHashTwo);
+            });
+          });
+
+          let publishedCast: PostCastResponseCast | null;
+          let replyToCast: PostCastResponseCast | null;
+          let replyToUrl: PostCastResponseCast | null;
+          let urlEmbedCast: PostCastResponseCast | null;
+          let imageEmbedCast: PostCastResponseCast | null;
+          let multipleEmbedCast: PostCastResponseCast | null;
+          describe("publishCast", function () {
+            it("can publish a basic cast with no parent", async function () {
+              const text = "this is a test cast";
+              publishedCast = await client.clients.v2.publishCast(
+                signerUuid,
+                text
+              );
+              expectDefined(publishedCast);
+              expect(publishedCast.text).to.eq(text);
+            });
+            it("can reply to an existing cast", async function () {
+              const text = "this is a reply to the test cast";
+              expectDefined(publishedCast);
+              await sleep(1000);
+              replyToCast = await client.clients.v2.publishCast(
+                signerUuid,
+                text,
+                {
+                  replyTo: publishedCast.hash,
+                }
+              );
+              expect(replyToCast.text).to.eq(text);
+              await sleep(1000);
+              const replyCast = await client.clients.v2.fetchCast(
+                replyToCast.hash
+              );
+              expect(replyCast?.parent_hash).to.eq(publishedCast.hash);
+            });
+            it("can reply to a url", async function () {
+              const text = "this is a reply to the test cast";
+              const replyUrl = "https://www.farcaster.xyz/";
+              await sleep(1000);
+              replyToUrl = await client.clients.v2.publishCast(
+                signerUuid,
+                text,
+                {
+                  replyTo: replyUrl,
+                }
+              );
+              expect(replyToUrl.text).to.eq(text);
+              await sleep(1000);
+              const replyCast = await client.clients.v2.fetchCast(
+                replyToUrl.hash
+              );
+              expect(replyCast?.parent_url).to.eq(replyUrl);
+            });
+            it("can publish a cast with URL embeds", async function () {
+              const embedURL = "https://www.farcaster.xyz/";
+              const text = "this is a cast testing URL embed functionality";
+              urlEmbedCast = await client.clients.v2.publishCast(
+                signerUuid,
+                text,
+                {
+                  embeds: [{ url: embedURL }],
+                }
+              );
+              expectDefined(urlEmbedCast);
+
+              // Fetch the cast, the PostCastResponseCast does not contain the embeds
+              await sleep(1000);
+              const urlEmbedCastResp = await client.clients.v2.fetchCast(
+                urlEmbedCast.hash
+              );
+              expectDefined(urlEmbedCastResp);
+
+              expectDefined(urlEmbedCastResp.embeds);
+              const urls = urlEmbedCastResp.embeds;
+              expect(urls).to.have.length(1);
+              const publishedEmbed: EmbedUrl = urls[0] as EmbedUrl;
+              expect(publishedEmbed.url).to.be.eq(embedURL);
+            });
+            it("can publish a cast with image embeds", async function () {
+              const embedURL = "https://i.imgur.com/YPEZebo.png";
+              const text = "this is a cast testing image embed functionality";
+              imageEmbedCast = await client.clients.v2.publishCast(
+                signerUuid,
+                text,
+                {
+                  embeds: [{ url: embedURL }],
+                }
+              );
+              expectDefined(imageEmbedCast);
+
+              // Fetch the cast, the PostCastResponseCast does not contain the embeds
+              await sleep(1000);
+              const imageEmbedCastResp = await client.clients.v2.fetchCast(
+                imageEmbedCast.hash
+              );
+              expectDefined(imageEmbedCastResp);
+
+              expectDefined(imageEmbedCastResp.embeds);
+              const images = imageEmbedCastResp.embeds;
+              expect(images).to.have.length(1);
+              const publishedEmbed: EmbedUrl = images[0] as EmbedUrl;
+              expect(publishedEmbed.url).to.be.eq(embedURL);
+            });
+            it("can publish a cast with multiple embeds", async function () {
+              const embedURL = "https://www.farcaster.xyz/";
+              const imageURL = "https://i.imgur.com/YPEZebo.png";
+              const text = "this is a cast testing URL embed functionality";
+              multipleEmbedCast = await client.clients.v2.publishCast(
+                signerUuid,
+                text,
+                {
+                  embeds: [{ url: embedURL }, { url: imageURL }],
+                }
+              );
+              expectDefined(multipleEmbedCast);
+
+              // Fetch the cast, the PostCastResponseCast does not contain the embeds
+              await sleep(1000);
+              const multipleEmbedCastResp = await client.clients.v2.fetchCast(
+                multipleEmbedCast.hash
+              );
+              expectDefined(multipleEmbedCastResp);
+
+              expectDefined(multipleEmbedCastResp.embeds);
+              const embeds = multipleEmbedCastResp.embeds;
+              expect(embeds).to.have.length(2);
+              const publishedUrlEmbed: EmbedUrl = embeds[0] as EmbedUrl;
+              const publishedImageEmbed: EmbedUrl = embeds[1] as EmbedUrl;
+              expect(publishedUrlEmbed.url).to.be.eq(embedURL);
+              expect(publishedImageEmbed.url).to.be.eq(imageURL);
+            });
+          });
+          describe("#deleteCast", function () {
+            it("can delete casts", async function () {
+              expectDefined(publishedCast);
+              expectDefined(replyToCast);
+              expectDefined(replyToUrl);
+              expectDefined(urlEmbedCast);
+              expectDefined(imageEmbedCast);
+              expectDefined(multipleEmbedCast);
+              await sleep(1000);
+              await client.clients.v2.deleteCast(
+                signerUuid,
+                publishedCast.hash
+              );
+              await client.clients.v2.deleteCast(signerUuid, replyToCast.hash);
+              await client.clients.v2.deleteCast(signerUuid, replyToUrl.hash);
+              await client.clients.v2.deleteCast(signerUuid, urlEmbedCast.hash);
+              await client.clients.v2.deleteCast(
+                signerUuid,
+                imageEmbedCast.hash
+              );
+              await client.clients.v2.deleteCast(
+                signerUuid,
+                multipleEmbedCast.hash
+              );
+            });
+            // no error thrown at the moment
+            it.skip("cannot delete a cast from a different author", async function () {
+              let errorThrownAndParsedCorrectly = false;
+              try {
+                await client.clients.v2.deleteCast(
+                  signerUuid,
+                  "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1"
+                ); // a cast by @dwr
+              } catch (error) {
+                expect(NeynarV2APIClient.isApiErrorResponse(error)).is.true;
+                if (NeynarV2APIClient.isApiErrorResponse(error)) {
+                  // repeating the above just for the type inference
+                  expect(error.response.status).to.eq(400);
+                  expect(error.response.data.code).to.contain(
+                    "Could not remove cast"
+                  );
+                  errorThrownAndParsedCorrectly = true;
+                }
+              }
+              expect(errorThrownAndParsedCorrectly).to.be.true;
+            });
+          });
+        });
+        describe("User API", function () {
+          describe("#searchUsernames", function () {
+            it("can find user for a username prefix", async function () {
+              const users = await client.clients.v2.searchUsernames(
+                "a",
+                userBotFid
+              );
+              let foundUser = false;
+              for (const user of users ?? []) {
+                expectDefined(user);
+                expectDefined(user.fid);
+                foundUser = true;
+              }
+              expect(foundUser).to.be.true;
+            });
+            it("returns an empty array for an unused prefix", async function () {
+              const users = await client.clients.v2.searchUsernames(
+                "accountdefinitelydoesnotexistwiththisprefix",
+                userBotFid
+              );
+              expect(users).to.be.empty;
+            });
+          });
+          describe("#updateUserProfile", function () {
+            it("can update a user's bio", async function () {
+              const updatedBio =
+                "this was updated during a test of @standard-crypto/farcaster-js";
+              const userBeforeUpdate = await client.clients.v1.lookupUserByFid(
+                userBotFid
+              );
+              expect(userBeforeUpdate?.profile.bio.text).not.to.be.eq(
+                updatedBio
+              );
+              const update = await client.clients.v2.updateUserProfile(
+                signerUuid,
+                {
+                  bio: updatedBio,
+                }
+              );
+              expect(update?.success).to.be.true;
+              const userAfterUpdate = await client.clients.v1.lookupUserByFid(
+                userBotFid
+              );
+              expect(userAfterUpdate?.profile.bio.text).to.be.eq(updatedBio);
+              const revert = await client.clients.v2.updateUserProfile(
+                signerUuid,
+                {
+                  bio: userBeforeUpdate?.profile.bio.text,
+                }
+              );
+              expect(revert?.success).to.be.true;
+              const userAfterRevert = await client.clients.v1.lookupUserByFid(
+                userBotFid
+              );
+              expect(userAfterRevert?.profile.bio.text).to.be.eq(
+                userBeforeUpdate?.profile.bio.text
+              );
+            });
+          });
+        });
+        describe("Reaction API", function () {
+          let cast: Cast | null;
+          describe("#reactToCast", function () {
+            it("can react to a cast", async function () {
+              const existingCastHash =
+                "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
+              cast = await client.clients.v2.fetchCast(existingCastHash);
+              expectDefined(cast);
+              const response = await client.clients.v2.reactToCast(
+                signerUuid,
+                ReactionType.Like,
+                cast
+              );
+              expect(response.success).to.be.true;
+            });
+          });
+          describe("#removeReactionToCast", function () {
+            it("can un-react to a cast", async function () {
+              expectDefined(cast);
+              const response = await client.clients.v2.removeReactionToCast(
+                signerUuid,
+                ReactionType.Like,
+                cast
+              );
+              expect(response.success).to.be.true;
+            });
+          });
+        });
+        describe("Follow API", function () {
+          describe("#followUsers", function () {
+            it("can follow multiple users", async function () {
+              const response = await client.clients.v2.followUsers(signerUuid, [
+                userDwrFid,
+                userGaviFid,
+              ]);
+              expect(response.success).to.be.true;
+              expect(response.details[0].success).to.be.true;
+              expect(response.details[0].target_fid).to.be.eq(userDwrFid);
+              expect(response.details[1].success).to.be.true;
+              expect(response.details[1].target_fid).to.be.eq(userGaviFid);
+            });
+          });
+          describe("#unfollowUsers", function () {
+            it("can unfollow multiple users", async function () {
+              const response = await client.clients.v2.unfollowUsers(
+                signerUuid,
+                [userDwrFid, userGaviFid]
+              );
+              expect(response.success).to.be.true;
+              expect(response.details[0].success).to.be.true;
+              expect(response.details[0].target_fid).to.be.eq(userDwrFid);
+              expect(response.details[1].success).to.be.true;
+              expect(response.details[1].target_fid).to.be.eq(userGaviFid);
+            });
+          });
         });
       });
     } else {
       // eslint-disable-next-line no-console
       console.warn(
-        "Skipping NeynarAPI write integration tests. Env var INTEGRATION_TEST_NEYNAR_SIGNER_UUID is unset."
+        "Skipping NeynarV2API integration tests. Env vars INTEGRATION_TEST_USER_MNEMONIC, INTEGRATION_TEST_NEYNAR_SIGNER_UUID and INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY must be set."
       );
     }
   });
@@ -626,4 +920,3 @@ if (apiKey !== undefined && apiKey !== "") {
     "Skipping NeynarAPI integration tests. Env var INTEGRATION_TEST_NEYNAR_API_KEY is unset."
   );
 }
-export { NeynarAPIClient };

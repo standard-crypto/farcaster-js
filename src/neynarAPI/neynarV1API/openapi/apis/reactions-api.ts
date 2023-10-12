@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -133,7 +131,7 @@ export const ReactionsApiAxiosParamCreator = function (
      * @param {string} castHash Cast hash
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
+     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -324,7 +322,7 @@ export const ReactionsApiFp = function (configuration?: Configuration) {
      * @param {string} castHash Cast hash
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
      * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
+     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -407,68 +405,173 @@ export const ReactionsApiFactory = function (
     /**
      * Get all like reactions for a specific cast in reverse chronological order.
      * @summary Get all like reactions for a specific cast
-     * @param {string} castHash Cast hash
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+     * @param {ReactionsApiCastLikesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     castLikes(
-      castHash: string,
-      viewerFid?: number,
-      cursor?: string,
-      limit?: number,
-      options?: any
+      requestParameters: ReactionsApiCastLikesRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastLikesResponse> {
       return localVarFp
-        .castLikes(castHash, viewerFid, cursor, limit, options)
+        .castLikes(
+          requestParameters.castHash,
+          requestParameters.viewerFid,
+          requestParameters.cursor,
+          requestParameters.limit,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      * Get all reactions (likes and recasts) for a specific cast.
      * @summary Get all reactions for a specific cast
-     * @param {string} castHash Cast hash
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
+     * @param {ReactionsApiCastReactionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     castReactions(
-      castHash: string,
-      viewerFid?: number,
-      cursor?: string,
-      limit?: number,
-      options?: any
+      requestParameters: ReactionsApiCastReactionsRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastReactionsResponse> {
       return localVarFp
-        .castReactions(castHash, viewerFid, cursor, limit, options)
+        .castReactions(
+          requestParameters.castHash,
+          requestParameters.viewerFid,
+          requestParameters.cursor,
+          requestParameters.limit,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      * Get all recasters for a specific cast.
      * @summary Get all recasters for a specific cast
-     * @param {string} castHash Cast hash
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+     * @param {ReactionsApiCastRecastersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     castRecasters(
-      castHash: string,
-      viewerFid?: number,
-      cursor?: string,
-      limit?: number,
-      options?: any
+      requestParameters: ReactionsApiCastRecastersRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastRecasterResponse> {
       return localVarFp
-        .castRecasters(castHash, viewerFid, cursor, limit, options)
+        .castRecasters(
+          requestParameters.castHash,
+          requestParameters.viewerFid,
+          requestParameters.cursor,
+          requestParameters.limit,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for castLikes operation in ReactionsApi.
+ * @export
+ * @interface ReactionsApiCastLikesRequest
+ */
+export interface ReactionsApiCastLikesRequest {
+  /**
+   * Cast hash
+   * @type {string}
+   * @memberof ReactionsApiCastLikes
+   */
+  readonly castHash: string;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof ReactionsApiCastLikes
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * Pagination cursor.
+   * @type {string}
+   * @memberof ReactionsApiCastLikes
+   */
+  readonly cursor?: string;
+
+  /**
+   * Number of results to retrieve (default 25, max 150)
+   * @type {number}
+   * @memberof ReactionsApiCastLikes
+   */
+  readonly limit?: number;
+}
+
+/**
+ * Request parameters for castReactions operation in ReactionsApi.
+ * @export
+ * @interface ReactionsApiCastReactionsRequest
+ */
+export interface ReactionsApiCastReactionsRequest {
+  /**
+   * Cast hash
+   * @type {string}
+   * @memberof ReactionsApiCastReactions
+   */
+  readonly castHash: string;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof ReactionsApiCastReactions
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * Pagination cursor.
+   * @type {string}
+   * @memberof ReactionsApiCastReactions
+   */
+  readonly cursor?: string;
+
+  /**
+   * Number of results to retrieve (default 25, max 150)
+   * @type {number}
+   * @memberof ReactionsApiCastReactions
+   */
+  readonly limit?: number;
+}
+
+/**
+ * Request parameters for castRecasters operation in ReactionsApi.
+ * @export
+ * @interface ReactionsApiCastRecastersRequest
+ */
+export interface ReactionsApiCastRecastersRequest {
+  /**
+   * Cast hash
+   * @type {string}
+   * @memberof ReactionsApiCastRecasters
+   */
+  readonly castHash: string;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof ReactionsApiCastRecasters
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * Pagination cursor.
+   * @type {string}
+   * @memberof ReactionsApiCastRecasters
+   */
+  readonly cursor?: string;
+
+  /**
+   * Number of results to retrieve (default 25, max 150)
+   * @type {number}
+   * @memberof ReactionsApiCastRecasters
+   */
+  readonly limit?: number;
+}
 
 /**
  * ReactionsApi - object-oriented interface
@@ -480,69 +583,69 @@ export class ReactionsApi extends BaseAPI {
   /**
    * Get all like reactions for a specific cast in reverse chronological order.
    * @summary Get all like reactions for a specific cast
-   * @param {string} castHash Cast hash
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+   * @param {ReactionsApiCastLikesRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ReactionsApi
    */
   public castLikes(
-    castHash: string,
-    viewerFid?: number,
-    cursor?: string,
-    limit?: number,
+    requestParameters: ReactionsApiCastLikesRequest,
     options?: AxiosRequestConfig
   ) {
     return ReactionsApiFp(this.configuration)
-      .castLikes(castHash, viewerFid, cursor, limit, options)
+      .castLikes(
+        requestParameters.castHash,
+        requestParameters.viewerFid,
+        requestParameters.cursor,
+        requestParameters.limit,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Get all reactions (likes and recasts) for a specific cast.
    * @summary Get all reactions for a specific cast
-   * @param {string} castHash Cast hash
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 100)
+   * @param {ReactionsApiCastReactionsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ReactionsApi
    */
   public castReactions(
-    castHash: string,
-    viewerFid?: number,
-    cursor?: string,
-    limit?: number,
+    requestParameters: ReactionsApiCastReactionsRequest,
     options?: AxiosRequestConfig
   ) {
     return ReactionsApiFp(this.configuration)
-      .castReactions(castHash, viewerFid, cursor, limit, options)
+      .castReactions(
+        requestParameters.castHash,
+        requestParameters.viewerFid,
+        requestParameters.cursor,
+        requestParameters.limit,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Get all recasters for a specific cast.
    * @summary Get all recasters for a specific cast
-   * @param {string} castHash Cast hash
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+   * @param {ReactionsApiCastRecastersRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof ReactionsApi
    */
   public castRecasters(
-    castHash: string,
-    viewerFid?: number,
-    cursor?: string,
-    limit?: number,
+    requestParameters: ReactionsApiCastRecastersRequest,
     options?: AxiosRequestConfig
   ) {
     return ReactionsApiFp(this.configuration)
-      .castRecasters(castHash, viewerFid, cursor, limit, options)
+      .castRecasters(
+        requestParameters.castHash,
+        requestParameters.viewerFid,
+        requestParameters.cursor,
+        requestParameters.limit,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 }

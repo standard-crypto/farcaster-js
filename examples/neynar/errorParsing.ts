@@ -1,4 +1,5 @@
 import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+import { NeynarV2APIClient } from "../neynarAPI/neynarV2API";
 
 // init
 const apiKey = "NeynarAPIKey";
@@ -7,9 +8,9 @@ const apiClient = new NeynarAPIClient(apiKey);
 
 // parse an error response from the API server
 try {
-  await apiClient.deleteCast(signerUuid, "SomeInvalidCastHash");
+  await apiClient.clients.v2.deleteCast(signerUuid, "SomeInvalidCastHash");
 } catch (error) {
-  if (NeynarAPIClient.isApiErrorResponse(error)) {
+  if (NeynarV2APIClient.isApiErrorResponse(error)) {
     const apiError = error.response.data;
     console.log(`API Error: ${apiError.message}`);
     console.log(`Status code: ${error.response.status}`);

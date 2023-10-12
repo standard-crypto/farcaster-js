@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -182,6 +180,7 @@ export const CastApiAxiosParamCreator = function (
      * @summary Retrieve casts for a given user
      * @param {number} fid fid of a user
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {string} [parentUrl] A cast can be part of a certain channel. The channel is identified by &#x60;parent_url&#x60;. All casts in the channel ladder up to the same parent_url.
      * @param {string} [cursor] Pagination cursor.
      * @param {number} [limit] Number of results to retrieve (default 25, max 150)
      * @param {*} [options] Override http request option.
@@ -190,6 +189,7 @@ export const CastApiAxiosParamCreator = function (
     casts: async (
       fid: number,
       viewerFid?: number,
+      parentUrl?: string,
       cursor?: string,
       limit?: number,
       options: AxiosRequestConfig = {}
@@ -225,6 +225,10 @@ export const CastApiAxiosParamCreator = function (
 
       if (viewerFid !== undefined) {
         localVarQueryParameter["viewerFid"] = viewerFid;
+      }
+
+      if (parentUrl !== undefined) {
+        localVarQueryParameter["parent_url"] = parentUrl;
       }
 
       if (cursor !== undefined) {
@@ -386,6 +390,7 @@ export const CastApiFp = function (configuration?: Configuration) {
      * @summary Retrieve casts for a given user
      * @param {number} fid fid of a user
      * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {string} [parentUrl] A cast can be part of a certain channel. The channel is identified by &#x60;parent_url&#x60;. All casts in the channel ladder up to the same parent_url.
      * @param {string} [cursor] Pagination cursor.
      * @param {number} [limit] Number of results to retrieve (default 25, max 150)
      * @param {*} [options] Override http request option.
@@ -394,6 +399,7 @@ export const CastApiFp = function (configuration?: Configuration) {
     async casts(
       fid: number,
       viewerFid?: number,
+      parentUrl?: string,
       cursor?: string,
       limit?: number,
       options?: AxiosRequestConfig
@@ -403,6 +409,7 @@ export const CastApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs = await localVarAxiosParamCreator.casts(
         fid,
         viewerFid,
+        parentUrl,
         cursor,
         limit,
         options
@@ -464,79 +471,193 @@ export const CastApiFactory = function (
     /**
      * Gets the most recent casts for a user in reverse-chronological order
      * @summary Retrieve all casts in a given thread hash
-     * @param {string} threadHash The hash of the thread to retrieve casts from.
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {CastApiAllCastsInThreadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     allCastsInThread(
-      threadHash: string,
-      viewerFid?: number,
-      options?: any
+      requestParameters: CastApiAllCastsInThreadRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<AllCastsInThreadResponse> {
       return localVarFp
-        .allCastsInThread(threadHash, viewerFid, options)
+        .allCastsInThread(
+          requestParameters.threadHash,
+          requestParameters.viewerFid,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      * Gets information about an individual cast
      * @summary Retrieve cast for a given hash
-     * @param {string} hash Cast hash
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {CastApiCastRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     cast(
-      hash: string,
-      viewerFid?: number,
-      options?: any
+      requestParameters: CastApiCastRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastResponse> {
       return localVarFp
-        .cast(hash, viewerFid, options)
+        .cast(requestParameters.hash, requestParameters.viewerFid, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Gets the most recent casts for a user
      * @summary Retrieve casts for a given user
-     * @param {number} fid fid of a user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+     * @param {CastApiCastsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     casts(
-      fid: number,
-      viewerFid?: number,
-      cursor?: string,
-      limit?: number,
-      options?: any
+      requestParameters: CastApiCastsRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CastsResponse> {
       return localVarFp
-        .casts(fid, viewerFid, cursor, limit, options)
+        .casts(
+          requestParameters.fid,
+          requestParameters.viewerFid,
+          requestParameters.parentUrl,
+          requestParameters.cursor,
+          requestParameters.limit,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      * Get a list of casts from the protocol in reverse chronological order based on timestamp
      * @summary Get Recent Casts
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 100)
+     * @param {CastApiRecentCastsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     recentCasts(
-      viewerFid?: number,
-      cursor?: string,
-      limit?: number,
-      options?: any
+      requestParameters: CastApiRecentCastsRequest = {},
+      options?: AxiosRequestConfig
     ): AxiosPromise<RecentCastsResponse> {
       return localVarFp
-        .recentCasts(viewerFid, cursor, limit, options)
+        .recentCasts(
+          requestParameters.viewerFid,
+          requestParameters.cursor,
+          requestParameters.limit,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for allCastsInThread operation in CastApi.
+ * @export
+ * @interface CastApiAllCastsInThreadRequest
+ */
+export interface CastApiAllCastsInThreadRequest {
+  /**
+   * The hash of the thread to retrieve casts from.
+   * @type {string}
+   * @memberof CastApiAllCastsInThread
+   */
+  readonly threadHash: string;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof CastApiAllCastsInThread
+   */
+  readonly viewerFid?: number;
+}
+
+/**
+ * Request parameters for cast operation in CastApi.
+ * @export
+ * @interface CastApiCastRequest
+ */
+export interface CastApiCastRequest {
+  /**
+   * Cast hash
+   * @type {string}
+   * @memberof CastApiCast
+   */
+  readonly hash: string;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof CastApiCast
+   */
+  readonly viewerFid?: number;
+}
+
+/**
+ * Request parameters for casts operation in CastApi.
+ * @export
+ * @interface CastApiCastsRequest
+ */
+export interface CastApiCastsRequest {
+  /**
+   * fid of a user
+   * @type {number}
+   * @memberof CastApiCasts
+   */
+  readonly fid: number;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof CastApiCasts
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * A cast can be part of a certain channel. The channel is identified by &#x60;parent_url&#x60;. All casts in the channel ladder up to the same parent_url.
+   * @type {string}
+   * @memberof CastApiCasts
+   */
+  readonly parentUrl?: string;
+
+  /**
+   * Pagination cursor.
+   * @type {string}
+   * @memberof CastApiCasts
+   */
+  readonly cursor?: string;
+
+  /**
+   * Number of results to retrieve (default 25, max 150)
+   * @type {number}
+   * @memberof CastApiCasts
+   */
+  readonly limit?: number;
+}
+
+/**
+ * Request parameters for recentCasts operation in CastApi.
+ * @export
+ * @interface CastApiRecentCastsRequest
+ */
+export interface CastApiRecentCastsRequest {
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof CastApiRecentCasts
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * Pagination cursor.
+   * @type {string}
+   * @memberof CastApiRecentCasts
+   */
+  readonly cursor?: string;
+
+  /**
+   * Number of results to retrieve (default 25, max 100)
+   * @type {number}
+   * @memberof CastApiRecentCasts
+   */
+  readonly limit?: number;
+}
 
 /**
  * CastApi - object-oriented interface
@@ -548,78 +669,84 @@ export class CastApi extends BaseAPI {
   /**
    * Gets the most recent casts for a user in reverse-chronological order
    * @summary Retrieve all casts in a given thread hash
-   * @param {string} threadHash The hash of the thread to retrieve casts from.
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {CastApiAllCastsInThreadRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
   public allCastsInThread(
-    threadHash: string,
-    viewerFid?: number,
+    requestParameters: CastApiAllCastsInThreadRequest,
     options?: AxiosRequestConfig
   ) {
     return CastApiFp(this.configuration)
-      .allCastsInThread(threadHash, viewerFid, options)
+      .allCastsInThread(
+        requestParameters.threadHash,
+        requestParameters.viewerFid,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Gets information about an individual cast
    * @summary Retrieve cast for a given hash
-   * @param {string} hash Cast hash
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {CastApiCastRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
-  public cast(hash: string, viewerFid?: number, options?: AxiosRequestConfig) {
+  public cast(
+    requestParameters: CastApiCastRequest,
+    options?: AxiosRequestConfig
+  ) {
     return CastApiFp(this.configuration)
-      .cast(hash, viewerFid, options)
+      .cast(requestParameters.hash, requestParameters.viewerFid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Gets the most recent casts for a user
    * @summary Retrieve casts for a given user
-   * @param {number} fid fid of a user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 150)
+   * @param {CastApiCastsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
   public casts(
-    fid: number,
-    viewerFid?: number,
-    cursor?: string,
-    limit?: number,
+    requestParameters: CastApiCastsRequest,
     options?: AxiosRequestConfig
   ) {
     return CastApiFp(this.configuration)
-      .casts(fid, viewerFid, cursor, limit, options)
+      .casts(
+        requestParameters.fid,
+        requestParameters.viewerFid,
+        requestParameters.parentUrl,
+        requestParameters.cursor,
+        requestParameters.limit,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Get a list of casts from the protocol in reverse chronological order based on timestamp
    * @summary Get Recent Casts
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 100)
+   * @param {CastApiRecentCastsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CastApi
    */
   public recentCasts(
-    viewerFid?: number,
-    cursor?: string,
-    limit?: number,
+    requestParameters: CastApiRecentCastsRequest = {},
     options?: AxiosRequestConfig
   ) {
     return CastApiFp(this.configuration)
-      .recentCasts(viewerFid, cursor, limit, options)
+      .recentCasts(
+        requestParameters.viewerFid,
+        requestParameters.cursor,
+        requestParameters.limit,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 }

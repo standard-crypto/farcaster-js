@@ -15,9 +15,9 @@ const fid = 123;
 const privateKey = "accountMnemonic";
 
 const deadline = Math.floor(Date.now() / 1000) + 86400;
-const signer = await apiClient.createSigner();
+const signer = await apiClient.clients.v2.createSigner();
 const signature = await generateSignature(publicKey, fid, privateKey, deadline);
-const registeredSigner = await apiClient.registerSigner(
+const registeredSigner = await apiClient.clients.v2.registerSigner(
   signer.signer_uuid,
   fid,
   deadline,

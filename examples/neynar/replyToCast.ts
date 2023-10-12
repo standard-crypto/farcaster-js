@@ -5,13 +5,8 @@ const apiKey = "NeynarAPIKey";
 const signerUuid = "signerUUID";
 const apiClient = new NeynarAPIClient(apiKey);
 
-// fetch cast to reply to
-const user = await apiClient.lookupUserByUsername("dwr");
-if (user === null) throw new Error("no such user");
-const replyTo = await apiClient.fetchLatestCastForUser(user.fid);
-if (replyTo === null) throw new Error("no such user");
-
 // post a reply
-await apiClient.publishCast(signerUuid, "Replying to your cast!", {
-  replyTo: replyTo.hash,
+const castHash = "0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89";
+await apiClient.clients.v2.publishCast(signerUuid, "Replying to your cast!", {
+  replyTo: castHash,
 });

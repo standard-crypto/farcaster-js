@@ -38,6 +38,7 @@ export * from "./reaction-type";
 export * from "./register-signer-key-req-body";
 export * from "./searched-user";
 export * from "./signer";
+export * from "./update-user-req-body";
 export * from "./user";
 export * from "./user-profile";
 export * from "./user-profile-bio";

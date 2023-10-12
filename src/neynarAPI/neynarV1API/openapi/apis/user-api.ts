@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -550,94 +548,214 @@ export const UserApiFactory = function (
     /**
      * Returns the custody address for a given FID
      * @summary Get the custody address for a given FID
-     * @param {number} fid fid of a user
+     * @param {UserApiCustodyAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     custodyAddress(
-      fid: number,
-      options?: any
+      requestParameters: UserApiCustodyAddressRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<CustodyAddressResponse> {
       return localVarFp
-        .custodyAddress(fid, options)
+        .custodyAddress(requestParameters.fid, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Get a list of casts from the protocol in reverse chronological order based on timestamp
      * @summary Get Recent Users
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {string} [cursor] Pagination cursor.
-     * @param {number} [limit] Number of results to retrieve (default 100, max 1000)
+     * @param {UserApiRecentUsersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     recentUsers(
-      viewerFid?: number,
-      cursor?: string,
-      limit?: number,
-      options?: any
+      requestParameters: UserApiRecentUsersRequest = {},
+      options?: AxiosRequestConfig
     ): AxiosPromise<RecentUsersResponse> {
       return localVarFp
-        .recentUsers(viewerFid, cursor, limit, options)
+        .recentUsers(
+          requestParameters.viewerFid,
+          requestParameters.cursor,
+          requestParameters.limit,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      * Returns metadata about a specific user
      * @summary Get User Information by FID
-     * @param {number} fid fid of a user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {UserApiUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     user(
-      fid: number,
-      viewerFid?: number,
-      options?: any
+      requestParameters: UserApiUserRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<User200Response> {
       return localVarFp
-        .user(fid, viewerFid, options)
+        .user(requestParameters.fid, requestParameters.viewerFid, options)
         .then((request) => request(axios, basePath));
     },
     /**
      * Returns metadata about a specific user
      * @summary Get User Information by username
-     * @param {string} username Username of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+     * @param {UserApiUserByUsernameRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     userByUsername(
-      username: string,
-      viewerFid?: number,
-      options?: any
+      requestParameters: UserApiUserByUsernameRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<User200Response> {
       return localVarFp
-        .userByUsername(username, viewerFid, options)
+        .userByUsername(
+          requestParameters.username,
+          requestParameters.viewerFid,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      * Fetch all the liked cast of a User
      * @summary Get User Cast Likes
-     * @param {number} fid FID of the user
-     * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-     * @param {number} [limit] Number of results to retrieve (default 25, max 150)
-     * @param {string} [cursor] Pagination cursor
+     * @param {UserApiUserCastLikesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     userCastLikes(
-      fid: number,
-      viewerFid?: number,
-      limit?: number,
-      cursor?: string,
-      options?: any
+      requestParameters: UserApiUserCastLikesRequest,
+      options?: AxiosRequestConfig
     ): AxiosPromise<UserCastLikeResponse> {
       return localVarFp
-        .userCastLikes(fid, viewerFid, limit, cursor, options)
+        .userCastLikes(
+          requestParameters.fid,
+          requestParameters.viewerFid,
+          requestParameters.limit,
+          requestParameters.cursor,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
   };
 };
+
+/**
+ * Request parameters for custodyAddress operation in UserApi.
+ * @export
+ * @interface UserApiCustodyAddressRequest
+ */
+export interface UserApiCustodyAddressRequest {
+  /**
+   * fid of a user
+   * @type {number}
+   * @memberof UserApiCustodyAddress
+   */
+  readonly fid: number;
+}
+
+/**
+ * Request parameters for recentUsers operation in UserApi.
+ * @export
+ * @interface UserApiRecentUsersRequest
+ */
+export interface UserApiRecentUsersRequest {
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof UserApiRecentUsers
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * Pagination cursor.
+   * @type {string}
+   * @memberof UserApiRecentUsers
+   */
+  readonly cursor?: string;
+
+  /**
+   * Number of results to retrieve (default 100, max 1000)
+   * @type {number}
+   * @memberof UserApiRecentUsers
+   */
+  readonly limit?: number;
+}
+
+/**
+ * Request parameters for user operation in UserApi.
+ * @export
+ * @interface UserApiUserRequest
+ */
+export interface UserApiUserRequest {
+  /**
+   * fid of a user
+   * @type {number}
+   * @memberof UserApiUser
+   */
+  readonly fid: number;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof UserApiUser
+   */
+  readonly viewerFid?: number;
+}
+
+/**
+ * Request parameters for userByUsername operation in UserApi.
+ * @export
+ * @interface UserApiUserByUsernameRequest
+ */
+export interface UserApiUserByUsernameRequest {
+  /**
+   * Username of the user
+   * @type {string}
+   * @memberof UserApiUserByUsername
+   */
+  readonly username: string;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof UserApiUserByUsername
+   */
+  readonly viewerFid?: number;
+}
+
+/**
+ * Request parameters for userCastLikes operation in UserApi.
+ * @export
+ * @interface UserApiUserCastLikesRequest
+ */
+export interface UserApiUserCastLikesRequest {
+  /**
+   * FID of the user
+   * @type {number}
+   * @memberof UserApiUserCastLikes
+   */
+  readonly fid: number;
+
+  /**
+   * fid of the user viewing this information, needed for contextual information.
+   * @type {number}
+   * @memberof UserApiUserCastLikes
+   */
+  readonly viewerFid?: number;
+
+  /**
+   * Number of results to retrieve (default 25, max 150)
+   * @type {number}
+   * @memberof UserApiUserCastLikes
+   */
+  readonly limit?: number;
+
+  /**
+   * Pagination cursor
+   * @type {string}
+   * @memberof UserApiUserCastLikes
+   */
+  readonly cursor?: string;
+}
 
 /**
  * UserApi - object-oriented interface
@@ -649,92 +767,100 @@ export class UserApi extends BaseAPI {
   /**
    * Returns the custody address for a given FID
    * @summary Get the custody address for a given FID
-   * @param {number} fid fid of a user
+   * @param {UserApiCustodyAddressRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public custodyAddress(fid: number, options?: AxiosRequestConfig) {
+  public custodyAddress(
+    requestParameters: UserApiCustodyAddressRequest,
+    options?: AxiosRequestConfig
+  ) {
     return UserApiFp(this.configuration)
-      .custodyAddress(fid, options)
+      .custodyAddress(requestParameters.fid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Get a list of casts from the protocol in reverse chronological order based on timestamp
    * @summary Get Recent Users
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {string} [cursor] Pagination cursor.
-   * @param {number} [limit] Number of results to retrieve (default 100, max 1000)
+   * @param {UserApiRecentUsersRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
   public recentUsers(
-    viewerFid?: number,
-    cursor?: string,
-    limit?: number,
+    requestParameters: UserApiRecentUsersRequest = {},
     options?: AxiosRequestConfig
   ) {
     return UserApiFp(this.configuration)
-      .recentUsers(viewerFid, cursor, limit, options)
+      .recentUsers(
+        requestParameters.viewerFid,
+        requestParameters.cursor,
+        requestParameters.limit,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Returns metadata about a specific user
    * @summary Get User Information by FID
-   * @param {number} fid fid of a user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {UserApiUserRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public user(fid: number, viewerFid?: number, options?: AxiosRequestConfig) {
+  public user(
+    requestParameters: UserApiUserRequest,
+    options?: AxiosRequestConfig
+  ) {
     return UserApiFp(this.configuration)
-      .user(fid, viewerFid, options)
+      .user(requestParameters.fid, requestParameters.viewerFid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Returns metadata about a specific user
    * @summary Get User Information by username
-   * @param {string} username Username of the user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
+   * @param {UserApiUserByUsernameRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
   public userByUsername(
-    username: string,
-    viewerFid?: number,
+    requestParameters: UserApiUserByUsernameRequest,
     options?: AxiosRequestConfig
   ) {
     return UserApiFp(this.configuration)
-      .userByUsername(username, viewerFid, options)
+      .userByUsername(
+        requestParameters.username,
+        requestParameters.viewerFid,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Fetch all the liked cast of a User
    * @summary Get User Cast Likes
-   * @param {number} fid FID of the user
-   * @param {number} [viewerFid] fid of the user viewing this information, needed for contextual information.
-   * @param {number} [limit] Number of results to retrieve (default 25, max 150)
-   * @param {string} [cursor] Pagination cursor
+   * @param {UserApiUserCastLikesRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
   public userCastLikes(
-    fid: number,
-    viewerFid?: number,
-    limit?: number,
-    cursor?: string,
+    requestParameters: UserApiUserCastLikesRequest,
     options?: AxiosRequestConfig
   ) {
     return UserApiFp(this.configuration)
-      .userCastLikes(fid, viewerFid, limit, cursor, options)
+      .userCastLikes(
+        requestParameters.fid,
+        requestParameters.viewerFid,
+        requestParameters.limit,
+        requestParameters.cursor,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 }
