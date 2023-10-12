@@ -6,7 +6,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.lint.json"
+    "project": "./tsconfig.json"
   },
   "plugins": [
     "import",
@@ -14,13 +14,10 @@
     "no-only-tests"
   ],
   "ignorePatterns": [
-    "scripts/*",
     "rollup.config.js",
-    "src/contracts/*",
-    "src/merkleAPI/swagger/*",
-    "src/hub-rest-client/openapi/*",
-    "dist/*",
-    "types/*"
+    "**/generated/*",
+    "**/dist/*",
+    "**/types/*"
   ],
   "extends": [
     "standard-with-typescript",
@@ -39,12 +36,12 @@
   },
   "overrides": [
     {
-      "files": ["tests/**.ts"],
+      "files": ["**/tests/**"],
       "rules": {
         "@typescript-eslint/no-unused-expressions": "off"
       }
     }, {
-      "files": ["examples/**.ts"],
+      "files": ["**/examples/**"],
       "rules": {
         "no-console": "off"
       }

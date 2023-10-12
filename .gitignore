@@ -6,3 +6,4 @@ coverage/
 types/
 swagger-tmp
 .env
+.yarn

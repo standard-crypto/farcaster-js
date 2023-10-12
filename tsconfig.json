@@ -1,9 +1,4 @@
 {
-  "include": [
-    "./src/**/*.ts",
-    "./examples/**/*.ts",
-    "./tests/**/*.ts"
-  ],
   "compilerOptions": {
     "lib": [
       "es2020"
@@ -11,18 +6,6 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "es2022",
-    "rootDirs": [
-      "./src",
-      "./tests",
-      "./examples"
-    ],
-    "paths": {
-      "@standard-crypto/farcaster-js": ["./src"],
-      "@standard-crypto/farcaster-js/*": ["./src/*"]
-    },
-    "outDir": "dist",
-    "declaration": true,
-    "declarationDir": "types",
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
@@ -30,6 +13,8 @@
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
     "alwaysStrict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "composite": true
   }
 }
