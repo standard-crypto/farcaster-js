@@ -1,5 +1,10 @@
 {
-    "entryPoints": ["./src/index.ts", "./src/openapi/index.ts"],
+    "entryPoints": [
+        "./src/index.ts",
+        "./src/openapi/index.ts",
+        "./src/farcasterEpochTimestamp.ts",
+        "./src/logger.ts"
+    ],
     "out": "docs",
     "exclude": [],
     "gitRevision": "main",

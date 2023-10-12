@@ -1,12 +1,20 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+yarn workspaces foreach --all run clean
+
+# recreate generated files
+yarn workspaces foreach --all run generate
+git add ':(glob)**/generated/**'
+
+# typecheck
 yarn type:check
 
-# tests are too flakey to enforce this now on every commit
-# yarn test
-
-yarn format:check
+# lint (includes prettier)
 yarn lint:check
+
 yarn spell:check
-yarn docs; git add README.md docs
+
+# generated docs
+yarn workspaces foreach --all run docs;
+git add ':(glob)**/README.md' ':(glob)**/docs/**'

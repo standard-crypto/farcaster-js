@@ -36,6 +36,7 @@
     "yarn.lock",
     "**/tsconfig.json",
     "**/node_modules/**",
-    "**/generated/**"
+    "**/generated/**",
+    "**/docs/**"
   ]
 }
