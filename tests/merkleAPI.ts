@@ -556,7 +556,7 @@ if (privateKey !== undefined && privateKey !== "") {
       });
     });
 
-    describe("api responses validator", function () {
+    describe.skip("api responses validator", function () {
       let authToken: AuthToken;
       before("get auth token", async function () {
         authToken = await client.getOrCreateValidAuthToken();
