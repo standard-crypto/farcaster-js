@@ -1527,10 +1527,10 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@rollup/plugin-commonjs@^25.0.0":
-  version "25.0.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-25.0.0.tgz#ef55d12415dfcfb77fd52650dc1448c8aae8ed5c"
-  integrity sha512-hoho2Kay9TZrLu0bnDsTTCaj4Npa+THk9snajP/XDNb9a9mmjTjh52EQM9sKl3HD1LsnihX7js+eA2sd2uKAhw==
+"@rollup/plugin-commonjs@^25.0.5":
+  version "25.0.5"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-25.0.5.tgz#0bac8f985a5de151b4b09338847f8c7f20a28a29"
+  integrity sha512-xY8r/A9oisSeSuLCTfhssyDjo9Vp/eDiRLXkg1MXCcEEgEjPmLU+ZyDB20OOD0NlyDa/8SGbK5uIggF5XTx77w==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
     commondir "^1.0.1"
