@@ -13,6 +13,6 @@ A collection of tools for interacting with the Farcaster social network.
 
 ## Farcaster Hub REST API
 
-Farcaster hubs may expose a public REST API which can be used for simple queries.
+Farcaster hubs expose a public REST API which can be used for simple queries.
 See the [@standard-crypto/farcaster-js-hub-rest](packages/farcaster-js-hub-rest/)
 package for more info.

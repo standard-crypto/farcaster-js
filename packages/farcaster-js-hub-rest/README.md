@@ -1,6 +1,6 @@
 # Farcaster Hub REST API Client
 
-A tool for interacting with the REST API of any Farcaster hub.
+A tool for interacting with the REST API of a Farcaster hub.
 
 ![NPM](https://img.shields.io/npm/l/@standard-crypto/farcaster-js-hub-rest?no-cache)
 ![NPM](https://img.shields.io/npm/v/@standard-crypto/farcaster-js-hub-rest?no-cache)
