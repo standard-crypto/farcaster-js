@@ -13,7 +13,7 @@ export interface paths {
     /**
      * Creates a signer and returns the signer status
      * @description Creates a signer and returns the signer status. \
-     * **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+     * **Note**: While testing please reuse the signer, it costs money to approve a signer.
      */
     post: operations["create-signer"];
   };
@@ -383,7 +383,7 @@ export interface operations {
   /**
    * Creates a signer and returns the signer status
    * @description Creates a signer and returns the signer status. \
-   * **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+   * **Note**: While testing please reuse the signer, it costs money to approve a signer.
    */
   "create-signer": {
     responses: {

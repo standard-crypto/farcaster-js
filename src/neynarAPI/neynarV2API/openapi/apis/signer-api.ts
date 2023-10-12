@@ -52,7 +52,7 @@ export const SignerApiAxiosParamCreator = function (
 ) {
   return {
     /**
-     * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+     * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
      * @summary Creates a signer and returns the signer status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -223,7 +223,7 @@ export const SignerApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = SignerApiAxiosParamCreator(configuration);
   return {
     /**
-     * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+     * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
      * @summary Creates a signer and returns the signer status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -307,7 +307,7 @@ export const SignerApiFactory = function (
   const localVarFp = SignerApiFp(configuration);
   return {
     /**
-     * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+     * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
      * @summary Creates a signer and returns the signer status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -386,7 +386,7 @@ export interface SignerApiSignerRequest {
  */
 export class SignerApi extends BaseAPI {
   /**
-   * Creates a signer and returns the signer status. \\ **Note**: While tesing please reuse the signer, it costs money to approve a signer.
+   * Creates a signer and returns the signer status. \\ **Note**: While testing please reuse the signer, it costs money to approve a signer.
    * @summary Creates a signer and returns the signer status
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
