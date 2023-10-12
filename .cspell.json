@@ -23,7 +23,11 @@
     "recaster",
     "unwatch",
     "openapi",
-    "warpcast"
+    "warpcast",
+    "dbstats",
+    "protobuf",
+    "errcode",
+    "devnet"
   ],
   "flagWords": [],
   "ignorePaths": [
