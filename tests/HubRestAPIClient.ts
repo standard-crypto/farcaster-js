@@ -802,7 +802,7 @@ describe("HubWebClient", function () {
     describe("#getEventById", function () {
       it("validates against OpenAPI spec", async function () {
         const response = await client.apis.hubEvents.getEventById({
-          eventId: 357040145145856,
+          eventId: 358057589035008,
         });
         const validator = new OpenAPIResponseValidator({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -814,7 +814,7 @@ describe("HubWebClient", function () {
       });
 
       it("can fetch an event", async function () {
-        const eventId = 357040145145856;
+        const eventId = 358057589035008;
         const event = await client.getHubEventById(eventId);
         expectDefinedNonNull(event);
         expect(event.id).eq(eventId);

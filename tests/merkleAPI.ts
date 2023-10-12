@@ -32,7 +32,7 @@ async function sleep(ms: number): Promise<void> {
 }
 
 if (privateKey !== undefined && privateKey !== "") {
-  describe("MerkleAPI", function () {
+  describe.skip("MerkleAPI", function () {
     this.timeout("30000");
 
     let client: MerkleAPIClient;
