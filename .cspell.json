@@ -28,7 +28,11 @@
     "unwatch",
     "openapi",
     "viem",
-    "warpcast"
+    "warpcast",
+    "dbstats",
+    "protobuf",
+    "errcode",
+    "devnet"
   ],
   "flagWords": [],
   "ignorePaths": [

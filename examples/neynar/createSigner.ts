@@ -3,7 +3,7 @@
 import {
   NeynarAPIClient,
   generateSignature,
-} from "@standard-crypto/farcaster-js";
+} from "@standard-crypto/farcaster-js/neynarAPI";
 
 // init
 const apiKey = "NeynarAPIKey";

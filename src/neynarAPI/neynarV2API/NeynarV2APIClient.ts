@@ -24,8 +24,9 @@ import {
   SearchedUser,
 } from "./openapi";
 import axios, { AxiosError, AxiosInstance } from "axios";
-import { silentLogger, Logger } from "../../logger";
-import type { WithRequired } from "../../utils";
+import { silentLogger, Logger } from "../../common/logger";
+import type { SetRequired } from "type-fest";
+
 const BASE_PATH = "https://api.neynar.com/v2";
 
 export class NeynarV2APIClient {
@@ -97,9 +98,11 @@ export class NeynarV2APIClient {
   public static isApiErrorResponse(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any
-  ): error is WithRequired<AxiosError<ErrorRes>, "response"> {
+  ): error is SetRequired<AxiosError<ErrorRes>, "response"> {
     if (!(error instanceof AxiosError)) return false;
-    return error.response?.data !== undefined;
+    return (
+      error.response?.data !== undefined && "message" in error.response.data
+    );
   }
 
   /**

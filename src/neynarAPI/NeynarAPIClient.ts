@@ -1,7 +1,7 @@
 import { NeynarV1APIClient } from "./neynarV1API/";
 import { NeynarV2APIClient } from "./neynarV2API/";
 import { AxiosInstance } from "axios";
-import { silentLogger, Logger } from "../logger";
+import { silentLogger, Logger } from "../common/logger";
 
 export class NeynarAPIClient {
   private readonly logger: Logger;

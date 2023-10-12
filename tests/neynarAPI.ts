@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { expectDefined } from "./utils";
-import { Logger, silentLogger, generateSignature } from "../src/";
+import { expectDefinedNonNull } from "./utils";
+import { Logger, silentLogger } from "../src/common/logger";
 import {
   Cast,
   PostCastResponseCast,
@@ -10,7 +10,7 @@ import {
   NeynarV2APIClient,
   Signer,
 } from "../src/neynarAPI/neynarV2API";
-import { NeynarAPIClient } from "../src/neynarAPI";
+import { NeynarAPIClient, generateSignature } from "../src/neynarAPI";
 
 chai.use(chaiAsPromised);
 
@@ -58,9 +58,9 @@ if (apiKey !== undefined && apiKey !== "") {
             const castsInThread = await client.clients.v1.fetchCastsInThread({
               hash: threadHash,
             });
-            expectDefined(castsInThread);
+            expectDefinedNonNull(castsInThread);
             for (const cast of castsInThread) {
-              expectDefined(cast.hash);
+              expectDefinedNonNull(cast.hash);
               expect(castSet.has(cast.hash)).to.be.false;
               castSet.add(cast.hash);
             }
@@ -83,7 +83,7 @@ if (apiKey !== undefined && apiKey !== "") {
             )) {
               foundCast = true;
               expect(cast.author.fid).to.eq(userGaviFid.toString());
-              expectDefined(cast.timestamp);
+              expectDefinedNonNull(cast.timestamp);
               break;
             }
             expect(foundCast).to.be.true;
@@ -124,9 +124,9 @@ if (apiKey !== undefined && apiKey !== "") {
             for await (const cast of client.clients.v1.fetchRecentCasts({
               pageSize: 5,
             })) {
-              expectDefined(cast);
-              expectDefined(cast.hash);
-              expect(castSet.has(cast.hash)).to.be.false;
+              expectDefinedNonNull(cast);
+              expectDefinedNonNull(cast.hash);
+              expect(castSet).not.to.contain(cast.hash);
               castSet.add(cast.hash);
               castCount++;
               if (castCount === 10) break;
@@ -143,9 +143,9 @@ if (apiKey !== undefined && apiKey !== "") {
             for await (const user of client.clients.v1.fetchRecentUsers({
               pageSize: 5,
             })) {
-              expectDefined(user);
-              expectDefined(user.username);
-              expect(userSet.has(user.fid)).to.be.false;
+              expectDefinedNonNull(user);
+              expectDefinedNonNull(user.fid);
+              expect(userSet).not.to.contain(user.fid);
               userSet.add(user.fid);
               userCount++;
               if (userCount === 10) break;
@@ -163,8 +163,8 @@ if (apiKey !== undefined && apiKey !== "") {
                 pageSize: 5,
               }
             )) {
-              expectDefined(cast);
-              expectDefined(cast.reaction);
+              expectDefinedNonNull(cast);
+              expectDefinedNonNull(cast.reaction);
               expect(cast.reaction.reaction_type).to.eq("like");
               expect(castSet).not.to.contain(
                 cast.reaction.reaction_target_hash
@@ -238,7 +238,7 @@ if (apiKey !== undefined && apiKey !== "") {
           it("returns empty generator for user with no verifications", async function () {
             const verifications =
               await client.clients.v1.fetchUserVerifications(100);
-            expectDefined(verifications);
+            expectDefinedNonNull(verifications);
             expect(verifications.verifications).to.be.empty;
           });
         });
@@ -269,9 +269,9 @@ if (apiKey !== undefined && apiKey !== "") {
                 pageSize: 5,
               }
             )) {
-              expectDefined(notification);
-              expectDefined(notification.hash);
-              expectDefined(notification.text);
+              expectDefinedNonNull(notification);
+              expectDefinedNonNull(notification.hash);
+              expectDefinedNonNull(notification.text);
               expect(notificationSet.has(notification.hash)).to.be.false;
               notificationSet.add(notification.hash);
               castCount++;
@@ -299,11 +299,11 @@ if (apiKey !== undefined && apiKey !== "") {
                 pageSize: 5,
               }
             )) {
-              expectDefined(notification);
-              expectDefined(notification.hash);
-              expectDefined(notification.text);
-              expectDefined(notification.reactors);
-              expectDefined(notification.reactionType);
+              expectDefinedNonNull(notification);
+              expectDefinedNonNull(notification.hash);
+              expectDefinedNonNull(notification.text);
+              expectDefinedNonNull(notification.reactors);
+              expectDefinedNonNull(notification.reactionType);
               castCount++;
               notificationFound = true;
               if (castCount === 10) break;
@@ -414,8 +414,8 @@ if (apiKey !== undefined && apiKey !== "") {
               userGaviFid
             );
             for (const follower of followers) {
-              expectDefined(follower);
-              expectDefined(follower.fid);
+              expectDefinedNonNull(follower);
+              expectDefinedNonNull(follower.fid);
               expect(followersSet.has(follower.fid)).to.be.false;
               followersSet.add(follower.fid);
               followerFound = true;
@@ -445,9 +445,9 @@ if (apiKey !== undefined && apiKey !== "") {
                 dwrFound = true;
                 break;
               }
-              expectDefined(follow);
-              expectDefined(follow.fid);
-              expect(followingSet.has(follow.fid)).to.be.false;
+              expectDefinedNonNull(follow);
+              expectDefinedNonNull(follow.fid);
+              expect(followingSet).not.to.contain(follow.fid);
               followingSet.add(follow.fid);
               followingFound = true;
             }
@@ -479,7 +479,7 @@ if (apiKey !== undefined && apiKey !== "") {
           describe("#createSigner", function () {
             it.skip("can create a signer", async function () {
               signer = await client.clients.v2.createSigner();
-              expectDefined(signer);
+              expectDefinedNonNull(signer);
             });
           });
           describe("#registerSigner", function () {
@@ -491,7 +491,7 @@ if (apiKey !== undefined && apiKey !== "") {
                 privateKey,
                 deadline
               );
-              expectDefined(signature);
+              expectDefinedNonNull(signature);
             });
             it.skip("can register a signer", async function () {
               const registeredSigner = await client.clients.v2.registerSigner(
@@ -500,8 +500,8 @@ if (apiKey !== undefined && apiKey !== "") {
                 deadline,
                 signature
               );
-              expectDefined(registeredSigner);
-              expectDefined(registeredSigner.signer_approval_url);
+              expectDefinedNonNull(registeredSigner);
+              expectDefinedNonNull(registeredSigner.signer_approval_url);
               expect(registeredSigner.signer_uuid).to.be.eq(signer.signer_uuid);
               expect(registeredSigner.public_key).to.be.eq(signer.public_key);
               // eslint-disable-next-line no-console
@@ -529,7 +529,7 @@ if (apiKey !== undefined && apiKey !== "") {
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 signer?.signer_uuid ?? signerUuid
               );
-              expectDefined(fetchSigner);
+              expectDefinedNonNull(fetchSigner);
               expect(fetchSigner.public_key).to.be.eq(
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 signer?.public_key ?? signerPublicKey
@@ -545,9 +545,9 @@ if (apiKey !== undefined && apiKey !== "") {
               for await (const cast of client.clients.v2.fetchFeed(userBotFid, {
                 pageSize: 5,
               })) {
-                expectDefined(cast);
-                expectDefined(cast.hash);
-                expectDefined(cast.text);
+                expectDefinedNonNull(cast);
+                expectDefinedNonNull(cast.hash);
+                expectDefinedNonNull(cast.text);
                 expect(castSet).not.to.contain(cast.hash);
                 castSet.add(cast.hash);
                 castCount++;
@@ -563,7 +563,7 @@ if (apiKey !== undefined && apiKey !== "") {
               const existingCastHash =
                 "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
               const cast = await client.clients.v2.fetchCast(existingCastHash);
-              expectDefined(cast);
+              expectDefinedNonNull(cast);
               expect(cast.hash).to.eq(existingCastHash);
             });
 
@@ -587,7 +587,7 @@ if (apiKey !== undefined && apiKey !== "") {
                 existingCastHashOne,
                 existingCastHashTwo,
               ]);
-              expectDefined(casts);
+              expectDefinedNonNull(casts);
               expect(casts).to.have.length(2);
               expect(casts[0].hash).to.be.eq(existingCastHashOne);
               expect(casts[1].hash).to.be.eq(existingCastHashTwo);
@@ -604,7 +604,7 @@ if (apiKey !== undefined && apiKey !== "") {
                 existingCastHashTwo,
                 nonexistentCastHash,
               ]);
-              expectDefined(casts);
+              expectDefinedNonNull(casts);
               expect(casts).to.have.length(2);
               expect(casts[0].hash).to.be.eq(existingCastHashOne);
               expect(casts[1].hash).to.be.eq(existingCastHashTwo);
@@ -624,12 +624,12 @@ if (apiKey !== undefined && apiKey !== "") {
                 signerUuid,
                 text
               );
-              expectDefined(publishedCast);
+              expectDefinedNonNull(publishedCast);
               expect(publishedCast.text).to.eq(text);
             });
             it("can reply to an existing cast", async function () {
               const text = "this is a reply to the test cast";
-              expectDefined(publishedCast);
+              expectDefinedNonNull(publishedCast);
               await sleep(1000);
               replyToCast = await client.clients.v2.publishCast(
                 signerUuid,
@@ -673,16 +673,16 @@ if (apiKey !== undefined && apiKey !== "") {
                   embeds: [{ url: embedURL }],
                 }
               );
-              expectDefined(urlEmbedCast);
+              expectDefinedNonNull(urlEmbedCast);
 
               // Fetch the cast, the PostCastResponseCast does not contain the embeds
               await sleep(1000);
               const urlEmbedCastResp = await client.clients.v2.fetchCast(
                 urlEmbedCast.hash
               );
-              expectDefined(urlEmbedCastResp);
+              expectDefinedNonNull(urlEmbedCastResp);
 
-              expectDefined(urlEmbedCastResp.embeds);
+              expectDefinedNonNull(urlEmbedCastResp.embeds);
               const urls = urlEmbedCastResp.embeds;
               expect(urls).to.have.length(1);
               const publishedEmbed: EmbedUrl = urls[0] as EmbedUrl;
@@ -698,16 +698,16 @@ if (apiKey !== undefined && apiKey !== "") {
                   embeds: [{ url: embedURL }],
                 }
               );
-              expectDefined(imageEmbedCast);
+              expectDefinedNonNull(imageEmbedCast);
 
               // Fetch the cast, the PostCastResponseCast does not contain the embeds
               await sleep(1000);
               const imageEmbedCastResp = await client.clients.v2.fetchCast(
                 imageEmbedCast.hash
               );
-              expectDefined(imageEmbedCastResp);
+              expectDefinedNonNull(imageEmbedCastResp);
 
-              expectDefined(imageEmbedCastResp.embeds);
+              expectDefinedNonNull(imageEmbedCastResp.embeds);
               const images = imageEmbedCastResp.embeds;
               expect(images).to.have.length(1);
               const publishedEmbed: EmbedUrl = images[0] as EmbedUrl;
@@ -724,16 +724,16 @@ if (apiKey !== undefined && apiKey !== "") {
                   embeds: [{ url: embedURL }, { url: imageURL }],
                 }
               );
-              expectDefined(multipleEmbedCast);
+              expectDefinedNonNull(multipleEmbedCast);
 
               // Fetch the cast, the PostCastResponseCast does not contain the embeds
               await sleep(1000);
               const multipleEmbedCastResp = await client.clients.v2.fetchCast(
                 multipleEmbedCast.hash
               );
-              expectDefined(multipleEmbedCastResp);
+              expectDefinedNonNull(multipleEmbedCastResp);
 
-              expectDefined(multipleEmbedCastResp.embeds);
+              expectDefinedNonNull(multipleEmbedCastResp.embeds);
               const embeds = multipleEmbedCastResp.embeds;
               expect(embeds).to.have.length(2);
               const publishedUrlEmbed: EmbedUrl = embeds[0] as EmbedUrl;
@@ -744,12 +744,12 @@ if (apiKey !== undefined && apiKey !== "") {
           });
           describe("#deleteCast", function () {
             it("can delete casts", async function () {
-              expectDefined(publishedCast);
-              expectDefined(replyToCast);
-              expectDefined(replyToUrl);
-              expectDefined(urlEmbedCast);
-              expectDefined(imageEmbedCast);
-              expectDefined(multipleEmbedCast);
+              expectDefinedNonNull(publishedCast);
+              expectDefinedNonNull(replyToCast);
+              expectDefinedNonNull(replyToUrl);
+              expectDefinedNonNull(urlEmbedCast);
+              expectDefinedNonNull(imageEmbedCast);
+              expectDefinedNonNull(multipleEmbedCast);
               await sleep(1000);
               await client.clients.v2.deleteCast(
                 signerUuid,
@@ -799,8 +799,8 @@ if (apiKey !== undefined && apiKey !== "") {
               );
               let foundUser = false;
               for (const user of users ?? []) {
-                expectDefined(user);
-                expectDefined(user.fid);
+                expectDefinedNonNull(user);
+                expectDefinedNonNull(user.fid);
                 foundUser = true;
               }
               expect(foundUser).to.be.true;
@@ -857,7 +857,7 @@ if (apiKey !== undefined && apiKey !== "") {
               const existingCastHash =
                 "0x0cac69b3162e2db93af22eb0156a1ecb6d2641e1";
               cast = await client.clients.v2.fetchCast(existingCastHash);
-              expectDefined(cast);
+              expectDefinedNonNull(cast);
               const response = await client.clients.v2.reactToCast(
                 signerUuid,
                 ReactionType.Like,
@@ -868,7 +868,7 @@ if (apiKey !== undefined && apiKey !== "") {
           });
           describe("#removeReactionToCast", function () {
             it("can un-react to a cast", async function () {
-              expectDefined(cast);
+              expectDefinedNonNull(cast);
               const response = await client.clients.v2.removeReactionToCast(
                 signerUuid,
                 ReactionType.Like,

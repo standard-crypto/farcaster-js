@@ -1,4 +1,4 @@
-import { NeynarAPIClient } from "@standard-crypto/farcaster-js";
+import { NeynarAPIClient } from "@standard-crypto/farcaster-js/neynarAPI";
 
 const apiKey = "NeynarAPIKey";
 const client = new NeynarAPIClient(apiKey);

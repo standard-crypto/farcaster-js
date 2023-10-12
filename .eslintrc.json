@@ -20,6 +20,7 @@
     "src/merkleAPI/swagger/*",
     "src/neynarAPI/neynarV1API/openapi/*",
     "src/neynarAPI/neynarV2API/openapi/*",
+    "src/hub-rest-client/openapi/*",
     "dist/*",
     "types/*"
   ],
@@ -37,7 +38,7 @@
     }],
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": ["error", {"varsIgnorePattern": "^_$"}],
     "no-only-tests/no-only-tests": "error",
     "no-console": "error"
   },
