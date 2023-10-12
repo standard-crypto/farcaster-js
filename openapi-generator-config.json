@@ -1,8 +1,5 @@
 {
     "withSeparateModelsAndApi": true,
     "apiPackage": "apis",
-    "modelPackage": "models",
-    "stringEnums": true,
-    "useSingleRequestParameter": true,
-    "supportsES6": true
+    "modelPackage": "models"
 }
