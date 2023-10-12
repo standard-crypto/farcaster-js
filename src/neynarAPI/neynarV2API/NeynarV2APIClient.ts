@@ -13,7 +13,7 @@ import {
   FollowApi,
   FollowReqBody,
   BulkFollowResponse,
-  CastEmbeds,
+  CastEmbed,
   Configuration,
   ErrorRes,
   FeedApi,
@@ -248,7 +248,7 @@ export class NeynarV2APIClient {
   public async publishCast(
     signerUuid: string,
     text: string,
-    options?: { embeds?: CastEmbeds[]; replyTo?: string }
+    options?: { embeds?: CastEmbed[]; replyTo?: string }
   ): Promise<PostCastResponseCast> {
     const request: CastApiPostCastRequest = {
       postCastReqBody: {

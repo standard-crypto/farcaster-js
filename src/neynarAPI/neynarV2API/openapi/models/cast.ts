@@ -14,7 +14,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastEmbeds } from "./cast-embeds";
+import { CastEmbed } from "./cast-embed";
 // May contain unused imports in some cases
 // @ts-ignore
 import { CastNotificationType } from "./cast-notification-type";
@@ -75,10 +75,10 @@ export interface Cast {
   timestamp: string;
   /**
    *
-   * @type {Array<CastEmbeds>}
+   * @type {Array<CastEmbed>}
    * @memberof Cast
    */
-  embeds: Array<CastEmbeds>;
+  embeds: Array<CastEmbed>;
   /**
    *
    * @type {CastNotificationType}

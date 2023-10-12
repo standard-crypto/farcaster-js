@@ -17,7 +17,7 @@
 import { Cast } from "./cast";
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastEmbeds } from "./cast-embeds";
+import { CastEmbed } from "./cast-embed";
 // May contain unused imports in some cases
 // @ts-ignore
 import { CastNotificationType } from "./cast-notification-type";

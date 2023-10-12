@@ -182,7 +182,7 @@ components:
             $ref: "#/components/schemas/Address"
         activeStatus:
           $ref: "#/components/schemas/ActiveStatus"
-    CastEmbeds:
+    CastEmbed:
       oneOf:
         - $ref: "#/components/schemas/EmbedUrl"
         - $ref: "#/components/schemas/EmbedCastId"
@@ -233,7 +233,7 @@ components:
         embeds:
           type: array
           items:
-            $ref: "#/components/schemas/CastEmbeds"
+            $ref: "#/components/schemas/CastEmbed"
         type:
           $ref: "#/components/schemas/CastNotificationType"
     ProfileUrl:
@@ -271,6 +271,9 @@ components:
         deadline:
           type: integer
           description: unix timestamp in seconds that controls how long the signed key request is valid for. (24 hours from now is recommended)
+    CastParent:
+      type: string
+      description: Parent URL or Cast Hash
     PostCastReqBody:
       type: object
       required:
@@ -282,9 +285,11 @@ components:
         text:
           type: string
         embeds:
-          $ref: "#/components/schemas/CastEmbeds"
+          type: array
+          items:
+            $ref: "#/components/schemas/CastEmbed"
         parent:
-          $ref: "#/components/schemas/Address"
+          $ref: "#/components/schemas/CastParent"
     ReactionReqBody:
       type: object
       required:

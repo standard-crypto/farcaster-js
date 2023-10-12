@@ -14,7 +14,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastEmbeds } from "./cast-embeds";
+import { CastEmbed } from "./cast-embed";
 
 /**
  *
@@ -36,12 +36,12 @@ export interface PostCastReqBody {
   text: string;
   /**
    *
-   * @type {CastEmbeds}
+   * @type {Array<CastEmbed>}
    * @memberof PostCastReqBody
    */
-  embeds?: CastEmbeds[];
+  embeds?: Array<CastEmbed>;
   /**
-   * Ethereum address
+   * Parent URL or Cast Hash
    * @type {string}
    * @memberof PostCastReqBody
    */

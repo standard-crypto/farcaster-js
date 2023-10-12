@@ -197,7 +197,7 @@ export interface components {
       verifications: components["schemas"]["Address"][];
       activeStatus: components["schemas"]["ActiveStatus"];
     };
-    CastEmbeds:
+    CastEmbed:
       | components["schemas"]["EmbedUrl"]
       | components["schemas"]["EmbedCastId"];
     Cast: {
@@ -210,7 +210,7 @@ export interface components {
       author: components["schemas"]["User"];
       text: string;
       timestamp: components["schemas"]["Timestamp"];
-      embeds: components["schemas"]["CastEmbeds"][];
+      embeds: components["schemas"]["CastEmbed"][];
       type?: components["schemas"]["CastNotificationType"];
     };
     ProfileUrl: {
@@ -229,11 +229,13 @@ export interface components {
       /** @description unix timestamp in seconds that controls how long the signed key request is valid for. (24 hours from now is recommended) */
       deadline: number;
     };
+    /** @description Parent URL or Cast Hash */
+    CastParent: string;
     PostCastReqBody: {
       signer_uuid: components["schemas"]["SignerUUID"];
       text: string;
-      embeds?: components["schemas"]["CastEmbeds"];
-      parent?: components["schemas"]["Address"];
+      embeds?: components["schemas"]["CastEmbed"][];
+      parent?: components["schemas"]["CastParent"];
     };
     ReactionReqBody: {
       signer_uuid: components["schemas"]["SignerUUID"];

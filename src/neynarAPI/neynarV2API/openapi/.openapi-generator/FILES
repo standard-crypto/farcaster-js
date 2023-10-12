@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 apis/cast-api.ts
 apis/feed-api.ts
@@ -15,7 +14,7 @@ git_push.sh
 index.ts
 models/active-status.ts
 models/bulk-follow-response.ts
-models/cast-embeds.ts
+models/cast-embed.ts
 models/cast-id.ts
 models/cast-notification-type.ts
 models/cast-param-type.ts

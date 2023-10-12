@@ -23,7 +23,7 @@ import { EmbedCastId } from "./embed-cast-id";
 import { EmbedUrl } from "./embed-url";
 
 /**
- * @type CastEmbeds
+ * @type CastEmbed
  * @export
  */
-export type CastEmbeds = EmbedCastId | EmbedUrl;
+export type CastEmbed = EmbedCastId | EmbedUrl;
