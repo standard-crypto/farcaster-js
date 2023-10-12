@@ -582,7 +582,7 @@ describe("HubWebClient", function () {
       });
     });
 
-    describe.skip("#listUsernameProofsForFid", function () {
+    describe("#listUsernameProofsForFid", function () {
       it("validates against OpenAPI spec", async function () {
         const response = await client.apis.usernames.listUsernameProofsByFid({
           fid: 2,

@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# DISABLING
-# npx --no-install commitlint --edit "$1"
+echo "Running commitlint. If this fails, you may have forgotten to use 'yarn cz' to commit"
+npx --no-install commitlint --edit "$1"

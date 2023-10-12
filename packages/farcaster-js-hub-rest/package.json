@@ -25,6 +25,7 @@
     "clean": "yarn clean:dist && yarn clean:generated",
     "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/openapi/generated",
+    "cz": "yarn run -T cz",
     "docs": "yarn run -T md-magic --path './README.md' && yarn run -T typedoc --plugin typedoc-plugin-markdown",
     "generate": "yarn run generate:openapi",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript",
