@@ -102,16 +102,6 @@ BaseAPI.configuration
 
 ▸ **getLinkById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`LinkAdd`](../modules/openapi.md#linkadd), `any`\>\>
 
-**`Summary`**
-
-Get a link by its FID and target FID.
-
-**`Throws`**
-
-**`Memberof`**
-
-LinksApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -123,6 +113,16 @@ LinksApi
 
 `Promise`<`AxiosResponse`<[`LinkAdd`](../modules/openapi.md#linkadd), `any`\>\>
 
+**`Summary`**
+
+Get a link by its FID and target FID.
+
+**`Throws`**
+
+**`Memberof`**
+
+LinksApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/links-api.ts:426](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/links-api.ts#L426)
@@ -132,16 +132,6 @@ ___
 ### listLinksByFid
 
 ▸ **listLinksByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
-
-**`Summary`**
-
-Get all links from a source FID
-
-**`Throws`**
-
-**`Memberof`**
-
-LinksApi
 
 #### Parameters
 
@@ -154,6 +144,16 @@ LinksApi
 
 `Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
 
+**`Summary`**
+
+Get all links from a source FID
+
+**`Throws`**
+
+**`Memberof`**
+
+LinksApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/links-api.ts:438](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/links-api.ts#L438)
@@ -163,16 +163,6 @@ ___
 ### listLinksByTargetFid
 
 ▸ **listLinksByTargetFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
-
-**`Summary`**
-
-Get all links to a target FID
-
-**`Throws`**
-
-**`Memberof`**
-
-LinksApi
 
 #### Parameters
 
@@ -184,6 +174,16 @@ LinksApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
+
+**`Summary`**
+
+Get all links to a target FID
+
+**`Throws`**
+
+**`Memberof`**
+
+LinksApi
 
 #### Defined in
 

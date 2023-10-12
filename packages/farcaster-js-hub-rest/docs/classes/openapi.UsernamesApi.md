@@ -101,16 +101,6 @@ BaseAPI.configuration
 
 ▸ **getUsernameProof**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md), `any`\>\>
 
-**`Summary`**
-
-Get an proof for a username by the Farcaster username
-
-**`Throws`**
-
-**`Memberof`**
-
-UsernamesApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -122,6 +112,16 @@ UsernamesApi
 
 `Promise`<`AxiosResponse`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md), `any`\>\>
 
+**`Summary`**
+
+Get an proof for a username by the Farcaster username
+
+**`Throws`**
+
+**`Memberof`**
+
+UsernamesApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/usernames-api.ts:218](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/usernames-api.ts#L218)
@@ -131,16 +131,6 @@ ___
 ### listUsernameProofsByFid
 
 ▸ **listUsernameProofsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md), `any`\>\>
-
-**`Summary`**
-
-Get a list of proofs provided by an FID
-
-**`Throws`**
-
-**`Memberof`**
-
-UsernamesApi
 
 #### Parameters
 
@@ -152,6 +142,16 @@ UsernamesApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md), `any`\>\>
+
+**`Summary`**
+
+Get a list of proofs provided by an FID
+
+**`Throws`**
+
+**`Memberof`**
+
+UsernamesApi
 
 #### Defined in
 

@@ -103,16 +103,6 @@ BaseAPI.configuration
 
 ▸ **getCastById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`CastAdd`](../modules/openapi.md#castadd), `any`\>\>
 
-**`Summary`**
-
-Get a cast by its FID and Hash.
-
-**`Throws`**
-
-**`Memberof`**
-
-CastsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -124,6 +114,16 @@ CastsApi
 
 `Promise`<`AxiosResponse`<[`CastAdd`](../modules/openapi.md#castadd), `any`\>\>
 
+**`Summary`**
+
+Get a cast by its FID and Hash.
+
+**`Throws`**
+
+**`Memberof`**
+
+CastsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/casts-api.ts:518](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/casts-api.ts#L518)
@@ -133,16 +133,6 @@ ___
 ### listCastsByFid
 
 ▸ **listCastsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
-
-**`Summary`**
-
-Fetch all casts authored by an FID.
-
-**`Throws`**
-
-**`Memberof`**
-
-CastsApi
 
 #### Parameters
 
@@ -155,6 +145,16 @@ CastsApi
 
 `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
+**`Summary`**
+
+Fetch all casts authored by an FID.
+
+**`Throws`**
+
+**`Memberof`**
+
+CastsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/casts-api.ts:530](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/casts-api.ts#L530)
@@ -164,16 +164,6 @@ ___
 ### listCastsByMention
 
 ▸ **listCastsByMention**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
-
-**`Summary`**
-
-Fetch all casts that mention an FID
-
-**`Throws`**
-
-**`Memberof`**
-
-CastsApi
 
 #### Parameters
 
@@ -186,6 +176,16 @@ CastsApi
 
 `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
+**`Summary`**
+
+Fetch all casts that mention an FID
+
+**`Throws`**
+
+**`Memberof`**
+
+CastsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/casts-api.ts:542](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/casts-api.ts#L542)
@@ -195,16 +195,6 @@ ___
 ### listCastsByParent
 
 ▸ **listCastsByParent**(`requestParameters?`, `options?`): `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
-
-**`Summary`**
-
-Fetch all casts by parent cast\'s FID and Hash OR by the parent\'s URL
-
-**`Throws`**
-
-**`Memberof`**
-
-CastsApi
 
 #### Parameters
 
@@ -216,6 +206,16 @@ CastsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+
+**`Summary`**
+
+Fetch all casts by parent cast\'s FID and Hash OR by the parent\'s URL
+
+**`Throws`**
+
+**`Memberof`**
+
+CastsApi
 
 #### Defined in
 

@@ -101,16 +101,6 @@ BaseAPI.configuration
 
 ▸ **getEventById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`HubEvent`](../modules/openapi.md#hubevent), `any`\>\>
 
-**`Summary`**
-
-Get an event by its ID
-
-**`Throws`**
-
-**`Memberof`**
-
-HubEventsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -122,6 +112,16 @@ HubEventsApi
 
 `Promise`<`AxiosResponse`<[`HubEvent`](../modules/openapi.md#hubevent), `any`\>\>
 
+**`Summary`**
+
+Get an event by its ID
+
+**`Throws`**
+
+**`Memberof`**
+
+HubEventsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/hub-events-api.ts:216](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/hub-events-api.ts#L216)
@@ -131,16 +131,6 @@ ___
 ### listEvents
 
 ▸ **listEvents**(`requestParameters?`, `options?`): `Promise`<`AxiosResponse`<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md), `any`\>\>
-
-**`Summary`**
-
-Get a page of Hub events
-
-**`Throws`**
-
-**`Memberof`**
-
-HubEventsApi
 
 #### Parameters
 
@@ -152,6 +142,16 @@ HubEventsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md), `any`\>\>
+
+**`Summary`**
+
+Get a page of Hub events
+
+**`Throws`**
+
+**`Memberof`**
+
+HubEventsApi
 
 #### Defined in
 

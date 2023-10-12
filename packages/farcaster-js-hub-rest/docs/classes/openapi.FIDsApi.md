@@ -100,16 +100,6 @@ BaseAPI.configuration
 
 ▸ **listFids**(`requestParameters?`, `options?`): `Promise`<`AxiosResponse`<[`FidsResponse`](../interfaces/openapi.FidsResponse.md), `any`\>\>
 
-**`Summary`**
-
-Get a list of all the FIDs
-
-**`Throws`**
-
-**`Memberof`**
-
-FIDsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -120,6 +110,16 @@ FIDsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`FidsResponse`](../interfaces/openapi.FidsResponse.md), `any`\>\>
+
+**`Summary`**
+
+Get a list of all the FIDs
+
+**`Throws`**
+
+**`Memberof`**
+
+FIDsApi
 
 #### Defined in
 

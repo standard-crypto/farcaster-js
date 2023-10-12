@@ -102,16 +102,6 @@ BaseAPI.configuration
 
 **Note:** one of two different response schemas is returned based on whether the caller provides the `user_data_type` parameter. If included, a single `UserDataAdd` message is returned (or a `not_found` error). If omitted, a paginated list of `UserDataAdd` messages is returned instead
 
-**`Summary`**
-
-Get UserData for a FID.
-
-**`Throws`**
-
-**`Memberof`**
-
-UserDataApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -122,6 +112,16 @@ UserDataApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`GetUserDataByFid200Response`](../modules/openapi.md#getuserdatabyfid200response), `any`\>\>
+
+**`Summary`**
+
+Get UserData for a FID.
+
+**`Throws`**
+
+**`Memberof`**
+
+UserDataApi
 
 #### Defined in
 

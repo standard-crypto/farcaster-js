@@ -100,16 +100,6 @@ BaseAPI.configuration
 
 ▸ **getStorageLimitsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md), `any`\>\>
 
-**`Summary`**
-
-Get an FID\'s storage limits.
-
-**`Throws`**
-
-**`Memberof`**
-
-StorageApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -120,6 +110,16 @@ StorageApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md), `any`\>\>
+
+**`Summary`**
+
+Get an FID\'s storage limits.
+
+**`Throws`**
+
+**`Memberof`**
+
+StorageApi
 
 #### Defined in
 

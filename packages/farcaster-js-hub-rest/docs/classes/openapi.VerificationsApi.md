@@ -100,16 +100,6 @@ BaseAPI.configuration
 
 ▸ **listVerificationsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md), `any`\>\>
 
-**`Summary`**
-
-Get a list of verifications provided by an FID
-
-**`Throws`**
-
-**`Memberof`**
-
-VerificationsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -120,6 +110,16 @@ VerificationsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md), `any`\>\>
+
+**`Summary`**
+
+Get a list of verifications provided by an FID
+
+**`Throws`**
+
+**`Memberof`**
+
+VerificationsApi
 
 #### Defined in
 

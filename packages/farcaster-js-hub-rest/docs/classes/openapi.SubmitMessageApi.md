@@ -100,16 +100,6 @@ BaseAPI.configuration
 
 ▸ **submitMessage**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`Message`](../modules/openapi.md#message), `any`\>\>
 
-**`Summary`**
-
-Submit a signed protobuf-serialized message to the Hub
-
-**`Throws`**
-
-**`Memberof`**
-
-SubmitMessageApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -120,6 +110,16 @@ SubmitMessageApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`Message`](../modules/openapi.md#message), `any`\>\>
+
+**`Summary`**
+
+Submit a signed protobuf-serialized message to the Hub
+
+**`Throws`**
+
+**`Memberof`**
+
+SubmitMessageApi
 
 #### Defined in
 

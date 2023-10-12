@@ -100,16 +100,6 @@ BaseAPI.configuration
 
 ▸ **getInfo**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), `any`\>\>
 
-**`Summary`**
-
-Sync Methods
-
-**`Throws`**
-
-**`Memberof`**
-
-InfoApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -120,6 +110,16 @@ InfoApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), `any`\>\>
+
+**`Summary`**
+
+Sync Methods
+
+**`Throws`**
+
+**`Memberof`**
+
+InfoApi
 
 #### Defined in
 

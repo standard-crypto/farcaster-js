@@ -102,16 +102,6 @@ BaseAPI.configuration
 
 ▸ **getOnChainIdRegistrationByAddress**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister), `any`\>\>
 
-**`Summary`**
-
-Get an on chain ID Registry Event for a given Address
-
-**`Throws`**
-
-**`Memberof`**
-
-OnChainEventsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -123,6 +113,16 @@ OnChainEventsApi
 
 `Promise`<`AxiosResponse`<[`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister), `any`\>\>
 
+**`Summary`**
+
+Get an on chain ID Registry Event for a given Address
+
+**`Throws`**
+
+**`Memberof`**
+
+OnChainEventsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/on-chain-events-api.ts:322](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/on-chain-events-api.ts#L322)
@@ -132,16 +132,6 @@ ___
 ### listOnChainEventsByFid
 
 ▸ **listOnChainEventsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md), `any`\>\>
-
-**`Summary`**
-
-Get a list of on-chain events provided by an FID
-
-**`Throws`**
-
-**`Memberof`**
-
-OnChainEventsApi
 
 #### Parameters
 
@@ -153,6 +143,16 @@ OnChainEventsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md), `any`\>\>
+
+**`Summary`**
+
+Get a list of on-chain events provided by an FID
+
+**`Throws`**
+
+**`Memberof`**
+
+OnChainEventsApi
 
 #### Defined in
 
@@ -166,16 +166,6 @@ ___
 
 **Note:** one of two different response schemas is returned based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a non-paginated list of `OnChainEventSigner` messages is returned instead
 
-**`Summary`**
-
-Get a list of signers provided by an FID
-
-**`Throws`**
-
-**`Memberof`**
-
-OnChainEventsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -186,6 +176,16 @@ OnChainEventsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListOnChainSignersByFid200Response`](../modules/openapi.md#listonchainsignersbyfid200response), `any`\>\>
+
+**`Summary`**
+
+Get a list of signers provided by an FID
+
+**`Throws`**
+
+**`Memberof`**
+
+OnChainEventsApi
 
 #### Defined in
 

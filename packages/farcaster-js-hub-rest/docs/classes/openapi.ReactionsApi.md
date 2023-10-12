@@ -103,16 +103,6 @@ BaseAPI.configuration
 
 ▸ **getReactionById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`Reaction`](../modules/openapi.md#reaction), `any`\>\>
 
-**`Summary`**
-
-Get a reaction by its created FID and target Cast.
-
-**`Throws`**
-
-**`Memberof`**
-
-ReactionsApi
-
 #### Parameters
 
 | Name | Type | Description |
@@ -124,6 +114,16 @@ ReactionsApi
 
 `Promise`<`AxiosResponse`<[`Reaction`](../modules/openapi.md#reaction), `any`\>\>
 
+**`Summary`**
+
+Get a reaction by its created FID and target Cast.
+
+**`Throws`**
+
+**`Memberof`**
+
+ReactionsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:583](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L583)
@@ -133,16 +133,6 @@ ___
 ### listReactionsByCast
 
 ▸ **listReactionsByCast**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
-
-**`Summary`**
-
-Get all reactions to a cast
-
-**`Throws`**
-
-**`Memberof`**
-
-ReactionsApi
 
 #### Parameters
 
@@ -155,6 +145,16 @@ ReactionsApi
 
 `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
+**`Summary`**
+
+Get all reactions to a cast
+
+**`Throws`**
+
+**`Memberof`**
+
+ReactionsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:595](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L595)
@@ -164,16 +164,6 @@ ___
 ### listReactionsByFid
 
 ▸ **listReactionsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
-
-**`Summary`**
-
-Get all reactions by an FID
-
-**`Throws`**
-
-**`Memberof`**
-
-ReactionsApi
 
 #### Parameters
 
@@ -186,6 +176,16 @@ ReactionsApi
 
 `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
+**`Summary`**
+
+Get all reactions by an FID
+
+**`Throws`**
+
+**`Memberof`**
+
+ReactionsApi
+
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:607](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L607)
@@ -195,12 +195,6 @@ ___
 ### listReactionsByTarget
 
 ▸ **listReactionsByTarget**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
-
-**`Throws`**
-
-**`Memberof`**
-
-ReactionsApi
 
 #### Parameters
 
@@ -212,6 +206,12 @@ ReactionsApi
 #### Returns
 
 `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+
+**`Throws`**
+
+**`Memberof`**
+
+ReactionsApi
 
 #### Defined in
 
