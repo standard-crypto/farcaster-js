@@ -1,3 +1,18 @@
+# [5.7.0](https://github.com/standard-crypto/farcaster-js/compare/v5.6.0...v5.7.0) (2023-10-05)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 1.3.4 to 1.3.5 ([7d9ee28](https://github.com/standard-crypto/farcaster-js/commit/7d9ee28f655301a471d453527c3367ab4946161d))
+* **deps:** bump axios from 1.3.5 to 1.3.6 ([a7fbc1a](https://github.com/standard-crypto/farcaster-js/commit/a7fbc1a52e6fcf391f58b1f9b2bf4d1f93127315))
+* **deps:** bump axios from 1.3.6 to 1.4.0 ([97d850e](https://github.com/standard-crypto/farcaster-js/commit/97d850e7afaf23db08226c51876accf68c2d4ede))
+* **deps:** bump canonicalize from 1.0.8 to 2.0.0 ([8fb66af](https://github.com/standard-crypto/farcaster-js/commit/8fb66af4a4330e39be3b73c9738944f530eaf410))
+
+
+### Features
+
+* adds support for embeds ([37a9c14](https://github.com/standard-crypto/farcaster-js/commit/37a9c14c33c5ebb5b83aa7f72e67febfa39dd88f)), closes [#621](https://github.com/standard-crypto/farcaster-js/issues/621)
+
 # [5.6.0](https://github.com/standard-crypto/farcaster-js/compare/v5.5.4...v5.6.0) (2023-03-21)
 
 
