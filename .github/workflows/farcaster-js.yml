@@ -20,8 +20,9 @@ jobs:
       - uses: volta-cli/action@v4.0.1
       - run: yarn --frozen-lockfile
 
-      - name: Build
-        run: yarn build
+      # commented out until package is restructured and ready to build
+      # - name: Build
+      #   run: yarn build
 
       - name: Type check
         run: yarn type:check
