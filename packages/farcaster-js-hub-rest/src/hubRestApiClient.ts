@@ -37,7 +37,7 @@ import {
   HubEvent,
 } from "./openapi";
 
-type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
+export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
   : T extends OnChainEventType.SignerMigrated
   ? OnChainEventSignerMigrated

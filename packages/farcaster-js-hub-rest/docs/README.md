@@ -1,3 +1,5 @@
+@standard-crypto/farcaster-js-hub-rest / [Modules](modules.md)
+
 # Farcaster Hub REST API Client
 
 A tool for interacting with the REST API of any Farcaster hub.
