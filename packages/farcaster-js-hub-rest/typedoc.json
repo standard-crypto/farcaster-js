@@ -1,0 +1,9 @@
+{
+    "entryPoints": ["./src/index.ts", "./src/openapi/index.ts"],
+    "out": "docs",
+    "exclude": [],
+    "gitRevision": "main",
+    "theme": "markdown",
+    "readme": "./README.md",
+    "excludePrivate": true
+}
