@@ -2,7 +2,14 @@
   "name": "@standard-crypto/farcaster-js-hub-rest",
   "version": "0.0.0",
   "description": "A tool for interacting with the REST API of any Farcaster hub.",
-  "main": "src/index.ts",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "import": "./dist/esm/index.mjs"
+  },
+  "types": "./types/index.d.ts",
+  "type": "module",
   "repository": {
     "url": "https://github.com/standard-crypto/farcaster-js",
     "type": "git"
@@ -41,6 +48,7 @@
     "types/**"
   ],
   "scripts": {
+    "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
     "clean": "yarn clean:dist && yarn clean:generated",
     "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/openapi/generated",
