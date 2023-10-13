@@ -2,7 +2,6 @@
   "name": "farcaster-js-monorepo",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "yarn@4.0.0-rc.53",
   "license": "MIT",
   "engines": {
     "node": ">=18.12.0"
@@ -32,9 +31,10 @@
     "@semantic-release/github": "^8.1.0",
     "@semantic-release/npm": "^9.0.2",
     "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.62.0",
-    "@yarnpkg/plugin-workspace-tools": "^4.0.0-rc.53",
     "commitizen": "^4.3.0",
     "cspell": "^6.31.1",
     "cz-conventional-changelog": "^3.3.0",

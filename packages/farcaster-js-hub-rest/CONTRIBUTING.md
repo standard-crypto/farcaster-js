@@ -3,9 +3,6 @@
 ## Setup
 
 ```sh
-# leverage corepack to use the correct version of yarn
-corepack enable
-
 # install dependencies
 yarn
 ```

@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js-hub-rest",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A tool for interacting with the REST API of any Farcaster hub.",
   "main": "src/index.ts",
   "repository": {
@@ -18,8 +18,6 @@
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "@types/chai": "^4.3.5",
     "@types/chai-as-promised": "^7.1.5",
-    "@types/mocha": "^10.0.0",
-    "@types/node": "^20.2.5",
     "@types/prompts": "^2.4.4",
     "axios": "~1.5.1",
     "chai": "^4.3.4",

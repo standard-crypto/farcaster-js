@@ -22,7 +22,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          corepack-enable: true
 
       - run: yarn --frozen-lockfile
 
