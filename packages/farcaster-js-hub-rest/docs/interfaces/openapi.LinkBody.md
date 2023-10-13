@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).LinkBody
 
+Adds or removes a Link
+
 **`Export`**
 
 LinkBody

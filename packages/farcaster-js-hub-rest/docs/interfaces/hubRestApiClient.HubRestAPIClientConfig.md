@@ -1,16 +1,16 @@
-[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / [index](../modules/index.md) / HubRestAPIClientConfig
+[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / [hubRestApiClient](../modules/hubRestApiClient.md) / HubRestAPIClientConfig
 
 # Interface: HubRestAPIClientConfig
 
-[index](../modules/index.md).HubRestAPIClientConfig
+[hubRestApiClient](../modules/hubRestApiClient.md).HubRestAPIClientConfig
 
 ## Table of contents
 
 ### Properties
 
-- [axiosInstance](index.HubRestAPIClientConfig.md#axiosinstance)
-- [logger](index.HubRestAPIClientConfig.md#logger)
-- [server](index.HubRestAPIClientConfig.md#server)
+- [axiosInstance](hubRestApiClient.HubRestAPIClientConfig.md#axiosinstance)
+- [logger](hubRestApiClient.HubRestAPIClientConfig.md#logger)
+- [server](hubRestApiClient.HubRestAPIClientConfig.md#server)
 
 ## Properties
 

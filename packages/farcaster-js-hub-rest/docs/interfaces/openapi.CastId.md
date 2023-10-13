@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).CastId
 
+Identifier used to look up a Cast
+
 **`Export`**
 
 CastId

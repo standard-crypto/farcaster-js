@@ -25,8 +25,8 @@ jobs:
 
       - run: yarn --frozen-lockfile
 
-      # - name: Build
-      #   run: yarn build
+      - name: Build
+        run: yarn workspaces foreach --all run build
 
       - name: Type check
         run: yarn type:check
@@ -43,10 +43,10 @@ jobs:
       - name: Test
         run: yarn workspaces foreach --all run test
         env:
-          INTEGRATION_TEST_USER_MNEMONIC: ${{ secrets.INTEGRATION_TEST_USER_MNEMONIC }}
           INTEGRATION_TEST_NEYNAR_API_KEY: ${{ secrets.INTEGRATION_TEST_NEYNAR_API_KEY }}
           INTEGRATION_TEST_NEYNAR_SIGNER_UUID: ${{ secrets.INTEGRATION_TEST_NEYNAR_SIGNER_UUID }}
           INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY: ${{ secrets.INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY }}
+          INTEGRATION_TEST_NEYNAR_SIGNER_FID: ${{ secrets.INTEGRATION_TEST_NEYNAR_SIGNER_FID }}
 
       # - name: Release
       #   env:

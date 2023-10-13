@@ -34,7 +34,7 @@ ReactionsApiListReactionsByFid
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:495](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L495)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:498](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L498)
 
 ___
 
@@ -50,7 +50,7 @@ ReactionsApiListReactionsByFid
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:509](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L509)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:512](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L512)
 
 ___
 
@@ -66,7 +66,7 @@ ReactionsApiListReactionsByFid
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:523](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L523)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:526](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L526)
 
 ___
 
@@ -82,7 +82,7 @@ ReactionsApiListReactionsByFid
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:502](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L502)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:505](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L505)
 
 ___
 
@@ -98,4 +98,4 @@ ReactionsApiListReactionsByFid
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:516](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L516)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:519](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L519)

@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).VerificationAddEthAddressBody
 
+Adds a Verification of ownership of an Ethereum Address
+
 **`Export`**
 
 VerificationAddEthAddressBody

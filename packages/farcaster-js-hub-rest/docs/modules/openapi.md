@@ -8,7 +8,6 @@
 
 - [FarcasterNetwork](../enums/openapi.FarcasterNetwork.md)
 - [HashScheme](../enums/openapi.HashScheme.md)
-- [HubEventType](../enums/openapi.HubEventType.md)
 - [IdRegisterEventType](../enums/openapi.IdRegisterEventType.md)
 - [LinkType](../enums/openapi.LinkType.md)
 - [MessageType](../enums/openapi.MessageType.md)
@@ -1124,7 +1123,7 @@ ReactionsApi - factory interface
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:355](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L355)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:357](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L357)
 
 ___
 
@@ -1155,7 +1154,7 @@ ReactionsApi - functional programming interface
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:286](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L286)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:287](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L287)
 
 ___
 
