@@ -166,7 +166,7 @@ export class NeynarV2APIClient {
       filterType?: "fids" | "parent_url";
       fids?: string;
       parentUrl?: string;
-      limit?: number;
+      pageSize?: number;
     }
   ): AsyncGenerator<CastWithInteractions, void, undefined> {
     let cursor: string | undefined;
@@ -179,7 +179,7 @@ export class NeynarV2APIClient {
         fids: options?.fids,
         parentUrl: options?.parentUrl,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       // yield current page of casts

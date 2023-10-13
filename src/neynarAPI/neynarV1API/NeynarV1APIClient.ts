@@ -118,7 +118,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchCastsForUser(
     fid: number,
-    options?: { parentUrl?: string; viewerFid?: number; limit?: number }
+    options?: { parentUrl?: string; viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<Cast, void, undefined> {
     let cursor: string | undefined;
 
@@ -128,7 +128,7 @@ export class NeynarV1APIClient {
         viewerFid: options?.viewerFid,
         parentUrl: options?.parentUrl,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       // yield current page of casts
@@ -148,7 +148,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchRecentCasts(options?: {
     viewerFid?: number;
-    limit?: number;
+    pageSize?: number;
   }): AsyncGenerator<Cast, void, undefined> {
     let cursor: string | undefined;
 
@@ -157,7 +157,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.cast.recentCasts({
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       yield* response.data.result.casts;
@@ -175,7 +175,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchRecentUsers(options?: {
     viewerFid?: number;
-    limit?: number;
+    pageSize?: number;
   }): AsyncGenerator<User, void, undefined> {
     let cursor: string | undefined;
 
@@ -184,7 +184,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.user.recentUsers({
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       yield* response.data.result.users;
@@ -201,7 +201,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchUserCastLikes(
     fid: number,
-    options?: { viewerFid?: number; limit?: number }
+    options?: { viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<ReactionWithCastMeta, void, undefined> {
     let cursor: string | undefined;
 
@@ -210,7 +210,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.user.userCastLikes({
         fid: fid,
         viewerFid: options?.viewerFid,
-        limit: options?.limit,
+        limit: options?.pageSize,
         cursor: cursor,
       });
 
@@ -313,7 +313,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchMentionAndReplyNotifications(
     fid: number,
-    options?: { viewerFid?: number; limit?: number }
+    options?: { viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<Cast, void, undefined> {
     let cursor: string | undefined;
 
@@ -323,7 +323,7 @@ export class NeynarV1APIClient {
         fid: fid,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       // yield current page
@@ -342,7 +342,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchUserLikesAndRecasts(
     fid: number,
-    options?: { viewerFid?: number; limit?: number }
+    options?: { viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<ReactionsAndRecastsNotification, void, undefined> {
     let cursor: string | undefined;
 
@@ -352,7 +352,7 @@ export class NeynarV1APIClient {
         fid: fid,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       // yield current page
@@ -371,7 +371,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchCastLikes(
     castOrCastHash: Cast | string,
-    options?: { viewerFid?: number; limit?: number }
+    options?: { viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
     let castHash: string;
@@ -386,7 +386,7 @@ export class NeynarV1APIClient {
         castHash: castHash,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       yield* response.data.result.likes;
@@ -404,7 +404,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchCastReactions(
     castOrCastHash: Cast | string,
-    options?: { viewerFid?: number; limit?: number }
+    options?: { viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
     let castHash: string;
@@ -419,7 +419,7 @@ export class NeynarV1APIClient {
         castHash: castHash,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       yield* response.data.result.casts;
@@ -437,7 +437,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchRecasters(
     castOrCastHash: Cast | string,
-    options?: { viewerFid?: number; limit?: number }
+    options?: { viewerFid?: number; pageSize?: number }
   ): AsyncGenerator<Recaster, void, undefined> {
     let cursor: string | undefined;
     let castHash: string;
@@ -452,7 +452,7 @@ export class NeynarV1APIClient {
         castHash: castHash,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.limit,
+        limit: options?.pageSize,
       });
 
       yield* response.data.result.users;
