@@ -182,7 +182,7 @@ components:
             $ref: "#/components/schemas/Address"
         activeStatus:
           $ref: "#/components/schemas/ActiveStatus"
-    CastEmbed:
+    EmbeddedCast:
       oneOf:
         - $ref: "#/components/schemas/EmbedUrl"
         - $ref: "#/components/schemas/EmbedCastId"
@@ -233,7 +233,7 @@ components:
         embeds:
           type: array
           items:
-            $ref: "#/components/schemas/CastEmbed"
+            $ref: "#/components/schemas/EmbeddedCast"
         type:
           $ref: "#/components/schemas/CastNotificationType"
     ProfileUrl:
@@ -287,7 +287,7 @@ components:
         embeds:
           type: array
           items:
-            $ref: "#/components/schemas/CastEmbed"
+            $ref: "#/components/schemas/EmbeddedCast"
         parent:
           $ref: "#/components/schemas/CastParent"
     ReactionReqBody:
@@ -862,6 +862,7 @@ paths:
           description: Used when feed_type=filter. Can be set to fids (requires fids) or parent_url (requires parent_url)
         - name: fid
           in: query
+          required: true
           schema:
             $ref: "#/components/schemas/Fid"
           description: (Optional) fid of user whose feed you want to create. By default, the API expects this field, except if you pass a filter_type

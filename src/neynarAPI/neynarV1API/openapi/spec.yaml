@@ -805,6 +805,8 @@ paths:
           $ref: "#/components/responses/UserSuccess"
         "400":
           $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
       deprecated: false
   /farcaster/user-cast-likes:
     get:

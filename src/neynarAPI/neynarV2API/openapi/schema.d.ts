@@ -197,7 +197,7 @@ export interface components {
       verifications: components["schemas"]["Address"][];
       activeStatus: components["schemas"]["ActiveStatus"];
     };
-    CastEmbed:
+    EmbeddedCast:
       | components["schemas"]["EmbedUrl"]
       | components["schemas"]["EmbedCastId"];
     Cast: {
@@ -210,7 +210,7 @@ export interface components {
       author: components["schemas"]["User"];
       text: string;
       timestamp: components["schemas"]["Timestamp"];
-      embeds: components["schemas"]["CastEmbed"][];
+      embeds: components["schemas"]["EmbeddedCast"][];
       type?: components["schemas"]["CastNotificationType"];
     };
     ProfileUrl: {
@@ -234,7 +234,7 @@ export interface components {
     PostCastReqBody: {
       signer_uuid: components["schemas"]["SignerUUID"];
       text: string;
-      embeds?: components["schemas"]["CastEmbed"][];
+      embeds?: components["schemas"]["EmbeddedCast"][];
       parent?: components["schemas"]["CastParent"];
     };
     ReactionReqBody: {
@@ -606,7 +606,7 @@ export interface operations {
   /** Retrieve casts based on filters */
   feed: {
     parameters: {
-      query?: {
+      query: {
         /**
          * @description Defaults to following (requires fid or address). If set to filter (requires filter_type)
          * @example filter
@@ -618,7 +618,7 @@ export interface operations {
          */
         filter_type?: "fids" | "parent_url";
         /** @description (Optional) fid of user whose feed you want to create. By default, the API expects this field, except if you pass a filter_type */
-        fid?: components["schemas"]["Fid"];
+        fid: components["schemas"]["Fid"];
         /**
          * @description Used when filter_type=fids . Create a feed based on a list of fids. Max array size is 250. Requires feed_type and filter_type.
          * @example 3,4,194

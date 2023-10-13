@@ -14,7 +14,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastEmbed } from "./cast-embed";
+import { EmbeddedCast } from "./embedded-cast";
 
 /**
  *
@@ -36,10 +36,10 @@ export interface PostCastReqBody {
   text: string;
   /**
    *
-   * @type {Array<CastEmbed>}
+   * @type {Array<EmbeddedCast>}
    * @memberof PostCastReqBody
    */
-  embeds?: Array<CastEmbed>;
+  embeds?: Array<EmbeddedCast>;
   /**
    * Parent URL or Cast Hash
    * @type {string}

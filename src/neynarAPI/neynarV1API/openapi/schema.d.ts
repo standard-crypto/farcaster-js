@@ -523,6 +523,7 @@ export interface operations {
     responses: {
       200: components["responses"]["UserSuccess"];
       400: components["responses"]["400Response"];
+      404: components["responses"]["404Response"];
     };
   };
   /**

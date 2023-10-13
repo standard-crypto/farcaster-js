@@ -1,7 +1,6 @@
 export * from "./active-status";
 export * from "./bulk-follow-response";
 export * from "./cast";
-export * from "./cast-embed";
 export * from "./cast-id";
 export * from "./cast-notification-type";
 export * from "./cast-param-type";
@@ -17,6 +16,7 @@ export * from "./casts-response-result";
 export * from "./delete-cast-req-body";
 export * from "./embed-cast-id";
 export * from "./embed-url";
+export * from "./embedded-cast";
 export * from "./error-res";
 export * from "./feed-response";
 export * from "./follow-req-body";

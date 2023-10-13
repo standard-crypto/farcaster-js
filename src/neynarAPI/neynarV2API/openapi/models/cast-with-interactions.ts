@@ -17,9 +17,6 @@
 import { Cast } from "./cast";
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastEmbed } from "./cast-embed";
-// May contain unused imports in some cases
-// @ts-ignore
 import { CastNotificationType } from "./cast-notification-type";
 // May contain unused imports in some cases
 // @ts-ignore
@@ -33,6 +30,9 @@ import { CastWithInteractionsReactions } from "./cast-with-interactions-reaction
 // May contain unused imports in some cases
 // @ts-ignore
 import { CastWithInteractionsReplies } from "./cast-with-interactions-replies";
+// May contain unused imports in some cases
+// @ts-ignore
+import { EmbeddedCast } from "./embedded-cast";
 // May contain unused imports in some cases
 // @ts-ignore
 import { User } from "./user";

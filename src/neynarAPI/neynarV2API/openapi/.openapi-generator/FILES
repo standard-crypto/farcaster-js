@@ -14,7 +14,6 @@ git_push.sh
 index.ts
 models/active-status.ts
 models/bulk-follow-response.ts
-models/cast-embed.ts
 models/cast-id.ts
 models/cast-notification-type.ts
 models/cast-param-type.ts
@@ -31,6 +30,7 @@ models/casts-response.ts
 models/delete-cast-req-body.ts
 models/embed-cast-id.ts
 models/embed-url.ts
+models/embedded-cast.ts
 models/error-res.ts
 models/feed-response.ts
 models/follow-req-body.ts

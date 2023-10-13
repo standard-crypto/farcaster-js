@@ -92,23 +92,23 @@ if (apiKey !== undefined && apiKey !== "") {
           it("can fetch multiple pages worth of casts", async function () {
             let castCount = 0;
             const castSet = new Set();
-            const castCountBiggerThanPageSize = 150;
+            const castCountBiggerThanLimit = 150;
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             for await (const cast of client.clients.v1.fetchCastsForUser(
               userDwrFid,
               {
-                pageSize: 100,
+                limit: 100,
               }
             )) {
               expect(castSet.has(cast.hash)).to.be.false;
               castSet.add(cast.hash);
               castCount++;
-              if (castCount >= castCountBiggerThanPageSize) {
+              if (castCount >= castCountBiggerThanLimit) {
                 break;
               }
             }
             expect(castCount).to.be.greaterThanOrEqual(
-              castCountBiggerThanPageSize
+              castCountBiggerThanLimit
             );
           });
 
@@ -122,7 +122,7 @@ if (apiKey !== undefined && apiKey !== "") {
             let castCount = 0;
             const castSet = new Set();
             for await (const cast of client.clients.v1.fetchRecentCasts({
-              pageSize: 5,
+              limit: 5,
             })) {
               expectDefinedNonNull(cast);
               expectDefinedNonNull(cast.hash);
@@ -141,7 +141,7 @@ if (apiKey !== undefined && apiKey !== "") {
             let userCount = 0;
             const userSet = new Set();
             for await (const user of client.clients.v1.fetchRecentUsers({
-              pageSize: 5,
+              limit: 5,
             })) {
               expectDefinedNonNull(user);
               expectDefinedNonNull(user.fid);
@@ -160,7 +160,7 @@ if (apiKey !== undefined && apiKey !== "") {
             for await (const cast of client.clients.v1.fetchUserCastLikes(
               userDwrFid,
               {
-                pageSize: 5,
+                limit: 5,
               }
             )) {
               expectDefinedNonNull(cast);
@@ -177,7 +177,7 @@ if (apiKey !== undefined && apiKey !== "") {
           });
           it("can returns empty generator for an invalid user", async function () {
             const casts = client.clients.v1.fetchUserCastLikes(invalidUserFid, {
-              pageSize: 5,
+              limit: 5,
             });
             expect(casts).to.be.empty;
           });
@@ -266,7 +266,7 @@ if (apiKey !== undefined && apiKey !== "") {
             for await (const notification of client.clients.v1.fetchMentionAndReplyNotifications(
               userDwrFid,
               {
-                pageSize: 5,
+                limit: 5,
               }
             )) {
               expectDefinedNonNull(notification);
@@ -296,7 +296,7 @@ if (apiKey !== undefined && apiKey !== "") {
             for await (const notification of client.clients.v1.fetchUserLikesAndRecasts(
               userDwrFid,
               {
-                pageSize: 5,
+                limit: 5,
               }
             )) {
               expectDefinedNonNull(notification);
@@ -328,7 +328,7 @@ if (apiKey !== undefined && apiKey !== "") {
             let reactionFound = false;
             for await (const observedReaction of client.clients.v1.fetchCastLikes(
               existingCastHash,
-              { pageSize: 5 }
+              { limit: 5 }
             )) {
               expect(observedReaction.type).eq(ReactionType.Like);
               expect(reactionSet.has(observedReaction.hash)).to.be.false;
@@ -356,7 +356,7 @@ if (apiKey !== undefined && apiKey !== "") {
             let reactionFound = false;
             for await (const observedReaction of client.clients.v1.fetchCastReactions(
               existingCastHash,
-              { pageSize: 5 }
+              { limit: 5 }
             )) {
               // expect(observedReaction.type).eq(ReactionType.Like);
               expect(reactionSet.has(observedReaction.hash)).to.be.false;
@@ -385,7 +385,7 @@ if (apiKey !== undefined && apiKey !== "") {
             let recasterFound = false;
             for await (const recaster of client.clients.v1.fetchRecasters(
               existingCastHash,
-              { pageSize: 5 }
+              { limit: 5 }
             )) {
               expect(recasterSet).not.to.contain(recaster.fid);
               recasterSet.add(recaster.fid);
@@ -543,7 +543,7 @@ if (apiKey !== undefined && apiKey !== "") {
               const castSet = new Set();
               let castCount = 0;
               for await (const cast of client.clients.v2.fetchFeed(userBotFid, {
-                pageSize: 5,
+                limit: 5,
               })) {
                 expectDefinedNonNull(cast);
                 expectDefinedNonNull(cast.hash);

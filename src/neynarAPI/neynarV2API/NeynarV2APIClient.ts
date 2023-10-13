@@ -13,7 +13,7 @@ import {
   FollowApi,
   FollowReqBody,
   BulkFollowResponse,
-  CastEmbed,
+  EmbeddedCast,
   Configuration,
   ErrorRes,
   FeedApi,
@@ -166,7 +166,7 @@ export class NeynarV2APIClient {
       filterType?: "fids" | "parent_url";
       fids?: string;
       parentUrl?: string;
-      pageSize?: number;
+      limit?: number;
     }
   ): AsyncGenerator<CastWithInteractions, void, undefined> {
     let cursor: string | undefined;
@@ -179,7 +179,7 @@ export class NeynarV2APIClient {
         fids: options?.fids,
         parentUrl: options?.parentUrl,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       // yield current page of casts
@@ -248,7 +248,7 @@ export class NeynarV2APIClient {
   public async publishCast(
     signerUuid: string,
     text: string,
-    options?: { embeds?: CastEmbed[]; replyTo?: string }
+    options?: { embeds?: EmbeddedCast[]; replyTo?: string }
   ): Promise<PostCastResponseCast> {
     const request: CastApiPostCastRequest = {
       postCastReqBody: {

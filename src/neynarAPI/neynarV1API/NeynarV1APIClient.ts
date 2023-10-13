@@ -118,7 +118,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchCastsForUser(
     fid: number,
-    options?: { parentUrl?: string; viewerFid?: number; pageSize?: number }
+    options?: { parentUrl?: string; viewerFid?: number; limit?: number }
   ): AsyncGenerator<Cast, void, undefined> {
     let cursor: string | undefined;
 
@@ -128,7 +128,7 @@ export class NeynarV1APIClient {
         viewerFid: options?.viewerFid,
         parentUrl: options?.parentUrl,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       // yield current page of casts
@@ -148,7 +148,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchRecentCasts(options?: {
     viewerFid?: number;
-    pageSize?: number;
+    limit?: number;
   }): AsyncGenerator<Cast, void, undefined> {
     let cursor: string | undefined;
 
@@ -157,7 +157,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.cast.recentCasts({
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       yield* response.data.result.casts;
@@ -175,7 +175,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchRecentUsers(options?: {
     viewerFid?: number;
-    pageSize?: number;
+    limit?: number;
   }): AsyncGenerator<User, void, undefined> {
     let cursor: string | undefined;
 
@@ -184,7 +184,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.user.recentUsers({
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       yield* response.data.result.users;
@@ -201,7 +201,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchUserCastLikes(
     fid: number,
-    options?: { viewerFid?: number; pageSize?: number }
+    options?: { viewerFid?: number; limit?: number }
   ): AsyncGenerator<ReactionWithCastMeta, void, undefined> {
     let cursor: string | undefined;
 
@@ -210,7 +210,7 @@ export class NeynarV1APIClient {
       const response = await this.apis.user.userCastLikes({
         fid: fid,
         viewerFid: options?.viewerFid,
-        limit: options?.pageSize,
+        limit: options?.limit,
         cursor: cursor,
       });
 
@@ -249,13 +249,21 @@ export class NeynarV1APIClient {
     username: string,
     viewerFid?: number
   ): Promise<User | null> {
-    const response = await this.apis.user.userByUsername({
-      username,
-      viewerFid,
-    });
-    // result.user is undefined if not found
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    return response.data.result.user ?? null;
+    try {
+      const response = await this.apis.user.userByUsername({
+        username,
+        viewerFid,
+      });
+      return response.data.result.user;
+    } catch (error) {
+      if (NeynarV1APIClient.isApiErrorResponse(error)) {
+        const status = error.response.status;
+        if (status === 404) {
+          return null;
+        }
+      }
+      throw error;
+    }
   }
 
   /**
@@ -305,7 +313,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchMentionAndReplyNotifications(
     fid: number,
-    options?: { viewerFid?: number; pageSize?: number }
+    options?: { viewerFid?: number; limit?: number }
   ): AsyncGenerator<Cast, void, undefined> {
     let cursor: string | undefined;
 
@@ -315,7 +323,7 @@ export class NeynarV1APIClient {
         fid: fid,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       // yield current page
@@ -334,7 +342,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchUserLikesAndRecasts(
     fid: number,
-    options?: { viewerFid?: number; pageSize?: number }
+    options?: { viewerFid?: number; limit?: number }
   ): AsyncGenerator<ReactionsAndRecastsNotification, void, undefined> {
     let cursor: string | undefined;
 
@@ -344,7 +352,7 @@ export class NeynarV1APIClient {
         fid: fid,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       // yield current page
@@ -363,7 +371,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchCastLikes(
     castOrCastHash: Cast | string,
-    options?: { viewerFid?: number; pageSize?: number }
+    options?: { viewerFid?: number; limit?: number }
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
     let castHash: string;
@@ -378,7 +386,7 @@ export class NeynarV1APIClient {
         castHash: castHash,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       yield* response.data.result.likes;
@@ -396,7 +404,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchCastReactions(
     castOrCastHash: Cast | string,
-    options?: { viewerFid?: number; pageSize?: number }
+    options?: { viewerFid?: number; limit?: number }
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
     let castHash: string;
@@ -411,7 +419,7 @@ export class NeynarV1APIClient {
         castHash: castHash,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       yield* response.data.result.casts;
@@ -429,7 +437,7 @@ export class NeynarV1APIClient {
    */
   public async *fetchRecasters(
     castOrCastHash: Cast | string,
-    options?: { viewerFid?: number; pageSize?: number }
+    options?: { viewerFid?: number; limit?: number }
   ): AsyncGenerator<Recaster, void, undefined> {
     let cursor: string | undefined;
     let castHash: string;
@@ -444,7 +452,7 @@ export class NeynarV1APIClient {
         castHash: castHash,
         viewerFid: options?.viewerFid,
         cursor: cursor,
-        limit: options?.pageSize,
+        limit: options?.limit,
       });
 
       yield* response.data.result.users;
