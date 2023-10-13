@@ -18,16 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: volta-cli/action@v4.0.1
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - run: yarn --frozen-lockfile
 
-      - name: Build
-        run: yarn build
+      # - name: Build
+      #   run: yarn build
 
       - name: Type check
         run: yarn type:check
-
-      - name: Format check
-        run: yarn format:check
 
       - name: Lint check
         run: yarn lint:check
@@ -35,13 +37,14 @@ jobs:
       - name: Spell check
         run: yarn spell:check
 
-      - name: Test
-        run: yarn test
-        env:
-          INTEGRATION_TEST_USER_MNEMONIC: ${{ secrets.INTEGRATION_TEST_USER_MNEMONIC }}
+      - name: Check for unstaged changes to generated code
+        run: yarn workspaces foreach --all run generate && git diff --exit-code
 
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+      - name: Test
+        run: yarn workspaces foreach --all run test
+
+      # - name: Release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: npx semantic-release

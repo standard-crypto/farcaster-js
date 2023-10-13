@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "include": [
-    "./src/**/*.ts",
-    "./tests/**/*.ts",
-    "./examples/**/*.ts"
-  ],
-  "explicit-function-return-type": "error"
-}

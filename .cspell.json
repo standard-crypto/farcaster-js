@@ -1,17 +1,12 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "language": "en",
   "words": [
     "arrayify",
-    "bignumber",
     "esbuild",
-    "ethersproject",
     "farcaster",
     "gavi",
     "keccak",
-    "merkle",
-    "Networkish",
-    "octocat",
     "recasters",
     "rmrf",
     "socio",
@@ -27,15 +22,21 @@
     "dbstats",
     "protobuf",
     "errcode",
-    "devnet"
+    "devnet",
+    "corepack",
+    "codegen",
+    "fname",
+    "openapitools",
+    "commitlint"
   ],
   "flagWords": [],
   "ignorePaths": [
     "package.json",
     "package-lock.json",
     "yarn.lock",
-    "tsconfig.json",
-    "node_modules/**",
-    "src/contracts/**"
+    "**/tsconfig.json",
+    "**/node_modules/**",
+    "**/generated/**",
+    "**/docs/**"
   ]
 }
