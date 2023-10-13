@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).HashScheme
 
-- HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+Type of hashing scheme used to produce a digest of MessageData. - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
 
 **`Export`**
 

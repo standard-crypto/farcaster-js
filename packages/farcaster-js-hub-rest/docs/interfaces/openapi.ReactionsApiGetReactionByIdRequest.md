@@ -33,7 +33,7 @@ ReactionsApiGetReactionById
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:411](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L411)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:414](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L414)
 
 ___
 
@@ -49,7 +49,7 @@ ReactionsApiGetReactionById
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:432](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L432)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:435](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L435)
 
 ___
 
@@ -65,7 +65,7 @@ ReactionsApiGetReactionById
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:418](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L418)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:421](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L421)
 
 ___
 
@@ -81,4 +81,4 @@ ReactionsApiGetReactionById
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:425](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L425)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:428](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L428)

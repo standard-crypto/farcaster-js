@@ -7,6 +7,6 @@
 ### Modules
 
 - [farcasterEpochTimestamp](modules/farcasterEpochTimestamp.md)
-- [index](modules/index.md)
+- [hubRestApiClient](modules/hubRestApiClient.md)
 - [logger](modules/logger.md)
 - [openapi](modules/openapi.md)

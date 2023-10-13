@@ -1,15 +1,15 @@
-[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / [index](../modules/index.md) / PaginationOptions
+[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / [hubRestApiClient](../modules/hubRestApiClient.md) / PaginationOptions
 
 # Interface: PaginationOptions
 
-[index](../modules/index.md).PaginationOptions
+[hubRestApiClient](../modules/hubRestApiClient.md).PaginationOptions
 
 ## Table of contents
 
 ### Properties
 
-- [pageSize](index.PaginationOptions.md#pagesize)
-- [reverse](index.PaginationOptions.md#reverse)
+- [pageSize](hubRestApiClient.PaginationOptions.md#pagesize)
+- [reverse](hubRestApiClient.PaginationOptions.md#reverse)
 
 ## Properties
 

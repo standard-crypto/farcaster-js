@@ -1,25 +1,25 @@
-[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / index
+[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / hubRestApiClient
 
-# Module: index
+# Module: hubRestApiClient
 
 ## Table of contents
 
 ### Classes
 
-- [HubRestAPIClient](../classes/index.HubRestAPIClient.md)
+- [HubRestAPIClient](../classes/hubRestApiClient.HubRestAPIClient.md)
 
 ### Interfaces
 
-- [HubRestAPIClientConfig](../interfaces/index.HubRestAPIClientConfig.md)
-- [PaginationOptions](../interfaces/index.PaginationOptions.md)
+- [HubRestAPIClientConfig](../interfaces/hubRestApiClient.HubRestAPIClientConfig.md)
+- [PaginationOptions](../interfaces/hubRestApiClient.PaginationOptions.md)
 
 ### Type Aliases
 
-- [OnChainEventsReturnType](index.md#onchaineventsreturntype)
+- [OnChainEventsReturnType](hubRestApiClient.md#onchaineventsreturntype)
 
 ### Variables
 
-- [DEFAULT\_SERVER](index.md#default_server)
+- [DEFAULT\_SERVER](hubRestApiClient.md#default_server)
 
 ## Type Aliases
 

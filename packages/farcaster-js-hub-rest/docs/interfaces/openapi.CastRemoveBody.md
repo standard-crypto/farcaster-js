@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).CastRemoveBody
 
+Removes an existing Cast
+
 **`Export`**
 
 CastRemoveBody

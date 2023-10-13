@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).MessageType
 
-- MESSAGE_TYPE_CAST_ADD: Add a new Cast  - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast  - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast  - MESSAGE_TYPE_REACTION_REMOVE: Remove a Reaction from a Cast  - MESSAGE_TYPE_LINK_ADD: Add a new Link  - MESSAGE_TYPE_LINK_REMOVE: Remove an existing Link  - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS: Add a Verification of an Ethereum Address  - MESSAGE_TYPE_VERIFICATION_REMOVE: Remove a Verification  - MESSAGE_TYPE_USER_DATA_ADD: Deprecated  MESSAGE_TYPE_SIGNER_ADD = 9; // Add a new Ed25519 key pair that signs messages for a user  MESSAGE_TYPE_SIGNER_REMOVE = 10; // Remove an Ed25519 key pair that signs messages for a user  Add metadata about a user  - MESSAGE_TYPE_USERNAME_PROOF: Add or replace a username proof
+Type of the MessageBody. - MESSAGE_TYPE_CAST_ADD: Add a new Cast  - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast  - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast  - MESSAGE_TYPE_REACTION_REMOVE: Remove a Reaction from a Cast  - MESSAGE_TYPE_LINK_ADD: Add a new Link  - MESSAGE_TYPE_LINK_REMOVE: Remove an existing Link  - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS: Add a Verification of an Ethereum Address  - MESSAGE_TYPE_VERIFICATION_REMOVE: Remove a Verification  - MESSAGE_TYPE_USER_DATA_ADD: Deprecated  MESSAGE_TYPE_SIGNER_ADD = 9; // Add a new Ed25519 key pair that signs messages for a user  MESSAGE_TYPE_SIGNER_REMOVE = 10; // Remove an Ed25519 key pair that signs messages for a user  Add metadata about a user  - MESSAGE_TYPE_USERNAME_PROOF: Add or replace a username proof
 
 **`Export`**
 

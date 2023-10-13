@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).VerificationRemoveBody
 
+Removes a Verification of any type
+
 **`Export`**
 
 VerificationRemoveBody

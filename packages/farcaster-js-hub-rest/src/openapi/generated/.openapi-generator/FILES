@@ -36,7 +36,6 @@ models/hub-event-merge-on-chain-event.ts
 models/hub-event-merge-username-proof.ts
 models/hub-event-prune-message.ts
 models/hub-event-revoke-message.ts
-models/hub-event-type.ts
 models/hub-event.ts
 models/hub-info-response.ts
 models/id-register-event-body.ts

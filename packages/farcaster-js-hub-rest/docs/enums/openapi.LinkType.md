@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).LinkType
 
-- follow: Follow another user
+Type of Link. - follow: Follow another user
 
 **`Export`**
 

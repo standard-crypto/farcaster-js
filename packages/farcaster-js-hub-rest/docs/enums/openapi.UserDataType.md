@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).UserDataType
 
-- USER_DATA_TYPE_PFP: Profile Picture for the user  - USER_DATA_TYPE_DISPLAY: Display Name for the user  - USER_DATA_TYPE_BIO: Bio for the user  - USER_DATA_TYPE_URL: URL of the user  - USER_DATA_TYPE_USERNAME: Preferred Name for the user
+Type of UserData. - USER_DATA_TYPE_PFP: Profile Picture for the user  - USER_DATA_TYPE_DISPLAY: Display Name for the user  - USER_DATA_TYPE_BIO: Bio for the user  - USER_DATA_TYPE_URL: URL of the user  - USER_DATA_TYPE_USERNAME: Preferred Name for the user
 
 **`Export`**
 

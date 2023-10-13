@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).UserDataBody
 
+Adds metadata about a user
+
 **`Export`**
 
 UserDataBody

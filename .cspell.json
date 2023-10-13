@@ -27,7 +27,8 @@
     "codegen",
     "fname",
     "openapitools",
-    "commitlint"
+    "commitlint",
+    "Redocly"
   ],
   "flagWords": [],
   "ignorePaths": [

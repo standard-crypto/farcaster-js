@@ -45,7 +45,7 @@
     "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/openapi/generated",
     "cz": "yarn run -T cz",
-    "generate": "yarn run generate:openapi",
+    "generate": "yarn run generate:openapi && yarn run generate:docs",
     "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript",
     "generate:openapi-axios": "openapi-generator-cli generate --global-property apis,models,supportingFiles=index.ts:api.ts:configuration.ts:base.ts:common.ts -i src/openapi/spec.yaml -g typescript-axios -o src/openapi/generated --config openapi-generator-config.json",

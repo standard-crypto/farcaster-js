@@ -20,7 +20,6 @@ export * from './hub-event-merge-on-chain-event';
 export * from './hub-event-merge-username-proof';
 export * from './hub-event-prune-message';
 export * from './hub-event-revoke-message';
-export * from './hub-event-type';
 export * from './hub-info-response';
 export * from './id-register-event-body';
 export * from './id-register-event-type';

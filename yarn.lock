@@ -4364,6 +4364,7 @@ __metadata:
     eslint-plugin-promise: "npm:^6.1.0"
     esm: "npm:^3.2.25"
     husky: "npm:^8.0.3"
+    markdown-magic: "npm:^2.6.1"
     pinst: "npm:^3.0.0"
     prettier: "npm:^2.8.8"
     rollup: "npm:^2.79.1"

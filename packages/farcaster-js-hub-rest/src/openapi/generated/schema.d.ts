@@ -10,6 +10,10 @@ type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> &
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
 
 export interface paths {
+  "/v1/info": {
+    /** Sync Methods */
+    get: operations["GetInfo"];
+  };
   "/v1/castById": {
     /** Get a cast by its FID and Hash. */
     get: operations["GetCastById"];
@@ -26,25 +30,21 @@ export interface paths {
     /** Fetch all casts by parent cast's FID and Hash OR by the parent's URL */
     get: operations["ListCastsByParent"];
   };
-  "/v1/storageLimitsByFid": {
-    /** Get an FID's storage limits. */
-    get: operations["GetStorageLimitsByFid"];
+  "/v1/reactionById": {
+    /** Get a reaction by its created FID and target Cast. */
+    get: operations["GetReactionById"];
   };
-  "/v1/events": {
-    /** Get a page of Hub events */
-    get: operations["ListEvents"];
+  "/v1/reactionsByCast": {
+    /** Get all reactions to a cast */
+    get: operations["ListReactionsByCast"];
   };
-  "/v1/eventById": {
-    /** Get an event by its ID */
-    get: operations["GetEventById"];
+  "/v1/reactionsByFid": {
+    /** Get all reactions by an FID */
+    get: operations["ListReactionsByFid"];
   };
-  "/v1/fids": {
-    /** Get a list of all the FIDs */
-    get: operations["ListFids"];
-  };
-  "/v1/info": {
-    /** Sync Methods */
-    get: operations["GetInfo"];
+  "/v1/reactionsByTarget": {
+    /** Get all reactions to a target URL */
+    get: operations["ListReactionsByTarget"];
   };
   "/v1/linkById": {
     /** Get a link by its FID and target FID. */
@@ -57,6 +57,33 @@ export interface paths {
   "/v1/linksByTargetFid": {
     /** Get all links to a target FID */
     get: operations["ListLinksByTargetFid"];
+  };
+  "/v1/userDataByFid": {
+    /**
+     * Get UserData for a FID.
+     * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `user_data_type` parameter. If included, a single `UserDataAdd` message is returned (or a `not_found` error). If omitted, a paginated list of `UserDataAdd` messages is returned instead
+     */
+    get: operations["GetUserDataByFid"];
+  };
+  "/v1/fids": {
+    /** Get a list of all the FIDs */
+    get: operations["ListFids"];
+  };
+  "/v1/storageLimitsByFid": {
+    /** Get an FID's storage limits. */
+    get: operations["GetStorageLimitsByFid"];
+  };
+  "/v1/userNameProofsByFid": {
+    /** Get a list of proofs provided by an FID */
+    get: operations["ListUsernameProofsByFid"];
+  };
+  "/v1/userNameProofByName": {
+    /** Get an proof for a username by the Farcaster username */
+    get: operations["GetUsernameProof"];
+  };
+  "/v1/verificationsByFid": {
+    /** Get a list of verifications provided by an FID */
+    get: operations["ListVerificationsByFid"];
   };
   "/v1/onChainIdRegistryEventByAddress": {
     /** Get an on chain ID Registry Event for a given Address */
@@ -73,43 +100,17 @@ export interface paths {
      */
     get: operations["ListOnChainSignersByFid"];
   };
-  "/v1/reactionById": {
-    /** Get a reaction by its created FID and target Cast. */
-    get: operations["GetReactionById"];
-  };
-  "/v1/reactionsByCast": {
-    /** Get all reactions to a cast */
-    get: operations["ListReactionsByCast"];
-  };
-  "/v1/reactionsByFid": {
-    /** Get all reactions by an FID */
-    get: operations["ListReactionsByFid"];
-  };
-  "/v1/reactionsByTarget": {
-    get: operations["ListReactionsByTarget"];
-  };
-  "/v1/userDataByFid": {
-    /**
-     * Get UserData for a FID.
-     * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `user_data_type` parameter. If included, a single `UserDataAdd` message is returned (or a `not_found` error). If omitted, a paginated list of `UserDataAdd` messages is returned instead
-     */
-    get: operations["GetUserDataByFid"];
-  };
-  "/v1/userNameProofsByFid": {
-    /** Get a list of proofs provided by an FID */
-    get: operations["ListUsernameProofsByFid"];
-  };
-  "/v1/userNameProofByName": {
-    /** Get an proof for a username by the Farcaster username */
-    get: operations["GetUsernameProof"];
-  };
-  "/v1/verificationsByFid": {
-    /** Get a list of verifications provided by an FID */
-    get: operations["ListVerificationsByFid"];
-  };
   "/v1/submitMessage": {
     /** Submit a signed protobuf-serialized message to the Hub */
     post: operations["SubmitMessage"];
+  };
+  "/v1/events": {
+    /** Get a page of Hub events */
+    get: operations["ListEvents"];
+  };
+  "/v1/eventById": {
+    /** Get an event by its ID */
+    get: operations["GetEventById"];
   };
 }
 
@@ -120,7 +121,7 @@ export interface components {
     CastAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataCastAdd"];
     };
-    /** * Adds a new Cast */
+    /** @description Adds a new Cast */
     CastAddBody: {
       /** URLs to be embedded in the cast */
       embedsDeprecated?: string[];
@@ -142,7 +143,7 @@ export interface components {
     CastRemove: components["schemas"]["MessageCommon"] & {
       data?: components["schemas"]["MessageDataCastRemove"];
     };
-    /** * Identifier used to look up a Cast */
+    /** @description Identifier used to look up a Cast */
     CastId: {
       /**
        * Fid of the user who created the cast
@@ -152,7 +153,7 @@ export interface components {
       hash: components["schemas"]["CastHash"];
     };
     CastHash: string;
-    /** * Removes an existing Cast */
+    /** @description Removes an existing Cast */
     CastRemoveBody: {
       /**
        * Hash of the cast to remove
@@ -184,8 +185,8 @@ export interface components {
       };
     };
     /**
-     * * Farcaster network the message is intended for
-     * @description - FARCASTER_NETWORK_MAINNET: Public primary network
+     * @description Farcaster network the message is intended for.
+     * - FARCASTER_NETWORK_MAINNET: Public primary network
      *  - FARCASTER_NETWORK_TESTNET: Public test network
      *  - FARCASTER_NETWORK_DEVNET: Private test network
      * @default FARCASTER_NETWORK_MAINNET
@@ -198,8 +199,8 @@ export interface components {
       nextPageToken: string;
     };
     /**
-     * * Type of hashing scheme used to produce a digest of MessageData
-     * @description - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+     * @description Type of hashing scheme used to produce a digest of MessageData. - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
+     *
      * @default HASH_SCHEME_BLAKE3
      * @enum {string}
      */
@@ -240,17 +241,6 @@ export interface components {
       id: number;
       mergeOnChainEventBody: components["schemas"]["MergeOnChainEventBody"];
     };
-    /**
-     * - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF: Deprecated
-     *  HUB_EVENT_TYPE_MERGE_ID_REGISTRY_EVENT = 4;
-     *  HUB_EVENT_TYPE_MERGE_NAME_REGISTRY_EVENT = 5;
-     *  - HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT: Deprecated
-     *  HUB_EVENT_TYPE_MERGE_RENT_REGISTRY_EVENT = 7;
-     *  HUB_EVENT_TYPE_MERGE_STORAGE_ADMIN_REGISTRY_EVENT = 8;
-     * @default HUB_EVENT_TYPE_MERGE_MESSAGE
-     * @enum {string}
-     */
-    HubEventType: "HUB_EVENT_TYPE_MERGE_MESSAGE" | "HUB_EVENT_TYPE_PRUNE_MESSAGE" | "HUB_EVENT_TYPE_REVOKE_MESSAGE" | "HUB_EVENT_TYPE_MERGE_USERNAME_PROOF" | "HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT";
     /** Response Types for the Sync RPC Methods */
     HubInfoResponse: {
       version: string;
@@ -278,7 +268,7 @@ export interface components {
     LinkAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataLink"];
     };
-    /** * Adds or removes a Link */
+    /** @description Adds or removes a Link */
     LinkBody: {
       type?: components["schemas"]["LinkType"];
       /**
@@ -296,8 +286,8 @@ export interface components {
       data?: components["schemas"]["MessageDataLink"];
     };
     /**
-     * * Type of Link
-     * @description - follow: Follow another user
+     * @description Type of Link.
+     * - follow: Follow another user
      * @default follow
      * @enum {string}
      */
@@ -380,8 +370,8 @@ export interface components {
       verificationRemoveBody: components["schemas"]["VerificationRemoveBody"];
     };
     /**
-     * * Type of the MessageBody
-     * @description - MESSAGE_TYPE_CAST_ADD: Add a new Cast
+     * @description Type of the MessageBody.
+     * - MESSAGE_TYPE_CAST_ADD: Add a new Cast
      *  - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast
      *  - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast
      *  - MESSAGE_TYPE_REACTION_REMOVE: Remove a Reaction from a Cast
@@ -437,7 +427,7 @@ export interface components {
     Reaction: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataReaction"];
     };
-    /** * Adds or removes a Reaction from a Cast */
+    /** @description Adds or removes a Reaction from a Cast */
     ReactionBody: {
       type: components["schemas"]["ReactionType"];
       targetCastId?: components["schemas"]["CastId"];
@@ -448,8 +438,8 @@ export interface components {
       data?: components["schemas"]["MessageDataReaction"];
     };
     /**
-     * * Type of Reaction
-     * @description - REACTION_TYPE_LIKE: Like the target cast
+     * @description Type of Reaction.
+     * - REACTION_TYPE_LIKE: Like the target cast
      *  - REACTION_TYPE_RECAST: Share target cast to the user's audience
      * @default REACTION_TYPE_LIKE
      * @enum {string}
@@ -459,8 +449,8 @@ export interface components {
       message?: components["schemas"]["Message"];
     };
     /**
-     * * Type of signature scheme used to sign the Message hash
-     * @description - SIGNATURE_SCHEME_ED25519: Ed25519 signature (default)
+     * @description Type of signature scheme used to sign the Message hash
+     * - SIGNATURE_SCHEME_ED25519: Ed25519 signature (default)
      *  - SIGNATURE_SCHEME_EIP712: ECDSA signature using EIP-712 scheme
      * @default SIGNATURE_SCHEME_ED25519
      * @enum {string}
@@ -509,15 +499,15 @@ export interface components {
     UserDataAdd: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataUserDataAdd"];
     };
-    /** * Adds metadata about a user */
+    /** @description Adds metadata about a user */
     UserDataBody: {
       type: components["schemas"]["UserDataType"];
       /** Value of the metadata */
       value: string;
     };
     /**
-     * * Type of UserData
-     * @description - USER_DATA_TYPE_PFP: Profile Picture for the user
+     * @description Type of UserData.
+     * - USER_DATA_TYPE_PFP: Profile Picture for the user
      *  - USER_DATA_TYPE_DISPLAY: Display Name for the user
      *  - USER_DATA_TYPE_BIO: Bio for the user
      *  - USER_DATA_TYPE_URL: URL of the user
@@ -549,7 +539,7 @@ export interface components {
     Verification: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataVerificationAdd"];
     };
-    /** * Adds a Verification of ownership of an Ethereum Address */
+    /** @description Adds a Verification of ownership of an Ethereum Address */
     VerificationAddEthAddressBody: {
       /** Ethereum address being verified */
       address: string;
@@ -564,7 +554,7 @@ export interface components {
     VerificationRemove: components["schemas"]["MessageCommon"] & {
       data?: components["schemas"]["MessageDataVerificationRemove"];
     };
-    /** * Removes a Verification of any type */
+    /** @description Removes a Verification of any type */
     VerificationRemoveBody: {
       /** Address of the Verification to remove */
       address: string;
@@ -597,13 +587,37 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** Sync Methods */
+  GetInfo: {
+    parameters: {
+      query: {
+        /** @description Whether to return DB stats */
+        dbstats: boolean;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["HubInfoResponse"];
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
   /** Get a cast by its FID and Hash. */
   GetCastById: {
     parameters: {
       query: {
-        /** @description The FID of the cast's creator */
+        /**
+         * @description The FID of the cast's creator
+         * @example 6833
+         */
         fid: number;
-        /** @description The cast's hash */
+        /**
+         * @description The cast's hash
+         * @example 0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9
+         */
         hash: string;
       };
     };
@@ -621,7 +635,10 @@ export interface operations {
   ListCastsByFid: {
     parameters: {
       query: {
-        /** @description The FID of the casts' creator */
+        /**
+         * @description The FID of the casts' creator
+         * @example 6833
+         */
         fid: number;
         pageSize?: components["parameters"]["pageSize"];
         reverse?: components["parameters"]["paginationReverse"];
@@ -646,7 +663,10 @@ export interface operations {
   ListCastsByMention: {
     parameters: {
       query: {
-        /** @description The FID that is mentioned in a cast */
+        /**
+         * @description The FID that is mentioned in a cast
+         * @example 6833
+         */
         fid: number;
         pageSize?: components["parameters"]["pageSize"];
         reverse?: components["parameters"]["paginationReverse"];
@@ -671,10 +691,17 @@ export interface operations {
   ListCastsByParent: {
     parameters: {
       query?: {
-        /** @description The FID of the parent cast */
+        /**
+         * @description The FID of the parent cast
+         * @example 226
+         */
         fid?: number;
-        /** @description The parent cast's hash */
+        /**
+         * @description The parent cast's hash
+         * @example 0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9
+         */
         hash?: string;
+        /** @example chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2 */
         url?: string;
         pageSize?: components["parameters"]["pageSize"];
         reverse?: components["parameters"]["paginationReverse"];
@@ -690,243 +717,6 @@ export interface operations {
             /** Format: byte */
             nextPageToken: string;
           };
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get an FID's storage limits. */
-  GetStorageLimitsByFid: {
-    parameters: {
-      query: {
-        fid: number;
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["StorageLimitsResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get a page of Hub events */
-  ListEvents: {
-    parameters: {
-      query?: {
-        /** @description An optional Hub Id to start getting events from.  This is also returned from the API as nextPageEventId, which  can be used to page through all the Hub events. Set it to 0  to start from the first event */
-        from_event_id?: number;
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": {
-            nextPageEventId: number;
-            events: components["schemas"]["HubEvent"][];
-          };
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get an event by its ID */
-  GetEventById: {
-    parameters: {
-      query: {
-        /** @description The Hub Id of the event */
-        event_id: number;
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["HubEvent"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get a list of all the FIDs */
-  ListFids: {
-    parameters: {
-      query?: {
-        pageSize?: components["parameters"]["pageSize"];
-        reverse?: components["parameters"]["paginationReverse"];
-        pageToken?: components["parameters"]["pageToken"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["FidsResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Sync Methods */
-  GetInfo: {
-    parameters: {
-      query: {
-        /** @description Whether to return DB stats */
-        dbstats: boolean;
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["HubInfoResponse"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get a link by its FID and target FID. */
-  GetLinkById: {
-    parameters: {
-      query: {
-        /** @description The FID of the link's originator */
-        fid: number;
-        /** @description The FID of the target of the link */
-        target_fid: number;
-        /** @description The type of link, as a string value */
-        link_type: components["schemas"]["LinkType"];
-      };
-    };
-    responses: {
-      /** @description The requested Link. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["LinkAdd"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get all links from a source FID */
-  ListLinksByFid: {
-    parameters: {
-      query: {
-        /** @description The FID of the link's originator */
-        fid: number;
-        /** @description The type of link, as a string value */
-        link_type?: components["schemas"]["LinkType"];
-        pageSize?: components["parameters"]["pageSize"];
-        reverse?: components["parameters"]["paginationReverse"];
-        pageToken?: components["parameters"]["pageToken"];
-      };
-    };
-    responses: {
-      /** @description The requested Links. */
-      200: {
-        content: {
-          "application/json": {
-            messages: components["schemas"]["LinkAdd"][];
-            /** Format: byte */
-            nextPageToken: string;
-          };
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get all links to a target FID */
-  ListLinksByTargetFid: {
-    parameters: {
-      query: {
-        /** @description The FID of the target of the link */
-        target_fid: number;
-        /** @description The type of link, as a string value */
-        link_type?: components["schemas"]["LinkType"];
-        pageSize?: components["parameters"]["pageSize"];
-        reverse?: components["parameters"]["paginationReverse"];
-        pageToken?: components["parameters"]["pageToken"];
-      };
-    };
-    responses: {
-      /** @description The requested Links. */
-      200: {
-        content: {
-          "application/json": {
-            messages: components["schemas"]["LinkAdd"][];
-            /** Format: byte */
-            nextPageToken: string;
-          };
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get an on chain ID Registry Event for a given Address */
-  GetOnChainIdRegistrationByAddress: {
-    parameters: {
-      query: {
-        /** @description The ETH address being requested */
-        address: string;
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["OnChainEventIdRegister"];
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /** Get a list of on-chain events provided by an FID */
-  ListOnChainEventsByFid: {
-    parameters: {
-      query: {
-        /** @description The FID being requested */
-        fid: number;
-        /** @description The numeric of string value of the event type being requested. */
-        event_type: components["schemas"]["OnChainEventType"];
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": {
-            events: components["schemas"]["OnChainEvent"][];
-          };
-        };
-      };
-      default: components["responses"]["ErrorResponse"];
-    };
-  };
-  /**
-   * Get a list of signers provided by an FID
-   * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a  non-paginated list of `OnChainEventSigner` messages is returned instead
-   */
-  ListOnChainSignersByFid: {
-    parameters: {
-      query: {
-        /** @description The FID being requested */
-        fid: number;
-        /**
-         * @description The optional key of signer
-         * @example 0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd
-         */
-        signer?: string;
-      };
-    };
-    responses: {
-      /** @description A successful response. */
-      200: {
-        content: {
-          "application/json": OneOf<[components["schemas"]["OnChainEventSigner"], {
-            events: components["schemas"]["OnChainEventSigner"][];
-          }]>;
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -1012,10 +802,14 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
+  /** Get all reactions to a target URL */
   ListReactionsByTarget: {
     parameters: {
       query: {
-        /** @description The URL of the parent cast */
+        /**
+         * @description The URL of the parent cast
+         * @example chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2
+         */
         url: string;
         /** @description The type of reaction, either as a numerical enum value or string representation */
         reaction_type: components["schemas"]["ReactionType"];
@@ -1030,6 +824,82 @@ export interface operations {
         content: {
           "application/json": {
             messages: components["schemas"]["Reaction"][];
+            /** Format: byte */
+            nextPageToken: string;
+          };
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get a link by its FID and target FID. */
+  GetLinkById: {
+    parameters: {
+      query: {
+        /** @description The FID of the link's originator */
+        fid: number;
+        /** @description The FID of the target of the link */
+        target_fid: number;
+        /** @description The type of link, as a string value */
+        link_type: components["schemas"]["LinkType"];
+      };
+    };
+    responses: {
+      /** @description The requested Link. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["LinkAdd"];
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get all links from a source FID */
+  ListLinksByFid: {
+    parameters: {
+      query: {
+        /** @description The FID of the link's originator */
+        fid: number;
+        /** @description The type of link, as a string value */
+        link_type?: components["schemas"]["LinkType"];
+        pageSize?: components["parameters"]["pageSize"];
+        reverse?: components["parameters"]["paginationReverse"];
+        pageToken?: components["parameters"]["pageToken"];
+      };
+    };
+    responses: {
+      /** @description The requested Links. */
+      200: {
+        content: {
+          "application/json": {
+            messages: components["schemas"]["LinkAdd"][];
+            /** Format: byte */
+            nextPageToken: string;
+          };
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get all links to a target FID */
+  ListLinksByTargetFid: {
+    parameters: {
+      query: {
+        /** @description The FID of the target of the link */
+        target_fid: number;
+        /** @description The type of link, as a string value */
+        link_type?: components["schemas"]["LinkType"];
+        pageSize?: components["parameters"]["pageSize"];
+        reverse?: components["parameters"]["paginationReverse"];
+        pageToken?: components["parameters"]["pageToken"];
+      };
+    };
+    responses: {
+      /** @description The requested Links. */
+      200: {
+        content: {
+          "application/json": {
+            messages: components["schemas"]["LinkAdd"][];
             /** Format: byte */
             nextPageToken: string;
           };
@@ -1063,6 +933,42 @@ export interface operations {
             /** Format: byte */
             nextPageToken: string;
           }]>;
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get a list of all the FIDs */
+  ListFids: {
+    parameters: {
+      query?: {
+        pageSize?: components["parameters"]["pageSize"];
+        reverse?: components["parameters"]["paginationReverse"];
+        pageToken?: components["parameters"]["pageToken"];
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["FidsResponse"];
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get an FID's storage limits. */
+  GetStorageLimitsByFid: {
+    parameters: {
+      query: {
+        fid: number;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StorageLimitsResponse"];
         };
       };
       default: components["responses"]["ErrorResponse"];
@@ -1131,6 +1037,74 @@ export interface operations {
       default: components["responses"]["ErrorResponse"];
     };
   };
+  /** Get an on chain ID Registry Event for a given Address */
+  GetOnChainIdRegistrationByAddress: {
+    parameters: {
+      query: {
+        /** @description The ETH address being requested */
+        address: string;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["OnChainEventIdRegister"];
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get a list of on-chain events provided by an FID */
+  ListOnChainEventsByFid: {
+    parameters: {
+      query: {
+        /** @description The FID being requested */
+        fid: number;
+        /** @description The numeric of string value of the event type being requested. */
+        event_type: components["schemas"]["OnChainEventType"];
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": {
+            events: components["schemas"]["OnChainEvent"][];
+          };
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /**
+   * Get a list of signers provided by an FID
+   * @description **Note:** one of two different response schemas is returned  based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a  non-paginated list of `OnChainEventSigner` messages is returned instead
+   */
+  ListOnChainSignersByFid: {
+    parameters: {
+      query: {
+        /** @description The FID being requested */
+        fid: number;
+        /**
+         * @description The optional key of signer
+         * @example 0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd
+         */
+        signer?: string;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": OneOf<[components["schemas"]["OnChainEventSigner"], {
+            events: components["schemas"]["OnChainEventSigner"][];
+          }]>;
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
   /** Submit a signed protobuf-serialized message to the Hub */
   SubmitMessage: {
     /**
@@ -1148,6 +1122,45 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["Message"];
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get a page of Hub events */
+  ListEvents: {
+    parameters: {
+      query?: {
+        /** @description An optional Hub Id to start getting events from.  This is also returned from the API as nextPageEventId, which  can be used to page through all the Hub events. Set it to 0  to start from the first event */
+        from_event_id?: number;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": {
+            nextPageEventId: number;
+            events: components["schemas"]["HubEvent"][];
+          };
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Get an event by its ID */
+  GetEventById: {
+    parameters: {
+      query: {
+        /** @description The Hub Id of the event */
+        event_id: number;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["HubEvent"];
         };
       };
       default: components["responses"]["ErrorResponse"];

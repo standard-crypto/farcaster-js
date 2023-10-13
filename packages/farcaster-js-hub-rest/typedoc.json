@@ -1,6 +1,6 @@
 {
     "entryPoints": [
-        "./src/index.ts",
+        "./src/hubRestApiClient.ts",
         "./src/openapi/index.ts",
         "./src/farcasterEpochTimestamp.ts",
         "./src/logger.ts"
