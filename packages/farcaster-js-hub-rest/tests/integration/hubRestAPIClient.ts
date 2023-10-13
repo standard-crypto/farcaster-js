@@ -53,6 +53,8 @@ describe('HubWebClient', function() {
   });
 
   describe('Info API', function() {
+    this.timeout('5s');
+
     it('validates against OpenAPI spec', async function() {
       const info = await client.apis.info.getInfo({ dbstats: true });
       const validator = new OpenAPIResponseValidator({
