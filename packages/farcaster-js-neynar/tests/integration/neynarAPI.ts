@@ -775,6 +775,7 @@ if (apiKey !== undefined && apiKey !== '') {
                 },
               );
               expect(update?.success).to.be.true;
+              await sleep(1000);
               const userAfterUpdate = await client.clients.v1.lookupUserByFid(
                 userBotFid,
               );
@@ -786,6 +787,7 @@ if (apiKey !== undefined && apiKey !== '') {
                 },
               );
               expect(revert?.success).to.be.true;
+              await sleep(1000);
               const userAfterRevert = await client.clients.v1.lookupUserByFid(
                 userBotFid,
               );
