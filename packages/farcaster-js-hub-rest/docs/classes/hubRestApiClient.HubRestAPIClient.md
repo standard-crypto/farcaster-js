@@ -1,46 +1,46 @@
-[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / [index](../modules/index.md) / HubRestAPIClient
+[@standard-crypto/farcaster-js-hub-rest](../README.md) / [Modules](../modules.md) / [hubRestApiClient](../modules/hubRestApiClient.md) / HubRestAPIClient
 
 # Class: HubRestAPIClient
 
-[index](../modules/index.md).HubRestAPIClient
+[hubRestApiClient](../modules/hubRestApiClient.md).HubRestAPIClient
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](index.HubRestAPIClient.md#constructor)
+- [constructor](hubRestApiClient.HubRestAPIClient.md#constructor)
 
 ### Properties
 
-- [apis](index.HubRestAPIClient.md#apis)
+- [apis](hubRestApiClient.HubRestAPIClient.md#apis)
 
 ### Methods
 
-- [getCastById](index.HubRestAPIClient.md#getcastbyid)
-- [getHubEventById](index.HubRestAPIClient.md#gethubeventbyid)
-- [getHubInfo](index.HubRestAPIClient.md#gethubinfo)
-- [getLinkById](index.HubRestAPIClient.md#getlinkbyid)
-- [getOnChainIdRegistryEventByAddress](index.HubRestAPIClient.md#getonchainidregistryeventbyaddress)
-- [getOnChainSignerEventBySigner](index.HubRestAPIClient.md#getonchainsignereventbysigner)
-- [getReactionById](index.HubRestAPIClient.md#getreactionbyid)
-- [getSpecificUserDataByFid](index.HubRestAPIClient.md#getspecificuserdatabyfid)
-- [getStorageLimitsByFid](index.HubRestAPIClient.md#getstoragelimitsbyfid)
-- [getUsernameProof](index.HubRestAPIClient.md#getusernameproof)
-- [listAllUserDataByFid](index.HubRestAPIClient.md#listalluserdatabyfid)
-- [listCastsByFid](index.HubRestAPIClient.md#listcastsbyfid)
-- [listCastsByMention](index.HubRestAPIClient.md#listcastsbymention)
-- [listCastsByParent](index.HubRestAPIClient.md#listcastsbyparent)
-- [listFids](index.HubRestAPIClient.md#listfids)
-- [listHubEvents](index.HubRestAPIClient.md#listhubevents)
-- [listLinksByFid](index.HubRestAPIClient.md#listlinksbyfid)
-- [listLinksByTargetFid](index.HubRestAPIClient.md#listlinksbytargetfid)
-- [listOnChainEventsByFid](index.HubRestAPIClient.md#listonchaineventsbyfid)
-- [listReactionsByCast](index.HubRestAPIClient.md#listreactionsbycast)
-- [listReactionsByFid](index.HubRestAPIClient.md#listreactionsbyfid)
-- [listReactionsByTarget](index.HubRestAPIClient.md#listreactionsbytarget)
-- [listUsernameProofsForFid](index.HubRestAPIClient.md#listusernameproofsforfid)
-- [listVerificationsByFid](index.HubRestAPIClient.md#listverificationsbyfid)
-- [isApiErrorResponse](index.HubRestAPIClient.md#isapierrorresponse)
+- [getCastById](hubRestApiClient.HubRestAPIClient.md#getcastbyid)
+- [getHubEventById](hubRestApiClient.HubRestAPIClient.md#gethubeventbyid)
+- [getHubInfo](hubRestApiClient.HubRestAPIClient.md#gethubinfo)
+- [getLinkById](hubRestApiClient.HubRestAPIClient.md#getlinkbyid)
+- [getOnChainIdRegistryEventByAddress](hubRestApiClient.HubRestAPIClient.md#getonchainidregistryeventbyaddress)
+- [getOnChainSignerEventBySigner](hubRestApiClient.HubRestAPIClient.md#getonchainsignereventbysigner)
+- [getReactionById](hubRestApiClient.HubRestAPIClient.md#getreactionbyid)
+- [getSpecificUserDataByFid](hubRestApiClient.HubRestAPIClient.md#getspecificuserdatabyfid)
+- [getStorageLimitsByFid](hubRestApiClient.HubRestAPIClient.md#getstoragelimitsbyfid)
+- [getUsernameProof](hubRestApiClient.HubRestAPIClient.md#getusernameproof)
+- [listAllUserDataByFid](hubRestApiClient.HubRestAPIClient.md#listalluserdatabyfid)
+- [listCastsByFid](hubRestApiClient.HubRestAPIClient.md#listcastsbyfid)
+- [listCastsByMention](hubRestApiClient.HubRestAPIClient.md#listcastsbymention)
+- [listCastsByParent](hubRestApiClient.HubRestAPIClient.md#listcastsbyparent)
+- [listFids](hubRestApiClient.HubRestAPIClient.md#listfids)
+- [listHubEvents](hubRestApiClient.HubRestAPIClient.md#listhubevents)
+- [listLinksByFid](hubRestApiClient.HubRestAPIClient.md#listlinksbyfid)
+- [listLinksByTargetFid](hubRestApiClient.HubRestAPIClient.md#listlinksbytargetfid)
+- [listOnChainEventsByFid](hubRestApiClient.HubRestAPIClient.md#listonchaineventsbyfid)
+- [listReactionsByCast](hubRestApiClient.HubRestAPIClient.md#listreactionsbycast)
+- [listReactionsByFid](hubRestApiClient.HubRestAPIClient.md#listreactionsbyfid)
+- [listReactionsByTarget](hubRestApiClient.HubRestAPIClient.md#listreactionsbytarget)
+- [listUsernameProofsForFid](hubRestApiClient.HubRestAPIClient.md#listusernameproofsforfid)
+- [listVerificationsByFid](hubRestApiClient.HubRestAPIClient.md#listverificationsbyfid)
+- [isApiErrorResponse](hubRestApiClient.HubRestAPIClient.md#isapierrorresponse)
 
 ## Constructors
 
@@ -54,7 +54,7 @@ Instantiates a HubRestAPIClient
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | [`HubRestAPIClientConfig`](../interfaces/index.HubRestAPIClientConfig.md) |
+| `«destructured»` | [`HubRestAPIClientConfig`](../interfaces/hubRestApiClient.HubRestAPIClientConfig.md) |
 
 #### Defined in
 
@@ -334,7 +334,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.ht
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID that's being requested |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) | - |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) | - |
 
 #### Returns
 
@@ -358,7 +358,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID of the cast's creator |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |  |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |  |
 
 #### Returns
 
@@ -382,7 +382,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID that is mentioned in a cast |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |  |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |  |
 
 #### Returns
 
@@ -406,7 +406,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`CastId`](../interfaces/openapi.CastId.md) \| { `url`: `string`  } |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |
 
 #### Returns
 
@@ -429,7 +429,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#f
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |
 
 #### Returns
 
@@ -476,7 +476,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID of the link's originator |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |  |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |  |
 
 #### Returns
 
@@ -500,7 +500,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 | Name | Type |
 | :------ | :------ |
 | `targetFid` | `number` |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |
 
 #### Returns
 
@@ -514,7 +514,7 @@ ___
 
 ### listOnChainEventsByFid
 
-▸ **listOnChainEventsByFid**<`T`\>(`fid`, `eventType`): `Promise`<[`OnChainEventsReturnType`](../modules/index.md#onchaineventsreturntype)<`T`\>[]\>
+▸ **listOnChainEventsByFid**<`T`\>(`fid`, `eventType`): `Promise`<[`OnChainEventsReturnType`](../modules/hubRestApiClient.md#onchaineventsreturntype)<`T`\>[]\>
 
 Get a list of on-chain events by an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchaineventsbyfid)
@@ -534,7 +534,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Returns
 
-`Promise`<[`OnChainEventsReturnType`](../modules/index.md#onchaineventsreturntype)<`T`\>[]\>
+`Promise`<[`OnChainEventsReturnType`](../modules/hubRestApiClient.md#onchaineventsreturntype)<`T`\>[]\>
 
 #### Defined in
 
@@ -556,7 +556,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 | `targetFid` | `number` | The FID of the cast's creator |
 | `targetHash` | `string` | The hash of the cast |
 | `reactionType` | [`ReactionType`](../enums/openapi.ReactionType.md) | The type of reaction |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |  |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |  |
 
 #### Returns
 
@@ -581,7 +581,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID of the reaction's creator |
 | `reactionType` | [`ReactionType`](../enums/openapi.ReactionType.md) | The type of reaction |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |  |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |  |
 
 #### Returns
 
@@ -606,7 +606,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 | :------ | :------ | :------ |
 | `url` | `string` | The URL of the parent cast |
 | `reactionType` | [`ReactionType`](../enums/openapi.ReactionType.md) | The type of reaction |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) |  |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |  |
 
 #### Returns
 
@@ -653,7 +653,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/verificatio
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID being requested |
-| `options?` | [`PaginationOptions`](../interfaces/index.PaginationOptions.md) & { `address?`: `string`  } | The optional ETH address to filter by |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) & { `address?`: `string`  } | The optional ETH address to filter by |
 
 #### Returns
 

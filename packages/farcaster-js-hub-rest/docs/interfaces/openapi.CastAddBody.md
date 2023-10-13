@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).CastAddBody
 
+Adds a new Cast
+
 **`Export`**
 
 CastAddBody

@@ -7,8 +7,7 @@ A collection of tools for interacting with the Farcaster social network.
 ![GitHub Workflow Status](https://github.com/standard-crypto/farcaster-js/actions/workflows/farcaster-js.yml/badge.svg?branch=main)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
-- [Setup](#setup)
-  - [Hubs](#hubs)
+- [Farcaster Hub REST API](#farcaster-hub-rest-api)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Farcaster Hub REST API

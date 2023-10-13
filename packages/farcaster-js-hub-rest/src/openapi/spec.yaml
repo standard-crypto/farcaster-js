@@ -1,10 +1,39 @@
 openapi: 3.0.1
 info:
   title: Farcaster Hub REST API
-  version: "1"
+  version: "1.0"
+  description: >
+    Perform basic queries of Farcaster state via the REST API of a Farcaster hub.
+    See the [Farcaster docs](https://www.thehubble.xyz/docs/httpapi/httpapi.html) for more details.
+    Some client libraries:
+      - [TypeScript](https://www.npmjs.com/package/@standard-crypto/farcaster-js-hub-rest)
 servers:
-- url: http://hub.farcaster.standardcrypto.vc:2281/
+- url: http://hub.farcaster.standardcrypto.vc:2281
+- url: http://nemes.farcaster.xyz:2281
+security: []
 paths:
+  /v1/info:
+    get:
+      tags:
+      - Info
+      summary: Sync Methods
+      operationId: GetInfo
+      parameters:
+      - name: dbstats
+        in: query
+        description: Whether to return DB stats
+        required: true
+        schema:
+          type: boolean
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubInfoResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
   /v1/castById:
     get:
       tags:
@@ -18,6 +47,7 @@ paths:
           required: true
           schema:
             type: integer
+          example: 6833
         - name: hash
           in: query
           description: The cast's hash
@@ -25,6 +55,7 @@ paths:
           schema:
             pattern: ^0x[0-9a-fA-F]{40}$
             type: string
+          example: '0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9'
       responses:
         200:
           description: The requested Cast.
@@ -47,6 +78,7 @@ paths:
           required: true
           schema:
             type: integer
+          example: 6833
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/paginationReverse'
         - $ref: '#/components/parameters/pageToken'
@@ -84,6 +116,7 @@ paths:
           required: true
           schema:
             type: integer
+          example: 6833
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/paginationReverse'
         - $ref: '#/components/parameters/pageToken'
@@ -120,15 +153,18 @@ paths:
           description: The FID of the parent cast
           schema:
             type: integer
+          example: 226
         - name: hash
           in: query
           description: The parent cast's hash
           schema:
             type: string
+          example: '0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9'
         - name: url
           in: query
           schema:
             type: string
+          example: chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/paginationReverse'
         - $ref: '#/components/parameters/pageToken'
@@ -151,346 +187,6 @@ paths:
                     pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
                     type: string
                     format: byte
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/storageLimitsByFid:
-    get:
-      tags:
-        - Storage
-      operationId: GetStorageLimitsByFid
-      summary: Get an FID's storage limits.
-      parameters:
-        - name: fid
-          in: query
-          required: true
-          schema:
-            type: integer
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StorageLimitsResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-      x-codegen-request-body-name: body
-  /v1/events:
-    get:
-      tags:
-        - HubEvents
-      operationId: ListEvents
-      summary: Get a page of Hub events
-      parameters:
-        - name: from_event_id
-          in: query
-          required: false
-          schema:
-            type: integer
-          description: "An optional Hub Id to start getting events from. 
-            This is also returned from the API as nextPageEventId, which 
-            can be used to page through all the Hub events. Set it to 0 
-            to start from the first event"
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  nextPageEventId:
-                    type: integer
-                  events:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HubEvent'
-                required:
-                  - nextPageEventId
-                  - events
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/eventById:
-    get:
-      tags:
-        - HubEvents
-      operationId: GetEventById
-      summary: Get an event by its ID
-      parameters:
-        - name: event_id
-          in: query
-          required: true
-          schema:
-            type: integer
-          description: The Hub Id of the event
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HubEvent'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/fids:
-    get:
-      tags:
-        - FIDs
-      operationId: ListFids
-      summary: Get a list of all the FIDs
-      parameters:
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/paginationReverse'
-        - $ref: '#/components/parameters/pageToken'
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FidsResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/info:
-    get:
-      tags:
-      - Info
-      summary: Sync Methods
-      operationId: GetInfo
-      parameters:
-      - name: dbstats
-        in: query
-        description: Whether to return DB stats
-        required: true
-        schema:
-          type: boolean
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HubInfoResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/linkById:
-    get:
-      tags:
-        - Links
-      summary: Get a link by its FID and target FID.
-      operationId: GetLinkById
-      parameters:
-        - name: fid
-          in: query
-          description: The FID of the link's originator
-          required: true
-          schema:
-            type: integer
-        - name: target_fid
-          in: query
-          description: The FID of the target of the link
-          required: true
-          schema:
-            type: integer
-        - name: link_type
-          in: query
-          description: The type of link, as a string value
-          required: true
-          schema:
-            $ref: '#/components/schemas/LinkType'
-      responses:
-        200:
-          description: The requested Link.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LinkAdd'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/linksByFid:
-    get:
-      tags:
-        - Links
-      summary: Get all links from a source FID
-      operationId: ListLinksByFid
-      parameters:
-        - name: fid
-          in: query
-          schema:
-            type: integer
-          required: true
-          description: The FID of the link's originator
-        - name: link_type
-          in: query
-          schema:
-            $ref: '#/components/schemas/LinkType'
-          required: false
-          description: The type of link, as a string value
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/paginationReverse'
-        - $ref: '#/components/parameters/pageToken'
-      responses:
-        200:
-          description: The requested Links.
-          content:
-            application/json:
-              schema:
-                required:
-                  - messages
-                  - nextPageToken
-                type: object
-                properties:
-                  messages:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/LinkAdd'
-                  nextPageToken:
-                    pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-                    type: string
-                    format: byte
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/linksByTargetFid:
-    get:
-      tags:
-        - Links
-      summary: Get all links to a target FID
-      operationId: ListLinksByTargetFid
-      parameters:
-        - name: target_fid
-          in: query
-          schema:
-            type: integer
-          required: true
-          description: The FID of the target of the link
-        - name: link_type
-          in: query
-          schema:
-            $ref: '#/components/schemas/LinkType'
-          required: false
-          description: The type of link, as a string value
-        - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/paginationReverse'
-        - $ref: '#/components/parameters/pageToken'
-      responses:
-        200:
-          description: The requested Links.
-          content:
-            application/json:
-              schema:
-                required:
-                  - messages
-                  - nextPageToken
-                type: object
-                properties:
-                  messages:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/LinkAdd'
-                  nextPageToken:
-                    pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
-                    type: string
-                    format: byte
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/onChainIdRegistryEventByAddress:
-    get:
-      tags:
-        - OnChainEvents
-      summary: Get an on chain ID Registry Event for a given Address
-      operationId: GetOnChainIdRegistrationByAddress
-      parameters:
-        - name: address
-          in: query
-          required: true
-          schema:
-            type: string
-            pattern: ^0x[0-9a-fA-F]{40}$
-          description: The ETH address being requested
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OnChainEventIdRegister'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/onChainEventsByFid:
-    get:
-      tags:
-        - OnChainEvents
-      summary: Get a list of on-chain events provided by an FID
-      operationId: ListOnChainEventsByFid
-      parameters:
-        - name: fid
-          in: query
-          required: true
-          schema:
-            type: integer
-          description: The FID being requested
-        - name: event_type
-          in: query
-          schema:
-            $ref: '#/components/schemas/OnChainEventType'
-          description: The numeric of string value of the event type being requested.
-          required: true
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  events:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/OnChainEvent'
-                required:
-                  - events
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /v1/onChainSignersByFid:
-    get:
-      tags:
-        - OnChainEvents
-      summary: Get a list of signers provided by an FID
-      description: "**Note:** one of two different response schemas is returned 
-        based on whether the caller provides the `signer` parameter. If included, a single
-        `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a 
-        non-paginated list of `OnChainEventSigner` messages is returned instead"
-      operationId: ListOnChainSignersByFid
-      parameters:
-        - name: fid
-          in: query
-          required: true
-          schema:
-            type: integer
-          description: The FID being requested
-        - name: signer
-          in: query
-          schema:
-            type: string
-          description: The optional key of signer
-          required: false
-          example: "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd"
-      responses:
-        200:
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/OnChainEventSigner'
-                  - type: object
-                    properties:
-                      events:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/OnChainEventSigner'
-                    required:
-                      - events
         default:
           $ref: '#/components/responses/ErrorResponse'
   /v1/reactionById:
@@ -630,6 +326,7 @@ paths:
       tags:
         - Reactions
       operationId: ListReactionsByTarget
+      summary: Get all reactions to a target URL
       parameters:
         - name: url
           in: query
@@ -637,6 +334,7 @@ paths:
           schema:
             type: string
           required: true
+          example: chain://eip155:1/erc721:0x39d89b649ffa044383333d297e325d42d31329b2
         - name: reaction_type
           in: query
           description: The type of reaction, either as a numerical enum value or string representation
@@ -661,6 +359,126 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Reaction'
+                  nextPageToken:
+                    pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+                    type: string
+                    format: byte
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/linkById:
+    get:
+      tags:
+        - Links
+      summary: Get a link by its FID and target FID.
+      operationId: GetLinkById
+      parameters:
+        - name: fid
+          in: query
+          description: The FID of the link's originator
+          required: true
+          schema:
+            type: integer
+        - name: target_fid
+          in: query
+          description: The FID of the target of the link
+          required: true
+          schema:
+            type: integer
+        - name: link_type
+          in: query
+          description: The type of link, as a string value
+          required: true
+          schema:
+            $ref: '#/components/schemas/LinkType'
+      responses:
+        200:
+          description: The requested Link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkAdd'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/linksByFid:
+    get:
+      tags:
+        - Links
+      summary: Get all links from a source FID
+      operationId: ListLinksByFid
+      parameters:
+        - name: fid
+          in: query
+          schema:
+            type: integer
+          required: true
+          description: The FID of the link's originator
+        - name: link_type
+          in: query
+          schema:
+            $ref: '#/components/schemas/LinkType'
+          required: false
+          description: The type of link, as a string value
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/paginationReverse'
+        - $ref: '#/components/parameters/pageToken'
+      responses:
+        200:
+          description: The requested Links.
+          content:
+            application/json:
+              schema:
+                required:
+                  - messages
+                  - nextPageToken
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LinkAdd'
+                  nextPageToken:
+                    pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+                    type: string
+                    format: byte
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/linksByTargetFid:
+    get:
+      tags:
+        - Links
+      summary: Get all links to a target FID
+      operationId: ListLinksByTargetFid
+      parameters:
+        - name: target_fid
+          in: query
+          schema:
+            type: integer
+          required: true
+          description: The FID of the target of the link
+        - name: link_type
+          in: query
+          schema:
+            $ref: '#/components/schemas/LinkType'
+          required: false
+          description: The type of link, as a string value
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/paginationReverse'
+        - $ref: '#/components/parameters/pageToken'
+      responses:
+        200:
+          description: The requested Links.
+          content:
+            application/json:
+              schema:
+                required:
+                  - messages
+                  - nextPageToken
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LinkAdd'
                   nextPageToken:
                     pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
                     type: string
@@ -716,6 +534,47 @@ paths:
                         format: byte
         default:
           $ref: '#/components/responses/ErrorResponse'
+  /v1/fids:
+    get:
+      tags:
+        - FIDs
+      operationId: ListFids
+      summary: Get a list of all the FIDs
+      parameters:
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/paginationReverse'
+        - $ref: '#/components/parameters/pageToken'
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FidsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/storageLimitsByFid:
+    get:
+      tags:
+        - Storage
+      operationId: GetStorageLimitsByFid
+      summary: Get an FID's storage limits.
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageLimitsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-codegen-request-body-name: body
   /v1/userNameProofsByFid:
     get:
       tags:
@@ -809,6 +668,106 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
+  /v1/onChainIdRegistryEventByAddress:
+    get:
+      tags:
+        - OnChainEvents
+      summary: Get an on chain ID Registry Event for a given Address
+      operationId: GetOnChainIdRegistrationByAddress
+      parameters:
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: ^0x[0-9a-fA-F]{40}$
+          description: The ETH address being requested
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnChainEventIdRegister'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/onChainEventsByFid:
+    get:
+      tags:
+        - OnChainEvents
+      summary: Get a list of on-chain events provided by an FID
+      operationId: ListOnChainEventsByFid
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The FID being requested
+        - name: event_type
+          in: query
+          schema:
+            $ref: '#/components/schemas/OnChainEventType'
+          description: The numeric of string value of the event type being requested.
+          required: true
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OnChainEvent'
+                required:
+                  - events
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/onChainSignersByFid:
+    get:
+      tags:
+        - OnChainEvents
+      summary: Get a list of signers provided by an FID
+      description: "**Note:** one of two different response schemas is returned 
+        based on whether the caller provides the `signer` parameter. If included, a single
+        `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a 
+        non-paginated list of `OnChainEventSigner` messages is returned instead"
+      operationId: ListOnChainSignersByFid
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The FID being requested
+        - name: signer
+          in: query
+          schema:
+            type: string
+          description: The optional key of signer
+          required: false
+          example: "0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd"
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/OnChainEventSigner'
+                  - type: object
+                    properties:
+                      events:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/OnChainEventSigner'
+                    required:
+                      - events
+        default:
+          $ref: '#/components/responses/ErrorResponse'
   /v1/submitMessage:
     post:
       tags:
@@ -836,6 +795,63 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
+  /v1/events:
+    get:
+      tags:
+        - HubEvents
+      operationId: ListEvents
+      summary: Get a page of Hub events
+      parameters:
+        - name: from_event_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: "An optional Hub Id to start getting events from. 
+            This is also returned from the API as nextPageEventId, which 
+            can be used to page through all the Hub events. Set it to 0 
+            to start from the first event"
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nextPageEventId:
+                    type: integer
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HubEvent'
+                required:
+                  - nextPageEventId
+                  - events
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/eventById:
+    get:
+      tags:
+        - HubEvents
+      operationId: GetEventById
+      summary: Get an event by its ID
+      parameters:
+        - name: event_id
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The Hub Id of the event
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubEvent'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
 components:
   securitySchemes:
     usernamePassword:
@@ -872,7 +888,7 @@ components:
           required:
             - data
     CastAddBody:
-      title: '* Adds a new Cast'
+      description: 'Adds a new Cast'
       type: object
       properties:
         embedsDeprecated:
@@ -915,7 +931,7 @@ components:
             data:
               $ref: '#/components/schemas/MessageDataCastRemove'
     CastId:
-      title: '* Identifier used to look up a Cast'
+      description: 'Identifier used to look up a Cast'
       required:
       - fid
       - hash
@@ -931,7 +947,7 @@ components:
       pattern: ^0x[0-9a-fA-F]{40}$
       type: string
     CastRemoveBody:
-      title: '* Removes an existing Cast'
+      description: 'Removes an existing Cast'
       type: object
       properties:
         targetHash:
@@ -993,9 +1009,10 @@ components:
               items:
                 type: string
     FarcasterNetwork:
-      title: '* Farcaster network the message is intended for'
+      # description: 'Farcaster network the message is intended for'
       type: string
       description: |-
+        Farcaster network the message is intended for.
         - FARCASTER_NETWORK_MAINNET: Public primary network
          - FARCASTER_NETWORK_TESTNET: Public test network
          - FARCASTER_NETWORK_DEVNET: Private test network
@@ -1020,9 +1037,10 @@ components:
         - fids
         - nextPageToken
     HashScheme:
-      title: '* Type of hashing scheme used to produce a digest of MessageData'
       type: string
-      description: '- HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData'
+      description: >
+        Type of hashing scheme used to produce a digest of MessageData.
+        - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
       default: HASH_SCHEME_BLAKE3
       enum:
       - HASH_SCHEME_BLAKE3
@@ -1116,22 +1134,6 @@ components:
         - type
         - id
         - mergeOnChainEventBody
-    HubEventType:
-      title: |-
-        - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF: Deprecated
-         HUB_EVENT_TYPE_MERGE_ID_REGISTRY_EVENT = 4;
-         HUB_EVENT_TYPE_MERGE_NAME_REGISTRY_EVENT = 5;
-         - HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT: Deprecated
-         HUB_EVENT_TYPE_MERGE_RENT_REGISTRY_EVENT = 7;
-         HUB_EVENT_TYPE_MERGE_STORAGE_ADMIN_REGISTRY_EVENT = 8;
-      type: string
-      default: HUB_EVENT_TYPE_MERGE_MESSAGE
-      enum:
-      - HUB_EVENT_TYPE_MERGE_MESSAGE
-      - HUB_EVENT_TYPE_PRUNE_MESSAGE
-      - HUB_EVENT_TYPE_REVOKE_MESSAGE
-      - HUB_EVENT_TYPE_MERGE_USERNAME_PROOF
-      - HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT
     HubInfoResponse:
       title: Response Types for the Sync RPC Methods
       required:
@@ -1196,7 +1198,7 @@ components:
           required:
             - data
     LinkBody:
-      title: '* Adds or removes a Link'
+      description: 'Adds or removes a Link'
       type: object
       properties:
         type:
@@ -1218,9 +1220,9 @@ components:
             data:
               $ref: '#/components/schemas/MessageDataLink'
     LinkType:
-      title: '* Type of Link'
       type: string
       description: |-
+        Type of Link.
         - follow: Follow another user
       default: follow
       enum:
@@ -1408,9 +1410,9 @@ components:
             verificationRemoveBody:
               $ref: '#/components/schemas/VerificationRemoveBody'
     MessageType:
-      title: '* Type of the MessageBody'
       type: string
       description: |-
+        Type of the MessageBody.
         - MESSAGE_TYPE_CAST_ADD: Add a new Cast
          - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast
          - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast
@@ -1543,7 +1545,7 @@ components:
           required:
             - data
     ReactionBody:
-      title: '* Adds or removes a Reaction from a Cast'
+      description: 'Adds or removes a Reaction from a Cast'
       type: object
       properties:
         type:
@@ -1563,9 +1565,9 @@ components:
             data:
               $ref: '#/components/schemas/MessageDataReaction'
     ReactionType:
-      title: '* Type of Reaction'
       type: string
       description: |-
+        Type of Reaction.
         - REACTION_TYPE_LIKE: Like the target cast
          - REACTION_TYPE_RECAST: Share target cast to the user's audience
       default: REACTION_TYPE_LIKE
@@ -1578,9 +1580,9 @@ components:
         message:
           $ref: '#/components/schemas/Message'
     SignatureScheme:
-      title: '* Type of signature scheme used to sign the Message hash'
       type: string
       description: |-
+        Type of signature scheme used to sign the Message hash
         - SIGNATURE_SCHEME_ED25519: Ed25519 signature (default)
          - SIGNATURE_SCHEME_EIP712: ECDSA signature using EIP-712 scheme
       default: SIGNATURE_SCHEME_ED25519
@@ -1683,7 +1685,7 @@ components:
           required:
             - data
     UserDataBody:
-      title: '* Adds metadata about a user'
+      description: 'Adds metadata about a user'
       type: object
       properties:
         type:
@@ -1695,9 +1697,9 @@ components:
         - type
         - value
     UserDataType:
-      title: '* Type of UserData'
       type: string
       description: |-
+        Type of UserData.
         - USER_DATA_TYPE_PFP: Profile Picture for the user
          - USER_DATA_TYPE_DISPLAY: Display Name for the user
          - USER_DATA_TYPE_BIO: Bio for the user
@@ -1763,7 +1765,7 @@ components:
           required:
             - data
     VerificationAddEthAddressBody:
-      title: '* Adds a Verification of ownership of an Ethereum Address'
+      description: 'Adds a Verification of ownership of an Ethereum Address'
       type: object
       properties:
         address:
@@ -1791,7 +1793,7 @@ components:
             data:
               $ref: '#/components/schemas/MessageDataVerificationRemove'
     VerificationRemoveBody:
-      title: '* Removes a Verification of any type'
+      description: 'Removes a Verification of any type'
       type: object
       properties:
         address:

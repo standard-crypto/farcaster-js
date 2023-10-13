@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).FarcasterNetwork
 
-- FARCASTER_NETWORK_MAINNET: Public primary network  - FARCASTER_NETWORK_TESTNET: Public test network  - FARCASTER_NETWORK_DEVNET: Private test network
+Farcaster network the message is intended for. - FARCASTER_NETWORK_MAINNET: Public primary network  - FARCASTER_NETWORK_TESTNET: Public test network  - FARCASTER_NETWORK_DEVNET: Private test network
 
 **`Export`**
 

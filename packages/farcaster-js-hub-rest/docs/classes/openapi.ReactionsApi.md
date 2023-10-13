@@ -126,7 +126,7 @@ ReactionsApi
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:583](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L583)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:586](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L586)
 
 ___
 
@@ -157,7 +157,7 @@ ReactionsApi
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:595](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L595)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:598](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L598)
 
 ___
 
@@ -188,7 +188,7 @@ ReactionsApi
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:607](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L607)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:610](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L610)
 
 ___
 
@@ -207,6 +207,10 @@ ___
 
 `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
+**`Summary`**
+
+Get all reactions to a target URL
+
 **`Throws`**
 
 **`Memberof`**
@@ -215,4 +219,4 @@ ReactionsApi
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:618](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L618)
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts:622](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/reactions-api.ts#L622)

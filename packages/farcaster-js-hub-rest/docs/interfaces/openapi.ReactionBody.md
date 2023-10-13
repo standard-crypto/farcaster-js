@@ -4,6 +4,8 @@
 
 [openapi](../modules/openapi.md).ReactionBody
 
+Adds or removes a Reaction from a Cast
+
 **`Export`**
 
 ReactionBody

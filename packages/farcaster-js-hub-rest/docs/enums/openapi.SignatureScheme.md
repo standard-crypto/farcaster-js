@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).SignatureScheme
 
-- SIGNATURE_SCHEME_ED25519: Ed25519 signature (default)  - SIGNATURE_SCHEME_EIP712: ECDSA signature using EIP-712 scheme
+Type of signature scheme used to sign the Message hash - SIGNATURE_SCHEME_ED25519: Ed25519 signature (default)  - SIGNATURE_SCHEME_EIP712: ECDSA signature using EIP-712 scheme
 
 **`Export`**
 

@@ -4,7 +4,7 @@
 
 [openapi](../modules/openapi.md).ReactionType
 
-- REACTION_TYPE_LIKE: Like the target cast  - REACTION_TYPE_RECAST: Share target cast to the user\'s audience
+Type of Reaction. - REACTION_TYPE_LIKE: Like the target cast  - REACTION_TYPE_RECAST: Share target cast to the user\'s audience
 
 **`Export`**
 
