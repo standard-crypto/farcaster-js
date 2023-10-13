@@ -283,6 +283,7 @@ describe('HubWebClient', function() {
         const reactionTwo = await reactions.next();
         expectDefinedNonNull(reactionOne.value);
         expectDefinedNonNull(reactionTwo.value);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         expect(reactionOne.value?.hash).to.not.eq(reactionTwo.value?.hash);
       });
     });
@@ -318,6 +319,7 @@ describe('HubWebClient', function() {
         const reactionTwo = await reactions.next();
         expectDefinedNonNull(reactionOne.value);
         expectDefinedNonNull(reactionTwo.value);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         expect(reactionOne.value?.hash).to.not.eq(reactionTwo.value?.hash);
       });
     });
@@ -352,6 +354,7 @@ describe('HubWebClient', function() {
         const reactionTwo = await reactions.next();
         expectDefinedNonNull(reactionOne.value);
         expectDefinedNonNull(reactionTwo.value);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         expect(reactionOne.value?.hash).to.not.eq(reactionTwo.value?.hash);
       });
     });
