@@ -1,1 +1,1 @@
-export * from "./hubRestApiClient";
+export * from './hubRestApiClient';

@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosInstance } from "axios";
-import { Logger, silentLogger } from "./logger";
-import type { SetRequired } from "type-fest";
+import axios, { AxiosError, AxiosInstance } from 'axios';
+import { Logger, silentLogger } from './logger';
+import type { SetRequired } from 'type-fest';
 import {
   CastId,
   CastsApi,
@@ -35,46 +35,46 @@ import {
   OnChainEventStorageRent,
   HubEventsApi,
   HubEvent,
-} from "./openapi";
+} from './openapi';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
   : T extends OnChainEventType.SignerMigrated
-  ? OnChainEventSignerMigrated
-  : T extends OnChainEventType.IdRegister
-  ? OnChainEventIdRegister
-  : T extends OnChainEventType.StorageRent
-  ? OnChainEventStorageRent
-  : never;
+    ? OnChainEventSignerMigrated
+    : T extends OnChainEventType.IdRegister
+      ? OnChainEventIdRegister
+      : T extends OnChainEventType.StorageRent
+        ? OnChainEventStorageRent
+        : never;
 
-export const DEFAULT_SERVER = "http://hub.farcaster.standardcrypto.vc:2281";
+export const DEFAULT_SERVER = 'http://hub.farcaster.standardcrypto.vc:2281';
 
 export interface HubRestAPIClientConfig {
-  axiosInstance?: AxiosInstance;
-  server?: string;
-  logger?: Logger;
+  axiosInstance?: AxiosInstance
+  server?: string
+  logger?: Logger
 }
 
 export interface PaginationOptions {
-  pageSize?: number;
-  reverse?: boolean;
+  pageSize?: number
+  reverse?: boolean
 }
 
 export class HubRestAPIClient {
   private readonly logger: Logger;
 
   public readonly apis: {
-    casts: CastsApi;
-    fids: FIDsApi;
-    hubEvents: HubEventsApi;
-    info: InfoApi;
-    links: LinksApi;
-    onChainEvents: OnChainEventsApi;
-    reactions: ReactionsApi;
-    storage: StorageApi;
-    userData: UserDataApi;
-    usernames: UsernamesApi;
-    verifications: VerificationsApi;
+    casts: CastsApi
+    fids: FIDsApi
+    hubEvents: HubEventsApi
+    info: InfoApi
+    links: LinksApi
+    onChainEvents: OnChainEventsApi
+    reactions: ReactionsApi
+    storage: StorageApi
+    userData: UserDataApi
+    usernames: UsernamesApi
+    verifications: VerificationsApi
   };
 
   /**
@@ -99,7 +99,7 @@ export class HubRestAPIClient {
           this.logger.warn(`API errors: ${JSON.stringify(apiErrors)}`);
         }
         throw error;
-      }
+      },
     );
 
     const config: Configuration = new Configuration({ basePath: server });
@@ -140,7 +140,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -154,9 +154,9 @@ export class HubRestAPIClient {
    * @param fid The FID of the cast's creator
    * @param options
    */
-  public async *listCastsByFid(
+  public async * listCastsByFid(
     fid: number,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<CastAdd, void, undefined> {
     let pageToken: string | undefined;
 
@@ -169,10 +169,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -185,9 +185,9 @@ export class HubRestAPIClient {
    * @param fid The FID that is mentioned in a cast
    * @param options
    */
-  public async *listCastsByMention(
+  public async * listCastsByMention(
     fid: number,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<CastAdd, void, undefined> {
     let pageToken: string | undefined;
 
@@ -200,10 +200,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -216,9 +216,9 @@ export class HubRestAPIClient {
    * @param parent
    * @param options
    */
-  public async *listCastsByParent(
+  public async * listCastsByParent(
     parent: CastId | { url: string },
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<CastAdd, void, undefined> {
     let pageToken: string | undefined;
 
@@ -231,10 +231,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -248,7 +248,7 @@ export class HubRestAPIClient {
    * @returns
    */
   public async getReactionById(
-    id: ReactionsApiGetReactionByIdRequest
+    id: ReactionsApiGetReactionByIdRequest,
   ): Promise<Reaction | null> {
     try {
       const result = await this.apis.reactions.getReactionById(id);
@@ -256,7 +256,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -271,10 +271,10 @@ export class HubRestAPIClient {
    * @param reactionType The type of reaction
    * @param options
    */
-  public async *listReactionsByFid(
+  public async * listReactionsByFid(
     fid: number,
     reactionType: ReactionType,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<Reaction, void, undefined> {
     let pageToken: string | undefined;
 
@@ -288,10 +288,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -306,11 +306,11 @@ export class HubRestAPIClient {
    * @param reactionType The type of reaction
    * @param options
    */
-  public async *listReactionsByCast(
+  public async * listReactionsByCast(
     targetFid: number,
     targetHash: string,
     reactionType: ReactionType,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<Reaction, void, undefined> {
     let pageToken: string | undefined;
 
@@ -325,10 +325,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -342,10 +342,10 @@ export class HubRestAPIClient {
    * @param reactionType The type of reaction
    * @param options
    */
-  public async *listReactionsByTarget(
+  public async * listReactionsByTarget(
     url: string,
     reactionType: ReactionType,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<Reaction, void, undefined> {
     let pageToken: string | undefined;
 
@@ -359,10 +359,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -375,7 +375,7 @@ export class HubRestAPIClient {
    */
   public async getLinkById(
     sourceFid: number,
-    targetFid: number
+    targetFid: number,
   ): Promise<LinkAdd | null> {
     try {
       const result = await this.apis.links.getLinkById({
@@ -387,7 +387,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -401,9 +401,9 @@ export class HubRestAPIClient {
    * @param fid The FID of the link's originator
    * @param options
    */
-  public async *listLinksByFid(
+  public async * listLinksByFid(
     fid: number,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<LinkAdd, void, undefined> {
     let pageToken: string | undefined;
 
@@ -417,10 +417,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -433,9 +433,9 @@ export class HubRestAPIClient {
    * @param targetFid
    * @param options
    */
-  public async *listLinksByTargetFid(
+  public async * listLinksByTargetFid(
     targetFid: number,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<LinkAdd, void, undefined> {
     let pageToken: string | undefined;
 
@@ -449,10 +449,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -468,7 +468,7 @@ export class HubRestAPIClient {
    */
   public async getSpecificUserDataByFid(
     fid: number,
-    userDataType: UserDataType
+    userDataType: UserDataType,
   ): Promise<UserDataAdd | null> {
     try {
       const response = await this.apis.userData.getUserDataByFid({
@@ -479,7 +479,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -493,9 +493,9 @@ export class HubRestAPIClient {
    * @param fid The FID that's being requested
    * @returns
    */
-  public async *listAllUserDataByFid(
+  public async * listAllUserDataByFid(
     fid: number,
-    options?: PaginationOptions
+    options?: PaginationOptions,
   ): AsyncGenerator<UserDataAdd, void, undefined> {
     let pageToken: string | undefined;
 
@@ -509,10 +509,10 @@ export class HubRestAPIClient {
 
       // yield current page
       const data = response.data as GetUserDataByFid200ResponseOneOf;
-      yield* data.messages;
+      yield * data.messages;
 
       // prep for next page
-      if (data.nextPageToken === "") {
+      if (data.nextPageToken === '') {
         break;
       }
       pageToken = data.nextPageToken;
@@ -524,8 +524,8 @@ export class HubRestAPIClient {
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#fids)
    * @param options
    */
-  public async *listFids(
-    options?: PaginationOptions
+  public async * listFids(
+    options?: PaginationOptions,
   ): AsyncGenerator<number, void, undefined> {
     let pageToken: string | undefined;
 
@@ -537,10 +537,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.fids;
+      yield * response.data.fids;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -565,7 +565,7 @@ export class HubRestAPIClient {
    * @returns
    */
   public async getUsernameProof(
-    username: string
+    username: string,
   ): Promise<UserNameProof | null> {
     try {
       const response = await this.apis.usernames.getUsernameProof({
@@ -575,7 +575,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -600,9 +600,9 @@ export class HubRestAPIClient {
    * @param fid The FID being requested
    * @param options The optional ETH address to filter by
    */
-  public async *listVerificationsByFid(
+  public async * listVerificationsByFid(
     fid: number,
-    options?: PaginationOptions & { address?: string }
+    options?: PaginationOptions & { address?: string },
   ): AsyncGenerator<Verification, void, undefined> {
     let pageToken: string | undefined;
 
@@ -615,10 +615,10 @@ export class HubRestAPIClient {
       });
 
       // yield current page
-      yield* response.data.messages;
+      yield * response.data.messages;
 
       // prep for next page
-      if (response.data.nextPageToken === "") {
+      if (response.data.nextPageToken === '') {
         break;
       }
       pageToken = response.data.nextPageToken;
@@ -634,7 +634,7 @@ export class HubRestAPIClient {
    */
   public async listOnChainEventsByFid<T extends OnChainEventType>(
     fid: number,
-    eventType: T
+    eventType: T,
   ): Promise<Array<OnChainEventsReturnType<T>>> {
     const response = await this.apis.onChainEvents.listOnChainEventsByFid({
       fid,
@@ -652,7 +652,7 @@ export class HubRestAPIClient {
    */
   public async getOnChainSignerEventBySigner(
     fid: number,
-    signer: string
+    signer: string,
   ): Promise<OnChainEventSigner | null> {
     try {
       const response = await this.apis.onChainEvents.listOnChainSignersByFid({
@@ -663,7 +663,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -678,7 +678,7 @@ export class HubRestAPIClient {
    * @returns
    */
   public async getOnChainIdRegistryEventByAddress(
-    address: string
+    address: string,
   ): Promise<OnChainEventIdRegister | null> {
     try {
       const response =
@@ -689,7 +689,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -712,7 +712,7 @@ export class HubRestAPIClient {
     } catch (err) {
       if (
         HubRestAPIClient.isApiErrorResponse(err) &&
-        err.response.data.errCode === "not_found"
+        err.response.data.errCode === 'not_found'
       ) {
         return null;
       }
@@ -725,8 +725,8 @@ export class HubRestAPIClient {
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#events)
    * @param fromEventId An optional Hub Id to start getting events from.
    */
-  public async *listHubEvents(
-    fromEventId?: number
+  public async * listHubEvents(
+    fromEventId?: number,
   ): AsyncGenerator<HubEvent, void, undefined> {
     while (true) {
       // fetch one page
@@ -738,7 +738,7 @@ export class HubRestAPIClient {
       if (response.data.events.length === 0) {
         break;
       }
-      yield* response.data.events;
+      yield * response.data.events;
 
       // prep for next page
       fromEventId = response.data.nextPageEventId;
@@ -752,11 +752,11 @@ export class HubRestAPIClient {
    */
   public static isApiErrorResponse(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    error: any
-  ): error is SetRequired<AxiosError<ErrorResponse>, "response"> {
+    error: any,
+  ): error is SetRequired<AxiosError<ErrorResponse>, 'response'> {
     if (!(error instanceof AxiosError)) return false;
     return (
-      error.response?.data !== undefined && "errCode" in error.response.data
+      error.response?.data !== undefined && 'errCode' in error.response.data
     );
   }
 }

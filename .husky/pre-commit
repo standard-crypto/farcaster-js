@@ -6,15 +6,12 @@ yarn workspaces foreach --all run clean
 # recreate generated files
 yarn workspaces foreach --all run generate
 git add ':(glob)**/generated/**'
+git add ':(glob)**/README.md' ':(glob)**/docs/**'
 
 # typecheck
 yarn type:check
 
 # lint (includes prettier)
-yarn lint:check
+yarn lint
 
 yarn spell:check
-
-# generated docs
-yarn workspaces foreach --all run docs;
-git add ':(glob)**/README.md' ':(glob)**/docs/**'

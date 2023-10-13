@@ -24,15 +24,17 @@
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
-    "prettier"
+    "plugin:import/typescript"
   ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": ["error", {"varsIgnorePattern": "^_$"}],
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/space-before-function-paren": ["error", "never"],
     "no-only-tests/no-only-tests": "error",
-    "no-console": "error"
+    "no-console": "error",
+    "comma-dangle": ["error", "always-multiline"]
   },
   "overrides": [
     {

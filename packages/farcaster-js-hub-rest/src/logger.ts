@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 export interface Logger {
-  trace: (message?: any, ...optionalParams: any[]) => void;
-  debug: (message?: any, ...optionalParams: any[]) => void;
-  info: (message?: any, ...optionalParams: any[]) => void;
-  warn: (message?: any, ...optionalParams: any[]) => void;
-  error: (message?: any, ...optionalParams: any[]) => void;
-  [x: string]: any;
+  trace: (message?: any, ...optionalParams: any[]) => void
+  debug: (message?: any, ...optionalParams: any[]) => void
+  info: (message?: any, ...optionalParams: any[]) => void
+  warn: (message?: any, ...optionalParams: any[]) => void
+  error: (message?: any, ...optionalParams: any[]) => void
+  [x: string]: any
 }
 
 export const silentLogger: Logger = {
