@@ -1,0 +1,64 @@
+{
+  "name": "@standard-crypto/farcaster-js-neynar",
+  "version": "0.0.0",
+  "description": "A tool for interacting with Farcaster via Neynar APIs.",
+  "main": "src/index.ts",
+  "repository": {
+    "url": "https://github.com/standard-crypto/farcaster-js",
+    "type": "git"
+  },
+  "homepage": "https://github.com/standard-crypto/farcaster-js",
+  "bugs": "https://github.com/standard-crypto/farcaster-js/issues",
+  "author": "Kevin Ayling",
+  "license": "MIT",
+  "dependencies": {
+    "viem": "^1.16.2"
+  },
+  "peerDependencies": {
+    "axios": "~1.5.1"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.7.0",
+    "@types/chai": "^4.3.5",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/prompts": "^2.4.4",
+    "axios": "~1.5.1",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "dotenv": "^16.3.1",
+    "markdown-magic": "^2.6.1",
+    "mocha": "^10.2.0",
+    "openapi-response-validator": "^12.1.3",
+    "openapi-types": "^12.1.3",
+    "openapi-typescript": "^6.7.0",
+    "ts-mocha": "^10.0.0",
+    "type-fest": "^4.3.3",
+    "typedoc": "^0.24.6",
+    "typedoc-plugin-markdown": "^3.15.2",
+    "yaml": "^2.3.2"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "src/**",
+    "dist/**",
+    "types/**"
+  ],
+  "scripts": {
+    "clean": "yarn clean:dist && yarn clean:generated",
+    "clean:dist": "rm -rf dist",
+    "clean:generated": "rm -rf src/v1/openapi/generated && rm -rf src/v2/openapi/generated",
+    "cz": "yarn run -T cz",
+    "generate": "yarn run generate:openapi",
+    "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
+    "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript",
+    "generate:openapi-axios": "openapi-generator-cli generate --global-property apis,models,supportingFiles=index.ts:api.ts:configuration.ts:base.ts:common.ts -i src/v1/openapi/spec.yaml -g typescript-axios -o src/v1/openapi/generated --config openapi-generator-config.json && openapi-generator-cli generate --global-property apis,models,supportingFiles=index.ts:api.ts:configuration.ts:base.ts:common.ts -i src/v2/openapi/spec.yaml -g typescript-axios -o src/v2/openapi/generated --config openapi-generator-config.json",
+    "generate:openapi-typescript": "openapi-typescript src/v1/openapi/spec.yaml -o src/v1/openapi/generated/schema.d.ts && openapi-typescript src/v2/openapi/spec.yaml -o src/v2/openapi/generated/schema.d.ts",
+    "test": "yarn test:integration",
+    "test:integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -p tsconfig.json tests/integration/*.ts",
+    "signer": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -p tsconfig.json tests/signer/generateSigner.ts"
+  },
+  "keywords": [
+    "farcaster"
+  ]
+}

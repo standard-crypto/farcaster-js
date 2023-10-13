@@ -1,0 +1,21 @@
+{
+    "folders": [
+        {
+            "name": "project root",
+            "path": "../"
+        },
+        {
+            "name": "packages/farcaster-js-hub-rest",
+            "path": "../packages/farcaster-js-hub-rest"
+        },
+        {
+            "name": "packages/farcaster-js-neynar",
+            "path": "../packages/farcaster-js-neynar"
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "packages/": true,
+        }
+    }
+}

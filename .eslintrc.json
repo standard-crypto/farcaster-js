@@ -6,7 +6,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.lint.json"
+    "project": "./tsconfig.json"
   },
   "plugins": [
     "import",
@@ -14,23 +14,23 @@
     "no-only-tests"
   ],
   "ignorePatterns": [
-    "scripts/*",
     "rollup.config.js",
     "src/contracts/*",
-    "src/merkleAPI/swagger/*",
     "src/neynarAPI/neynarV1API/openapi/*",
     "src/neynarAPI/neynarV2API/openapi/*",
     "src/hub-rest-client/openapi/*",
     "dist/*",
-    "types/*"
+    "types/*",
+    "**/generated/*",
+    "**/dist/*",
+    "**/types/*"
   ],
   "extends": [
     "standard-with-typescript",
     "eslint:recommended",
     "plugin:eslint-comments/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
-    "prettier"
+    "plugin:import/typescript"
   ],
   "rules": {
     "@typescript-eslint/no-unnecessary-condition": ["error", {
@@ -39,17 +39,20 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": ["error", {"varsIgnorePattern": "^_$"}],
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/space-before-function-paren": ["error", "never"],
     "no-only-tests/no-only-tests": "error",
-    "no-console": "error"
+    "no-console": "error",
+    "comma-dangle": ["error", "always-multiline"]
   },
   "overrides": [
     {
-      "files": ["tests/**.ts"],
+      "files": ["**/tests/**"],
       "rules": {
         "@typescript-eslint/no-unused-expressions": "off"
       }
     }, {
-      "files": ["examples/**/*.ts"],
+      "files": ["**/examples/**"],
       "rules": {
         "no-console": "off"
       }

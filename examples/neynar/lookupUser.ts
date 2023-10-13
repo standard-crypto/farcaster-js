@@ -1,10 +1,10 @@
-import { NeynarAPIClient } from "@standard-crypto/farcaster-js/neynarAPI";
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
 
-const apiKey = "NeynarAPIKey";
+const apiKey = 'NeynarAPIKey';
 const client = new NeynarAPIClient(apiKey);
 
 // by farcaster ID ('fid')
 await client.clients.v1.lookupUserByFid(3);
 
 // by username
-await client.clients.v1.lookupUserByUsername("dwr");
+await client.clients.v1.lookupUserByUsername('dwr');

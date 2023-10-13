@@ -1,10 +1,10 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { NeynarAPIClient } from "@standard-crypto/farcaster-js/neynarAPI";
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
 
 // init
-const apiKey = "NeynarAPIKey";
-const signerUuid = "signerUUID";
+const apiKey = 'NeynarAPIKey';
+const signerUuid = 'signerUUID';
 const apiClient = new NeynarAPIClient(apiKey);
 
 const signer = await apiClient.clients.v2.fetchSigner(signerUuid);

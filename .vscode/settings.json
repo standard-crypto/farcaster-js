@@ -9,6 +9,5 @@
   "javascript.preferences.quoteStyle": "single",
   "typescript.preferences.quoteStyle": "single",
   "eslint.lintTask.enable": true,
-  "eslint.packageManager": "yarn",
   "files.insertFinalNewline": true,
 }
