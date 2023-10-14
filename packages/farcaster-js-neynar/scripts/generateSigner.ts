@@ -1,22 +1,13 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { NeynarAPIClient, generateSignature } from '../src/';
-// import { NeynarAPIClient, generateSignature } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient, generateSignature } from '../src';
 
-const privateKey = process.env.SIGNER_USER_MNEMONIC;
-const apiKey = process.env.INTEGRATION_TEST_NEYNAR_API_KEY;
-const userBotFid = parseInt(
-  process.env.INTEGRATION_TEST_NEYNAR_SIGNER_FID ?? '0',
-);
-
-if (
-  apiKey !== undefined &&
-  apiKey !== '' &&
-  privateKey !== undefined &&
-  privateKey !== '' &&
-  userBotFid !== 0
-) {
+async function generateSigner(
+  apiKey: string,
+  privateKey: string,
+  signerFid: number,
+): Promise<void> {
   const client = new NeynarAPIClient(apiKey);
 
   // one day from now
@@ -28,7 +19,7 @@ if (
   // create signature
   const signature = await generateSignature(
     signer.public_key,
-    userBotFid,
+    signerFid,
     privateKey,
     deadline,
   );
@@ -55,6 +46,23 @@ if (
   console.log(
     `If using an android device, use url https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`,
   );
+}
+
+const privateKey = process.env.SIGNER_USER_MNEMONIC;
+const apiKey = process.env.INTEGRATION_TEST_NEYNAR_API_KEY;
+const userBotFid = parseInt(
+  process.env.INTEGRATION_TEST_NEYNAR_SIGNER_FID ?? '0',
+);
+
+if (
+  apiKey !== undefined &&
+  apiKey !== '' &&
+  privateKey !== undefined &&
+  privateKey !== '' &&
+  userBotFid !== 0
+) {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  generateSigner(apiKey, privateKey, userBotFid);
 } else {
   console.warn(
     'Skipping NeynarAPI Signer generation. Env vars SIGNER_USER_MNEMONIC, INTEGRATION_TEST_NEYNAR_API_KEY and INTEGRATION_TEST_NEYNAR_SIGNER_FID are required.',
