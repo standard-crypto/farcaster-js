@@ -16,6 +16,7 @@
   "ignorePatterns": [
     "rollup.config.js",
     "**/generated/*",
+    "**/types/*",
     "**/dist/*"
   ],
   "extends": [
