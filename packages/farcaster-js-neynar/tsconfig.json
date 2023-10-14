@@ -8,6 +8,7 @@
     "include": [
         "./src/**/*.ts",
         "./examples/**/*.ts",
-        "./tests/**/*.ts"
+        "./tests/**/*.ts",
+         "scripts/generateSigner.ts"    
     ]
 }

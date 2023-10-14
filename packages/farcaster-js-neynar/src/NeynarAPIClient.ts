@@ -6,10 +6,8 @@ import { silentLogger, Logger } from './logger';
 export class NeynarAPIClient {
   private readonly logger: Logger;
 
-  public readonly clients: {
-    v1: NeynarV1APIClient
-    v2: NeynarV2APIClient
-  };
+  public readonly v1: NeynarV1APIClient;
+  public readonly v2: NeynarV2APIClient;
 
   /**
    * Instantiates a NeynarAPIClient
@@ -30,9 +28,7 @@ export class NeynarAPIClient {
         'Attempt to use an authenticated API method without first providing an api key',
       );
     }
-    this.clients = {
-      v1: new NeynarV1APIClient(apiKey, { logger, axiosInstance }),
-      v2: new NeynarV2APIClient(apiKey, { logger, axiosInstance }),
-    };
+    this.v1 = new NeynarV1APIClient(apiKey, { logger, axiosInstance });
+    this.v2 = new NeynarV2APIClient(apiKey, { logger, axiosInstance });
   }
 }

@@ -15,15 +15,8 @@
   ],
   "ignorePatterns": [
     "rollup.config.js",
-    "src/contracts/*",
-    "src/neynarAPI/neynarV1API/openapi/*",
-    "src/neynarAPI/neynarV2API/openapi/*",
-    "src/hub-rest-client/openapi/*",
-    "dist/*",
-    "types/*",
     "**/generated/*",
-    "**/dist/*",
-    "**/types/*"
+    "**/dist/*"
   ],
   "extends": [
     "standard-with-typescript",

@@ -9,7 +9,7 @@ yarn
 
 ## Running Tests
 
-Integration tests require the following environment variables be set:
+Integration tests require the following environment variables be set (see (.env.example)[./.env.example]):
 
 ```
 INTEGRATION_TEST_NEYNAR_API_KEY - required for v1 & v2 testing
@@ -46,16 +46,10 @@ yarn workspace @standard-crypto/farcaster-js-neynar signer
 # ...or from from this package's directory
 yarn signer
 
-  NeynarAPI
-    Create/Register a signer for testing
-      ✔ can create a signer (475ms)
-      ✔ can generate a signature (78ms)
 Set env var INTEGRATION_TEST_NEYNAR_SIGNER_UUID=<signer uuid>
 Set env var INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY=<signer public key>
 Open url farcaster://signed-key-request?token=<token> on a logged in ios device to approve signer
 If using an android device, use url https://client.warpcast.com/deeplinks/signed-key-request?token=<token>
-      ✔ can register a signer (834ms)
-
 ```
 
 Save the signer uuid and public key, and approve the signer request on your mobile device.
