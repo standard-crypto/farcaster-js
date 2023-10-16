@@ -66,5 +66,8 @@
   },
   "keywords": [
     "farcaster"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

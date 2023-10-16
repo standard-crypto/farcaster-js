@@ -17,7 +17,8 @@
     "semantic-release": "semantic-release",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
-    "postpack": "pinst --enable"
+    "postpack": "pinst --enable",
+    "publish": "lerna publish --verify-access --ignore-prepublish from-package"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
