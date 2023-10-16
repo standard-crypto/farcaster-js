@@ -22,7 +22,7 @@ LinkBody
 
 ### displayTimestamp
 
-• **displayTimestamp**: `number`
+• `Optional` **displayTimestamp**: `number`
 
 **`Memberof`**
 

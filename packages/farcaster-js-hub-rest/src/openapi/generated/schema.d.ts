@@ -172,7 +172,7 @@ export interface components {
     Embed: {
       /** Format: uri */
       url: string;
-      castId: components["schemas"]["CastId"];
+      castId?: components["schemas"]["CastId"];
     };
     ErrorResponse: {
       errCode: string;
@@ -275,7 +275,7 @@ export interface components {
        * User-defined timestamp that preserves original timestamp when message.data.timestamp needs to be updated for compaction
        * Format: int64
        */
-      displayTimestamp: number;
+      displayTimestamp?: number;
       /**
        * The fid the link relates to
        * Format: uint64

@@ -34,7 +34,7 @@ export interface LinkBody {
      * @type {number}
      * @memberof LinkBody
      */
-    'displayTimestamp': number;
+    'displayTimestamp'?: number;
     /**
      * 
      * @type {number}

@@ -34,6 +34,6 @@ export interface Embed {
      * @type {CastId}
      * @memberof Embed
      */
-    'castId': CastId;
+    'castId'?: CastId;
 }
 
