@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "0.0.0",
+  "version": "6.0.0-alpha.1",
   "description": "A collection of tools for interacting with the Farcaster social network.",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
