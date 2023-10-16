@@ -43,14 +43,13 @@
   "files": [
     "package.json",
     "README.md",
-    "src/**",
     "dist/**",
     "types/**"
   ],
   "scripts": {
     "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
     "clean": "yarn clean:dist && yarn clean:generated",
-    "clean:dist": "rm -rf dist",
+    "clean:dist": "rm -rf dist types",
     "clean:generated": "rm -rf src/openapi/generated",
     "cz": "yarn run -T cz",
     "generate": "yarn run generate:openapi && yarn run generate:docs",

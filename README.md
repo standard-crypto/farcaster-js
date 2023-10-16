@@ -13,5 +13,25 @@ A collection of tools for interacting with the Farcaster social network.
 ## Farcaster Hub REST API
 
 Farcaster hubs expose a public REST API which can be used for simple queries.
-See the [@standard-crypto/farcaster-js-hub-rest](packages/farcaster-js-hub-rest/)
+
+***Setup:***
+
+```sh
+# Install all farcaster-js tools
+npm install axios @standard-crypto/farcaster-js
+
+# ...or install only the Hub REST API client
+npm install axios @standard-crypto/farcaster-js-hub-rest
+```
+
+***Example:***
+
+```typescript
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js'
+
+const client = new HubRestAPIClient();
+console.log(await client.getHubInfo());
+```
+
+See the [@standard-crypto/farcaster-js-hub-rest](https://github.com/standard-crypto/farcaster-js/packages/farcaster-js-hub-rest/README.md)
 package for more info.

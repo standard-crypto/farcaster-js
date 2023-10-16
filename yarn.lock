@@ -2105,7 +2105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@standard-crypto/farcaster-js-hub-rest@workspace:packages/farcaster-js-hub-rest":
+"@standard-crypto/farcaster-js-hub-rest@workspace:*, @standard-crypto/farcaster-js-hub-rest@workspace:packages/farcaster-js-hub-rest":
   version: 0.0.0-use.local
   resolution: "@standard-crypto/farcaster-js-hub-rest@workspace:packages/farcaster-js-hub-rest"
   dependencies:
@@ -2131,7 +2131,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@standard-crypto/farcaster-js-neynar@workspace:packages/farcaster-js-neynar":
+"@standard-crypto/farcaster-js-neynar@workspace:*, @standard-crypto/farcaster-js-neynar@workspace:packages/farcaster-js-neynar":
   version: 0.0.0-use.local
   resolution: "@standard-crypto/farcaster-js-neynar@workspace:packages/farcaster-js-neynar"
   dependencies:
@@ -2153,6 +2153,17 @@ __metadata:
     typedoc: "npm:^0.24.6"
     typedoc-plugin-markdown: "npm:^3.15.2"
     viem: "npm:^1.16.2"
+  peerDependencies:
+    axios: ~1.5.1
+  languageName: unknown
+  linkType: soft
+
+"@standard-crypto/farcaster-js@workspace:packages/farcaster-js":
+  version: 0.0.0-use.local
+  resolution: "@standard-crypto/farcaster-js@workspace:packages/farcaster-js"
+  dependencies:
+    "@standard-crypto/farcaster-js-hub-rest": "workspace:*"
+    "@standard-crypto/farcaster-js-neynar": "workspace:*"
   peerDependencies:
     axios: ~1.5.1
   languageName: unknown

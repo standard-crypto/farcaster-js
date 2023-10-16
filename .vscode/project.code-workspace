@@ -5,6 +5,10 @@
             "path": "../"
         },
         {
+            "name": "packages/farcaster-js",
+            "path": "../packages/farcaster-js"
+        },
+        {
             "name": "packages/farcaster-js-hub-rest",
             "path": "../packages/farcaster-js-hub-rest"
         },

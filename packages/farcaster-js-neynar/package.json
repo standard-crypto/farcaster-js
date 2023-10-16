@@ -2,7 +2,14 @@
   "name": "@standard-crypto/farcaster-js-neynar",
   "version": "0.0.0",
   "description": "A tool for interacting with Farcaster via Neynar APIs.",
-  "main": "src/index.ts",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "type": "module",
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "import": "./dist/esm/index.mjs"
+  },
+  "types": "./types/index.d.ts",
   "repository": {
     "url": "https://github.com/standard-crypto/farcaster-js",
     "type": "git"
@@ -39,13 +46,13 @@
   "files": [
     "package.json",
     "README.md",
-    "src/**",
     "dist/**",
     "types/**"
   ],
   "scripts": {
+    "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
     "clean": "yarn clean:dist && yarn clean:generated",
-    "clean:dist": "rm -rf dist",
+    "clean:dist": "rm -rf dist types",
     "clean:generated": "rm -rf src/v1/openapi/generated && rm -rf src/v2/openapi/generated",
     "cz": "yarn run -T cz",
     "generate": "yarn run generate:openapi",
