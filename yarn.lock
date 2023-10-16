@@ -1642,7 +1642,7 @@ __metadata:
     openapi-typescript: "npm:^6.7.0"
     ts-mocha: "npm:^10.0.0"
     type-fest: "npm:^4.3.3"
-    typedoc: "npm:^0.24.6"
+    typedoc: "npm:^0.25.2"
     typedoc-plugin-markdown: "npm:^3.15.2"
     yaml: "npm:^2.3.2"
   peerDependencies:
@@ -7006,7 +7006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^9.0.0, minimatch@npm:^9.0.1":
+"minimatch@npm:^9.0.1, minimatch@npm:^9.0.3":
   version: 9.0.3
   resolution: "minimatch@npm:9.0.3"
   dependencies:
@@ -9736,19 +9736,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.24.6":
-  version: 0.24.8
-  resolution: "typedoc@npm:0.24.8"
+"typedoc@npm:^0.25.2":
+  version: 0.25.2
+  resolution: "typedoc@npm:0.25.2"
   dependencies:
     lunr: "npm:^2.3.9"
     marked: "npm:^4.3.0"
-    minimatch: "npm:^9.0.0"
+    minimatch: "npm:^9.0.3"
     shiki: "npm:^0.14.1"
   peerDependencies:
-    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
+    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x
   bin:
     typedoc: bin/typedoc
-  checksum: 0fae7de1b17561085e112b6b429de66ee84536dd3a602f11eefd702997c7bcfbde0ac9b56759a66d0d5fda98ff99d37940fc4257a5a0113854549777801901d1
+  checksum: 5cd45271e75230ec73762089ee8ec4d9b36a0f4d23005a929bc89fd182e15e47f0a68761dd67c31309f7076fa12ba33b311b4211047ae881b06f6c2abf65d21e
   languageName: node
   linkType: hard
 
