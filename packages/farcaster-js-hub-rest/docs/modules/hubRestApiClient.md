@@ -26,7 +26,7 @@
 
 ### HubInfoResponse
 
-Ƭ **HubInfoResponse**<`T`\>: `T` extends ``true`` ? `SetRequired`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : `T` extends ``false`` \| `undefined` ? `Omit`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
+Ƭ **HubInfoResponse**<`T`\>: `T` extends ``true`` ? `SetRequired`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
 
 #### Type parameters
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:52](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L52)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:54](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L54)

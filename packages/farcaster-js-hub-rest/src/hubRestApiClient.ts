@@ -6,7 +6,7 @@ import {
   CastsApi,
   Configuration,
   ErrorResponse,
-  HubInfoResponse,
+  HubInfoResponse as OpenapiHubInfoResponse,
   InfoApi,
   LinksApi,
   LinkType,
@@ -46,6 +46,10 @@ export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
       : T extends OnChainEventType.StorageRent
         ? OnChainEventStorageRent
         : never;
+
+export type HubInfoResponse<T> = T extends true
+  ? SetRequired<OpenapiHubInfoResponse, 'dbStats'>
+  : OpenapiHubInfoResponse;
 
 export const DEFAULT_SERVER = 'http://hub.farcaster.standardcrypto.vc:2281';
 
@@ -122,11 +126,11 @@ export class HubRestAPIClient {
    * Get the Hub's info.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
    */
-  public async getHubInfo({
+  public async getHubInfo<T extends (boolean | undefined)>({
     includeDbStats = false,
-  } = {}): Promise<HubInfoResponse> {
+  }: {includeDbStats?: T} = {}): Promise<HubInfoResponse<T>> {
     const response = await this.apis.info.getInfo({ dbstats: includeDbStats });
-    return response.data;
+    return response.data as HubInfoResponse<T>;
   }
 
   /**

@@ -3,6 +3,8 @@
 ## Setup
 
 ```sh
+corepack enable
+
 # install dependencies
 yarn
 ```
