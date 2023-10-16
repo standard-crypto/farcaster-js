@@ -1,4 +1,4 @@
-import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+import { FarcasterEpochTimestamp, HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
 
 const client = new HubRestAPIClient();
 
@@ -10,4 +10,5 @@ if (cast === null) {
   throw new Error('Cast not found');
 }
 
-console.log(cast.data.castAddBody.text);
+console.log(cast.data.castAddBody.text); // text
+console.log(FarcasterEpochTimestamp.parse(cast.data.timestamp)); // timestamp
