@@ -1,0 +1,15 @@
+{
+    "entryPoints": [
+        "./src/NeynarAPIClient.ts",
+        "./src/v1/index.ts",
+        "./src/v2/index.ts",
+        "./src/utils.ts",
+        "./src/logger.ts"
+    ],
+    "out": "docs",
+    "exclude": [],
+    "gitRevision": "main",
+    "theme": "markdown",
+    "readme": "./README.md",
+    "excludePrivate": true
+}

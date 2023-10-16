@@ -16,8 +16,8 @@
   "ignorePatterns": [
     "rollup.config.js",
     "**/generated/*",
-    "**/dist/*",
-    "**/types/*"
+    "**/types/*",
+    "**/dist/*"
   ],
   "extends": [
     "standard-with-typescript",
@@ -27,6 +27,9 @@
     "plugin:import/typescript"
   ],
   "rules": {
+    "@typescript-eslint/no-unnecessary-condition": ["error", {
+      "allowConstantLoopConditions": true
+    }],
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": ["error", {"varsIgnorePattern": "^_$"}],

@@ -42,6 +42,11 @@ jobs:
 
       - name: Test
         run: yarn workspaces foreach --all run test
+        env:
+          INTEGRATION_TEST_NEYNAR_API_KEY: ${{ secrets.INTEGRATION_TEST_NEYNAR_API_KEY }}
+          INTEGRATION_TEST_NEYNAR_SIGNER_UUID: ${{ secrets.INTEGRATION_TEST_NEYNAR_SIGNER_UUID }}
+          INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY: ${{ secrets.INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY }}
+          INTEGRATION_TEST_NEYNAR_SIGNER_FID: ${{ secrets.INTEGRATION_TEST_NEYNAR_SIGNER_FID }}
 
       # - name: Release
       #   env:

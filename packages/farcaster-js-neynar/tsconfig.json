@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "declarationDir": "./types",
+        "outDir": "dist",
+        "declaration": true
+    },
+    "include": [
+        "./src/**/*.ts",
+        "./examples/**/*.ts",
+        "./tests/**/*.ts",
+         "scripts/generateSigner.ts"    
+    ]
+}
