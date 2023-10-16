@@ -18,7 +18,7 @@
 import { HashScheme } from './hash-scheme';
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkRemoveAllOf } from './link-remove-all-of';
+import { LinkAddAllOf } from './link-add-all-of';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageCommon } from './message-common';
@@ -33,6 +33,6 @@ import { SignatureScheme } from './signature-scheme';
  * @type LinkRemove
  * @export
  */
-export type LinkRemove = LinkRemoveAllOf & MessageCommon;
+export type LinkRemove = LinkAddAllOf & MessageCommon;
 
 

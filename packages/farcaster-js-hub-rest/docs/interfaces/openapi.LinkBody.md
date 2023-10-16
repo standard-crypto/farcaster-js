@@ -36,7 +36,7 @@ ___
 
 ### targetFid
 
-• `Optional` **targetFid**: `number`
+• **targetFid**: `number`
 
 **`Memberof`**
 
@@ -50,7 +50,7 @@ ___
 
 ### type
 
-• `Optional` **type**: [`Follow`](../enums/openapi.LinkType.md#follow)
+• **type**: [`Follow`](../enums/openapi.LinkType.md#follow)
 
 **`Memberof`**
 

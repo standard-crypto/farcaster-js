@@ -33,7 +33,7 @@ ___
 
 ### url
 
-• `Optional` **url**: `string`
+• **url**: `string`
 
 **`Memberof`**
 

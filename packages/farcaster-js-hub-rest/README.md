@@ -8,6 +8,10 @@ A tool for interacting with the REST API of a Farcaster hub.
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Setup](#setup)
+- [Examples](#examples)
+  - [Fetch a Cast](#fetch-a-cast)
+  - [List a User's Casts](#list-a-users-casts)
+  - [Fetch Hub Info](#fetch-hub-info)
 - [Documentation](#documentation)
   - [HubRestAPIClient](#hubrestapiclient)
   - [OpenAPI Spec](#openapi-spec)
@@ -21,6 +25,63 @@ Install the library:
 ```bash
 npm install axios @standard-crypto/farcaster-js-hub-rest
 ```
+
+## Examples
+
+### Fetch a Cast
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/getCastById.ts) -->
+<!-- The below code snippet is automatically added from ./examples/getCastById.ts -->
+```ts
+import { FarcasterEpochTimestamp, HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const client = new HubRestAPIClient();
+
+const cast = await client.getCastById({
+  fid: 2,
+  hash: '0xd2b1ddc6c88e865a33cb1a565e0058d757042974',
+});
+if (cast === null) {
+  throw new Error('Cast not found');
+}
+
+console.log(cast.data.castAddBody.text); // text
+console.log(FarcasterEpochTimestamp.parse(cast.data.timestamp)); // timestamp
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### List a User's Casts
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/listCastsByFid.ts) -->
+<!-- The below code snippet is automatically added from ./examples/listCastsByFid.ts -->
+```ts
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const client = new HubRestAPIClient();
+
+const casts = client.listCastsByFid(2);
+for await (const cast of casts) {
+  console.log(cast.data.castAddBody.text);
+}
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Fetch Hub Info
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/hubInfo.ts) -->
+<!-- The below code snippet is automatically added from ./examples/hubInfo.ts -->
+```ts
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const client = new HubRestAPIClient();
+
+const hubInfo = await client.getHubInfo();
+console.log(hubInfo.nickname);
+
+const hubInfoWithStats = await client.getHubInfo({ includeDbStats: true });
+console.log(hubInfoWithStats.dbStats.numMessages);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Documentation
 

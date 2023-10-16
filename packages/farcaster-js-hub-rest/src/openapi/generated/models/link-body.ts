@@ -28,7 +28,7 @@ export interface LinkBody {
      * @type {LinkType}
      * @memberof LinkBody
      */
-    'type'?: LinkType;
+    'type': LinkType;
     /**
      * 
      * @type {number}
@@ -40,7 +40,7 @@ export interface LinkBody {
      * @type {number}
      * @memberof LinkBody
      */
-    'targetFid'?: number;
+    'targetFid': number;
 }
 
 

@@ -28,6 +28,6 @@ export interface CastRemoveAllOf {
      * @type {MessageDataCastRemove}
      * @memberof CastRemoveAllOf
      */
-    'data'?: MessageDataCastRemove;
+    'data': MessageDataCastRemove;
 }
 

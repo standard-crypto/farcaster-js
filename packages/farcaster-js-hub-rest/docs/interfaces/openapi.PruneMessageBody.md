@@ -18,7 +18,7 @@ PruneMessageBody
 
 ### message
 
-• `Optional` **message**: [`Message`](../modules/openapi.md#message)
+• **message**: [`Message`](../modules/openapi.md#message)
 
 **`Memberof`**
 

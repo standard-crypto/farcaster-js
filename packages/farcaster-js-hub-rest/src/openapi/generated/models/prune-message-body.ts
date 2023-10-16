@@ -28,6 +28,6 @@ export interface PruneMessageBody {
      * @type {Message}
      * @memberof PruneMessageBody
      */
-    'message'?: Message;
+    'message': Message;
 }
 

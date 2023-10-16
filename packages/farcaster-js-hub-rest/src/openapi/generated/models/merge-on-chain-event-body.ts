@@ -28,6 +28,6 @@ export interface MergeOnChainEventBody {
      * @type {OnChainEvent}
      * @memberof MergeOnChainEventBody
      */
-    'onChainEvent'?: OnChainEvent;
+    'onChainEvent': OnChainEvent;
 }
 

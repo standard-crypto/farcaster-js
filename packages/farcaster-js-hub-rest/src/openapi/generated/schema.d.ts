@@ -124,9 +124,9 @@ export interface components {
     /** @description Adds a new Cast */
     CastAddBody: {
       /** URLs to be embedded in the cast */
-      embedsDeprecated?: string[];
+      embedsDeprecated: string[];
       /** Fids mentioned in the cast */
-      mentions?: number[];
+      mentions: number[];
       parentCastId?: components["schemas"]["CastId"];
       /**
        * Parent URL
@@ -134,14 +134,14 @@ export interface components {
        */
       parentUrl?: string;
       /** Text of the cast */
-      text?: string;
+      text: string;
       /** Positions of the mentions in the text */
-      mentionsPositions?: number[];
+      mentionsPositions: number[];
       /** URLs or cast ids to be embedded in the cast */
-      embeds?: components["schemas"]["Embed"][];
+      embeds: components["schemas"]["Embed"][];
     };
     CastRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataCastRemove"];
+      data: components["schemas"]["MessageDataCastRemove"];
     };
     /** @description Identifier used to look up a Cast */
     CastId: {
@@ -159,7 +159,7 @@ export interface components {
        * Hash of the cast to remove
        * Format: byte
        */
-      targetHash?: string;
+      targetHash: string;
     };
     DbStats: {
       /** Format: uint64 */
@@ -171,7 +171,7 @@ export interface components {
     };
     Embed: {
       /** Format: uri */
-      url?: string;
+      url: string;
       castId?: components["schemas"]["CastId"];
     };
     ErrorResponse: {
@@ -270,7 +270,7 @@ export interface components {
     };
     /** @description Adds or removes a Link */
     LinkBody: {
-      type?: components["schemas"]["LinkType"];
+      type: components["schemas"]["LinkType"];
       /**
        * User-defined timestamp that preserves original timestamp when message.data.timestamp needs to be updated for compaction
        * Format: int64
@@ -280,10 +280,10 @@ export interface components {
        * The fid the link relates to
        * Format: uint64
        */
-      targetFid?: number;
+      targetFid: number;
     };
     LinkRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataLink"];
+      data: components["schemas"]["MessageDataLink"];
     };
     /**
      * @description Type of Link.
@@ -297,7 +297,7 @@ export interface components {
       deletedMessages: components["schemas"]["Message"][];
     };
     MergeOnChainEventBody: {
-      onChainEvent?: components["schemas"]["OnChainEvent"];
+      onChainEvent: components["schemas"]["OnChainEvent"];
     };
     MergeUserNameProofBody: {
       usernameProof?: components["schemas"]["UserNameProof"];
@@ -422,7 +422,7 @@ export interface components {
      */
     OnChainEventType: "EVENT_TYPE_SIGNER" | "EVENT_TYPE_SIGNER_MIGRATED" | "EVENT_TYPE_ID_REGISTER" | "EVENT_TYPE_STORAGE_RENT";
     PruneMessageBody: {
-      message?: components["schemas"]["Message"];
+      message: components["schemas"]["Message"];
     };
     Reaction: components["schemas"]["MessageCommon"] & {
       data: components["schemas"]["MessageDataReaction"];
@@ -435,7 +435,7 @@ export interface components {
       targetUrl?: string;
     };
     ReactionRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataReaction"];
+      data: components["schemas"]["MessageDataReaction"];
     };
     /**
      * @description Type of Reaction.
@@ -446,7 +446,7 @@ export interface components {
      */
     ReactionType: "REACTION_TYPE_LIKE" | "REACTION_TYPE_RECAST";
     RevokeMessageBody: {
-      message?: components["schemas"]["Message"];
+      message: components["schemas"]["Message"];
     };
     /**
      * @description Type of signature scheme used to sign the Message hash
@@ -552,7 +552,7 @@ export interface components {
       blockHash: string;
     };
     VerificationRemove: components["schemas"]["MessageCommon"] & {
-      data?: components["schemas"]["MessageDataVerificationRemove"];
+      data: components["schemas"]["MessageDataVerificationRemove"];
     };
     /** @description Removes a Verification of any type */
     VerificationRemoveBody: {

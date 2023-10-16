@@ -26,7 +26,7 @@ CastAddBody
 
 ### embeds
 
-• `Optional` **embeds**: [`Embed`](openapi.Embed.md)[]
+• **embeds**: [`Embed`](openapi.Embed.md)[]
 
 **`Memberof`**
 
@@ -40,7 +40,7 @@ ___
 
 ### embedsDeprecated
 
-• `Optional` **embedsDeprecated**: `string`[]
+• **embedsDeprecated**: `string`[]
 
 **`Memberof`**
 
@@ -54,7 +54,7 @@ ___
 
 ### mentions
 
-• `Optional` **mentions**: `number`[]
+• **mentions**: `number`[]
 
 **`Memberof`**
 
@@ -68,7 +68,7 @@ ___
 
 ### mentionsPositions
 
-• `Optional` **mentionsPositions**: `number`[]
+• **mentionsPositions**: `number`[]
 
 **`Memberof`**
 
@@ -110,7 +110,7 @@ ___
 
 ### text
 
-• `Optional` **text**: `string`
+• **text**: `string`
 
 **`Memberof`**
 

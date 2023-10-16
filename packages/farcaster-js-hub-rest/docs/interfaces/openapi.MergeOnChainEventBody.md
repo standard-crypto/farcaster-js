@@ -18,7 +18,7 @@ MergeOnChainEventBody
 
 ### onChainEvent
 
-• `Optional` **onChainEvent**: [`OnChainEvent`](../modules/openapi.md#onchainevent)
+• **onChainEvent**: [`OnChainEvent`](../modules/openapi.md#onchainevent)
 
 **`Memberof`**
 

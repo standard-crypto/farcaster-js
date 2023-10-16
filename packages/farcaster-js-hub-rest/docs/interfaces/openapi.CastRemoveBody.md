@@ -20,7 +20,7 @@ CastRemoveBody
 
 ### targetHash
 
-• `Optional` **targetHash**: `string`
+• **targetHash**: `string`
 
 **`Memberof`**
 

@@ -66,7 +66,6 @@
 - [InfoApiGetInfoRequest](../interfaces/openapi.InfoApiGetInfoRequest.md)
 - [LinkAddAllOf](../interfaces/openapi.LinkAddAllOf.md)
 - [LinkBody](../interfaces/openapi.LinkBody.md)
-- [LinkRemoveAllOf](../interfaces/openapi.LinkRemoveAllOf.md)
 - [LinksApiGetLinkByIdRequest](../interfaces/openapi.LinksApiGetLinkByIdRequest.md)
 - [LinksApiListLinksByFidRequest](../interfaces/openapi.LinksApiListLinksByFidRequest.md)
 - [LinksApiListLinksByTargetFidRequest](../interfaces/openapi.LinksApiListLinksByTargetFidRequest.md)
@@ -102,7 +101,6 @@
 - [PruneMessageBody](../interfaces/openapi.PruneMessageBody.md)
 - [ReactionAllOf](../interfaces/openapi.ReactionAllOf.md)
 - [ReactionBody](../interfaces/openapi.ReactionBody.md)
-- [ReactionRemoveAllOf](../interfaces/openapi.ReactionRemoveAllOf.md)
 - [ReactionsApiGetReactionByIdRequest](../interfaces/openapi.ReactionsApiGetReactionByIdRequest.md)
 - [ReactionsApiListReactionsByCastRequest](../interfaces/openapi.ReactionsApiListReactionsByCastRequest.md)
 - [ReactionsApiListReactionsByFidRequest](../interfaces/openapi.ReactionsApiListReactionsByFidRequest.md)
@@ -261,7 +259,7 @@ ___
 
 ### LinkRemove
 
-Ƭ **LinkRemove**: [`LinkRemoveAllOf`](../interfaces/openapi.LinkRemoveAllOf.md) & [`MessageCommon`](../interfaces/openapi.MessageCommon.md)
+Ƭ **LinkRemove**: [`LinkAddAllOf`](../interfaces/openapi.LinkAddAllOf.md) & [`MessageCommon`](../interfaces/openapi.MessageCommon.md)
 
 **`Export`**
 
@@ -477,7 +475,7 @@ ___
 
 ### ReactionRemove
 
-Ƭ **ReactionRemove**: [`MessageCommon`](../interfaces/openapi.MessageCommon.md) & [`ReactionRemoveAllOf`](../interfaces/openapi.ReactionRemoveAllOf.md)
+Ƭ **ReactionRemove**: [`MessageCommon`](../interfaces/openapi.MessageCommon.md) & [`ReactionAllOf`](../interfaces/openapi.ReactionAllOf.md)
 
 **`Export`**
 
