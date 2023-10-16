@@ -53,9 +53,7 @@ if (apiKey !== undefined && apiKey !== '') {
           it('can fetch multiple pages of casts', async function() {
             const threadHash = '0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89';
             const castSet = new Set();
-            const castsInThread = await client.v1.fetchCastsInThread({
-              hash: threadHash,
-            });
+            const castsInThread = await client.v1.fetchCastsInThread(threadHash);
             expectDefinedNonNull(castsInThread);
             for (const cast of castsInThread) {
               expectDefinedNonNull(cast.hash);
@@ -66,9 +64,7 @@ if (apiKey !== undefined && apiKey !== '') {
           });
           it('returns empty generator for an invalid cast hash', async function() {
             const threadHash = '0x0000000000000000000000000000000000000000';
-            const castsInThread = await client.v1.fetchCastsInThread({
-              hash: threadHash,
-            });
+            const castsInThread = await client.v1.fetchCastsInThread(threadHash);
             expect(castsInThread).to.be.empty;
           });
         });
@@ -804,7 +800,7 @@ if (apiKey !== undefined && apiKey !== '') {
               const response = await client.v2.reactToCast(
                 signerUuid,
                 ReactionType.Like,
-                cast,
+                cast.hash,
               );
               expect(response.success).to.be.true;
             });
@@ -815,7 +811,7 @@ if (apiKey !== undefined && apiKey !== '') {
               const response = await client.v2.removeReactionToCast(
                 signerUuid,
                 ReactionType.Like,
-                cast,
+                cast.hash,
               );
               expect(response.success).to.be.true;
             });

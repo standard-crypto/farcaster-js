@@ -20,4 +20,4 @@
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/logger.ts:14
+[packages/farcaster-js-neynar/src/logger.ts:14](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/logger.ts#L14)

@@ -196,13 +196,7 @@ export class NeynarV2APIClient {
   /**
    * Gets information about an individual cast. See [Neynar documentation](https://docs.neynar.com/reference/get-cast)
    */
-  public async fetchCast(castOrCastHash: Cast | string): Promise<Cast | null> {
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
+  public async fetchCast(castHash: string): Promise<Cast | null> {
     try {
       const response = await this.apis.cast.cast({
         type: CastParamType.Hash,
@@ -267,14 +261,8 @@ export class NeynarV2APIClient {
    */
   public async deleteCast(
     signerUuid: string,
-    castOrCastHash: Cast | string,
+    castHash: string,
   ): Promise<void> {
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
     const body: DeleteCastReqBody = {
       signer_uuid: signerUuid,
       target_hash: castHash,
@@ -328,14 +316,8 @@ export class NeynarV2APIClient {
   public async reactToCast(
     signerUuid: string,
     reaction: ReactionType,
-    castOrCastHash: Cast | string,
+    castHash: string,
   ): Promise<OperationResponse> {
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
     const body: ReactionReqBody = {
       signer_uuid: signerUuid,
       reaction_type: reaction,
@@ -353,14 +335,8 @@ export class NeynarV2APIClient {
   public async removeReactionToCast(
     signerUuid: string,
     reaction: ReactionType,
-    castOrCastHash: Cast | string,
+    castHash: string,
   ): Promise<OperationResponse> {
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
     const body: ReactionReqBody = {
       signer_uuid: signerUuid,
       reaction_type: reaction,
