@@ -19,7 +19,7 @@ Embed
 
 ### castId
 
-• `Optional` **castId**: [`CastId`](openapi.CastId.md)
+• **castId**: [`CastId`](openapi.CastId.md)
 
 **`Memberof`**
 
@@ -33,7 +33,7 @@ ___
 
 ### url
 
-• `Optional` **url**: `string`
+• **url**: `string`
 
 **`Memberof`**
 

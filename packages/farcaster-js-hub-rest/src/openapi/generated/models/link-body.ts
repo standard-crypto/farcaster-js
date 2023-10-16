@@ -28,19 +28,19 @@ export interface LinkBody {
      * @type {LinkType}
      * @memberof LinkBody
      */
-    'type'?: LinkType;
+    'type': LinkType;
     /**
      * 
      * @type {number}
      * @memberof LinkBody
      */
-    'displayTimestamp'?: number;
+    'displayTimestamp': number;
     /**
      * 
      * @type {number}
      * @memberof LinkBody
      */
-    'targetFid'?: number;
+    'targetFid': number;
 }
 
 

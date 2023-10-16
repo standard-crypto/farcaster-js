@@ -28,6 +28,6 @@ export interface VerificationRemoveAllOf {
      * @type {MessageDataVerificationRemove}
      * @memberof VerificationRemoveAllOf
      */
-    'data'?: MessageDataVerificationRemove;
+    'data': MessageDataVerificationRemove;
 }
 

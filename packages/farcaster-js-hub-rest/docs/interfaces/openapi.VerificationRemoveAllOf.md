@@ -18,7 +18,7 @@ VerificationRemoveAllOf
 
 ### data
 
-• `Optional` **data**: [`MessageDataVerificationRemove`](../modules/openapi.md#messagedataverificationremove)
+• **data**: [`MessageDataVerificationRemove`](../modules/openapi.md#messagedataverificationremove)
 
 **`Memberof`**
 

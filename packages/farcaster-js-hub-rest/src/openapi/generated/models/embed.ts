@@ -28,12 +28,12 @@ export interface Embed {
      * @type {string}
      * @memberof Embed
      */
-    'url'?: string;
+    'url': string;
     /**
      * 
      * @type {CastId}
      * @memberof Embed
      */
-    'castId'?: CastId;
+    'castId': CastId;
 }
 

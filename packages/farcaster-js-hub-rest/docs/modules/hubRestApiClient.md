@@ -15,6 +15,7 @@
 
 ### Type Aliases
 
+- [HubInfoResponse](hubRestApiClient.md#hubinforesponse)
 - [OnChainEventsReturnType](hubRestApiClient.md#onchaineventsreturntype)
 
 ### Variables
@@ -22,6 +23,22 @@
 - [DEFAULT\_SERVER](hubRestApiClient.md#default_server)
 
 ## Type Aliases
+
+### HubInfoResponse
+
+Ƭ **HubInfoResponse**<`T`\>: `T` extends ``true`` ? `SetRequired`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : `T` extends ``false`` \| `undefined` ? `Omit`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L50)
+
+___
 
 ### OnChainEventsReturnType
 
@@ -45,4 +62,4 @@
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L50)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:52](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L52)

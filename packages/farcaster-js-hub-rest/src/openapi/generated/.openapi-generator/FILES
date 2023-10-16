@@ -44,7 +44,6 @@ models/index.ts
 models/link-add-all-of.ts
 models/link-add.ts
 models/link-body.ts
-models/link-remove-all-of.ts
 models/link-remove.ts
 models/link-type.ts
 models/list-casts-by-fid200-response.ts
@@ -94,7 +93,6 @@ models/on-chain-event.ts
 models/prune-message-body.ts
 models/reaction-all-of.ts
 models/reaction-body.ts
-models/reaction-remove-all-of.ts
 models/reaction-remove.ts
 models/reaction-type.ts
 models/reaction.ts

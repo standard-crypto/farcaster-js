@@ -28,6 +28,6 @@ export interface RevokeMessageBody {
      * @type {Message}
      * @memberof RevokeMessageBody
      */
-    'message'?: Message;
+    'message': Message;
 }
 

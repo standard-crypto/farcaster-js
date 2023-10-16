@@ -31,13 +31,13 @@ export interface CastAddBody {
      * @type {Array<string>}
      * @memberof CastAddBody
      */
-    'embedsDeprecated'?: Array<string>;
+    'embedsDeprecated': Array<string>;
     /**
      * 
      * @type {Array<number>}
      * @memberof CastAddBody
      */
-    'mentions'?: Array<number>;
+    'mentions': Array<number>;
     /**
      * 
      * @type {CastId}
@@ -55,18 +55,18 @@ export interface CastAddBody {
      * @type {string}
      * @memberof CastAddBody
      */
-    'text'?: string;
+    'text': string;
     /**
      * 
      * @type {Array<number>}
      * @memberof CastAddBody
      */
-    'mentionsPositions'?: Array<number>;
+    'mentionsPositions': Array<number>;
     /**
      * 
      * @type {Array<Embed>}
      * @memberof CastAddBody
      */
-    'embeds'?: Array<Embed>;
+    'embeds': Array<Embed>;
 }
 

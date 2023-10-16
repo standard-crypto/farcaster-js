@@ -25,6 +25,6 @@ export interface CastRemoveBody {
      * @type {string}
      * @memberof CastRemoveBody
      */
-    'targetHash'?: string;
+    'targetHash': string;
 }
 

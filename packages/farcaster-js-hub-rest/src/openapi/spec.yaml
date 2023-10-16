@@ -923,6 +923,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Embed'
+      required:
+        - embedsDeprecated
+        - mentions
+        - text
+        - mentionsPositions
+        - embeds
     CastRemove:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -930,6 +936,8 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/MessageDataCastRemove'
+          required:
+            - data
     CastId:
       description: 'Identifier used to look up a Cast'
       required:
@@ -955,11 +963,13 @@ components:
           pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
           type: string
           format: byte
+      required:
+        - targetHash
     DbStats:
       required:
-      - numFidEvents
-      - numFnameEvents
-      - numMessages
+        - numFidEvents
+        - numFnameEvents
+        - numMessages
       type: object
       properties:
         numMessages:
@@ -979,14 +989,17 @@ components:
           format: uri
         castId:
           $ref: '#/components/schemas/CastId'
+      required:
+        - url
+        - castId
     ErrorResponse:
       required:
-      - code
-      - details
-      - errCode
-      - metadata
-      - name
-      - presentable
+        - code
+        - details
+        - errCode
+        - metadata
+        - name
+        - presentable
       type: object
       properties:
         errCode:
@@ -1009,7 +1022,6 @@ components:
               items:
                 type: string
     FarcasterNetwork:
-      # description: 'Farcaster network the message is intended for'
       type: string
       description: |-
         Farcaster network the message is intended for.
@@ -1137,12 +1149,12 @@ components:
     HubInfoResponse:
       title: Response Types for the Sync RPC Methods
       required:
-      - hubOperatorFid
-      - isSyncing
-      - nickname
-      - peerId
-      - rootHash
-      - version
+        - hubOperatorFid
+        - isSyncing
+        - nickname
+        - peerId
+        - rootHash
+        - version
       type: object
       properties:
         version:
@@ -1185,9 +1197,9 @@ components:
       type: string
       default: ID_REGISTER_EVENT_TYPE_REGISTER
       enum:
-      - ID_REGISTER_EVENT_TYPE_REGISTER
-      - ID_REGISTER_EVENT_TYPE_TRANSFER
-      - ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY
+        - ID_REGISTER_EVENT_TYPE_REGISTER
+        - ID_REGISTER_EVENT_TYPE_TRANSFER
+        - ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY
     LinkAdd:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1212,6 +1224,10 @@ components:
           title: The fid the link relates to
           type: integer
           format: uint64
+      required:
+        - type
+        - displayTimestamp
+        - targetFid
     LinkRemove:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1219,6 +1235,8 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/MessageDataLink'
+          required:
+            - data
     LinkType:
       type: string
       description: |-
@@ -1226,7 +1244,7 @@ components:
         - follow: Follow another user
       default: follow
       enum:
-      - follow
+        - follow
     MergeMessageBody:
       type: object
       properties:
@@ -1244,6 +1262,8 @@ components:
       properties:
         onChainEvent:
           $ref: '#/components/schemas/OnChainEvent'
+      required:
+        - onChainEvent
     MergeUserNameProofBody:
       type: object
       properties:
@@ -1317,10 +1337,10 @@ components:
         - signer
     MessageDataCommon:
       required:
-      - fid
-      - network
-      - timestamp
-      - type
+        - fid
+        - network
+        - timestamp
+        - type
       type: object
       properties:
         type:
@@ -1429,16 +1449,16 @@ components:
          - MESSAGE_TYPE_USERNAME_PROOF: Add or replace a username proof
       default: MESSAGE_TYPE_CAST_ADD
       enum:
-      - MESSAGE_TYPE_CAST_ADD
-      - MESSAGE_TYPE_CAST_REMOVE
-      - MESSAGE_TYPE_REACTION_ADD
-      - MESSAGE_TYPE_REACTION_REMOVE
-      - MESSAGE_TYPE_LINK_ADD
-      - MESSAGE_TYPE_LINK_REMOVE
-      - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS
-      - MESSAGE_TYPE_VERIFICATION_REMOVE
-      - MESSAGE_TYPE_USER_DATA_ADD
-      - MESSAGE_TYPE_USERNAME_PROOF
+        - MESSAGE_TYPE_CAST_ADD
+        - MESSAGE_TYPE_CAST_REMOVE
+        - MESSAGE_TYPE_REACTION_ADD
+        - MESSAGE_TYPE_REACTION_REMOVE
+        - MESSAGE_TYPE_LINK_ADD
+        - MESSAGE_TYPE_LINK_REMOVE
+        - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS
+        - MESSAGE_TYPE_VERIFICATION_REMOVE
+        - MESSAGE_TYPE_USER_DATA_ADD
+        - MESSAGE_TYPE_USERNAME_PROOF
     OnChainEvent:
       oneOf:
         - $ref: '#/components/schemas/OnChainEventSigner'
@@ -1526,15 +1546,17 @@ components:
       type: string
       default: EVENT_TYPE_SIGNER
       enum:
-      - EVENT_TYPE_SIGNER
-      - EVENT_TYPE_SIGNER_MIGRATED
-      - EVENT_TYPE_ID_REGISTER
-      - EVENT_TYPE_STORAGE_RENT
+        - EVENT_TYPE_SIGNER
+        - EVENT_TYPE_SIGNER_MIGRATED
+        - EVENT_TYPE_ID_REGISTER
+        - EVENT_TYPE_STORAGE_RENT
     PruneMessageBody:
       type: object
       properties:
         message:
           $ref: '#/components/schemas/Message'
+      required:
+        - message
     Reaction:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1564,6 +1586,8 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/MessageDataReaction'
+          required:
+            - data
     ReactionType:
       type: string
       description: |-
@@ -1572,13 +1596,15 @@ components:
          - REACTION_TYPE_RECAST: Share target cast to the user's audience
       default: REACTION_TYPE_LIKE
       enum:
-      - REACTION_TYPE_LIKE
-      - REACTION_TYPE_RECAST
+        - REACTION_TYPE_LIKE
+        - REACTION_TYPE_RECAST
     RevokeMessageBody:
       type: object
       properties:
         message:
           $ref: '#/components/schemas/Message'
+      required:
+        - message
     SignatureScheme:
       type: string
       description: |-
@@ -1587,8 +1613,8 @@ components:
          - SIGNATURE_SCHEME_EIP712: ECDSA signature using EIP-712 scheme
       default: SIGNATURE_SCHEME_ED25519
       enum:
-      - SIGNATURE_SCHEME_ED25519
-      - SIGNATURE_SCHEME_EIP712
+        - SIGNATURE_SCHEME_ED25519
+        - SIGNATURE_SCHEME_EIP712
     SignerEventBody:
       type: object
       properties:
@@ -1617,9 +1643,9 @@ components:
       type: string
       default: SIGNER_EVENT_TYPE_ADD
       enum:
-      - SIGNER_EVENT_TYPE_ADD
-      - SIGNER_EVENT_TYPE_REMOVE
-      - SIGNER_EVENT_TYPE_ADMIN_RESET
+        - SIGNER_EVENT_TYPE_ADD
+        - SIGNER_EVENT_TYPE_REMOVE
+        - SIGNER_EVENT_TYPE_ADMIN_RESET
     SignerMigratedEventBody:
       type: object
       properties:
@@ -1669,12 +1695,12 @@ components:
       type: string
       default: STORE_TYPE_CASTS
       enum:
-      - STORE_TYPE_CASTS
-      - STORE_TYPE_LINKS
-      - STORE_TYPE_REACTIONS
-      - STORE_TYPE_USER_DATA
-      - STORE_TYPE_VERIFICATIONS
-      - STORE_TYPE_USERNAME_PROOFS
+        - STORE_TYPE_CASTS
+        - STORE_TYPE_LINKS
+        - STORE_TYPE_REACTIONS
+        - STORE_TYPE_USER_DATA
+        - STORE_TYPE_VERIFICATIONS
+        - STORE_TYPE_USERNAME_PROOFS
     UserDataAdd:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1707,11 +1733,11 @@ components:
          - USER_DATA_TYPE_USERNAME: Preferred Name for the user
       default: USER_DATA_TYPE_PFP
       enum:
-      - USER_DATA_TYPE_PFP
-      - USER_DATA_TYPE_DISPLAY
-      - USER_DATA_TYPE_BIO
-      - USER_DATA_TYPE_URL
-      - USER_DATA_TYPE_USERNAME
+        - USER_DATA_TYPE_PFP
+        - USER_DATA_TYPE_DISPLAY
+        - USER_DATA_TYPE_BIO
+        - USER_DATA_TYPE_URL
+        - USER_DATA_TYPE_USERNAME
     UserNameProof:
       type: object
       properties:
@@ -1753,8 +1779,8 @@ components:
       type: string
       default: USERNAME_TYPE_FNAME
       enum:
-      - USERNAME_TYPE_FNAME
-      - USERNAME_TYPE_ENS_L1
+        - USERNAME_TYPE_FNAME
+        - USERNAME_TYPE_ENS_L1
     Verification:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'
@@ -1792,6 +1818,8 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/MessageDataVerificationRemove'
+          required:
+            - data
     VerificationRemoveBody:
       description: 'Removes a Verification of any type'
       type: object
