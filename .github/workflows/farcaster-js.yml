@@ -26,7 +26,7 @@ jobs:
       - run: yarn --frozen-lockfile
 
       - name: Build
-        run: yarn workspaces foreach --all run build
+        run: yarn workspaces foreach --all --topological run build
 
       - name: Type check
         run: yarn type:check
