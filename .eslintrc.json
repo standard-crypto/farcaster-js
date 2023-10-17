@@ -18,7 +18,7 @@
     "**/generated/*",
     "**/types/*",
     "**/dist/*"
-  ],
+    ],
   "extends": [
     "standard-with-typescript",
     "eslint:recommended",
@@ -48,7 +48,8 @@
     }, {
       "files": ["**/examples/**"],
       "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "@typescript-eslint/restrict-template-expressions": "off"
       }
     }
   ]

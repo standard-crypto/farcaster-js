@@ -41,7 +41,7 @@
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/logger.ts:7
+[packages/farcaster-js-neynar/src/logger.ts:7](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/logger.ts#L7)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/logger.ts:10
+[packages/farcaster-js-neynar/src/logger.ts:10](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/logger.ts#L10)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/logger.ts:8
+[packages/farcaster-js-neynar/src/logger.ts:8](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/logger.ts#L8)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/logger.ts:6
+[packages/farcaster-js-neynar/src/logger.ts:6](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/logger.ts#L6)
 
 ___
 
@@ -141,4 +141,4 @@ ___
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/logger.ts:9
+[packages/farcaster-js-neynar/src/logger.ts:9](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/logger.ts#L9)

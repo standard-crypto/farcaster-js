@@ -12,7 +12,8 @@
 
 ### Properties
 
-- [clients](NeynarAPIClient.NeynarAPIClient.md#clients)
+- [v1](NeynarAPIClient.NeynarAPIClient.md#v1)
+- [v2](NeynarAPIClient.NeynarAPIClient.md#v2)
 
 ## Constructors
 
@@ -35,21 +36,24 @@ Creates NeynarV1APIClient and NeynarV2APIClients
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/NeynarAPIClient.ts:19
+[packages/farcaster-js-neynar/src/NeynarAPIClient.ts:17](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/NeynarAPIClient.ts#L17)
 
 ## Properties
 
-### clients
+### v1
 
-• `Readonly` **clients**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `v1` | [`NeynarV1APIClient`](v1.NeynarV1APIClient.md) |
-| `v2` | [`NeynarV2APIClient`](v2.NeynarV2APIClient.md) |
+• `Readonly` **v1**: [`NeynarV1APIClient`](v1.NeynarV1APIClient.md)
 
 #### Defined in
 
-packages/farcaster-js-neynar/src/NeynarAPIClient.ts:9
+[packages/farcaster-js-neynar/src/NeynarAPIClient.ts:9](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/NeynarAPIClient.ts#L9)
+
+___
+
+### v2
+
+• `Readonly` **v2**: [`NeynarV2APIClient`](v2.NeynarV2APIClient.md)
+
+#### Defined in
+
+[packages/farcaster-js-neynar/src/NeynarAPIClient.ts:10](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-neynar/src/NeynarAPIClient.ts#L10)

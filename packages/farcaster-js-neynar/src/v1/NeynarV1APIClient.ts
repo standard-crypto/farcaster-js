@@ -102,11 +102,11 @@ export class NeynarV1APIClient {
    * Note that the parent provided by the caller is included in the response.
    */
   public async fetchCastsInThread(
-    threadParent: Cast | { hash: string },
+    threadParentHash: string,
     viewerFid?: number,
   ): Promise<Cast[] | null> {
     const response = await this.apis.cast.allCastsInThread({
-      threadHash: threadParent.hash,
+      threadHash: threadParentHash,
       viewerFid: viewerFid,
     });
     return response.data.result.casts;
@@ -370,16 +370,10 @@ export class NeynarV1APIClient {
    * Lists a given cast's likes. See [Neynar documentation](https://docs.neynar.com/reference/get-all-like-reactions-for-a-cast)
    */
   public async * fetchCastLikes(
-    castOrCastHash: Cast | string,
+    castHash: string,
     options?: { viewerFid?: number, pageSize?: number },
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
 
     while (true) {
       const response = await this.apis.reactions.castLikes({
@@ -403,16 +397,10 @@ export class NeynarV1APIClient {
    * Get All Reactions For a Cast. See [Neynar documentation](https://docs.neynar.com/reference/get-cast-reactions)
    */
   public async * fetchCastReactions(
-    castOrCastHash: Cast | string,
+    castHash: string,
     options?: { viewerFid?: number, pageSize?: number },
   ): AsyncGenerator<Reaction, void, undefined> {
     let cursor: string | undefined;
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
 
     while (true) {
       const response = await this.apis.reactions.castReactions({
@@ -436,16 +424,10 @@ export class NeynarV1APIClient {
    * Get the list of users who have recasted a specific cast. See [Neynar documentation](https://docs.neynar.com/reference/get-list-of-recasters)
    */
   public async * fetchRecasters(
-    castOrCastHash: Cast | string,
+    castHash: string,
     options?: { viewerFid?: number, pageSize?: number },
   ): AsyncGenerator<Recaster, void, undefined> {
     let cursor: string | undefined;
-    let castHash: string;
-    if (typeof castOrCastHash === 'string') {
-      castHash = castOrCastHash;
-    } else {
-      castHash = castOrCastHash.hash;
-    }
 
     while (true) {
       const response = await this.apis.reactions.castRecasters({
