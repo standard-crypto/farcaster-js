@@ -41,6 +41,9 @@ export default {
             useTsconfigDeclarationDir: true,
             tsconfigOverride: {
                 exclude: ['./examples/**', './tests/**', './scripts/**'],
+                compilerOptions: {
+                    paths: [],
+                },
             },
         }),
         commonjs({
