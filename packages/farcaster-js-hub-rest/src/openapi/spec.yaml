@@ -8,8 +8,8 @@ info:
     Some client libraries:
       - [TypeScript](https://www.npmjs.com/package/@standard-crypto/farcaster-js-hub-rest)
 servers:
-- url: http://hub.farcaster.standardcrypto.vc:2281
-- url: http://nemes.farcaster.xyz:2281
+- url: https://hub.farcaster.standardcrypto.vc:2281
+- url: https://nemes.farcaster.xyz:2281
 security: []
 paths:
   /v1/info:
