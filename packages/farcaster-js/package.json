@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "6.0.0-alpha.1",
+  "version": "6.0.0-alpha.2",
   "description": "A collection of tools for interacting with the Farcaster social network.",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
@@ -35,7 +35,8 @@
     "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
     "clean": "yarn clean:dist",
     "clean:dist": "rm -rf dist types",
-    "cz": "yarn run -T cz"
+    "cz": "yarn run -T cz",
+    "publish": "yarn npm publish"
   },
   "keywords": [
     "farcaster"

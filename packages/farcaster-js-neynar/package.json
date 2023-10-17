@@ -62,7 +62,8 @@
     "generate:openapi-typescript": "openapi-typescript src/v1/openapi/spec.yaml -o src/v1/openapi/generated/schema.d.ts && openapi-typescript src/v2/openapi/spec.yaml -o src/v2/openapi/generated/schema.d.ts",
     "test": "yarn test:integration",
     "test:integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -r dotenv/config -p tsconfig.json tests/integration/*.ts",
-    "signer": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-node -r dotenv/config scripts/generateSigner.ts"
+    "signer": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-node -r dotenv/config scripts/generateSigner.ts",
+    "publish": "yarn npm publish"
   },
   "keywords": [
     "farcaster"

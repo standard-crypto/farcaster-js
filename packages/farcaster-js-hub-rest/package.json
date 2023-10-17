@@ -58,7 +58,8 @@
     "generate:openapi-axios": "openapi-generator-cli generate --global-property apis,models,supportingFiles=index.ts:api.ts:configuration.ts:base.ts:common.ts -i src/openapi/spec.yaml -g typescript-axios -o src/openapi/generated --config openapi-generator-config.json",
     "generate:openapi-typescript": "openapi-typescript src/openapi/spec.yaml -o src/openapi/generated/schema.d.ts",
     "test": "yarn test:integration",
-    "test:integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -p tsconfig.json tests/**/*.ts"
+    "test:integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' ts-mocha -r esm -p tsconfig.json tests/**/*.ts",
+    "publish": "yarn npm publish"
   },
   "keywords": [
     "farcaster"
