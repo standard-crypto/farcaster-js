@@ -1,0 +1,47 @@
+{
+  "name": "@standard-crypto/farcaster-js",
+  "version": "6.0.0-alpha.3",
+  "description": "A collection of tools for interacting with the Farcaster social network.",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "import": "./dist/esm/index.mjs"
+  },
+  "types": "./types/index.d.ts",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/standard-crypto/farcaster-js",
+    "type": "git"
+  },
+  "homepage": "https://github.com/standard-crypto/farcaster-js",
+  "bugs": "https://github.com/standard-crypto/farcaster-js/issues",
+  "author": "Gavi Galloway",
+  "license": "MIT",
+  "peerDependencies": {
+    "axios": "~1.5.1"
+  },
+  "dependencies": {
+    "@standard-crypto/farcaster-js-hub-rest": "workspace:*",
+    "@standard-crypto/farcaster-js-neynar": "workspace:*"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "dist/**",
+    "types/**"
+  ],
+  "scripts": {
+    "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
+    "clean": "yarn clean:dist",
+    "clean:dist": "rm -rf dist types",
+    "cz": "yarn run -T cz",
+    "publish": "yarn npm publish"
+  },
+  "keywords": [
+    "farcaster"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

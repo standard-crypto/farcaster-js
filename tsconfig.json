@@ -3,6 +3,12 @@
     "lib": [
       "es2020"
     ],
+    "paths": {
+      "@standard-crypto/farcaster-js-hub-rest": ["./packages/farcaster-js-hub-rest/src"],
+      "@standard-crypto/farcaster-js-hub-rest/*": ["./packages/farcaster-js-hub-rest/src/*"],
+      "@standard-crypto/farcaster-js-neynar": ["./packages/farcaster-js-neynar/src"],
+      "@standard-crypto/farcaster-js-neynar/*": ["./packages/farcaster-js-neynar/src/*"]
+    },
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "es2022",

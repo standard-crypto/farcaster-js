@@ -6,9 +6,6 @@
         "declaration": true
     },
     "include": [
-        "./src/**/*.ts",
-        "./examples/**/*.ts",
-        "./tests/**/*.ts",
-         "scripts/generateSigner.ts"
+        "./src/**/*.ts"
     ]
 }

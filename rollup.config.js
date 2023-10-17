@@ -40,7 +40,10 @@ export default {
             tsconfig: path.join(PACKAGE_PATH, 'tsconfig.json'),
             useTsconfigDeclarationDir: true,
             tsconfigOverride: {
-                exclude: ['./examples/**', './tests/**'],
+                exclude: ['./examples/**', './tests/**', './scripts/**'],
+                compilerOptions: {
+                    paths: [],
+                },
             },
         }),
         commonjs({
