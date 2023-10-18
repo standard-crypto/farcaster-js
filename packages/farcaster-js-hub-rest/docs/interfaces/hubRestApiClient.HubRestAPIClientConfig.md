@@ -9,8 +9,8 @@
 ### Properties
 
 - [axiosInstance](hubRestApiClient.HubRestAPIClientConfig.md#axiosinstance)
+- [hubUrl](hubRestApiClient.HubRestAPIClientConfig.md#huburl)
 - [logger](hubRestApiClient.HubRestAPIClientConfig.md#logger)
-- [server](hubRestApiClient.HubRestAPIClientConfig.md#server)
 
 ## Properties
 
@@ -24,6 +24,16 @@
 
 ___
 
+### hubUrl
+
+• `Optional` **hubUrl**: `string`
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:58](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L58)
+
+___
+
 ### logger
 
 • `Optional` **logger**: [`Logger`](logger.Logger.md)
@@ -31,13 +41,3 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:59](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L59)
-
-___
-
-### server
-
-• `Optional` **server**: `string`
-
-#### Defined in
-
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:58](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L58)

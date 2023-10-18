@@ -33,5 +33,5 @@ const client = new HubRestAPIClient();
 console.log(await client.getHubInfo());
 ```
 
-See the [@standard-crypto/farcaster-js-hub-rest](https://github.com/standard-crypto/farcaster-js/blog/main/packages/farcaster-js-hub-rest/README.md)
+See the [@standard-crypto/farcaster-js-hub-rest](./packages/farcaster-js-hub-rest/README.md)
 package for more info.
