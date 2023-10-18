@@ -51,11 +51,11 @@ export type HubInfoResponse<T> = T extends true
   ? SetRequired<OpenapiHubInfoResponse, 'dbStats'>
   : OpenapiHubInfoResponse;
 
-export const DEFAULT_SERVER = 'http://hub.farcaster.standardcrypto.vc:2281';
+export const DEFAULT_HUB_URL = 'https://nemes.farcaster.xyz:2281';
 
 export interface HubRestAPIClientConfig {
   axiosInstance?: AxiosInstance
-  server?: string
+  hubUrl?: string
   logger?: Logger
 }
 
@@ -86,7 +86,7 @@ export class HubRestAPIClient {
    */
   constructor({
     axiosInstance,
-    server = DEFAULT_SERVER,
+    hubUrl = DEFAULT_HUB_URL,
     logger = silentLogger,
   }: HubRestAPIClientConfig = {}) {
     this.logger = logger;
@@ -106,7 +106,7 @@ export class HubRestAPIClient {
       },
     );
 
-    const config: Configuration = new Configuration({ basePath: server });
+    const config: Configuration = new Configuration({ basePath: hubUrl });
     this.apis = {
       casts: new CastsApi(config, undefined, axiosInstance),
       info: new InfoApi(config, undefined, axiosInstance),

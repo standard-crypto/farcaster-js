@@ -41,7 +41,6 @@ describe('HubWebClient', function() {
 
   before('setup', async function() {
     client = new HubRestAPIClient({
-      server: 'https://nemes.farcaster.xyz:2281',
       logger: testLogger,
     });
 

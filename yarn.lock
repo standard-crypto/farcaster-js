@@ -3236,7 +3236,7 @@ __metadata:
     ts-mocha: "npm:^10.0.0"
     ts-node: "npm:^10.9.1"
     type-fest: "npm:^4.3.3"
-    typedoc: "npm:^0.24.6"
+    typedoc: "npm:^0.25.2"
     typedoc-plugin-markdown: "npm:^3.15.2"
     viem: "npm:^1.16.2"
   peerDependencies:
@@ -13840,22 +13840,6 @@ __metadata:
   peerDependencies:
     typedoc: ">=0.24.0"
   checksum: 0daa8290e7b8f03e9e1e79efdd564a61db3dbb8f20eb15ef89cc3bce0c14ff2061b7f35452b06e2c31644f33f0cc53c06570c9c1a20245f7458b1f88a3438588
-  languageName: node
-  linkType: hard
-
-"typedoc@npm:^0.24.6":
-  version: 0.24.8
-  resolution: "typedoc@npm:0.24.8"
-  dependencies:
-    lunr: "npm:^2.3.9"
-    marked: "npm:^4.3.0"
-    minimatch: "npm:^9.0.0"
-    shiki: "npm:^0.14.1"
-  peerDependencies:
-    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
-  bin:
-    typedoc: bin/typedoc
-  checksum: 0fae7de1b17561085e112b6b429de66ee84536dd3a602f11eefd702997c7bcfbde0ac9b56759a66d0d5fda98ff99d37940fc4257a5a0113854549777801901d1
   languageName: node
   linkType: hard
 

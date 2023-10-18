@@ -20,7 +20,7 @@
 
 ### Variables
 
-- [DEFAULT\_SERVER](hubRestApiClient.md#default_server)
+- [DEFAULT\_HUB\_URL](hubRestApiClient.md#default_hub_url)
 
 ## Type Aliases
 
@@ -56,9 +56,9 @@ ___
 
 ## Variables
 
-### DEFAULT\_SERVER
+### DEFAULT\_HUB\_URL
 
-• `Const` **DEFAULT\_SERVER**: ``"http://hub.farcaster.standardcrypto.vc:2281"``
+• `Const` **DEFAULT\_HUB\_URL**: ``"https://nemes.farcaster.xyz:2281"``
 
 #### Defined in
 
