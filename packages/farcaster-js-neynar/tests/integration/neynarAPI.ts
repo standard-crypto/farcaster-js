@@ -728,7 +728,8 @@ if (apiKey !== undefined && apiKey !== '') {
           });
         });
         describe('User API', function() {
-          describe('#searchUsernames', function() {
+          // See https://github.com/standard-crypto/farcaster-js/issues/685
+          describe.skip('#searchUsernames', function() {
             it('can find user for a username prefix', async function() {
               const users = await client.v2.searchUsernames(
                 'a',
