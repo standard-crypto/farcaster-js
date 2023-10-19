@@ -1,6 +1,6 @@
 @standard-crypto/farcaster-js-neynar / [Modules](modules.md)
 
-# Farcaster Hub REST API Client
+# Farcaster Neynar API Client
 
 A tool for interacting with Farcaster via Neynar APIs.
 

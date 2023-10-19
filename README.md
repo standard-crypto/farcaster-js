@@ -57,7 +57,7 @@ import { NeynarAPIClient } from '@standard-crypto/farcaster-js';
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');
 
-const publishedCast = await client.v2.publishCast(signerUuid, 'This is a test cast.');
+await client.v2.publishCast(signerUuid, 'This is a test cast.');
 ```
 
 ***Usage Versus Hub APIs:***

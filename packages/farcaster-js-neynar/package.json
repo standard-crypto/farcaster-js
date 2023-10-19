@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js-neynar",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "A tool for interacting with Farcaster via Neynar APIs.",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
