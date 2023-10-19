@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js-hub-rest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool for interacting with the REST API of any Farcaster hub.",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
