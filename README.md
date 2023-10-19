@@ -27,7 +27,7 @@ npm install axios @standard-crypto/farcaster-js-hub-rest
 
 ***Example:***
 
-```typescript
+```ts
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js'
 
 const client = new HubRestAPIClient();
@@ -51,7 +51,7 @@ npm install axios @standard-crypto/farcaster-js-neynar
 
 ***Example:***
 
-```typescript
+```ts
 import { NeynarAPIClient } from '@standard-crypto/farcaster-js';
 
 const signerUuid = 'approvedSignerUUID';
