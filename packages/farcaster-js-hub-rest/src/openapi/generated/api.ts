@@ -14,16 +14,16 @@
 
 
 
-export * from './apis/casts-api';
-export * from './apis/fids-api';
-export * from './apis/hub-events-api';
-export * from './apis/info-api';
-export * from './apis/links-api';
-export * from './apis/on-chain-events-api';
-export * from './apis/reactions-api';
-export * from './apis/storage-api';
-export * from './apis/submit-message-api';
-export * from './apis/user-data-api';
-export * from './apis/usernames-api';
-export * from './apis/verifications-api';
+export * from './apis/casts-api.js';
+export * from './apis/fids-api.js';
+export * from './apis/hub-events-api.js';
+export * from './apis/info-api.js';
+export * from './apis/links-api.js';
+export * from './apis/on-chain-events-api.js';
+export * from './apis/reactions-api.js';
+export * from './apis/storage-api.js';
+export * from './apis/submit-message-api.js';
+export * from './apis/user-data-api.js';
+export * from './apis/usernames-api.js';
+export * from './apis/verifications-api.js';
 

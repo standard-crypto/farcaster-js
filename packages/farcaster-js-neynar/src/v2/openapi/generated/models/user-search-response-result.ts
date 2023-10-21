@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { SearchedUser } from './searched-user';
+import { SearchedUser } from './searched-user.js';
 
 /**
  * 

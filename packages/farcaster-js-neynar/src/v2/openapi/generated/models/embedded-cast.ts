@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastId } from './cast-id';
+import { CastId } from './cast-id.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbedCastId } from './embed-cast-id';
+import { EmbedCastId } from './embed-cast-id.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbedUrl } from './embed-url';
+import { EmbedUrl } from './embed-url.js';
 
 /**
  * @type EmbeddedCast

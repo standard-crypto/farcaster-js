@@ -6,6 +6,7 @@ coverage/
 types/
 swagger-tmp
 .env
+.tshy
 
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .pnp.*

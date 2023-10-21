@@ -21,6 +21,5 @@
     "alwaysStrict": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
-    "noEmit": true,
   }
 }

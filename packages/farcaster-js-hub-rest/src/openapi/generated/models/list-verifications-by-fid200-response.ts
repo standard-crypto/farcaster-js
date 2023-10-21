@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Verification } from './verification';
+import { Verification } from './verification.js';
 
 /**
  * 

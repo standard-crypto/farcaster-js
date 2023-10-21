@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUserDataAdd } from './message-data-user-data-add';
+import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
 
 /**
  * 

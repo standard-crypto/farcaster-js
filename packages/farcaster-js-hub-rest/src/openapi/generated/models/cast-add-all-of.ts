@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add';
+import { MessageDataCastAdd } from './message-data-cast-add.js';
 
 /**
  * 

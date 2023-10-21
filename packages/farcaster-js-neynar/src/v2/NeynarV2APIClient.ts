@@ -22,9 +22,9 @@ import {
   CastApiPostCastRequest,
   CastWithInteractions,
   SearchedUser,
-} from './openapi';
+} from './openapi/index.js';
 import axios, { AxiosError, AxiosInstance } from 'axios';
-import { silentLogger, Logger } from '../logger';
+import { silentLogger, Logger } from '../logger.js';
 import type { SetRequired } from 'type-fest';
 
 const BASE_PATH = 'https://api.neynar.com/v2';

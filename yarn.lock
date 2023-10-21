@@ -6529,6 +6529,7 @@ __metadata:
     eslint-plugin-node: "npm:^11.1.0"
     eslint-plugin-promise: "npm:^6.1.0"
     esm: "npm:^3.2.25"
+    fix-esm-import-path: "npm:^1.4.0"
     husky: "npm:^8.0.3"
     lerna: "npm:^5.2.0"
     markdown-magic: "npm:^2.6.1"
@@ -6540,6 +6541,7 @@ __metadata:
     rollup-plugin-typescript2: "npm:^0.34.1"
     semantic-release: "npm:^22.0.5"
     source-map-support: "npm:^0.5.19"
+    tshy: "npm:1.5.0"
     typescript: "npm:^5.2.2"
   languageName: unknown
   linkType: soft
@@ -6782,6 +6784,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fix-esm-import-path@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "fix-esm-import-path@npm:1.4.0"
+  dependencies:
+    debug: "npm:^4.3.2"
+  bin:
+    fix-esm-import-path: fix-esm-import-path.js
+  checksum: de707c109e51bc64e4a3276fce832ec7484795d4af0c750fecc95a9ea418e54601ec26d04b6c1f49a149a4ae06fd47c21af54b656dbe78237f930f9159f3b0a8
+  languageName: node
+  linkType: hard
+
 "flat-cache@npm:^3.0.4":
   version: 3.1.1
   resolution: "flat-cache@npm:3.1.1"
@@ -6828,7 +6841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"foreground-child@npm:^3.1.0":
+"foreground-child@npm:^3.1.0, foreground-child@npm:^3.1.1":
   version: 3.1.1
   resolution: "foreground-child@npm:3.1.1"
   dependencies:
@@ -7272,7 +7285,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.3.10":
+"glob@npm:^10.2.2, glob@npm:^10.2.6, glob@npm:^10.3.10, glob@npm:^10.3.3, glob@npm:^10.3.7":
   version: 10.3.10
   resolution: "glob@npm:10.3.10"
   dependencies:
@@ -9910,6 +9923,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mkdirp@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "mkdirp@npm:3.0.1"
+  bin:
+    mkdirp: dist/cjs/src/bin.js
+  checksum: 9f2b975e9246351f5e3a40dcfac99fcd0baa31fbfab615fe059fb11e51f10e4803c63de1f384c54d656e4db31d000e4767e9ef076a22e12a641357602e31d57d
+  languageName: node
+  linkType: hard
+
 "mocha@npm:^10.2.0":
   version: 10.2.0
   resolution: "mocha@npm:10.2.0"
@@ -11207,7 +11229,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-scurry@npm:^1.10.1":
+"path-scurry@npm:^1.10.1, path-scurry@npm:^1.9.2":
   version: 1.10.1
   resolution: "path-scurry@npm:1.10.1"
   dependencies:
@@ -11902,6 +11924,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"resolve-import@npm:^1.4.4":
+  version: 1.4.4
+  resolution: "resolve-import@npm:1.4.4"
+  dependencies:
+    glob: "npm:^10.3.3"
+    walk-up-path: "npm:^3.0.1"
+  checksum: 2fc028b0064edb5df8ba7521c4cc7630ec224542f101ddbc8fbd280c740e0f399f9e392556e8fa48af7b7fb9a52cd94725bd888c498eb33a27ed627b076e6dd9
+  languageName: node
+  linkType: hard
+
 "resolve@npm:^1.1.6, resolve@npm:^1.10.0, resolve@npm:^1.10.1, resolve@npm:^1.22.1, resolve@npm:^1.22.4":
   version: 1.22.8
   resolution: "resolve@npm:1.22.8"
@@ -11970,6 +12002,17 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 9cb7757acb489bd83757ba1a274ab545eafd75598a9d817e0c3f8b164238dd90eba50d6b848bd4dcc5f3040912e882dc7ba71653e35af660d77b25c381d402e8
+  languageName: node
+  linkType: hard
+
+"rimraf@npm:^5.0.1":
+  version: 5.0.5
+  resolution: "rimraf@npm:5.0.5"
+  dependencies:
+    glob: "npm:^10.3.7"
+  bin:
+    rimraf: dist/esm/bin.mjs
+  checksum: d50dbe724f33835decd88395b25ed35995077c60a50ae78ded06e0185418914e555817aad1b4243edbff2254548c2f6ad6f70cc850040bebb4da9e8cc016f586
   languageName: node
   linkType: hard
 
@@ -12830,6 +12873,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sync-content@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "sync-content@npm:1.0.2"
+  dependencies:
+    glob: "npm:^10.2.6"
+    mkdirp: "npm:^3.0.1"
+    path-scurry: "npm:^1.9.2"
+    rimraf: "npm:^5.0.1"
+  bin:
+    sync-content: dist/mjs/bin.mjs
+  checksum: cfe3497d26d8021d71786034124bd065708acbbda110649e1410591a457e8bc53757a9d3b83f702bfe21512f8f9689e3b3383cb251a480557c4e1d9f0c547278
+  languageName: node
+  linkType: hard
+
 "sync-request@npm:^6.1.0":
   version: 6.1.0
   resolution: "sync-request@npm:6.1.0"
@@ -13160,6 +13217,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tshy@npm:1.5.0":
+  version: 1.5.0
+  resolution: "tshy@npm:1.5.0"
+  dependencies:
+    chalk: "npm:^5.3.0"
+    foreground-child: "npm:^3.1.1"
+    mkdirp: "npm:^3.0.1"
+    resolve-import: "npm:^1.4.4"
+    rimraf: "npm:^5.0.1"
+    sync-content: "npm:^1.0.2"
+    typescript: "npm:5.2"
+    walk-up-path: "npm:^3.0.1"
+  bin:
+    tshy: dist/esm/index.js
+  checksum: 77484f60481907d61583c20a09b58fb64da67dc9a1f4d091cd6672394b78f4bda7b79e0541081aff48d2ddd0529627a252296cded650d6d5b4d51b73c54b66ac
+  languageName: node
+  linkType: hard
+
 "tslib@npm:2.0.3":
   version: 2.0.3
   resolution: "tslib@npm:2.0.3"
@@ -13386,6 +13461,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:5.2, typescript@npm:^4.6.4 || ^5.0.0, typescript@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "typescript@npm:5.2.2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 91ae3e6193d0ddb8656d4c418a033f0f75dec5e077ebbc2bd6d76439b93f35683936ee1bdc0e9cf94ec76863aa49f27159b5788219b50e1cd0cd6d110aa34b07
+  languageName: node
+  linkType: hard
+
 "typescript@npm:^3 || ^4":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
@@ -13396,13 +13481,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4 || ^5.0.0, typescript@npm:^5.2.2":
+"typescript@patch:typescript@npm%3A5.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.6.4 || ^5.0.0#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
   version: 5.2.2
-  resolution: "typescript@npm:5.2.2"
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 91ae3e6193d0ddb8656d4c418a033f0f75dec5e077ebbc2bd6d76439b93f35683936ee1bdc0e9cf94ec76863aa49f27159b5788219b50e1cd0cd6d110aa34b07
+  checksum: 062c1cee1990e6b9419ce8a55162b8dc917eb87f807e4de0327dbc1c2fa4e5f61bc0dd4e034d38ff541d1ed0479b53bcee8e4de3a4075c51a1724eb6216cb6f5
   languageName: node
   linkType: hard
 
@@ -13413,16 +13498,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: e3333f887c6829dfe0ab6c1dbe0dd1e3e2aeb56c66460cb85c5440c566f900c833d370ca34eb47558c0c69e78ced4bfe09b8f4f98b6de7afed9b84b8d1dd06a1
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^4.6.4 || ^5.0.0#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
-  version: 5.2.2
-  resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 062c1cee1990e6b9419ce8a55162b8dc917eb87f807e4de0327dbc1c2fa4e5f61bc0dd4e034d38ff541d1ed0479b53bcee8e4de3a4075c51a1724eb6216cb6f5
   languageName: node
   linkType: hard
 

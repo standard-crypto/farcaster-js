@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { IdRegisterEventBody } from './id-register-event-body';
+import { IdRegisterEventBody } from './id-register-event-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventCommon } from './on-chain-event-common';
+import { OnChainEventCommon } from './on-chain-event-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventIdRegisterAllOf } from './on-chain-event-id-register-all-of';
+import { OnChainEventIdRegisterAllOf } from './on-chain-event-id-register-all-of.js';
 
 /**
  * @type OnChainEventIdRegister

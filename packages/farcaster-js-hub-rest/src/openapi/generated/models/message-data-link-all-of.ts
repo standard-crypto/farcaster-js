@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkBody } from './link-body';
+import { LinkBody } from './link-body.js';
 
 /**
  * 

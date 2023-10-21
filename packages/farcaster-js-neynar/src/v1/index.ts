@@ -1,2 +1,2 @@
-export * from './openapi';
-export * from './NeynarV1APIClient';
+export * from './openapi/index.js';
+export * from './NeynarV1APIClient.js';

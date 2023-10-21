@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { FarcasterNetwork } from './farcaster-network';
+import { FarcasterNetwork } from './farcaster-network.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type';
+import { MessageType } from './message-type.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { PostCastResponseCastAuthor } from './post-cast-response-cast-author';
+import { PostCastResponseCastAuthor } from './post-cast-response-cast-author.js';
 
 /**
  * 

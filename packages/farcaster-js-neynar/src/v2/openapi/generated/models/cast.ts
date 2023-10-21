@@ -15,16 +15,16 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastNotificationType } from './cast-notification-type';
+import { CastNotificationType } from './cast-notification-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastParentAuthor } from './cast-parent-author';
+import { CastParentAuthor } from './cast-parent-author.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbeddedCast } from './embedded-cast';
+import { EmbeddedCast } from './embedded-cast.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 
 /**
  * 

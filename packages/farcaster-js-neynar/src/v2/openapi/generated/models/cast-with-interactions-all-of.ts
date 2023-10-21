@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastWithInteractionsReactions } from './cast-with-interactions-reactions';
+import { CastWithInteractionsReactions } from './cast-with-interactions-reactions.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastWithInteractionsReplies } from './cast-with-interactions-replies';
+import { CastWithInteractionsReplies } from './cast-with-interactions-replies.js';
 
 /**
  * 

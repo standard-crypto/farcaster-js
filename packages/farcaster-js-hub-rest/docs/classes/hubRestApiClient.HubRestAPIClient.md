@@ -136,7 +136,7 @@ ___
 
 ### getHubInfo
 
-▸ **getHubInfo**<`T`\>(`«destructured»?`): `Promise`<[`HubInfoResponse`](../modules/hubRestApiClient.md#hubinforesponse)<`T`\>\>
+▸ **getHubInfo**<`T`\>(`«destructured»?`): `Promise`<[`HubInfo`](../modules/hubRestApiClient.md#hubinfo)<`T`\>\>
 
 Get the Hub's info.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
@@ -156,7 +156,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#i
 
 #### Returns
 
-`Promise`<[`HubInfoResponse`](../modules/hubRestApiClient.md#hubinforesponse)<`T`\>\>
+`Promise`<[`HubInfo`](../modules/hubRestApiClient.md#hubinfo)<`T`\>\>
 
 #### Defined in
 

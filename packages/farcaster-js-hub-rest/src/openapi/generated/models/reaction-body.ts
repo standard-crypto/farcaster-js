@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastId } from './cast-id';
+import { CastId } from './cast-id.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionType } from './reaction-type';
+import { ReactionType } from './reaction-type.js';
 
 /**
  * Adds or removes a Reaction from a Cast

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AllCastsInThreadResponseResult } from './all-casts-in-thread-response-result';
+import { AllCastsInThreadResponseResult } from './all-casts-in-thread-response-result.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserNameType } from './user-name-type';
+import { UserNameType } from './user-name-type.js';
 
 /**
  * 

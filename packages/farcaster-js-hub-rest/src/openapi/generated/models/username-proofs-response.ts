@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserNameProof } from './user-name-proof';
+import { UserNameProof } from './user-name-proof.js';
 
 /**
  * 

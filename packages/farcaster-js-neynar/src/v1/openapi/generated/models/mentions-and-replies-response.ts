@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MentionsAndRepliesResponseResult } from './mentions-and-replies-response-result';
+import { MentionsAndRepliesResponseResult } from './mentions-and-replies-response-result.js';
 
 /**
  * 

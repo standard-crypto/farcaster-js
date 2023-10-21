@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { GetUserDataByFid200ResponseOneOf } from './get-user-data-by-fid200-response-one-of';
+import { GetUserDataByFid200ResponseOneOf } from './get-user-data-by-fid200-response-one-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUserDataAdd } from './message-data-user-data-add';
+import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { SignatureScheme } from './signature-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserDataAdd } from './user-data-add';
+import { UserDataAdd } from './user-data-add.js';
 
 /**
  * @type GetUserDataByFid200Response

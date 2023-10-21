@@ -48,6 +48,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.0",
     "esm": "^3.2.25",
+    "fix-esm-import-path": "^1.4.0",
     "husky": "^8.0.3",
     "lerna": "^5.2.0",
     "markdown-magic": "^2.6.1",
@@ -59,6 +60,7 @@
     "rollup-plugin-typescript2": "^0.34.1",
     "semantic-release": "^22.0.5",
     "source-map-support": "^0.5.19",
+    "tshy": "1.5.0",
     "typescript": "^5.2.2"
   },
   "workspaces": {

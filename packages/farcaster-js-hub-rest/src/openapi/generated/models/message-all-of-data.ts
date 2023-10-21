@@ -15,58 +15,58 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastAddBody } from './cast-add-body';
+import { CastAddBody } from './cast-add-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastRemoveBody } from './cast-remove-body';
+import { CastRemoveBody } from './cast-remove-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { FarcasterNetwork } from './farcaster-network';
+import { FarcasterNetwork } from './farcaster-network.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkBody } from './link-body';
+import { LinkBody } from './link-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add';
+import { MessageDataCastAdd } from './message-data-cast-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastRemove } from './message-data-cast-remove';
+import { MessageDataCastRemove } from './message-data-cast-remove.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLink } from './message-data-link';
+import { MessageDataLink } from './message-data-link.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReaction } from './message-data-reaction';
+import { MessageDataReaction } from './message-data-reaction.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUserDataAdd } from './message-data-user-data-add';
+import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUsernameProof } from './message-data-username-proof';
+import { MessageDataUsernameProof } from './message-data-username-proof.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationAdd } from './message-data-verification-add';
+import { MessageDataVerificationAdd } from './message-data-verification-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationRemove } from './message-data-verification-remove';
+import { MessageDataVerificationRemove } from './message-data-verification-remove.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type';
+import { MessageType } from './message-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionBody } from './reaction-body';
+import { ReactionBody } from './reaction-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserDataBody } from './user-data-body';
+import { UserDataBody } from './user-data-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserNameProof } from './user-name-proof';
+import { UserNameProof } from './user-name-proof.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { VerificationAddEthAddressBody } from './verification-add-eth-address-body';
+import { VerificationAddEthAddressBody } from './verification-add-eth-address-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { VerificationRemoveBody } from './verification-remove-body';
+import { VerificationRemoveBody } from './verification-remove-body.js';
 
 /**
  * @type MessageAllOfData

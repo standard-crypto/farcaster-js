@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEvent } from './on-chain-event';
+import { OnChainEvent } from './on-chain-event.js';
 
 /**
  * 

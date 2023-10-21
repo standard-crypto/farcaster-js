@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { VerificationAddEthAddressBody } from './verification-add-eth-address-body';
+import { VerificationAddEthAddressBody } from './verification-add-eth-address-body.js';
 
 /**
  * 

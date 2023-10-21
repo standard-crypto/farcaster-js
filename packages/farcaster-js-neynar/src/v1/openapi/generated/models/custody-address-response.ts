@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CustodyAddressResponseResult } from './custody-address-response-result';
+import { CustodyAddressResponseResult } from './custody-address-response-result.js';
 
 /**
  * 

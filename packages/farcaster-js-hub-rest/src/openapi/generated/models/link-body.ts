@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkType } from './link-type';
+import { LinkType } from './link-type.js';
 
 /**
  * Adds or removes a Link

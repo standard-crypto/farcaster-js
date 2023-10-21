@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { IdRegisterEventType } from './id-register-event-type';
+import { IdRegisterEventType } from './id-register-event-type.js';
 
 /**
  * 

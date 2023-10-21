@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionWithCastMetaCast } from './reaction-with-cast-meta-cast';
+import { ReactionWithCastMetaCast } from './reaction-with-cast-meta-cast.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionWithCastMetaReaction } from './reaction-with-cast-meta-reaction';
+import { ReactionWithCastMetaReaction } from './reaction-with-cast-meta-reaction.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 
 /**
  * Reaction of a user (either like or recast), along with its associated cast

@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventCommon } from './on-chain-event-common';
+import { OnChainEventCommon } from './on-chain-event-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventSignerMigratedAllOf } from './on-chain-event-signer-migrated-all-of';
+import { OnChainEventSignerMigratedAllOf } from './on-chain-event-signer-migrated-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignerMigratedEventBody } from './signer-migrated-event-body';
+import { SignerMigratedEventBody } from './signer-migrated-event-body.js';
 
 /**
  * @type OnChainEventSignerMigrated

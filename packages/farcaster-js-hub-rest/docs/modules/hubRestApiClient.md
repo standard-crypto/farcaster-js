@@ -15,7 +15,7 @@
 
 ### Type Aliases
 
-- [HubInfoResponse](hubRestApiClient.md#hubinforesponse)
+- [HubInfo](hubRestApiClient.md#hubinfo)
 - [OnChainEventsReturnType](hubRestApiClient.md#onchaineventsreturntype)
 
 ### Variables
@@ -24,9 +24,9 @@
 
 ## Type Aliases
 
-### HubInfoResponse
+### HubInfo
 
-Ƭ **HubInfoResponse**<`T`\>: `T` extends ``true`` ? `SetRequired`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
+Ƭ **HubInfo**<`T`\>: `T` extends ``true`` ? `SetRequired`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
 
 #### Type parameters
 

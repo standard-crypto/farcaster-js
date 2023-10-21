@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common';
+import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReaction } from './message-data-reaction';
+import { MessageDataReaction } from './message-data-reaction.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionAllOf } from './reaction-all-of';
+import { ReactionAllOf } from './reaction-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { SignatureScheme } from './signature-scheme.js';
 
 /**
  * @type ReactionRemove

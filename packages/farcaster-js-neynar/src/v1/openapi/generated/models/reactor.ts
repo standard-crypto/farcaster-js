@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactorPfp } from './reactor-pfp';
+import { ReactorPfp } from './reactor-pfp.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactorViewerContext } from './reactor-viewer-context';
+import { ReactorViewerContext } from './reactor-viewer-context.js';
 
 /**
  * 

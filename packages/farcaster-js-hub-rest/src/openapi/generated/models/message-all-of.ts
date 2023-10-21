@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageAllOfData } from './message-all-of-data';
+import { MessageAllOfData } from './message-all-of-data.js';
 
 /**
  * 

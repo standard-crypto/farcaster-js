@@ -2,14 +2,42 @@
   "name": "@standard-crypto/farcaster-js-neynar",
   "version": "1.0.1",
   "description": "A tool for interacting with Farcaster via Neynar APIs.",
-  "main": "./dist/cjs/index.cjs",
-  "module": "./dist/esm/index.mjs",
+  "main": "./dist/commonjs/index.js",
   "type": "module",
   "exports": {
-    "require": "./dist/cjs/index.cjs",
-    "import": "./dist/esm/index.mjs"
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./v1": {
+      "import": {
+        "types": "./dist/esm/v1/index.d.ts",
+        "default": "./dist/esm/v1/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/v1/index.d.ts",
+        "default": "./dist/commonjs/v1/index.js"
+      }
+    },
+    "./v2": {
+      "import": {
+        "types": "./dist/esm/v2/index.d.ts",
+        "default": "./dist/esm/v2/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/v2/index.d.ts",
+        "default": "./dist/commonjs/v2/index.js"
+      }
+    }
   },
-  "types": "./types/index.d.ts",
+  "types": "./dist/commonjs/index.d.ts",
   "repository": {
     "url": "https://github.com/standard-crypto/farcaster-js",
     "type": "git"
@@ -50,11 +78,12 @@
     "types/**"
   ],
   "scripts": {
-    "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
+    "build": "yarn run -T tshy",
     "clean": "yarn clean:dist && yarn clean:generated",
-    "clean:dist": "rm -rf dist types",
+    "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/v1/openapi/generated && rm -rf src/v2/openapi/generated",
     "cz": "yarn run -T cz",
+    "fixup-imports": "yarn run -T fix-esm-import-path src && sed -i '' 's|models|models/index.js|' src/v1/openapi/generated/index.ts src/v2/openapi/generated/index.ts",
     "generate": "yarn run generate:openapi",
     "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript",
@@ -70,5 +99,13 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts",
+      "./v1": "./src/v1/index.ts",
+      "./v2": "./src/v2/index.ts"
+    }
   }
 }

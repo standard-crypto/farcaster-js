@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserCastLikeResponseResult } from './user-cast-like-response-result';
+import { UserCastLikeResponseResult } from './user-cast-like-response-result.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionsAndRecastsResponseResult } from './reactions-and-recasts-response-result';
+import { ReactionsAndRecastsResponseResult } from './reactions-and-recasts-response-result.js';
 
 /**
  * 

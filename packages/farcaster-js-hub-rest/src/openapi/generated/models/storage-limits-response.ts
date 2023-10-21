@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StorageLimit } from './storage-limit';
+import { StorageLimit } from './storage-limit.js';
 
 /**
  * 

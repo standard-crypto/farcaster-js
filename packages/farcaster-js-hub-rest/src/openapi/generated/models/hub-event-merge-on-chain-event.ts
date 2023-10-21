@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MergeOnChainEventBody } from './merge-on-chain-event-body';
+import { MergeOnChainEventBody } from './merge-on-chain-event-body.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { RevokeMessageBody } from './revoke-message-body';
+import { RevokeMessageBody } from './revoke-message-body.js';
 
 /**
  * 

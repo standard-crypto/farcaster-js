@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastAddBody } from './cast-add-body';
+import { CastAddBody } from './cast-add-body.js';
 
 /**
  * 

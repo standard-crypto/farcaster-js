@@ -15,16 +15,16 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ActiveStatus } from './active-status';
+import { ActiveStatus } from './active-status.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserPfp } from './user-pfp';
+import { UserPfp } from './user-pfp.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserProfile } from './user-profile';
+import { UserProfile } from './user-profile.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ViewerContext } from './viewer-context';
+import { ViewerContext } from './viewer-context.js';
 
 /**
  * 

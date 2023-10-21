@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserProfileBio } from './user-profile-bio';
+import { UserProfileBio } from './user-profile-bio.js';
 
 /**
  * 

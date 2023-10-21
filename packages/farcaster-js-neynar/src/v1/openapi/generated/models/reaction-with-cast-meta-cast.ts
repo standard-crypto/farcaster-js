@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbedUrl } from './embed-url';
+import { EmbedUrl } from './embed-url.js';
 
 /**
  * 

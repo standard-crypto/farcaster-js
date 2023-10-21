@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ListOnChainSignersByFid200ResponseOneOf } from './list-on-chain-signers-by-fid200-response-one-of';
+import { ListOnChainSignersByFid200ResponseOneOf } from './list-on-chain-signers-by-fid200-response-one-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventSigner } from './on-chain-event-signer';
+import { OnChainEventSigner } from './on-chain-event-signer.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignerEventBody } from './signer-event-body';
+import { SignerEventBody } from './signer-event-body.js';
 
 /**
  * @type ListOnChainSignersByFid200Response

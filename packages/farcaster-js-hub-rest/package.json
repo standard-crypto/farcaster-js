@@ -2,13 +2,6 @@
   "name": "@standard-crypto/farcaster-js-hub-rest",
   "version": "1.0.1",
   "description": "A tool for interacting with the REST API of any Farcaster hub.",
-  "main": "./dist/cjs/index.cjs",
-  "module": "./dist/esm/index.mjs",
-  "exports": {
-    "require": "./dist/cjs/index.cjs",
-    "import": "./dist/esm/index.mjs"
-  },
-  "types": "./types/index.d.ts",
   "type": "module",
   "repository": {
     "url": "https://github.com/standard-crypto/farcaster-js",
@@ -47,11 +40,12 @@
     "types/**"
   ],
   "scripts": {
-    "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
+    "build": "yarn run -T tshy",
     "clean": "yarn clean:dist && yarn clean:generated",
-    "clean:dist": "rm -rf dist types",
+    "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/openapi/generated",
     "cz": "yarn run -T cz",
+    "fixup-imports": "yarn run -T fix-esm-import-path src && sed -i '' 's|models|models/index.js|' src/openapi/generated/index.ts",
     "generate": "yarn run generate:openapi && yarn run generate:docs",
     "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript",
@@ -66,5 +60,36 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./openapi": {
+      "import": {
+        "types": "./dist/esm/openapi/index.d.ts",
+        "default": "./dist/esm/openapi/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/openapi/index.d.ts",
+        "default": "./dist/commonjs/openapi/index.js"
+      }
+    }
+  },
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/commonjs/index.d.ts"
 }

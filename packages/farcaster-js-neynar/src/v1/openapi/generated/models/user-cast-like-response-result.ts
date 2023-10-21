@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { NextCursor } from './next-cursor';
+import { NextCursor } from './next-cursor.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionWithCastMeta } from './reaction-with-cast-meta';
+import { ReactionWithCastMeta } from './reaction-with-cast-meta.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 
 /**
  * 

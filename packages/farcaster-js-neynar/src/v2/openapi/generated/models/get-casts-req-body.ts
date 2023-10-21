@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { IndividualHashObj } from './individual-hash-obj';
+import { IndividualHashObj } from './individual-hash-obj.js';
 
 /**
  * 

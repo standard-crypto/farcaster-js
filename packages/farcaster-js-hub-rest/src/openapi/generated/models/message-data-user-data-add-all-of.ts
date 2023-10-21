@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserDataBody } from './user-data-body';
+import { UserDataBody } from './user-data-body.js';
 
 /**
  * 

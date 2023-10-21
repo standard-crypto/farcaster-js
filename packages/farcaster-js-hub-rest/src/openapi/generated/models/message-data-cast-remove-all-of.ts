@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastRemoveBody } from './cast-remove-body';
+import { CastRemoveBody } from './cast-remove-body.js';
 
 /**
  * 

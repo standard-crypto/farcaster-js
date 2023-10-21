@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { RecasterPfp } from './recaster-pfp';
+import { RecasterPfp } from './recaster-pfp.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { RecasterProfile } from './recaster-profile';
+import { RecasterProfile } from './recaster-profile.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { RecasterViewerContext } from './recaster-viewer-context';
+import { RecasterViewerContext } from './recaster-viewer-context.js';
 
 /**
  * 

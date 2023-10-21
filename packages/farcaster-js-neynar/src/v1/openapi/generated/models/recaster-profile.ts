@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { RecasterProfileBio } from './recaster-profile-bio';
+import { RecasterProfileBio } from './recaster-profile-bio.js';
 
 /**
  * 

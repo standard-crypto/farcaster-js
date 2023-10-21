@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { IdRegisterEventBody } from './id-register-event-body';
+import { IdRegisterEventBody } from './id-register-event-body.js';
 
 /**
  * 

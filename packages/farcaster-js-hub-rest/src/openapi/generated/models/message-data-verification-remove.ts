@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { FarcasterNetwork } from './farcaster-network';
+import { FarcasterNetwork } from './farcaster-network.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCommon } from './message-data-common';
+import { MessageDataCommon } from './message-data-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationRemoveAllOf } from './message-data-verification-remove-all-of';
+import { MessageDataVerificationRemoveAllOf } from './message-data-verification-remove-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type';
+import { MessageType } from './message-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { VerificationRemoveBody } from './verification-remove-body';
+import { VerificationRemoveBody } from './verification-remove-body.js';
 
 /**
  * @type MessageDataVerificationRemove

@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common';
+import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationRemove } from './message-data-verification-remove';
+import { MessageDataVerificationRemove } from './message-data-verification-remove.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { SignatureScheme } from './signature-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { VerificationRemoveAllOf } from './verification-remove-all-of';
+import { VerificationRemoveAllOf } from './verification-remove-all-of.js';
 
 /**
  * @type VerificationRemove

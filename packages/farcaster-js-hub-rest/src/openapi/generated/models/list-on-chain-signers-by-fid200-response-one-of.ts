@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventSigner } from './on-chain-event-signer';
+import { OnChainEventSigner } from './on-chain-event-signer.js';
 
 /**
  * 

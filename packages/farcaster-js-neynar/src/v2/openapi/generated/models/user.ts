@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ActiveStatus } from './active-status';
+import { ActiveStatus } from './active-status.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserProfile } from './user-profile';
+import { UserProfile } from './user-profile.js';
 
 /**
  * 

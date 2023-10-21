@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { NextCursor } from './next-cursor';
+import { NextCursor } from './next-cursor.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionsAndRecastsNotification } from './reactions-and-recasts-notification';
+import { ReactionsAndRecastsNotification } from './reactions-and-recasts-notification.js';
 
 /**
  * 

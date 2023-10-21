@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastRecasterResponseResult } from './cast-recaster-response-result';
+import { CastRecasterResponseResult } from './cast-recaster-response-result.js';
 
 /**
  * 
