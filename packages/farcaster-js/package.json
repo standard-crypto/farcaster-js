@@ -25,13 +25,15 @@
     "types/**"
   ],
   "scripts": {
-    "build": "yarn run -T tshy",
+    "build": "yarn run pre-tshy && yarn run -T tshy && yarn run post-tshy",
     "clean": "yarn clean:dist",
     "clean:dist": "rm -rf dist",
     "cz": "yarn run -T cz",
     "prepack": "cp ../../README.md .",
     "postpack": "rm README.md",
-    "publish": "yarn npm publish"
+    "publish": "yarn npm publish",
+    "pre-tshy": "mv tsconfig.json tsconfig.json.bak && mv tsconfig.build.json tsconfig.json",
+    "post-tshy": "mv tsconfig.json tsconfig.build.json && mv tsconfig.json.bak tsconfig.json"
   },
   "keywords": [
     "farcaster"

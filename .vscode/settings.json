@@ -10,4 +10,5 @@
   "typescript.preferences.quoteStyle": "single",
   "eslint.lintTask.enable": true,
   "files.insertFinalNewline": true,
+  "prettier.singleQuote": true
 }

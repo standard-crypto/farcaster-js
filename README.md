@@ -27,12 +27,15 @@ npm install axios @standard-crypto/farcaster-js-hub-rest
 
 ***Example:***
 
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/hubRest.ts) -->
+<!-- The below code snippet is automatically added from ./examples/hubRest.ts -->
 ```ts
-import { HubRestAPIClient } from '@standard-crypto/farcaster-js'
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 
 const client = new HubRestAPIClient();
 console.log(await client.getHubInfo());
 ```
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 See the [@standard-crypto/farcaster-js-hub-rest](./packages/farcaster-js-hub-rest/README.md)
 package for more info.
@@ -51,14 +54,21 @@ npm install axios @standard-crypto/farcaster-js-neynar
 
 ***Example:***
 
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynar.ts -->
 ```ts
-import { NeynarAPIClient } from '@standard-crypto/farcaster-js';
+import { NeynarAPIClient, NeynarV2 } from '@standard-crypto/farcaster-js';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');
 
-await client.v2.publishCast(signerUuid, 'This is a test cast.');
+// Publish cast
+const cast = await client.v2.publishCast(signerUuid, 'This is a test cast.');
+
+// React to cast
+await client.v2.reactToCast(signerUuid, NeynarV2.ReactionType.Like, cast.hash);
 ```
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ***Usage Versus Hub APIs:***
 
