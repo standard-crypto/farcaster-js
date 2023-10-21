@@ -21,8 +21,7 @@
   "files": [
     "package.json",
     "README.md",
-    "dist/**",
-    "types/**"
+    "dist/**"
   ],
   "scripts": {
     "build": "yarn run pre-tshy && yarn run -T tshy && yarn run post-tshy",

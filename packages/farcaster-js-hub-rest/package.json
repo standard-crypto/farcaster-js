@@ -36,8 +36,7 @@
   "files": [
     "package.json",
     "README.md",
-    "dist/**",
-    "types/**"
+    "dist/**"
   ],
   "scripts": {
     "build": "yarn run -T tshy",
