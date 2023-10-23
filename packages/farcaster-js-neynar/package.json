@@ -82,7 +82,7 @@
     "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/v1/openapi/generated && rm -rf src/v2/openapi/generated",
     "cz": "yarn run -T cz",
-    "fixup-imports": "yarn run -T fix-esm-import-path src && sed -i '' 's|models|models/index.js|' src/v1/openapi/generated/index.ts src/v2/openapi/generated/index.ts",
+    "fixup-imports": "yarn run -T fix-esm-import-path src && sed -i.bak 's|models\"|models/index.js\"|' src/v1/openapi/generated/index.ts src/v2/openapi/generated/index.ts && rm src/**/generated/index.ts.bak",
     "generate": "yarn run generate:openapi",
     "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript && yarn run fixup-imports",
