@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "engines": {
     "node": ">=18.12.0"
   },
@@ -23,9 +24,6 @@
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.5",
     "@commitlint/config-lerna-scopes": "^17.7.0",
-    "@rollup/plugin-commonjs": "^25.0.0",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
@@ -48,17 +46,15 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.0",
     "esm": "^3.2.25",
+    "fix-esm-import-path": "^1.4.0",
     "husky": "^8.0.3",
     "lerna": "^5.2.0",
     "markdown-magic": "^2.6.1",
     "pinst": "^3.0.0",
     "prettier": "^3.0.3",
-    "rollup": "^4.1.4",
-    "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.34.1",
     "semantic-release": "^22.0.5",
     "source-map-support": "^0.5.19",
+    "tshy": "1.5.0",
     "typescript": "^5.2.2"
   },
   "workspaces": {

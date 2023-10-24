@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Message } from './message';
+import { Message } from './message.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserNameProof } from './user-name-proof';
+import { UserNameProof } from './user-name-proof.js';
 
 /**
  * 

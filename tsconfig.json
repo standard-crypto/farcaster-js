@@ -9,8 +9,8 @@
       "@standard-crypto/farcaster-js-neynar": ["./packages/farcaster-js-neynar/src"],
       "@standard-crypto/farcaster-js-neynar/*": ["./packages/farcaster-js-neynar/src/*"]
     },
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "es2022",
     "strict": true,
     "sourceMap": true,
@@ -21,6 +21,5 @@
     "alwaysStrict": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
-    "noEmit": true,
   }
 }

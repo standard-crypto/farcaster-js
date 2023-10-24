@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionBody } from './reaction-body';
+import { ReactionBody } from './reaction-body.js';
 
 /**
  * 

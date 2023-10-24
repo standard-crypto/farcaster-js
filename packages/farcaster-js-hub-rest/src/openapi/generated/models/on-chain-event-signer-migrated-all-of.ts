@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignerMigratedEventBody } from './signer-migrated-event-body';
+import { SignerMigratedEventBody } from './signer-migrated-event-body.js';
 
 /**
  * 

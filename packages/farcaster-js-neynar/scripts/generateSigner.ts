@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { NeynarAPIClient, generateSignature } from '../src';
+import { NeynarAPIClient, generateSignature } from '../src/index.js';
 
 async function generateSigner(
   apiKey: string,

@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionType } from './reaction-type';
+import { ReactionType } from './reaction-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 
 /**
  * 

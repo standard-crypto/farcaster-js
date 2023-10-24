@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationAdd } from './message-data-verification-add';
+import { MessageDataVerificationAdd } from './message-data-verification-add.js';
 
 /**
  * 

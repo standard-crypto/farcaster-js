@@ -14,10 +14,10 @@
 
 
 
-export * from './apis/cast-api';
-export * from './apis/feed-api';
-export * from './apis/follow-api';
-export * from './apis/reaction-api';
-export * from './apis/signer-api';
-export * from './apis/user-api';
+export * from './apis/cast-api.js';
+export * from './apis/feed-api.js';
+export * from './apis/follow-api.js';
+export * from './apis/reaction-api.js';
+export * from './apis/signer-api.js';
+export * from './apis/user-api.js';
 

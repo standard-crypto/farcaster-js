@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastReactionsResponseResult } from './cast-reactions-response-result';
+import { CastReactionsResponseResult } from './cast-reactions-response-result.js';
 
 /**
  * 

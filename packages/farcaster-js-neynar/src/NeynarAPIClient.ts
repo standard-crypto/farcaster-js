@@ -1,7 +1,7 @@
-import { NeynarV1APIClient } from './v1/';
-import { NeynarV2APIClient } from './v2/';
+import { NeynarV1APIClient } from './v1/index.js';
+import { NeynarV2APIClient } from './v2/index.js';
 import { AxiosInstance } from 'axios';
-import { silentLogger, Logger } from './logger';
+import { silentLogger, Logger } from './logger.js';
 
 export class NeynarAPIClient {
   private readonly logger: Logger;

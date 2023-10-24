@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastId } from './cast-id';
+import { CastId } from './cast-id.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { Embed } from './embed';
+import { Embed } from './embed.js';
 
 /**
  * Adds a new Cast

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ErrorResponseMetadata } from './error-response-metadata';
+import { ErrorResponseMetadata } from './error-response-metadata.js';
 
 /**
  * 

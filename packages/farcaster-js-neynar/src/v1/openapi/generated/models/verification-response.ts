@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { VerificationResponseResult } from './verification-response-result';
+import { VerificationResponseResult } from './verification-response-result.js';
 
 /**
  * 

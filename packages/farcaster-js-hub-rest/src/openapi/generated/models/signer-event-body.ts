@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignerEventType } from './signer-event-type';
+import { SignerEventType } from './signer-event-type.js';
 
 /**
  * 

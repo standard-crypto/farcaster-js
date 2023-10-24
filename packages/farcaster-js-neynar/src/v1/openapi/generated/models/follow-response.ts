@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { FollowResponseResult } from './follow-response-result';
+import { FollowResponseResult } from './follow-response-result.js';
 
 /**
  * 

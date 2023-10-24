@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastAdd } from './cast-add';
+import { CastAdd } from './cast-add.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserDataType } from './user-data-type';
+import { UserDataType } from './user-data-type.js';
 
 /**
  * Adds metadata about a user

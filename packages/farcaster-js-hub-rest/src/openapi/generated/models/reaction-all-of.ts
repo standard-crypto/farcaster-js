@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReaction } from './message-data-reaction';
+import { MessageDataReaction } from './message-data-reaction.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { User200ResponseResult } from './user200-response-result';
+import { User200ResponseResult } from './user200-response-result.js';
 
 /**
  * 

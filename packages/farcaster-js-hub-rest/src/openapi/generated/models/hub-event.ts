@@ -15,34 +15,34 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEventMergeMessage } from './hub-event-merge-message';
+import { HubEventMergeMessage } from './hub-event-merge-message.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEventMergeOnChainEvent } from './hub-event-merge-on-chain-event';
+import { HubEventMergeOnChainEvent } from './hub-event-merge-on-chain-event.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEventMergeUsernameProof } from './hub-event-merge-username-proof';
+import { HubEventMergeUsernameProof } from './hub-event-merge-username-proof.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEventPruneMessage } from './hub-event-prune-message';
+import { HubEventPruneMessage } from './hub-event-prune-message.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEventRevokeMessage } from './hub-event-revoke-message';
+import { HubEventRevokeMessage } from './hub-event-revoke-message.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MergeMessageBody } from './merge-message-body';
+import { MergeMessageBody } from './merge-message-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MergeOnChainEventBody } from './merge-on-chain-event-body';
+import { MergeOnChainEventBody } from './merge-on-chain-event-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MergeUserNameProofBody } from './merge-user-name-proof-body';
+import { MergeUserNameProofBody } from './merge-user-name-proof-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { PruneMessageBody } from './prune-message-body';
+import { PruneMessageBody } from './prune-message-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { RevokeMessageBody } from './revoke-message-body';
+import { RevokeMessageBody } from './revoke-message-body.js';
 
 /**
  * @type HubEvent

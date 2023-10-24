@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageAllOf } from './message-all-of';
+import { MessageAllOf } from './message-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageAllOfData } from './message-all-of-data';
+import { MessageAllOfData } from './message-all-of-data.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common';
+import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { SignatureScheme } from './signature-scheme.js';
 
 /**
  * @type Message

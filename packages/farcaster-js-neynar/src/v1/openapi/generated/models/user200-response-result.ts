@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 
 /**
  * 

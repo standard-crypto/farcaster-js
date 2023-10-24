@@ -13,22 +13,22 @@
  */
 
 
-import type { Configuration } from '../configuration';
+import type { Configuration } from '../configuration.js';
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common.js';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { ListReactionsByCast200Response } from '../models';
+import { ListReactionsByCast200Response } from '../models/index.js';
 // @ts-ignore
-import { Reaction } from '../models';
+import { Reaction } from '../models/index.js';
 // @ts-ignore
-import { ReactionType } from '../models';
+import { ReactionType } from '../models/index.js';
 /**
  * ReactionsApi - axios parameter creator
  * @export

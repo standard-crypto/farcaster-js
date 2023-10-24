@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Reaction } from './reaction';
+import { Reaction } from './reaction.js';
 
 /**
  * 

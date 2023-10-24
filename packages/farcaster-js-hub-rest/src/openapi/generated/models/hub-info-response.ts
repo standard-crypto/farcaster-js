@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { DbStats } from './db-stats';
+import { DbStats } from './db-stats.js';
 
 /**
  * 

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HubEvent } from './hub-event';
+import { HubEvent } from './hub-event.js';
 
 /**
  * 

@@ -15,16 +15,16 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastAuthor } from './cast-author';
+import { CastAuthor } from './cast-author.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastParentAuthor } from './cast-parent-author';
+import { CastParentAuthor } from './cast-parent-author.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastType } from './cast-type';
+import { CastType } from './cast-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbedUrl } from './embed-url';
+import { EmbedUrl } from './embed-url.js';
 
 /**
  * 

@@ -15,28 +15,28 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Cast } from './cast';
+import { Cast } from './cast.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastNotificationType } from './cast-notification-type';
+import { CastNotificationType } from './cast-notification-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastParentAuthor } from './cast-parent-author';
+import { CastParentAuthor } from './cast-parent-author.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastWithInteractionsAllOf } from './cast-with-interactions-all-of';
+import { CastWithInteractionsAllOf } from './cast-with-interactions-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastWithInteractionsReactions } from './cast-with-interactions-reactions';
+import { CastWithInteractionsReactions } from './cast-with-interactions-reactions.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastWithInteractionsReplies } from './cast-with-interactions-replies';
+import { CastWithInteractionsReplies } from './cast-with-interactions-replies.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbeddedCast } from './embedded-cast';
+import { EmbeddedCast } from './embedded-cast.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 
 /**
  * @type CastWithInteractions

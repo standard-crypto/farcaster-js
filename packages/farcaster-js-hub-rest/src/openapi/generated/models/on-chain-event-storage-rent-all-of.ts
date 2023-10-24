@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { StorageRentEventBody } from './storage-rent-event-body';
+import { StorageRentEventBody } from './storage-rent-event-body.js';
 
 /**
  * 

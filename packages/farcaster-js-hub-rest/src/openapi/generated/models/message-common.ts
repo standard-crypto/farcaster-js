@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme';
+import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme';
+import { SignatureScheme } from './signature-scheme.js';
 
 /**
  * 

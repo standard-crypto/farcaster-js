@@ -1175,14 +1175,15 @@ components:
       type: object
       properties:
         to:
-          pattern: ^0x[a-fA-F0-9]{40}$
+          pattern: ^0x[a-fA-F0-9]*$
           type: string
+          example: '0x00000000fcd5a8e45785c8a4b9a718c9348e4f18'
         eventType:
           $ref: '#/components/schemas/IdRegisterEventType'
         from:
           pattern: ^0x[a-fA-F0-9]*$
           type: string
-          example: 0x
+          example: '0x00000000fcd5a8e45785c8a4b9a718c9348e4f18'
         recoveryAddress:
           pattern: ^0x[a-fA-F0-9]*$
           type: string

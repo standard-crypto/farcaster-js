@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastWithInteractions } from './cast-with-interactions';
+import { CastWithInteractions } from './cast-with-interactions.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { NextCursor } from './next-cursor';
+import { NextCursor } from './next-cursor.js';
 
 /**
  * 

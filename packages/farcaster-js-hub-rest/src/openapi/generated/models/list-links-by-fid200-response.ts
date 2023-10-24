@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkAdd } from './link-add';
+import { LinkAdd } from './link-add.js';
 
 /**
  * 

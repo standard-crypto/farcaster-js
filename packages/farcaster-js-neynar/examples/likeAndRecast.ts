@@ -1,4 +1,5 @@
-import { NeynarAPIClient, ReactionType } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+import { ReactionType } from '@standard-crypto/farcaster-js-neynar/v2';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');

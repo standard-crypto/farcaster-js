@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventCommon } from './on-chain-event-common';
+import { OnChainEventCommon } from './on-chain-event-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventStorageRentAllOf } from './on-chain-event-storage-rent-all-of';
+import { OnChainEventStorageRentAllOf } from './on-chain-event-storage-rent-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { StorageRentEventBody } from './storage-rent-event-body';
+import { StorageRentEventBody } from './storage-rent-event-body.js';
 
 /**
  * @type OnChainEventStorageRent

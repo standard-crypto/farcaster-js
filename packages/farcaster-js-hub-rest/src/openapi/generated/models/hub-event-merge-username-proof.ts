@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MergeUserNameProofBody } from './merge-user-name-proof-body';
+import { MergeUserNameProofBody } from './merge-user-name-proof-body.js';
 
 /**
  * 

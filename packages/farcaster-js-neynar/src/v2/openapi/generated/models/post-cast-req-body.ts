@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { EmbeddedCast } from './embedded-cast';
+import { EmbeddedCast } from './embedded-cast.js';
 
 /**
  * 

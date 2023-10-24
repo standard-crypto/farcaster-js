@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProfileUrlPfp } from './profile-url-pfp';
+import { ProfileUrlPfp } from './profile-url-pfp.js';
 
 /**
  * 

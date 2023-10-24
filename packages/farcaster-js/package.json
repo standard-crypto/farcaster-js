@@ -1,14 +1,7 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "A collection of tools for interacting with the Farcaster social network.",
-  "main": "./dist/cjs/index.cjs",
-  "module": "./dist/esm/index.mjs",
-  "exports": {
-    "require": "./dist/cjs/index.cjs",
-    "import": "./dist/esm/index.mjs"
-  },
-  "types": "./types/index.d.ts",
   "type": "module",
   "repository": {
     "url": "https://github.com/standard-crypto/farcaster-js",
@@ -28,22 +21,44 @@
   "files": [
     "package.json",
     "README.md",
-    "dist/**",
-    "types/**"
+    "dist/**"
   ],
   "scripts": {
-    "build": "yarn run clean:dist && yarn run -T rollup --config=../../rollup.config.js --bundleConfigAsCjs",
+    "build": "yarn run pre-tshy && yarn run -T tshy && yarn run post-tshy",
     "clean": "yarn clean:dist",
-    "clean:dist": "rm -rf dist types",
+    "clean:dist": "rm -rf dist",
     "cz": "yarn run -T cz",
     "prepack": "cp ../../README.md .",
     "postpack": "rm README.md",
-    "publish": "yarn npm publish"
+    "publish": "yarn npm publish",
+    "pre-tshy": "mv tsconfig.json tsconfig.json.bak && mv tsconfig.build.json tsconfig.json",
+    "post-tshy": "mv tsconfig.json tsconfig.build.json && mv tsconfig.json.bak tsconfig.json"
   },
   "keywords": [
     "farcaster"
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    }
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/commonjs/index.d.ts"
 }

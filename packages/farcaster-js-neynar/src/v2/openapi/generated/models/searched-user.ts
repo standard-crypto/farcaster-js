@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ActiveStatus } from './active-status';
+import { ActiveStatus } from './active-status.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProfileUrl } from './profile-url';
+import { ProfileUrl } from './profile-url.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProfileUrlPfp } from './profile-url-pfp';
+import { ProfileUrlPfp } from './profile-url-pfp.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { User } from './user';
+import { User } from './user.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { UserProfile } from './user-profile';
+import { UserProfile } from './user-profile.js';
 
 /**
  * @type SearchedUser

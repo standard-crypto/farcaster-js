@@ -13,24 +13,24 @@
  */
 
 
-import type { Configuration } from '../configuration';
+import type { Configuration } from '../configuration.js';
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common.js';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { ListOnChainEventsByFid200Response } from '../models';
+import { ListOnChainEventsByFid200Response } from '../models/index.js';
 // @ts-ignore
-import { ListOnChainSignersByFid200Response } from '../models';
+import { ListOnChainSignersByFid200Response } from '../models/index.js';
 // @ts-ignore
-import { OnChainEventIdRegister } from '../models';
+import { OnChainEventIdRegister } from '../models/index.js';
 // @ts-ignore
-import { OnChainEventType } from '../models';
+import { OnChainEventType } from '../models/index.js';
 /**
  * OnChainEventsApi - axios parameter creator
  * @export

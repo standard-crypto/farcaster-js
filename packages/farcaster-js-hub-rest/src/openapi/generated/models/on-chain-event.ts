@@ -15,28 +15,28 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { IdRegisterEventBody } from './id-register-event-body';
+import { IdRegisterEventBody } from './id-register-event-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventIdRegister } from './on-chain-event-id-register';
+import { OnChainEventIdRegister } from './on-chain-event-id-register.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventSigner } from './on-chain-event-signer';
+import { OnChainEventSigner } from './on-chain-event-signer.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventSignerMigrated } from './on-chain-event-signer-migrated';
+import { OnChainEventSignerMigrated } from './on-chain-event-signer-migrated.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OnChainEventStorageRent } from './on-chain-event-storage-rent';
+import { OnChainEventStorageRent } from './on-chain-event-storage-rent.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignerEventBody } from './signer-event-body';
+import { SignerEventBody } from './signer-event-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignerMigratedEventBody } from './signer-migrated-event-body';
+import { SignerMigratedEventBody } from './signer-migrated-event-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { StorageRentEventBody } from './storage-rent-event-body';
+import { StorageRentEventBody } from './storage-rent-event-body.js';
 
 /**
  * @type OnChainEvent

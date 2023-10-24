@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
-import { Logger, silentLogger } from './logger';
+import { Logger, silentLogger } from './logger.js';
 import type { SetRequired } from 'type-fest';
 import {
   CastId,
@@ -35,7 +35,7 @@ import {
   OnChainEventStorageRent,
   HubEventsApi,
   HubEvent,
-} from './openapi';
+} from './openapi/index.js';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
@@ -47,7 +47,7 @@ export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
         ? OnChainEventStorageRent
         : never;
 
-export type HubInfoResponse<T> = T extends true
+export type HubInfo<T> = T extends true
   ? SetRequired<OpenapiHubInfoResponse, 'dbStats'>
   : OpenapiHubInfoResponse;
 
@@ -128,9 +128,9 @@ export class HubRestAPIClient {
    */
   public async getHubInfo<T extends (boolean | undefined)>({
     includeDbStats = false,
-  }: {includeDbStats?: T} = {}): Promise<HubInfoResponse<T>> {
+  }: {includeDbStats?: T} = {}): Promise<HubInfo<T>> {
     const response = await this.apis.info.getInfo({ dbstats: includeDbStats });
-    return response.data as HubInfoResponse<T>;
+    return response.data as HubInfo<T>;
   }
 
   /**

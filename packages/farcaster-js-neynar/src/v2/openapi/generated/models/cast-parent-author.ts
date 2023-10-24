@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CastParentAuthorAllOf } from './cast-parent-author-all-of';
+import { CastParentAuthorAllOf } from './cast-parent-author-all-of.js';
 
 /**
  * @type CastParentAuthor
