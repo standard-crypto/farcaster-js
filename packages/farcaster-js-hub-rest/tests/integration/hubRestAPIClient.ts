@@ -307,8 +307,8 @@ describe('HubWebClient', function() {
       it('can fetch multiple reactions by cast', async function() {
         const pageSize = 1;
         const reactions = client.listReactionsByCast(
-          1795,
-          '0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0',
+          userGaviFid,
+          '0x69ab635a1111c6d83e3e6043109e831328161901',
           ReactionType.Like,
           {
             pageSize,
