@@ -1,0 +1,4 @@
+require: ['ts-node/register']
+extensions: ["ts"]
+spec: ["tests/**/*.ts"]
+loader: ts-node/esm

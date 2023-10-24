@@ -6,9 +6,9 @@ import yaml from 'yaml';
 import type { OpenAPIV3 } from 'openapi-types'; // cspell:disable-line
 import type { OverrideProperties } from 'type-fest';
 
-import { HubRestAPIClient } from '../../src';
-import { Logger, silentLogger } from '../../src/logger';
-import { expectDefinedNonNull } from '../utils';
+import { HubRestAPIClient } from '../../src/index.js';
+import { Logger, silentLogger } from '../../src/logger.js';
+import { expectDefinedNonNull } from '../utils.js';
 import {
   GetUserDataByFid200ResponseOneOf,
   HubEvent,
@@ -17,8 +17,8 @@ import {
   OnChainEventType,
   ReactionType,
   UserDataType,
-} from '../../src/openapi';
-import type { paths as SchemaPaths } from '../../src/openapi/generated/schema';
+} from '../../src/openapi/index.js';
+import type { paths as SchemaPaths } from '../../src/openapi/generated/schema.js';
 
 chai.use(chaiAsPromised);
 
@@ -56,7 +56,7 @@ describe('HubWebClient', function() {
 
     it('validates against OpenAPI spec', async function() {
       const info = await client.apis.info.getInfo({ dbstats: true });
-      const validator = new OpenAPIResponseValidator({
+      const validator = new OpenAPIResponseValidator.default({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         responses: apiSpec.paths['/v1/info'].get.responses as any,
         components: apiSpec.components,
@@ -80,7 +80,7 @@ describe('HubWebClient', function() {
           fid: 2,
           hash: '0xd2b1ddc6c88e865a33cb1a565e0058d757042974',
         });
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/castById'].get.responses as any,
           components: apiSpec.components,
@@ -112,7 +112,7 @@ describe('HubWebClient', function() {
           fid: userGaviFid,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/castsByFid'].get.responses as any,
           components: apiSpec.components,
@@ -156,7 +156,7 @@ describe('HubWebClient', function() {
           hash: '0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9',
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/castsByParent'].get.responses as any,
           components: apiSpec.components,
@@ -198,7 +198,7 @@ describe('HubWebClient', function() {
           fid: 6833,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/castsByMention'].get.responses as any,
           components: apiSpec.components,
@@ -227,7 +227,7 @@ describe('HubWebClient', function() {
           targetHash: '0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0',
           reactionType: ReactionType.Like,
         });
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           components: apiSpec.components,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/reactionById'].get.responses as any,
@@ -264,7 +264,7 @@ describe('HubWebClient', function() {
           reactionType: ReactionType.Like,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/reactionsByFid'].get.responses as any,
           components: apiSpec.components,
@@ -295,7 +295,7 @@ describe('HubWebClient', function() {
           reactionType: ReactionType.Like,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/reactionsByCast'].get.responses as any,
           components: apiSpec.components,
@@ -330,7 +330,7 @@ describe('HubWebClient', function() {
           reactionType: ReactionType.Like,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses:
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             apiSpec.paths['/v1/reactionsByTarget'].get.responses as any,
@@ -367,7 +367,7 @@ describe('HubWebClient', function() {
           targetFid: 2,
           linkType: LinkType.Follow,
         });
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           components: apiSpec.components,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/linkById'].get.responses as any,
@@ -393,7 +393,7 @@ describe('HubWebClient', function() {
           fid: 6833,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/linksByFid'].get.responses as any,
           components: apiSpec.components,
@@ -418,7 +418,7 @@ describe('HubWebClient', function() {
           targetFid: 6833,
         });
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/linksByTargetFid'].get.responses as any,
           components: apiSpec.components,
@@ -445,7 +445,7 @@ describe('HubWebClient', function() {
           fid: 6833,
           userDataType: UserDataType.Username,
         });
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           components: apiSpec.components,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/userDataByFid'].get.responses as any,
@@ -488,7 +488,7 @@ describe('HubWebClient', function() {
         });
         expect((response.data as GetUserDataByFid200ResponseOneOf).messages).to
           .not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           components: apiSpec.components,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/userDataByFid'].get.responses as any,
@@ -518,7 +518,7 @@ describe('HubWebClient', function() {
       it('validates against OpenAPI spec', async function() {
         const response = await client.apis.fids.listFids();
         expect(response.data.fids).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/fids'].get.responses as any,
           components: apiSpec.components,
@@ -547,7 +547,7 @@ describe('HubWebClient', function() {
           fid: 6833,
         });
         expect(response.data).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses:
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             apiSpec.paths['/v1/storageLimitsByFid'].get.responses as any,
@@ -570,7 +570,7 @@ describe('HubWebClient', function() {
         const response = await client.apis.usernames.getUsernameProof({
           name: 'gavi',
         });
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses:
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             apiSpec.paths['/v1/userNameProofByName'].get.responses as any,
@@ -592,7 +592,7 @@ describe('HubWebClient', function() {
           fid: 2,
         });
         expect(response.data.proofs).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses:
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             apiSpec.paths['/v1/userNameProofsByFid'].get.responses as any,
@@ -613,7 +613,7 @@ describe('HubWebClient', function() {
           },
         );
         expect(response.data.messages).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses:
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             apiSpec.paths['/v1/verificationsByFid'].get.responses as any,
@@ -641,7 +641,7 @@ describe('HubWebClient', function() {
               eventType,
             });
           expect(response.data.events).to.not.be.empty;
-          const validator = new OpenAPIResponseValidator({
+          const validator = new OpenAPIResponseValidator.default({
             responses:
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               apiSpec.paths['/v1/onChainEventsByFid'].get.responses as any,
@@ -708,7 +708,7 @@ describe('HubWebClient', function() {
               '0x0852c07b5695ff94138b025e3f9b4788e06133f04e254f0ea0eb85a06e999cdd',
           });
         expect(response.data).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses:
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             apiSpec.paths['/v1/onChainSignersByFid'].get.responses as any,
@@ -755,7 +755,7 @@ describe('HubWebClient', function() {
             address: '0x74232bf61e994655592747e20bdf6fa9b9476f79',
           });
         expect(response.data).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           responses: apiSpec.paths['/v1/onChainIdRegistryEventByAddress'].get
             .responses as any, // eslint-disable-line @typescript-eslint/no-explicit-any
           components: apiSpec.components,
@@ -786,7 +786,7 @@ describe('HubWebClient', function() {
       it('validates against OpenAPI spec', async function() {
         const response = await client.apis.hubEvents.listEvents();
         expect(response.data.events).to.not.be.empty;
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/events'].get.responses as any,
           components: apiSpec.components,
@@ -818,7 +818,7 @@ describe('HubWebClient', function() {
         const response = await client.apis.hubEvents.getEventById({
           eventId,
         });
-        const validator = new OpenAPIResponseValidator({
+        const validator = new OpenAPIResponseValidator.default({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/eventById'].get.responses as any,
           components: apiSpec.components,

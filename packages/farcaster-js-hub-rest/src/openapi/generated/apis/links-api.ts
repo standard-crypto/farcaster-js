@@ -22,13 +22,13 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { LinkAdd } from '../models';
+import { LinkAdd } from '../models/index.js';
 // @ts-ignore
-import { LinkType } from '../models';
+import { LinkType } from '../models/index.js';
 // @ts-ignore
-import { ListLinksByFid200Response } from '../models';
+import { ListLinksByFid200Response } from '../models/index.js';
 /**
  * LinksApi - axios parameter creator
  * @export

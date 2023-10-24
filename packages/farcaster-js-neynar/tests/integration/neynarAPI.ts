@@ -1,15 +1,15 @@
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import { expectDefinedNonNull } from '../utils';
-import { Logger, silentLogger } from '../../src/logger';
+import { expectDefinedNonNull } from '../utils.js';
+import { Logger, silentLogger } from '../../src/logger.js';
 import {
   Cast,
   PostCastResponseCast,
   EmbedUrl,
   ReactionType,
   NeynarV2APIClient,
-} from '../../src/v2';
-import { NeynarAPIClient } from '../../src/';
+} from '../../src/v2/index.js';
+import { NeynarAPIClient } from '../../src/index.js';
 
 chai.use(chaiAsPromised);
 

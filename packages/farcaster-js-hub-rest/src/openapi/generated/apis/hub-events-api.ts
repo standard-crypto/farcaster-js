@@ -22,11 +22,11 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { HubEvent } from '../models';
+import { HubEvent } from '../models/index.js';
 // @ts-ignore
-import { ListEvents200Response } from '../models';
+import { ListEvents200Response } from '../models/index.js';
 /**
  * HubEventsApi - axios parameter creator
  * @export

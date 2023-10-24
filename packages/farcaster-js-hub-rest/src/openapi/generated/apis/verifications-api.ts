@@ -22,9 +22,9 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { ListVerificationsByFid200Response } from '../models';
+import { ListVerificationsByFid200Response } from '../models/index.js';
 /**
  * VerificationsApi - axios parameter creator
  * @export

@@ -43,7 +43,8 @@
     {
       "files": ["**/tests/**"],
       "rules": {
-        "@typescript-eslint/no-unused-expressions": "off"
+        "@typescript-eslint/no-unused-expressions": "off",
+        "new-cap": "off"
       }
     }, {
       "files": ["**/examples/**"],

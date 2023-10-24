@@ -22,11 +22,11 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { UserNameProof } from '../models';
+import { UserNameProof } from '../models/index.js';
 // @ts-ignore
-import { UsernameProofsResponse } from '../models';
+import { UsernameProofsResponse } from '../models/index.js';
 /**
  * UsernamesApi - axios parameter creator
  * @export

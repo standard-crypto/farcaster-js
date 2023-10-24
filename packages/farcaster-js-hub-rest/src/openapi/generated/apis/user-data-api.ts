@@ -22,11 +22,11 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { GetUserDataByFid200Response } from '../models';
+import { GetUserDataByFid200Response } from '../models/index.js';
 // @ts-ignore
-import { UserDataType } from '../models';
+import { UserDataType } from '../models/index.js';
 /**
  * UserDataApi - axios parameter creator
  * @export

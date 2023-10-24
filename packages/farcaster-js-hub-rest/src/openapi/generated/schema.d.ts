@@ -253,9 +253,10 @@ export interface components {
       hubOperatorFid: number;
     };
     IdRegisterEventBody: {
+      /** @example 0x00000000fcd5a8e45785c8a4b9a718c9348e4f18 */
       to: string;
       eventType: components["schemas"]["IdRegisterEventType"];
-      /** @example 0x */
+      /** @example 0x00000000fcd5a8e45785c8a4b9a718c9348e4f18 */
       from: string;
       /** @example 0x00000000fcd5a8e45785c8a4b9a718c9348e4f18 */
       recoveryAddress: string;

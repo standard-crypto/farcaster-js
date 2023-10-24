@@ -22,15 +22,15 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
-import { ErrorResponse } from '../models';
+import { ErrorResponse } from '../models/index.js';
 // @ts-ignore
-import { ListOnChainEventsByFid200Response } from '../models';
+import { ListOnChainEventsByFid200Response } from '../models/index.js';
 // @ts-ignore
-import { ListOnChainSignersByFid200Response } from '../models';
+import { ListOnChainSignersByFid200Response } from '../models/index.js';
 // @ts-ignore
-import { OnChainEventIdRegister } from '../models';
+import { OnChainEventIdRegister } from '../models/index.js';
 // @ts-ignore
-import { OnChainEventType } from '../models';
+import { OnChainEventType } from '../models/index.js';
 /**
  * OnChainEventsApi - axios parameter creator
  * @export
