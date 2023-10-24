@@ -21,7 +21,7 @@
     "postpack": "pinst --enable"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
+    "@commitlint/cli": "^18.0.0",
     "@commitlint/config-conventional": "^17.6.5",
     "@commitlint/config-lerna-scopes": "^17.7.0",
     "@semantic-release/changelog": "^6.0.3",
