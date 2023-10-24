@@ -2870,7 +2870,7 @@ __metadata:
   resolution: "@standard-crypto/farcaster-js-hub-rest@workspace:packages/farcaster-js-hub-rest"
   dependencies:
     "@openapitools/openapi-generator-cli": "npm:^2.7.0"
-    "@types/chai": "npm:^4.3.5"
+    "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/prompts": "npm:^2.4.4"
     axios: "npm:~1.5.1"
@@ -2896,7 +2896,7 @@ __metadata:
   resolution: "@standard-crypto/farcaster-js-neynar@workspace:packages/farcaster-js-neynar"
   dependencies:
     "@openapitools/openapi-generator-cli": "npm:^2.7.0"
-    "@types/chai": "npm:^4.3.5"
+    "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/prompts": "npm:^2.4.4"
     axios: "npm:~1.5.1"
@@ -3035,10 +3035,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:*, @types/chai@npm:^4.3.5":
+"@types/chai@npm:*":
   version: 4.3.8
   resolution: "@types/chai@npm:4.3.8"
   checksum: 7ff60300cdc02c0756d4f888171e51155d7fb7c10e583cf66f9fb16ea761caf8595cfabc112081ab109ed844aad20672f2b0a03dc4e7581e1fba977fd055f4f1
+  languageName: node
+  linkType: hard
+
+"@types/chai@npm:^4.3.9":
+  version: 4.3.9
+  resolution: "@types/chai@npm:4.3.9"
+  checksum: 3c20a208840dfc15df15c555074bec14d8be7ed2c825f139250f99f944cf8f75b47e9741877688be8baa68d41c197c44e72baebcaa808fe81ae1234264b5f86e
   languageName: node
   linkType: hard
 

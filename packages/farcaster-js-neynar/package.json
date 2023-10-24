@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.7.0",
-    "@types/chai": "^4.3.5",
+    "@types/chai": "^4.3.9",
     "@types/chai-as-promised": "^7.1.5",
     "@types/prompts": "^2.4.4",
     "axios": "~1.5.1",
