@@ -92,9 +92,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-lerna-scopes@npm:^17.7.0":
-  version: 17.7.0
-  resolution: "@commitlint/config-lerna-scopes@npm:17.7.0"
+"@commitlint/config-lerna-scopes@npm:^18.1.0":
+  version: 18.1.0
+  resolution: "@commitlint/config-lerna-scopes@npm:18.1.0"
   dependencies:
     "@lerna/project": "npm:^6.0.0"
     glob: "npm:^8.0.3"
@@ -105,7 +105,7 @@ __metadata:
   peerDependenciesMeta:
     lerna:
       optional: true
-  checksum: 3c5903a2147f3cef6ec06d3384805739d97a6ae6cf5198ec2ee3871674362f255f6fa01878e3d92c5cf83ed28fa32401d34fae6775c0c2d7b3d6591550936cf1
+  checksum: 172d100013f9d32825598fb2bedf9961900991b3f289e7595c15a8fbbdef765c67cca34cc902f46c59708f1f8837ac435955daad7c55a2050b47fa4f07718565
   languageName: node
   linkType: hard
 
@@ -6400,7 +6400,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^18.2.0"
     "@commitlint/config-conventional": "npm:^17.6.5"
-    "@commitlint/config-lerna-scopes": "npm:^17.7.0"
+    "@commitlint/config-lerna-scopes": "npm:^18.1.0"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/commit-analyzer": "npm:^9.0.2"
     "@semantic-release/git": "npm:^10.0.1"
