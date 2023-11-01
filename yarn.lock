@@ -2949,7 +2949,7 @@ __metadata:
     "@openapitools/openapi-generator-cli": "npm:^2.7.0"
     "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
-    "@types/prompts": "npm:^2.4.4"
+    "@types/prompts": "npm:^2.4.7"
     axios: "npm:~1.5.1"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
@@ -2975,7 +2975,7 @@ __metadata:
     "@openapitools/openapi-generator-cli": "npm:^2.7.0"
     "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
-    "@types/prompts": "npm:^2.4.4"
+    "@types/prompts": "npm:^2.4.7"
     axios: "npm:~1.5.1"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
@@ -3258,13 +3258,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prompts@npm:^2.4.4":
-  version: 2.4.6
-  resolution: "@types/prompts@npm:2.4.6"
+"@types/prompts@npm:^2.4.7":
+  version: 2.4.7
+  resolution: "@types/prompts@npm:2.4.7"
   dependencies:
     "@types/node": "npm:*"
     kleur: "npm:^3.0.3"
-  checksum: 0e2c2d1c22101fb8dcb046e75eb758627b8046af02ab66f37a8b157dc7a22d1aaea6cc86efe099898196519b0d51873480964f96e41ca7ab441d386506bb1d83
+  checksum: be66745772ebd52ed97e35152b38ac47c21dde64b13cda1bc42e8177a89036742ffc4def1013d0fa718ad0e093868da417412b74cc798a0ba1252449aacf3948
   languageName: node
   linkType: hard
 
