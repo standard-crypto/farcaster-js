@@ -48,7 +48,7 @@
     "esm": "^3.2.25",
     "fix-esm-import-path": "^1.4.0",
     "husky": "^8.0.3",
-    "lerna": "^5.2.0",
+    "lerna": "^7.4.2",
     "markdown-magic": "^2.6.1",
     "pinst": "^3.0.0",
     "prettier": "^3.0.3",
