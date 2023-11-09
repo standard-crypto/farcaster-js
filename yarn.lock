@@ -2164,7 +2164,7 @@ __metadata:
     openapi-types: "npm:^12.1.3"
     openapi-typescript: "npm:^6.7.0"
     ts-mocha: "npm:^10.0.0"
-    type-fest: "npm:^4.3.3"
+    type-fest: "npm:^4.7.1"
     typedoc: "npm:^0.25.2"
     typedoc-plugin-markdown: "npm:^3.15.2"
     yaml: "npm:^2.3.2"
@@ -2191,7 +2191,7 @@ __metadata:
     openapi-typescript: "npm:^6.7.0"
     ts-mocha: "npm:^10.0.0"
     ts-node: "npm:^10.9.1"
-    type-fest: "npm:^4.3.3"
+    type-fest: "npm:^4.7.1"
     typedoc: "npm:^0.25.2"
     typedoc-plugin-markdown: "npm:^3.15.2"
     viem: "npm:^1.16.2"
@@ -12518,10 +12518,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.2.0, type-fest@npm:^4.3.3":
+"type-fest@npm:^4.2.0":
   version: 4.4.0
   resolution: "type-fest@npm:4.4.0"
   checksum: 87167feff91fede1095624b2c7505e013a9545f2d8113b1add3e74f1f1796d964ead8da134ca87ebd48c6a9e13ee72121a6fc8076f2a4aa283199b2fa0fe1ca4
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.7.1":
+  version: 4.7.1
+  resolution: "type-fest@npm:4.7.1"
+  checksum: e2cae05a6a5be98e5e5cfecee8782db1eb74594ceb1d85b5bfdb9b9ca5e236342f97435d3ff9edddd8eb92898af7f13555f85d1a53a69c362b0f56f2cceb8151
   languageName: node
   linkType: hard
 
