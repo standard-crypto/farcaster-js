@@ -4,7 +4,10 @@
 yarn workspaces foreach --all run clean:generated
 
 # recreate generated files
-yarn workspaces foreach --all run generate
+yarn workspaces foreach --all run generate:openapi-axios
+yarn workspaces foreach --all run generate:openapi-typescript
+yarn workspaces foreach --all run fixup-imports
+yarn workspaces foreach --all run generate:docs
 git add ':(glob)**/generated/**'
 git add ':(glob)**/README.md' ':(glob)**/docs/**'
 

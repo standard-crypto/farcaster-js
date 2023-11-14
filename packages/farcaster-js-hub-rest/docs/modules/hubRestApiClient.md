@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L50)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:60](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L60)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:40](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L40)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:50](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L50)
 
 ## Variables
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:54](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L54)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:64](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L64)

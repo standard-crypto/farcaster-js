@@ -11,10 +11,14 @@
   "bugs": "https://github.com/standard-crypto/farcaster-js/issues",
   "author": "Gavi Galloway",
   "license": "MIT",
+  "dependencies": {
+    "@farcaster/core": "^0.13.1"
+  },
   "peerDependencies": {
     "axios": "~1.5.1"
   },
   "devDependencies": {
+    "@noble/hashes": "^1.3.2",
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "@types/chai": "^4.3.9",
     "@types/chai-as-promised": "^7.1.5",
@@ -22,6 +26,7 @@
     "axios": "~1.5.1",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
+    "dotenv": "^16.3.1",
     "markdown-magic": "^2.6.1",
     "mocha": "^10.2.0",
     "openapi-response-validator": "^12.1.3",
@@ -48,7 +53,7 @@
     "generate": "yarn run generate:openapi && yarn run generate:docs",
     "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript && yarn run fixup-imports",
-    "generate:openapi-axios": "openapi-generator-cli generate --global-property apis,models,supportingFiles=index.ts:api.ts:configuration.ts:base.ts:common.ts -i src/openapi/spec.yaml -g typescript-axios -o src/openapi/generated --config openapi-generator-config.json",
+    "generate:openapi-axios": "TS_POST_PROCESS_FILE=./src/openapi/post-process.sh openapi-generator-cli generate --global-property apis,models,supportingFiles=index.ts:api.ts:configuration.ts:base.ts:common.ts -i src/openapi/spec.yaml -g typescript-axios -o src/openapi/generated --config openapi-generator-config.json",
     "generate:openapi-typescript": "openapi-typescript src/openapi/spec.yaml -o src/openapi/generated/schema.d.ts",
     "test": "yarn test:integration",
     "test:integration": "mocha",

@@ -19,10 +19,15 @@ import {
   UserDataType,
 } from '../../src/openapi/index.js';
 import type { paths as SchemaPaths } from '../../src/openapi/generated/schema.js';
+import { hexToBytes } from '@noble/hashes/utils';
+import { Message, NobleEd25519Signer, makeCastAdd } from '@farcaster/core';
 
 chai.use(chaiAsPromised);
 
 const userGaviFid = 69; // @gavi
+const userGaviBotFid = 6365; // @gavi
+
+const signerPrivateKey = process.env.INTEGRATION_TEST_HUB_SIGNER_PRIVATE_KEY;
 
 const testLogger: Logger = {
   info: silentLogger.info,
@@ -42,6 +47,7 @@ describe('HubWebClient', function() {
   before('setup', async function() {
     client = new HubRestAPIClient({
       logger: testLogger,
+      hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281',
     });
 
     const apiSpecYaml = await fs.readFile(
@@ -50,6 +56,59 @@ describe('HubWebClient', function() {
     );
     apiSpec = yaml.parse(apiSpecYaml);
   });
+
+  if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
+    // eslint-disable-next-line no-only-tests/no-only-tests
+    describe('SubmitMessage API', function() {
+      // Set up the signer
+      const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
+      const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
+      let submitMessageCastHash: string | undefined;
+      it('validates against OpenAPI spec', async function() {
+        const msg = await makeCastAdd({
+          text: 'This is a test cast submitted by directly invoking the SubmitMessage API',
+          embeds: [],
+          embedsDeprecated: [],
+          mentions: [],
+          mentionsPositions: [],
+        }, {
+          fid: userGaviBotFid,
+          network: 1,
+        }, ed25519Signer);
+        if (msg.isErr()) {
+          throw msg.error;
+        }
+        const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+
+        const submitMessageResp = await client.apis.submitMessage.submitMessage({ body: messageBytes });
+        const validator = new OpenAPIResponseValidator.default({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          responses: apiSpec.paths['/v1/submitMessage'].post.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, submitMessageResp.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+        submitMessageCastHash = submitMessageResp.data.hash;
+      });
+      let submittedCastHash: string | undefined;
+      it('can submit a cast', async function() {
+        const responseMessage = await client.submitCast({
+          text: 'This is a test cast submitted from farcaster-js-hub-rest',
+          embeds: [],
+          embedsDeprecated: [],
+          mentions: [],
+          mentionsPositions: [],
+        }, userGaviBotFid, ed25519Signer);
+        submittedCastHash = responseMessage?.hash;
+      });
+      it('can remove a cast', async function() {
+        expectDefinedNonNull(submittedCastHash);
+        expectDefinedNonNull(submitMessageCastHash);
+        await client.removeCast(submitMessageCastHash, userGaviBotFid, ed25519Signer);
+        await client.removeCast(submittedCastHash, userGaviBotFid, ed25519Signer);
+      });
+    });
+  }
 
   describe('Info API', function() {
     this.timeout('5s');

@@ -96,7 +96,8 @@ console.log(`Reply hash:${publishedCast.hash}`);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/likeAndRecast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/likeAndRecast.ts -->
 ```ts
-import { NeynarAPIClient, ReactionType } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+import { ReactionType } from '@standard-crypto/farcaster-js-neynar/v2';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');

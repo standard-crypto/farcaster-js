@@ -35,7 +35,17 @@ import {
   OnChainEventStorageRent,
   HubEventsApi,
   HubEvent,
+  SubmitMessageApi,
+  Message as HubMessage,
 } from './openapi/index.js';
+import {
+  hexStringToBytes,
+  NobleEd25519Signer,
+  Message,
+  makeCastAdd,
+  makeCastRemove,
+  Embed,
+} from '@farcaster/core';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
@@ -76,6 +86,7 @@ export class HubRestAPIClient {
     onChainEvents: OnChainEventsApi
     reactions: ReactionsApi
     storage: StorageApi
+    submitMessage: SubmitMessageApi
     userData: UserDataApi
     usernames: UsernamesApi
     verifications: VerificationsApi
@@ -115,6 +126,7 @@ export class HubRestAPIClient {
       userData: new UserDataApi(config, undefined, axiosInstance),
       fids: new FIDsApi(config, undefined, axiosInstance),
       storage: new StorageApi(config, undefined, axiosInstance),
+      submitMessage: new SubmitMessageApi(config, undefined, axiosInstance),
       usernames: new UsernamesApi(config, undefined, axiosInstance),
       verifications: new VerificationsApi(config, undefined, axiosInstance),
       onChainEvents: new OnChainEventsApi(config, undefined, axiosInstance),
@@ -131,6 +143,74 @@ export class HubRestAPIClient {
   }: {includeDbStats?: T} = {}): Promise<HubInfo<T>> {
     const response = await this.apis.info.getInfo({ dbstats: includeDbStats });
     return response.data as HubInfo<T>;
+  }
+
+  /**
+   * Submits a Cast.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async submitCast(
+    cast: {
+      text: string
+      embeds?: Embed[]
+      embedsDeprecated?: string[]
+      mentions?: number[]
+      mentionsPositions?: number[]
+    },
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    const castAdd = {
+      text: cast.text,
+      embeds: cast.embeds ?? [],
+      embedsDeprecated: cast.embedsDeprecated ?? [],
+      mentions: cast.mentions ?? [],
+      mentionsPositions: cast.mentionsPositions ?? [],
+    };
+    const msg = await makeCastAdd(castAdd, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Deletes a Cast.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async removeCast(
+    castHash: string,
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    const targetHashBytes = hexStringToBytes(castHash);
+    if (targetHashBytes.isErr()) {
+      throw targetHashBytes.error;
+    }
+    const castToRemove = { targetHash: targetHashBytes.value };
+
+    const msg = await makeCastRemove(castToRemove, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
   }
 
   /**

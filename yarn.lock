@@ -836,6 +836,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@farcaster/core@npm:^0.13.1":
+  version: 0.13.1
+  resolution: "@farcaster/core@npm:0.13.1"
+  dependencies:
+    "@noble/curves": "npm:^1.0.0"
+    "@noble/hashes": "npm:^1.3.0"
+    ffi-napi: "npm:^4.0.3"
+    neverthrow: "npm:^6.0.0"
+    ref-napi: "npm:^3.0.3"
+    viem: "npm:^1.12.2"
+  checksum: 4cb332cb4615ddb33fbf19d614fb36afde26affc472e3e94bcfc57213354f8e586e694bdaaa6df065cce753b7644a873572f286de165f6accd8a590e8f9518ba
+  languageName: node
+  linkType: hard
+
 "@fastify/busboy@npm:^2.0.0":
   version: 2.0.0
   resolution: "@fastify/busboy@npm:2.0.0"
@@ -1126,7 +1140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/curves@npm:1.2.0, @noble/curves@npm:~1.2.0":
+"@noble/curves@npm:1.2.0, @noble/curves@npm:^1.0.0, @noble/curves@npm:~1.2.0":
   version: 1.2.0
   resolution: "@noble/curves@npm:1.2.0"
   dependencies:
@@ -1135,7 +1149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:1.3.2, @noble/hashes@npm:~1.3.0, @noble/hashes@npm:~1.3.2":
+"@noble/hashes@npm:1.3.2, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:^1.3.2, @noble/hashes@npm:~1.3.0, @noble/hashes@npm:~1.3.2":
   version: 1.3.2
   resolution: "@noble/hashes@npm:1.3.2"
   checksum: 2482cce3bce6a596626f94ca296e21378e7a5d4c09597cbc46e65ffacc3d64c8df73111f2265444e36a3168208628258bbbaccba2ef24f65f58b2417638a20e7
@@ -2151,6 +2165,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@standard-crypto/farcaster-js-hub-rest@workspace:packages/farcaster-js-hub-rest"
   dependencies:
+    "@farcaster/core": "npm:^0.13.1"
+    "@noble/hashes": "npm:^1.3.2"
     "@openapitools/openapi-generator-cli": "npm:^2.7.0"
     "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
@@ -2158,6 +2174,7 @@ __metadata:
     axios: "npm:~1.5.1"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
+    dotenv: "npm:^16.3.1"
     markdown-magic: "npm:^2.6.1"
     mocha: "npm:^10.2.0"
     openapi-response-validator: "npm:^12.1.3"
@@ -4678,7 +4695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.2.7":
+"debug@npm:^3.1.0, debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
@@ -5779,6 +5796,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ffi-napi@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "ffi-napi@npm:4.0.3"
+  dependencies:
+    debug: "npm:^4.1.1"
+    get-uv-event-loop-napi-h: "npm:^1.0.5"
+    node-addon-api: "npm:^3.0.0"
+    node-gyp: "npm:latest"
+    node-gyp-build: "npm:^4.2.1"
+    ref-napi: "npm:^2.0.1 || ^3.0.2"
+    ref-struct-di: "npm:^1.1.0"
+  checksum: 03a81bc228da1fa4f65431a3a54cf8e0367f9be45173ffd3085f13ec44b7bb9124b703535aa0b49955207f083daca86795759d6513db1605d1ed868c76d199de
+  languageName: node
+  linkType: hard
+
 "figures@npm:3.2.0, figures@npm:^3.0.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
@@ -6281,6 +6313,22 @@ __metadata:
     call-bind: "npm:^1.0.2"
     get-intrinsic: "npm:^1.1.1"
   checksum: 23bc3b44c221cdf7669a88230c62f4b9e30393b61eb21ba4400cb3e346801bd8f95fe4330ee78dbae37aecd874646d53e3e76a17a654d0c84c77f6690526d6bb
+  languageName: node
+  linkType: hard
+
+"get-symbol-from-current-process-h@npm:^1.0.1, get-symbol-from-current-process-h@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "get-symbol-from-current-process-h@npm:1.0.2"
+  checksum: f33109e08aef7029b16f18032dce669e92efb21992946d7b575e494f32907c3d2c353685e00398b9202c332aab140e444e9333c93f2b81aa662bde3f59e3a25a
+  languageName: node
+  linkType: hard
+
+"get-uv-event-loop-napi-h@npm:^1.0.5":
+  version: 1.0.6
+  resolution: "get-uv-event-loop-napi-h@npm:1.0.6"
+  dependencies:
+    get-symbol-from-current-process-h: "npm:^1.0.1"
+  checksum: beb601c7e4b74fec51fb33df452a214943a1453bac9e3ca66b98fabb9ac9371f07b53d43b163a20b69228003eaf61a84b9b3faf692ed896ef66d84970411d5e0
   languageName: node
   linkType: hard
 
@@ -9289,7 +9337,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-addon-api@npm:^3.2.1":
+"neverthrow@npm:^6.0.0":
+  version: 6.1.0
+  resolution: "neverthrow@npm:6.1.0"
+  checksum: 4983600d84879c6e3ddd5f50281371a24b548446138d7108a11a131ba32e87369e875c046817913a489cfa8fcc7d518f7968988973bd880f69817b018aae294e
+  languageName: node
+  linkType: hard
+
+"node-addon-api@npm:^3.0.0, node-addon-api@npm:^3.2.1":
   version: 3.2.1
   resolution: "node-addon-api@npm:3.2.1"
   dependencies:
@@ -9338,7 +9393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-gyp-build@npm:^4.3.0":
+"node-gyp-build@npm:^4.2.1, node-gyp-build@npm:^4.3.0":
   version: 4.6.1
   resolution: "node-gyp-build@npm:4.6.1"
   bin:
@@ -10952,6 +11007,29 @@ __metadata:
   dependencies:
     esprima: "npm:~4.0.0"
   checksum: 350f5e39aebab3886713a170235c38155ee64a74f0f7e629ecc0144ba33905efea30c2c3befe1fcbf0b0366e344e7bfa34e6b2502b423c9a467d32f1306ef166
+  languageName: node
+  linkType: hard
+
+"ref-napi@npm:^2.0.1 || ^3.0.2, ref-napi@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "ref-napi@npm:3.0.3"
+  dependencies:
+    debug: "npm:^4.1.1"
+    get-symbol-from-current-process-h: "npm:^1.0.2"
+    node-addon-api: "npm:^3.0.0"
+    node-gyp: "npm:latest"
+    node-gyp-build: "npm:^4.2.1"
+  checksum: 03768cfe6134061c4afe8c5da6cc03ced9763ad1b8401895df2c5f6b10211dfd2bbcf31cca256e2abe9f2d4ddf08333590a6589b2ec5e68efacf70de2c0e2d7b
+  languageName: node
+  linkType: hard
+
+"ref-struct-di@npm:^1.1.0":
+  version: 1.1.1
+  resolution: "ref-struct-di@npm:1.1.1"
+  dependencies:
+    debug: "npm:^3.1.0"
+    node-gyp: "npm:latest"
+  checksum: e456f4b228647d06af1c911bd3f90fd85f7b9d88aa9707e10fa2879fee92d2e7a3035ca819cb30b0bdc1b32751a628308229204b00a0fb3b0e93b002dcef9835
   languageName: node
   linkType: hard
 
@@ -12901,6 +12979,27 @@ __metadata:
     unist-util-stringify-position: "npm:^2.0.0"
     vfile-message: "npm:^2.0.0"
   checksum: 4816aecfedc794ba4d3131abff2032ef0e825632cfa8cd20dd9d83819ef260589924f4f3e8fa30e06da2d8e60d7ec8ef7d0af93e0483df62890738258daf098a
+  languageName: node
+  linkType: hard
+
+"viem@npm:^1.12.2":
+  version: 1.18.9
+  resolution: "viem@npm:1.18.9"
+  dependencies:
+    "@adraffy/ens-normalize": "npm:1.9.4"
+    "@noble/curves": "npm:1.2.0"
+    "@noble/hashes": "npm:1.3.2"
+    "@scure/bip32": "npm:1.3.2"
+    "@scure/bip39": "npm:1.2.1"
+    abitype: "npm:0.9.8"
+    isows: "npm:1.0.3"
+    ws: "npm:8.13.0"
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 1f9f1b7a76c3c96c9ae666cf4b4cae596dda45ebab39309f78fc098e9a7158e38d4048cf7e1c7f406136327172e1ed48c0f7bf13a39a756873e4127dd097a257
   languageName: node
   linkType: hard
 

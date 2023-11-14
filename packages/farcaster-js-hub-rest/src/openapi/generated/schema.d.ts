@@ -1115,7 +1115,7 @@ export interface operations {
      */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["Message"];
+        "application/octet-stream": string;
       };
     };
     responses: {
