@@ -61,7 +61,7 @@ describe('HubWebClient', function() {
 
   if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
     // eslint-disable-next-line no-only-tests/no-only-tests
-    describe.only('SubmitMessage API', function() {
+    describe('SubmitMessage API', function() {
       // Set up the signer
       const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
       const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
