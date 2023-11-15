@@ -33,12 +33,6 @@ async function generateSigner(
   );
 
   console.log(
-    `Set env var INTEGRATION_TEST_NEYNAR_SIGNER_UUID=${registeredSigner.signer_uuid}`,
-  );
-  console.log(
-    `Set env var INTEGRATION_TEST_NEYNAR_SIGNER_PUBLIC_KEY=${registeredSigner.public_key}`,
-  );
-  console.log(
     `Open url ${registeredSigner.signer_approval_url} on a logged in ios device to approve signer`,
   );
   const registerSignerToken =
