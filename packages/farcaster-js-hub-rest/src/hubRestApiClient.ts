@@ -45,6 +45,16 @@ import {
   makeCastAdd,
   makeCastRemove,
   Embed,
+  makeLinkAdd,
+  makeLinkRemove,
+  makeReactionAdd,
+  ReactionType as ReactionTypeParam,
+  makeReactionRemove,
+  makeVerificationAddEthAddress,
+  FarcasterNetwork,
+  makeVerificationEthAddressClaim,
+  Eip712Signer,
+  makeVerificationRemove,
 } from '@farcaster/core';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
@@ -207,6 +217,233 @@ export class HubRestAPIClient {
     }
     const messageBytes = Buffer.from(Message.encode(msg.value).finish());
 
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Submits a Link. Used to follow users.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async submitLink(
+    link: {
+      type: string
+      displayTimestamp?: number
+      targetFid?: number
+    },
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    const msg = await makeLinkAdd(link, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Removes a Link. Used to unfollow users
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async removeLink(
+    link: {
+      type: string
+      displayTimestamp?: number
+      targetFid?: number
+    },
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    const msg = await makeLinkRemove(link, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Submits a Reaction. Used to like or recast.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async submitReaction(
+    reaction: {
+      type: 'like' | 'recast'
+      targetFid?: number
+      targetHash?: string
+      targetUrl?: string
+    },
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    let castId;
+    if (reaction.targetFid != null && reaction.targetHash != null) {
+      const targetHashBytes = hexStringToBytes(reaction.targetHash);
+      if (targetHashBytes.isErr()) {
+        throw targetHashBytes.error;
+      }
+      castId = { fid: reaction.targetFid, hash: targetHashBytes.value };
+    }
+    const reactionAdd = {
+      type: reaction.type === 'like' ? ReactionTypeParam.LIKE : ReactionTypeParam.RECAST,
+      targetCastId: castId,
+      targetUrl: reaction.targetUrl,
+    };
+    const msg = await makeReactionAdd(reactionAdd, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Removes a Reaction. Used to un-like or un-recast.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async removeReaction(
+    reaction: {
+      type: 'like' | 'recast'
+      targetFid?: number
+      targetHash?: string
+      targetUrl?: string
+    },
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    let castId;
+    if (reaction.targetFid != null && reaction.targetHash != null) {
+      const targetHashBytes = hexStringToBytes(reaction.targetHash);
+      if (targetHashBytes.isErr()) {
+        throw targetHashBytes.error;
+      }
+      castId = { fid: reaction.targetFid, hash: targetHashBytes.value };
+    }
+    const reactionRemove = {
+      type: reaction.type === 'like' ? ReactionTypeParam.LIKE : ReactionTypeParam.RECAST,
+      targetCastId: castId,
+      targetUrl: reaction.targetUrl,
+    };
+    const msg = await makeReactionRemove(reactionRemove, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Submits a Verification.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async submitVerification(
+    verification: {
+      eip712Signer: Eip712Signer
+      verificationType: 'EOA' | 'contract'
+      network: 'MAINNET' | 'TESTNET' | 'DEVNET'
+      latestBlockHash: string
+      chainId: number
+    },
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    const addressBytes = await verification.eip712Signer.getSignerKey();
+    if (addressBytes.isErr()) {
+      throw addressBytes.error;
+    }
+    const latestBlockHashBytes = hexStringToBytes(verification.latestBlockHash);
+    if (latestBlockHashBytes.isErr()) {
+      throw latestBlockHashBytes.error;
+    }
+    const claim = await makeVerificationEthAddressClaim(
+      fid,
+      addressBytes.value,
+      FarcasterNetwork[verification.network as keyof typeof FarcasterNetwork],
+      latestBlockHashBytes.value,
+    );
+    if (claim.isErr()) {
+      throw claim.error;
+    }
+    const ethSignResult = await verification.eip712Signer.signVerificationEthAddressClaim(claim.value);
+    if (ethSignResult.isErr()) {
+      throw ethSignResult.error;
+    }
+
+    const verificationAdd = {
+      address: addressBytes.value,
+      ethSignature: ethSignResult.value,
+      blockHash: latestBlockHashBytes.value,
+      verificationType: verification.verificationType === 'EOA' ? 0 : 1,
+      chainId: verification.chainId,
+    };
+    const msg = await makeVerificationAddEthAddress(verificationAdd, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+    const response = await this.apis.submitMessage.submitMessage({
+      body: messageBytes,
+    });
+    return response.data;
+  }
+
+  /**
+   * Removes a Verification.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async removeVerification(
+    address: string,
+    fid: number,
+    signer: NobleEd25519Signer,
+  ): Promise<HubMessage | null> {
+    const dataOptions = {
+      fid: fid,
+      network: 1,
+    };
+    const addressBytes = hexStringToBytes(address);
+    if (addressBytes.isErr()) {
+      throw addressBytes.error;
+    }
+    const msg = await makeVerificationRemove({ address: addressBytes.value }, dataOptions, signer);
+    if (msg.isErr()) {
+      throw msg.error;
+    }
+    const messageBytes = Buffer.from(Message.encode(msg.value).finish());
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });

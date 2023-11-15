@@ -41,7 +41,13 @@
 - [listUsernameProofsForFid](hubRestApiClient.HubRestAPIClient.md#listusernameproofsforfid)
 - [listVerificationsByFid](hubRestApiClient.HubRestAPIClient.md#listverificationsbyfid)
 - [removeCast](hubRestApiClient.HubRestAPIClient.md#removecast)
+- [removeLink](hubRestApiClient.HubRestAPIClient.md#removelink)
+- [removeReaction](hubRestApiClient.HubRestAPIClient.md#removereaction)
+- [removeVerification](hubRestApiClient.HubRestAPIClient.md#removeverification)
 - [submitCast](hubRestApiClient.HubRestAPIClient.md#submitcast)
+- [submitLink](hubRestApiClient.HubRestAPIClient.md#submitlink)
+- [submitReaction](hubRestApiClient.HubRestAPIClient.md#submitreaction)
+- [submitVerification](hubRestApiClient.HubRestAPIClient.md#submitverification)
 - [isApiErrorResponse](hubRestApiClient.HubRestAPIClient.md#isapierrorresponse)
 
 ## Constructors
@@ -60,7 +66,7 @@ Instantiates a HubRestAPIClient
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:98](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L98)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:108](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L108)
 
 ## Properties
 
@@ -87,7 +93,7 @@ Instantiates a HubRestAPIClient
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:80](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L80)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:90](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L90)
 
 ## Methods
 
@@ -110,7 +116,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:220](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L220)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:457](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L457)
 
 ___
 
@@ -133,7 +139,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:790](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L790)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:1027](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L1027)
 
 ___
 
@@ -163,7 +169,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#i
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:141](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L141)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:151](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L151)
 
 ___
 
@@ -187,7 +193,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:460](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L460)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:697](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L697)
 
 ___
 
@@ -210,7 +216,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:764](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L764)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:1001](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L1001)
 
 ___
 
@@ -234,7 +240,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:737](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L737)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:974](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L974)
 
 ___
 
@@ -257,7 +263,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:334](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L334)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:571](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L571)
 
 ___
 
@@ -281,7 +287,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.ht
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:553](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L553)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:790](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L790)
 
 ___
 
@@ -304,7 +310,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/storagelimi
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:640](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L640)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:877](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L877)
 
 ___
 
@@ -327,7 +333,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernamepro
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:651](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L651)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:888](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L888)
 
 ___
 
@@ -351,7 +357,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.ht
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:580](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L580)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:817](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L817)
 
 ___
 
@@ -375,7 +381,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:241](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L241)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:478](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L478)
 
 ___
 
@@ -399,7 +405,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:272](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L272)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:509](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L509)
 
 ___
 
@@ -423,7 +429,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:303](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L303)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:540](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L540)
 
 ___
 
@@ -446,7 +452,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#f
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:611](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L611)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:848](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L848)
 
 ___
 
@@ -469,7 +475,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:812](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L812)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:1049](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L1049)
 
 ___
 
@@ -493,7 +499,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:488](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L488)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:725](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L725)
 
 ___
 
@@ -517,7 +523,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:520](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L520)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:757](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L757)
 
 ___
 
@@ -547,7 +553,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:719](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L719)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:956](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L956)
 
 ___
 
@@ -573,7 +579,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:393](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L393)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:630](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L630)
 
 ___
 
@@ -598,7 +604,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:358](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L358)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:595](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L595)
 
 ___
 
@@ -623,7 +629,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:429](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L429)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:666](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L666)
 
 ___
 
@@ -646,7 +652,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernamepro
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:676](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L676)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:913](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L913)
 
 ___
 
@@ -670,7 +676,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/verificatio
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:687](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L687)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:924](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L924)
 
 ___
 
@@ -695,7 +701,89 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:189](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L189)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:199](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L199)
+
+___
+
+### removeLink
+
+▸ **removeLink**(`link`, `fid`, `signer`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+Removes a Link. Used to unfollow users
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `link` | `Object` |
+| `link.displayTimestamp?` | `number` |
+| `link.targetFid?` | `number` |
+| `link.type` | `string` |
+| `fid` | `number` |
+| `signer` | `NobleEd25519Signer` |
+
+#### Returns
+
+`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:258](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L258)
+
+___
+
+### removeReaction
+
+▸ **removeReaction**(`reaction`, `fid`, `signer`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+Removes a Reaction. Used to un-like or un-recast.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `reaction` | `Object` |
+| `reaction.targetFid?` | `number` |
+| `reaction.targetHash?` | `string` |
+| `reaction.targetUrl?` | `string` |
+| `reaction.type` | ``"like"`` \| ``"recast"`` |
+| `fid` | `number` |
+| `signer` | `NobleEd25519Signer` |
+
+#### Returns
+
+`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:328](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L328)
+
+___
+
+### removeVerification
+
+▸ **removeVerification**(`address`, `fid`, `signer`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+Removes a Verification.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `address` | `string` |
+| `fid` | `number` |
+| `signer` | `NobleEd25519Signer` |
+
+#### Returns
+
+`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:429](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L429)
 
 ___
 
@@ -725,7 +813,94 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:152](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L152)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:162](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L162)
+
+___
+
+### submitLink
+
+▸ **submitLink**(`link`, `fid`, `signer`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+Submits a Link. Used to follow users.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `link` | `Object` |
+| `link.displayTimestamp?` | `number` |
+| `link.targetFid?` | `number` |
+| `link.type` | `string` |
+| `fid` | `number` |
+| `signer` | `NobleEd25519Signer` |
+
+#### Returns
+
+`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:230](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L230)
+
+___
+
+### submitReaction
+
+▸ **submitReaction**(`reaction`, `fid`, `signer`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+Submits a Reaction. Used to like or recast.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `reaction` | `Object` |
+| `reaction.targetFid?` | `number` |
+| `reaction.targetHash?` | `string` |
+| `reaction.targetUrl?` | `string` |
+| `reaction.type` | ``"like"`` \| ``"recast"`` |
+| `fid` | `number` |
+| `signer` | `NobleEd25519Signer` |
+
+#### Returns
+
+`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:286](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L286)
+
+___
+
+### submitVerification
+
+▸ **submitVerification**(`verification`, `fid`, `signer`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+Submits a Verification.
+See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `verification` | `Object` |
+| `verification.chainId` | `number` |
+| `verification.eip712Signer` | `Eip712Signer` |
+| `verification.latestBlockHash` | `string` |
+| `verification.network` | ``"MAINNET"`` \| ``"TESTNET"`` \| ``"DEVNET"`` |
+| `verification.verificationType` | ``"EOA"`` \| ``"contract"`` |
+| `fid` | `number` |
+| `signer` | `NobleEd25519Signer` |
+
+#### Returns
+
+`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:370](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L370)
 
 ___
 
@@ -749,4 +924,4 @@ error is Object
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:837](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L837)
+[packages/farcaster-js-hub-rest/src/hubRestApiClient.ts:1074](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/hubRestApiClient.ts#L1074)
