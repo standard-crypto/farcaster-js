@@ -4,13 +4,14 @@ const client = new NeynarAPIClient('apiKey');
 
 const signerFid = 111; // fid of signer
 const privateKey = 'your farcaster recovery phrase';
-const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now - set longer if needed
+// default deadline is 30 days - set longer if needed
+// const deadline = Math.floor(Date.now() / 1000) + 30 * 86400;
 
 // create signer
 const signer = await client.v2.createAndRegisterSigner(
   signerFid,
-  deadline,
   privateKey,
+  //   deadline,
 );
 
 console.log('Open url the url below on a logged in ios device to approve signer');

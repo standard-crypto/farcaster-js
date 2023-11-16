@@ -132,25 +132,28 @@ export class NeynarV2APIClient {
    */
   public async createAndRegisterSigner(
     fid: number,
-    deadline: number,
     privateKey: string,
+    deadline?: number,
   ): Promise<Signer> {
     const createSignerResponse = await this.apis.signer.createSigner();
     const signer = createSignerResponse.data;
+
+    // default deadline is 30 days
+    const defaultDeadline = Math.floor(Date.now() / 1000) + 30 * 86400;
 
     // create signature
     const signature = await generateSignature(
       signer.public_key,
       fid,
       privateKey,
-      deadline,
+      deadline ?? defaultDeadline,
     );
 
     const request: SignerApiRegisterSignedKeyRequest = {
       registerSignerKeyReqBody: {
         signer_uuid: signer.signer_uuid,
         app_fid: fid,
-        deadline: deadline,
+        deadline: deadline ?? defaultDeadline,
         signature: signature,
       },
     };

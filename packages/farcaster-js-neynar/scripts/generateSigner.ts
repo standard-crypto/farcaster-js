@@ -10,14 +10,14 @@ async function generateSigner(
 ): Promise<void> {
   const client = new NeynarAPIClient(apiKey);
 
-  // one day from now
-  const deadline = Math.floor(Date.now() / 1000) + 86400;
+  // default deadline is 30 day from now
+  // const deadline = Math.floor(Date.now() / 1000) + 30 * 86400;
 
   // create signer
   const signer = await client.v2.createAndRegisterSigner(
     signerFid,
-    deadline,
     privateKey,
+    // deadline,
   );
 
   console.log('Open url the url below on a logged in ios device to approve signer');
