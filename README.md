@@ -9,7 +9,6 @@ A collection of tools for interacting with the Farcaster social network.
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Farcaster Hub REST API](#farcaster-hub-rest-api)
 - [Neynar REST APIs](#neynar-rest-apis)
-    - [Creating a Neynar Signer](#creating-a-neynar-signer)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Farcaster Hub REST API
@@ -70,7 +69,7 @@ const cast = await client.v2.publishCast(signerUuid, 'This is a test cast.');
 await client.v2.reactToCast(signerUuid, NeynarV2.ReactionType.Like, cast.hash);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
-#### Creating a Neynar Signer
+***Creating a Neynar Signer:***
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynarSigner.ts) -->
 <!-- The below code snippet is automatically added from ./examples/neynarSigner.ts -->
 ```ts
