@@ -9,6 +9,7 @@ A collection of tools for interacting with the Farcaster social network.
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Farcaster Hub REST API](#farcaster-hub-rest-api)
 - [Neynar REST APIs](#neynar-rest-apis)
+    - [Creating a Neynar Signer](#creating-a-neynar-signer)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Farcaster Hub REST API
@@ -54,34 +55,6 @@ npm install axios @standard-crypto/farcaster-js-neynar
 
 ***Example:***
 
-<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynarSigner.ts) -->
-<!-- The below code snippet is automatically added from ./examples/neynarSigner.ts -->
-```ts
-import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
-
-const client = new NeynarAPIClient('apiKey');
-
-const signerFid = 111; // fid of signer
-const privateKey = 'your farcaster recovery phrase';
-const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now - set longer if needed
-
-// create signer
-const registeredSigner = await client.v2.createAndRegisterSigner(
-  signerFid,
-  deadline,
-  privateKey,
-);
-
-console.log('Open url the url below on a logged in ios device to approve signer');
-console.log(`ios url: ${registeredSigner.signer_approval_url}`);
-const registerSignerToken =
-    registeredSigner.signer_approval_url?.split('=')[1];
-console.log('If using an android device, use this url');
-console.log(`android url: https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`);
-```
-<!-- AUTO-GENERATED-CONTENT:END -->
-
-
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar.ts) -->
 <!-- The below code snippet is automatically added from ./examples/neynar.ts -->
 ```ts
@@ -95,6 +68,35 @@ const cast = await client.v2.publishCast(signerUuid, 'This is a test cast.');
 
 // React to cast
 await client.v2.reactToCast(signerUuid, NeynarV2.ReactionType.Like, cast.hash);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+#### Creating a Neynar Signer
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynarSigner.ts) -->
+<!-- The below code snippet is automatically added from ./examples/neynarSigner.ts -->
+```ts
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+
+const client = new NeynarAPIClient('apiKey');
+
+const signerFid = 111; // fid of signer
+const privateKey = 'your farcaster recovery phrase';
+const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now - set longer if needed
+
+// create signer
+const signer = await client.v2.createAndRegisterSigner(
+  signerFid,
+  deadline,
+  privateKey,
+);
+
+console.log('Open url the url below on a logged in ios device to approve signer');
+console.log(`ios url: ${signer.signer_approval_url}`);
+const registerSignerToken =
+signer.signer_approval_url?.split('=')[1];
+console.log('If using an android device, use this url');
+console.log(`android url: https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`);
+console.log('Once approved, you can start using your signer to write data to Farcaster');
+console.log(`signer uuid: ${signer.signer_uuid}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
