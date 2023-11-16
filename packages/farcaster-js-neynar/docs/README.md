@@ -35,28 +35,27 @@ npm install axios @standard-crypto/farcaster-js-neynar
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/createSigner.ts) -->
 <!-- The below code snippet is automatically added from ./examples/createSigner.ts -->
 ```ts
-import { generateSignature, NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
 
 const client = new NeynarAPIClient('apiKey');
 
 const signerFid = 111; // fid of signer
-const privateKey = 'mnemonic for signer';
-const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now
+const privateKey = 'your farcaster recovery phrase';
+const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now - set longer if needed
 
-const signer = await client.v2.createSigner();
-
-const signature = await generateSignature(signer.public_key, signerFid, privateKey, deadline);
-
-const registeredSigner = await client.v2.registerSigner(signer.signer_uuid, signerFid, deadline, signature);
-
-console.log(
-    `Open url ${registeredSigner.signer_approval_url} on a logged in ios device to approve signer`,
+// create signer
+const registeredSigner = await client.v2.createAndRegisterSigner(
+  signerFid,
+  deadline,
+  privateKey,
 );
+
+console.log('Open url the url below on a logged in ios device to approve signer');
+console.log(`ios url: ${registeredSigner.signer_approval_url}`);
 const registerSignerToken =
     registeredSigner.signer_approval_url?.split('=')[1];
-console.log(
-    `If using an android device, use url https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`,
-);
+console.log('If using an android device, use this url');
+console.log(`android url: https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -98,7 +97,8 @@ console.log(`Reply hash:${publishedCast.hash}`);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/likeAndRecast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/likeAndRecast.ts -->
 ```ts
-import { NeynarAPIClient, ReactionType } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+import { ReactionType } from '@standard-crypto/farcaster-js-neynar/v2';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');

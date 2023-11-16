@@ -26,6 +26,7 @@ import {
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { silentLogger, Logger } from '../logger.js';
 import type { SetRequired } from 'type-fest';
+import { generateSignature } from '../utils.js';
 
 const BASE_PATH = 'https://api.neynar.com/v2';
 
@@ -106,15 +107,6 @@ export class NeynarV2APIClient {
   }
 
   /**
-   * Creates a Signer. See [Neynar documentation](https://docs.neynar.com/reference/create-signer)
-   * for more details.
-   */
-  public async createSigner(): Promise<Signer> {
-    const response = await this.apis.signer.createSigner();
-    return response.data;
-  }
-
-  /**
    * Fetches an existing Signer. See [Neynar documentation](https://docs.neynar.com/reference/get-signer)
    * for more details.
    *
@@ -135,18 +127,28 @@ export class NeynarV2APIClient {
   }
 
   /**
-   * Registers a Signer with an fid. See [Neynar documentation](https://docs.neynar.com/reference/register-app-fid)
+   * Creates and registers a Signer for an fid. See Neynar documentation[1](https://docs.neynar.com/reference/create-signer),[2](https://docs.neynar.com/reference/register-app-fid)
    * for more details.
    */
-  public async registerSigner(
-    signerUuid: string,
+  public async createAndRegisterSigner(
     fid: number,
     deadline: number,
-    signature: string,
+    privateKey: string,
   ): Promise<Signer> {
+    const createSignerResponse = await this.apis.signer.createSigner();
+    const signer = createSignerResponse.data;
+
+    // create signature
+    const signature = await generateSignature(
+      signer.public_key,
+      fid,
+      privateKey,
+      deadline,
+    );
+
     const request: SignerApiRegisterSignedKeyRequest = {
       registerSignerKeyReqBody: {
-        signer_uuid: signerUuid,
+        signer_uuid: signer.signer_uuid,
         app_fid: fid,
         deadline: deadline,
         signature: signature,

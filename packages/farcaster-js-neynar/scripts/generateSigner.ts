@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { NeynarAPIClient, generateSignature } from '../src/index.js';
+import { NeynarAPIClient } from '../src/index.js';
 
 async function generateSigner(
   apiKey: string,
@@ -14,32 +14,18 @@ async function generateSigner(
   const deadline = Math.floor(Date.now() / 1000) + 86400;
 
   // create signer
-  const signer = await client.v2.createSigner();
-
-  // create signature
-  const signature = await generateSignature(
-    signer.public_key,
+  const registeredSigner = await client.v2.createAndRegisterSigner(
     signerFid,
+    deadline,
     privateKey,
-    deadline,
   );
 
-  // register signer
-  const registeredSigner = await client.v2.registerSigner(
-    signer.signer_uuid,
-    userBotFid,
-    deadline,
-    signature,
-  );
-
-  console.log(
-    `Open url ${registeredSigner.signer_approval_url} on a logged in ios device to approve signer`,
-  );
+  console.log('Open url the url below on a logged in ios device to approve signer');
+  console.log(`ios url: ${registeredSigner.signer_approval_url}`);
   const registerSignerToken =
-    registeredSigner.signer_approval_url?.split('=')[1];
-  console.log(
-    `If using an android device, use url https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`,
-  );
+      registeredSigner.signer_approval_url?.split('=')[1];
+  console.log('If using an android device, use this url');
+  console.log(`android url: https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`);
 }
 
 const privateKey = process.env.SIGNER_USER_MNEMONIC;
