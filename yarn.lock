@@ -2235,8 +2235,6 @@ __metadata:
     viem: "npm:^1.16.2"
   peerDependencies:
     axios: ~1.5.1
-  bin:
-    farcaster-js-neynar: dist/commonjs/cli/index.js
   languageName: unknown
   linkType: soft
 
