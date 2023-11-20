@@ -52,6 +52,15 @@ npm install axios @standard-crypto/farcaster-js
 npm install axios @standard-crypto/farcaster-js-neynar
 ```
 
+***Signers:***
+
+This package include a CLI for creating signers. You can run the code below to generate a signer:
+```
+farcaster-js create-signer
+```
+
+See examples of running the CLI in [farcaster-js-cli/](./packages/farcaster-js-cli/README.md)
+
 ***Example:***
 
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/neynar.ts) -->

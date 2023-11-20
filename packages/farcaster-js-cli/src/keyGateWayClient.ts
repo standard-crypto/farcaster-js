@@ -66,12 +66,7 @@ export async function createDeveloperSigner(mnemonic: string): Promise<void> {
   const fid = await readIdContract.read.idOf([account.address]);
   const privateKey = ed25519.utils.randomPrivateKey();
   const publicKey = toHex(ed25519.getPublicKey(privateKey));
-  console.log(
-    `Creating new signer with private key: ${toHex(privateKey)}...`,
-  );
   const params = await getSignedMetadataParams(walletClient, account, Number(fid), account.address, publicKey);
-  console.log(params);
-  console.log('trying publicClient.simulateContract with');
   const { request: signerAddRequest } = await publicClient.simulateContract({
     ...KeyGatewayContract,
     functionName: 'add',
@@ -79,7 +74,6 @@ export async function createDeveloperSigner(mnemonic: string): Promise<void> {
     account: account,
   });
 
-  console.log('trying walletClient.writeContract');
   const signerAddTxHash = await walletClient.writeContract(signerAddRequest);
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   console.log(`Transaction written to OP Mainnet. Check txn status at https://optimistic.etherscan.io/tx/${signerAddTxHash}`);
@@ -97,7 +91,6 @@ async function getSignedMetadataParams(
   const deadline = Math.floor(Date.now() / 1000) + 60 * 60; // 1 hour from now
 
   // Sign a EIP-712 message using the account that holds the FID to authorize adding this signer to the key registry
-  console.log('trying walletClient.signTypedData');
   const signedMetadata = await walletClient.signTypedData({
     domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
     types: {
