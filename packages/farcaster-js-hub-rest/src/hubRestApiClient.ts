@@ -285,9 +285,7 @@ export class HubRestAPIClient {
   public async submitReaction(
     reaction: {
       type: 'like' | 'recast'
-      targetFid?: number
-      targetHash?: string
-      targetUrl?: string
+      target: CastId | { url: string }
     },
     fid: number,
     signer: string,
@@ -297,17 +295,20 @@ export class HubRestAPIClient {
       network: 1,
     };
     let castId;
-    if (reaction.targetFid != null && reaction.targetHash != null) {
-      const targetHashBytes = hexStringToBytes(reaction.targetHash);
+    let targetUrl;
+    if ('hash' in reaction.target && 'fid' in reaction.target) {
+      const targetHashBytes = hexStringToBytes(reaction.target.hash);
       if (targetHashBytes.isErr()) {
         throw targetHashBytes.error;
       }
-      castId = { fid: reaction.targetFid, hash: targetHashBytes.value };
+      castId = { fid: reaction.target.fid, hash: targetHashBytes.value };
+    } else {
+      targetUrl = reaction.target.url;
     }
     const reactionAdd = {
       type: reaction.type === 'like' ? ReactionTypeParam.LIKE : ReactionTypeParam.RECAST,
       targetCastId: castId,
-      targetUrl: reaction.targetUrl,
+      targetUrl: targetUrl,
     };
     const msg = await makeReactionAdd(reactionAdd, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
@@ -327,9 +328,7 @@ export class HubRestAPIClient {
   public async removeReaction(
     reaction: {
       type: 'like' | 'recast'
-      targetFid?: number
-      targetHash?: string
-      targetUrl?: string
+      target: CastId | { url: string }
     },
     fid: number,
     signer: string,
@@ -339,17 +338,20 @@ export class HubRestAPIClient {
       network: 1,
     };
     let castId;
-    if (reaction.targetFid != null && reaction.targetHash != null) {
-      const targetHashBytes = hexStringToBytes(reaction.targetHash);
+    let targetUrl;
+    if ('hash' in reaction.target && 'fid' in reaction.target) {
+      const targetHashBytes = hexStringToBytes(reaction.target.hash);
       if (targetHashBytes.isErr()) {
         throw targetHashBytes.error;
       }
-      castId = { fid: reaction.targetFid, hash: targetHashBytes.value };
+      castId = { fid: reaction.target.fid, hash: targetHashBytes.value };
+    } else {
+      targetUrl = reaction.target.url;
     }
     const reactionRemove = {
       type: reaction.type === 'like' ? ReactionTypeParam.LIKE : ReactionTypeParam.RECAST,
       targetCastId: castId,
-      targetUrl: reaction.targetUrl,
+      targetUrl: targetUrl,
     };
     const msg = await makeReactionRemove(reactionRemove, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {

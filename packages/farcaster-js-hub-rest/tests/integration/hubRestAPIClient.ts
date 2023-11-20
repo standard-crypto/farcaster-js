@@ -26,7 +26,7 @@ import { Wallet, ethers } from 'ethers';
 chai.use(chaiAsPromised);
 
 const userGaviFid = 69; // @gavi
-const userGaviBotFid = 6365; // @gavi
+const userGaviBotFid = 6365; // @gavi-bot
 
 const signerPrivateKey = process.env.INTEGRATION_TEST_HUB_SIGNER_PRIVATE_KEY;
 const verifiedAddressMnemonic = process.env.INTEGRATION_TEST_HUB_VERIFICATION_ADDRESS_MNEMONIC;
@@ -60,7 +60,6 @@ describe('HubWebClient', function() {
   });
 
   if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
-    // eslint-disable-next-line no-only-tests/no-only-tests
     describe('SubmitMessage API', function() {
       let submitMessageCastHash: string | undefined;
       it('validates against OpenAPI spec', async function() {
@@ -114,19 +113,19 @@ describe('HubWebClient', function() {
       });
       const castHash = '0x69ab635a1111c6d83e3e6043109e831328161901';
       it('can like a cast', async function() {
-        const likeResponse = await client.submitReaction({ type: 'like', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
+        const likeResponse = await client.submitReaction({ type: 'like', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       it('can unlike a cast', async function() {
-        const likeResponse = await client.removeReaction({ type: 'like', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
+        const likeResponse = await client.removeReaction({ type: 'like', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       it('can recast a cast', async function() {
-        const likeResponse = await client.submitReaction({ type: 'recast', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
+        const likeResponse = await client.submitReaction({ type: 'recast', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       it('can un-recast a cast', async function() {
-        const likeResponse = await client.removeReaction({ type: 'recast', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
+        const likeResponse = await client.removeReaction({ type: 'recast', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       if (verifiedAddressMnemonic !== undefined && verifiedAddressMnemonic !== '') {
