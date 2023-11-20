@@ -20,7 +20,7 @@ import {
 } from '../../src/openapi/index.js';
 import type { paths as SchemaPaths } from '../../src/openapi/generated/schema.js';
 import { hexToBytes } from '@noble/hashes/utils';
-import { EthersEip712Signer, Message, NobleEd25519Signer, makeCastAdd, bytesToHexString } from '@farcaster/core';
+import { Message, NobleEd25519Signer, makeCastAdd } from '@farcaster/core';
 import { Wallet, ethers } from 'ethers';
 
 chai.use(chaiAsPromised);
@@ -62,11 +62,11 @@ describe('HubWebClient', function() {
   if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
     // eslint-disable-next-line no-only-tests/no-only-tests
     describe('SubmitMessage API', function() {
-      // Set up the signer
-      const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
-      const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
       let submitMessageCastHash: string | undefined;
       it('validates against OpenAPI spec', async function() {
+        // Set up the signer
+        const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
+        const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
         const msg = await makeCastAdd({
           text: 'This is a test cast submitted by directly invoking the SubmitMessage API',
           embeds: [],
@@ -94,62 +94,52 @@ describe('HubWebClient', function() {
       });
       let submittedCastHash: string | undefined;
       it('can submit a cast', async function() {
-        const responseMessage = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, userGaviBotFid, ed25519Signer);
+        const responseMessage = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(responseMessage?.hash);
         submittedCastHash = responseMessage.hash;
       });
       it('can remove a cast', async function() {
         expectDefinedNonNull(submittedCastHash);
         expectDefinedNonNull(submitMessageCastHash);
-        await client.removeCast(submitMessageCastHash, userGaviBotFid, ed25519Signer);
-        await client.removeCast(submittedCastHash, userGaviBotFid, ed25519Signer);
+        await client.removeCast(submitMessageCastHash, userGaviBotFid, signerPrivateKey);
+        await client.removeCast(submittedCastHash, userGaviBotFid, signerPrivateKey);
       });
       it('can follow a user', async function() {
-        const linkResponse = await client.submitLink({ type: 'follow', targetFid: userGaviFid }, userGaviBotFid, ed25519Signer);
+        const linkResponse = await client.submitLink({ type: 'follow', targetFid: userGaviFid }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(linkResponse?.hash);
       });
       it('can unfollow a user', async function() {
-        const unlinkResponse = await client.removeLink({ type: 'follow', targetFid: userGaviFid }, userGaviBotFid, ed25519Signer);
+        const unlinkResponse = await client.removeLink({ type: 'follow', targetFid: userGaviFid }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(unlinkResponse?.hash);
       });
       const castHash = '0x69ab635a1111c6d83e3e6043109e831328161901';
       it('can like a cast', async function() {
-        const likeResponse = await client.submitReaction({ type: 'like', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, ed25519Signer);
+        const likeResponse = await client.submitReaction({ type: 'like', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       it('can unlike a cast', async function() {
-        const likeResponse = await client.removeReaction({ type: 'like', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, ed25519Signer);
+        const likeResponse = await client.removeReaction({ type: 'like', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       it('can recast a cast', async function() {
-        const likeResponse = await client.submitReaction({ type: 'recast', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, ed25519Signer);
+        const likeResponse = await client.submitReaction({ type: 'recast', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       it('can un-recast a cast', async function() {
-        const likeResponse = await client.removeReaction({ type: 'recast', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, ed25519Signer);
+        const likeResponse = await client.removeReaction({ type: 'recast', targetFid: userGaviFid, targetHash: castHash }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(likeResponse?.hash);
       });
       if (verifiedAddressMnemonic !== undefined && verifiedAddressMnemonic !== '') {
-        // set up eth wallet to verify
-        const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
-        const eip712Signer = new EthersEip712Signer(wallet);
         it('can verify an address', async function() {
           this.timeout('5s');
           const blockHash = await ethers.getDefaultProvider('mainnet').getBlock('latest');
           expectDefinedNonNull(blockHash?.hash);
-          const verificationResponse = await client.submitVerification({ eip712Signer: eip712Signer, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, ed25519Signer);
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonic: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(verificationResponse?.hash);
         });
         it('can remove a verified address', async function() {
-          const addressBytes = await eip712Signer.getSignerKey();
-          if (addressBytes.isErr()) {
-            throw addressBytes.error;
-          }
-          const address = bytesToHexString(addressBytes.value);
-          if (address.isErr()) {
-            throw address.error;
-          }
-          const removeVerificationResponse = await client.removeVerification(address.value, userGaviBotFid, ed25519Signer);
+          const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
+          const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(removeVerificationResponse?.hash);
         });
       }

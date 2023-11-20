@@ -40,7 +40,6 @@ import {
 } from './openapi/index.js';
 import {
   hexStringToBytes,
-  NobleEd25519Signer,
   Message,
   makeCastAdd,
   makeCastRemove,
@@ -53,9 +52,9 @@ import {
   makeVerificationAddEthAddress,
   FarcasterNetwork,
   makeVerificationEthAddressClaim,
-  Eip712Signer,
   makeVerificationRemove,
 } from '@farcaster/core';
+import { eip712SignerFromPhrase, hexToSigner } from './utils.js';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
@@ -168,7 +167,7 @@ export class HubRestAPIClient {
       mentionsPositions?: number[]
     },
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -181,7 +180,7 @@ export class HubRestAPIClient {
       mentions: cast.mentions ?? [],
       mentionsPositions: cast.mentionsPositions ?? [],
     };
-    const msg = await makeCastAdd(castAdd, dataOptions, signer);
+    const msg = await makeCastAdd(castAdd, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -199,7 +198,7 @@ export class HubRestAPIClient {
   public async removeCast(
     castHash: string,
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -211,7 +210,7 @@ export class HubRestAPIClient {
     }
     const castToRemove = { targetHash: targetHashBytes.value };
 
-    const msg = await makeCastRemove(castToRemove, dataOptions, signer);
+    const msg = await makeCastRemove(castToRemove, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -234,13 +233,13 @@ export class HubRestAPIClient {
       targetFid?: number
     },
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const msg = await makeLinkAdd(link, dataOptions, signer);
+    const msg = await makeLinkAdd(link, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -262,13 +261,13 @@ export class HubRestAPIClient {
       targetFid?: number
     },
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const msg = await makeLinkRemove(link, dataOptions, signer);
+    const msg = await makeLinkRemove(link, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -291,7 +290,7 @@ export class HubRestAPIClient {
       targetUrl?: string
     },
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -310,7 +309,7 @@ export class HubRestAPIClient {
       targetCastId: castId,
       targetUrl: reaction.targetUrl,
     };
-    const msg = await makeReactionAdd(reactionAdd, dataOptions, signer);
+    const msg = await makeReactionAdd(reactionAdd, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -333,7 +332,7 @@ export class HubRestAPIClient {
       targetUrl?: string
     },
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -352,7 +351,7 @@ export class HubRestAPIClient {
       targetCastId: castId,
       targetUrl: reaction.targetUrl,
     };
-    const msg = await makeReactionRemove(reactionRemove, dataOptions, signer);
+    const msg = await makeReactionRemove(reactionRemove, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -369,20 +368,21 @@ export class HubRestAPIClient {
    */
   public async submitVerification(
     verification: {
-      eip712Signer: Eip712Signer
+      verifiedAddressMnemonic: string
       verificationType: 'EOA' | 'contract'
       network: 'MAINNET' | 'TESTNET' | 'DEVNET'
       latestBlockHash: string
       chainId: number
     },
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const addressBytes = await verification.eip712Signer.getSignerKey();
+    const verificationSigner = eip712SignerFromPhrase(verification.verifiedAddressMnemonic);
+    const addressBytes = await verificationSigner.getSignerKey();
     if (addressBytes.isErr()) {
       throw addressBytes.error;
     }
@@ -399,7 +399,7 @@ export class HubRestAPIClient {
     if (claim.isErr()) {
       throw claim.error;
     }
-    const ethSignResult = await verification.eip712Signer.signVerificationEthAddressClaim(claim.value);
+    const ethSignResult = await verificationSigner.signVerificationEthAddressClaim(claim.value);
     if (ethSignResult.isErr()) {
       throw ethSignResult.error;
     }
@@ -411,7 +411,7 @@ export class HubRestAPIClient {
       verificationType: verification.verificationType === 'EOA' ? 0 : 1,
       chainId: verification.chainId,
     };
-    const msg = await makeVerificationAddEthAddress(verificationAdd, dataOptions, signer);
+    const msg = await makeVerificationAddEthAddress(verificationAdd, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -429,7 +429,7 @@ export class HubRestAPIClient {
   public async removeVerification(
     address: string,
     fid: number,
-    signer: NobleEd25519Signer,
+    signer: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -439,7 +439,7 @@ export class HubRestAPIClient {
     if (addressBytes.isErr()) {
       throw addressBytes.error;
     }
-    const msg = await makeVerificationRemove({ address: addressBytes.value }, dataOptions, signer);
+    const msg = await makeVerificationRemove({ address: addressBytes.value }, dataOptions, hexToSigner(signer));
     if (msg.isErr()) {
       throw msg.error;
     }
