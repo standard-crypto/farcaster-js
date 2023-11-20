@@ -3,7 +3,6 @@
   "version": "1.0.2",
   "description": "A tool for interacting with Farcaster via Neynar APIs.",
   "main": "./dist/commonjs/index.js",
-  "bin": "dist/commonjs/cli/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
