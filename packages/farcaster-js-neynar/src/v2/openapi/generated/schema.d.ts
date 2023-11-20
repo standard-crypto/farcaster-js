@@ -32,6 +32,13 @@ export interface paths {
      */
     get: operations["user-search"];
   };
+  "/farcaster/user/bulk": {
+    /**
+     * Fetches information about multiple users based on FIDs
+     * @description Fetches information about multiple users based on FIDs
+     */
+    get: operations["user-bulk"];
+  };
   "/farcaster/user": {
     /**
      * Update user profile
@@ -42,8 +49,8 @@ export interface paths {
   };
   "/farcaster/cast": {
     /**
-     * Retrieve cast for a given hash
-     * @description Gets information about an individual cast by passing in a web URL or cast hash
+     * Retrieve cast for a given hash or Warpcast URL
+     * @description Gets information about an individual cast by passing in a Warpcast web URL or cast hash
      */
     get: operations["cast"];
     /**
@@ -84,6 +91,62 @@ export interface paths {
      */
     delete: operations["delete-reaction"];
   };
+  "/farcaster/user/verification": {
+    /**
+     * Adds verification for an eth address for the user
+     * @description Adds verification for an eth address for the user \
+     * (In order to add verification `signer_uuid` must be approved)
+     */
+    post: {
+      requestBody: {
+        content: {
+          /**
+           * @example {
+           *   "signer_uuid": "19d0c5fd-9b33-4a48-a0e2-bc7b0555baec",
+           *   "address": "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f",
+           *   "block_hash": "0x191905a9201170abb55f4c90a4cc968b44c1b71cdf3db2764b775c93e7e22b29",
+           *   "eth_signature": "0x2fc09da1f4dcb723fefb91f77932c249c418c0af00c66ed92ee1f35002c80d6a1145280c9f361d207d28447f8f7463366840d3a9309036cf6954afd1fd331beb1b"
+           * }
+           */
+          "application/json": components["schemas"]["AddVerificationReqBody"];
+        };
+      };
+      responses: {
+        /** @description Successful operation. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["OperationResponse"];
+          };
+        };
+      };
+    };
+    /**
+     * Removes verification for an eth address for the user
+     * @description Removes verification for an eth address for the user \
+     * (In order to add verification `signer_uuid` must be approved)
+     */
+    delete: {
+      requestBody: {
+        content: {
+          /**
+           * @example {
+           *   "signer_uuid": "19d0c5fd-9b33-4a48-a0e2-bc7b0555baec",
+           *   "address": "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f"
+           * }
+           */
+          "application/json": components["schemas"]["RemoveVerificationReqBody"];
+        };
+      };
+      responses: {
+        /** @description Successful operation. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["OperationResponse"];
+          };
+        };
+      };
+    };
+  };
   "/farcaster/user/follow": {
     /**
      * Follow a user
@@ -98,6 +161,27 @@ export interface paths {
      */
     delete: operations["unfollow-user"];
   };
+  "/farcaster/user/custody-address": {
+    /**
+     * Lookup a user by custody-address
+     * @description Lookup a user by custody-address
+     */
+    get: operations["lookup-user-by-custody-address"];
+  };
+  "/farcaster/notifications": {
+    /**
+     * Retrieve notifications for a given user
+     * @description Returns a list of notifications for a specific FID.
+     */
+    get: operations["notifications"];
+  };
+  "/farcaster/followers/relevant": {
+    /**
+     * Retrieve relevant followers for a given user
+     * @description Returns a list of relevant followers for a specific FID.
+     */
+    get: operations["relevant-followers"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -109,7 +193,6 @@ export interface components {
     /**
      * Format: int32
      * @description User identifier (unsigned integer)
-     * @default 3
      */
     Fid: number;
     /** @description UUID of the signer */
@@ -174,6 +257,8 @@ export interface components {
       fname: string;
     };
     User: {
+      /** @enum {string} */
+      object: "user";
       fid: components["schemas"]["Fid"];
       username: string;
       display_name: string;
@@ -197,6 +282,12 @@ export interface components {
       following_count: number;
       verifications: components["schemas"]["Address"][];
       activeStatus: components["schemas"]["ActiveStatus"];
+      viewer_context?: {
+        /** Format: int32 */
+        following: number;
+        /** Format: int32 */
+        followed_by: number;
+      };
     };
     EmbeddedCast: components["schemas"]["EmbedUrl"] | components["schemas"]["EmbedCastId"];
     Cast: {
@@ -231,7 +322,7 @@ export interface components {
     CastParent: string;
     PostCastReqBody: {
       signer_uuid: components["schemas"]["SignerUUID"];
-      text: string;
+      text?: string;
       embeds?: components["schemas"]["EmbeddedCast"][];
       parent?: components["schemas"]["CastParent"];
     };
@@ -250,6 +341,16 @@ export interface components {
     FollowReqBody: {
       signer_uuid: components["schemas"]["SignerUUID"];
       target_fids: components["schemas"]["Fid"][];
+    };
+    AddVerificationReqBody: {
+      signer_uuid: components["schemas"]["SignerUUID"];
+      address: components["schemas"]["Address"];
+      block_hash: string;
+      eth_signature: string;
+    };
+    RemoveVerificationReqBody: {
+      signer_uuid: components["schemas"]["SignerUUID"];
+      address: components["schemas"]["Address"];
     };
     UpdateUserReqBody: {
       signer_uuid: components["schemas"]["SignerUUID"];
@@ -271,6 +372,7 @@ export interface components {
       reactions: components["schemas"]["CastWithInteractionsReactions"];
       replies: components["schemas"]["CastWithInteractionsReplies"];
       thread_hash: string | null;
+      mentioned_profiles: components["schemas"]["User"][];
     });
     Signer: {
       signer_uuid: components["schemas"]["SignerUUID"];
@@ -317,6 +419,57 @@ export interface components {
     BulkFollowResponse: {
       success: boolean;
       details: components["schemas"]["FollowResponse"][];
+    };
+    NotificationsResponse: {
+      notifications: components["schemas"]["Notification"][];
+      next: components["schemas"]["NextCursor"];
+    };
+    Notification: {
+      object: string;
+      /** Format: date-time */
+      most_recent_timestamp: string;
+      /** @enum {string} */
+      type: "follows" | "recasts" | "likes" | "mention" | "reply";
+      follows?: components["schemas"]["NotificationFollow"][];
+      cast?: components["schemas"]["CastWithInteractions"];
+      reactions?: components["schemas"]["NotificationReactions"][];
+    };
+    NotificationFollow: {
+      /** @enum {string} */
+      object: "follow";
+      user: components["schemas"]["User"];
+    };
+    NotificationReactions: {
+      /** @enum {string} */
+      object: "likes" | "recasts";
+      cast: {
+        hash: string;
+        /** @enum {string} */
+        object: "cast_dehydrated";
+      };
+      user: components["schemas"]["User"];
+    };
+    RelevantFollowersResponse: {
+      top_relevant_followers_hydrated: components["schemas"]["HydratedFollower"][];
+      all_relevant_followers_dehydrated: components["schemas"]["DehydratedFollower"][];
+    };
+    HydratedFollower: {
+      /** @enum {string} */
+      object?: "follow";
+      user?: components["schemas"]["User"];
+    };
+    DehydratedFollower: {
+      /** @enum {string} */
+      object?: "follow";
+      user?: components["schemas"]["UserDehydrated"];
+    };
+    UserDehydrated: {
+      /** @enum {string} */
+      object?: "user_dehydrated";
+      fid?: components["schemas"]["Fid"];
+    };
+    UserResponse: {
+      user: components["schemas"]["User"];
     };
   };
   responses: {
@@ -452,6 +605,32 @@ export interface operations {
     };
   };
   /**
+   * Fetches information about multiple users based on FIDs
+   * @description Fetches information about multiple users based on FIDs
+   */
+  "user-bulk": {
+    parameters: {
+      query: {
+        /** @example 194, 191, 6131 */
+        fids: string;
+        /** @example 3 */
+        viewer_fid?: components["schemas"]["Fid"];
+      };
+    };
+    responses: {
+      /** @description Successful operation. */
+      200: {
+        content: {
+          "application/json": {
+            users: components["schemas"]["User"][];
+          };
+        };
+      };
+      400: components["responses"]["400Response"];
+      404: components["responses"]["404Response"];
+    };
+  };
+  /**
    * Update user profile
    * @description Update user profile \
    * (In order to update user's profile `signer_uuid` must be approved)
@@ -485,8 +664,8 @@ export interface operations {
     };
   };
   /**
-   * Retrieve cast for a given hash
-   * @description Gets information about an individual cast by passing in a web URL or cast hash
+   * Retrieve cast for a given hash or Warpcast URL
+   * @description Gets information about an individual cast by passing in a Warpcast web URL or cast hash
    */
   cast: {
     parameters: {
@@ -575,21 +754,13 @@ export interface operations {
    * @description Retrieve multiple casts using their respective hashes.
    */
   casts: {
-    requestBody: {
-      content: {
+    parameters: {
+      query: {
         /**
-         * @example {
-         *   "casts": [
-         *     {
-         *       "hash": "0xa896906a5e397b4fec247c3ee0e9e4d4990b8004"
-         *     },
-         *     {
-         *       "hash": "0x27ff810f7f718afd8c40be236411f017982e0994"
-         *     }
-         *   ]
-         * }
+         * @description Hashes of the cast to be retrieved (Comma separated)
+         * @example 0xa896906a5e397b4fec247c3ee0e9e4d4990b8004,0x27ff810f7f718afd8c40be236411f017982e0994
          */
-        "application/json": components["schemas"]["GetCastsReqBody"];
+        casts: string;
       };
     };
     responses: {
@@ -610,25 +781,27 @@ export interface operations {
          * @description Defaults to following (requires fid or address). If set to filter (requires filter_type)
          * @example filter
          */
-        feed_type?: "filter" | "following";
+        feed_type: "following" | "filter";
         /**
          * @description Used when feed_type=filter. Can be set to fids (requires fids) or parent_url (requires parent_url)
          * @example fids
          */
-        filter_type?: "fids" | "parent_url";
+        filter_type?: "fids" | "parent_url" | "global_trending";
         /** @description (Optional) fid of user whose feed you want to create. By default, the API expects this field, except if you pass a filter_type */
-        fid: components["schemas"]["Fid"];
+        fid?: components["schemas"]["Fid"];
         /**
          * @description Used when filter_type=fids . Create a feed based on a list of fids. Max array size is 250. Requires feed_type and filter_type.
-         * @example 3,4,194
+         * @example 3,2,194
          */
         fids?: string;
         /** @description Used when filter_type=parent_url can be used to fetch content under any parent url e.g. FIP-2 channels on Warpcast. Requires feed_type and filter_type */
         parent_url?: string;
         /** @description Pagination cursor. */
         cursor?: string;
-        /** @description Number of results to retrieve (default 25, max 150) */
+        /** @description Number of results to retrieve (default 25, max 100) */
         limit?: number;
+        /** @description Include recasts in the response, true by default */
+        with_recasts?: boolean;
       };
     };
     responses: {
@@ -767,6 +940,78 @@ export interface operations {
       403: components["responses"]["403Response"];
       404: components["responses"]["404Response"];
       500: components["responses"]["500Response"];
+    };
+  };
+  /**
+   * Lookup a user by custody-address
+   * @description Lookup a user by custody-address
+   */
+  "lookup-user-by-custody-address": {
+    parameters: {
+      query: {
+        /**
+         * @description Custody Address associated with mnemonic
+         * @example 0xd1b702203b1b3b641a699997746bd4a12d157909
+         */
+        custody_address: string;
+      };
+    };
+    responses: {
+      /** @description Successful operation. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserResponse"];
+        };
+      };
+      400: components["responses"]["400Response"];
+      404: components["responses"]["404Response"];
+    };
+  };
+  /**
+   * Retrieve notifications for a given user
+   * @description Returns a list of notifications for a specific FID.
+   */
+  notifications: {
+    parameters: {
+      query: {
+        fid: components["schemas"]["Fid"];
+        /** @description Pagination cursor. */
+        cursor?: string;
+        /** @description Number of results to retrieve (default 25, max 50) */
+        limit?: number;
+      };
+    };
+    responses: {
+      /** @description Successful response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["NotificationsResponse"];
+        };
+      };
+      400: components["responses"]["400Response"];
+    };
+  };
+  /**
+   * Retrieve relevant followers for a given user
+   * @description Returns a list of relevant followers for a specific FID.
+   */
+  "relevant-followers": {
+    parameters: {
+      query: {
+        /** @description User who's profile you are looking at */
+        target_fid: components["schemas"]["Fid"];
+        /** @description Viewer who's looking at the profile */
+        viewer_fid: components["schemas"]["Fid"];
+      };
+    };
+    responses: {
+      /** @description Successful response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RelevantFollowersResponse"];
+        };
+      };
+      400: components["responses"]["400Response"];
     };
   };
 }

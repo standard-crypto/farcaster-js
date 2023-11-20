@@ -10,7 +10,7 @@ import {
   ReactionReqBody,
   ReactionType,
   OperationResponse,
-  FollowApi,
+  FollowsApi,
   FollowReqBody,
   BulkFollowResponse,
   EmbeddedCast,
@@ -26,7 +26,7 @@ import {
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { silentLogger, Logger } from '../logger.js';
 import type { SetRequired } from 'type-fest';
-import { generateSignature } from '../utils.js';
+import { generateSignature, mnemonicToAddress } from '../utils.js';
 
 const BASE_PATH = 'https://api.neynar.com/v2';
 
@@ -39,7 +39,7 @@ export class NeynarV2APIClient {
     cast: CastApi
     user: UserApi
     reaction: ReactionApi
-    follow: FollowApi
+    follow: FollowsApi
   };
 
   /**
@@ -87,7 +87,7 @@ export class NeynarV2APIClient {
       cast: new CastApi(config, undefined, axiosInstance),
       user: new UserApi(config, undefined, axiosInstance),
       reaction: new ReactionApi(config, undefined, axiosInstance),
-      follow: new FollowApi(config, undefined, axiosInstance),
+      follow: new FollowsApi(config, undefined, axiosInstance),
     };
   }
 
@@ -130,29 +130,32 @@ export class NeynarV2APIClient {
    * Creates and registers a Signer for an fid. See Neynar documentation[1](https://docs.neynar.com/reference/create-signer),[2](https://docs.neynar.com/reference/register-app-fid)
    * for more details.
    */
-  public async createAndRegisterSigner(
-    fid: number,
-    privateKey: string,
+  public async createSigner(
+    developerMnemonic: string,
     deadline?: number,
   ): Promise<Signer> {
+    const custodyAddress = mnemonicToAddress(developerMnemonic);
+    const userResponse = await this.apis.user.lookupUserByCustodyAddress({ custodyAddress });
+    const developerFid = userResponse.data.user.fid;
+
     const createSignerResponse = await this.apis.signer.createSigner();
     const signer = createSignerResponse.data;
 
-    // default deadline is 30 days
-    const defaultDeadline = Math.floor(Date.now() / 1000) + 30 * 86400;
+    // default deadline is 24 hours
+    const defaultDeadline = Math.floor(Date.now() / 1000) + 86400;
 
     // create signature
     const signature = await generateSignature(
       signer.public_key,
-      fid,
-      privateKey,
+      developerFid,
+      developerMnemonic,
       deadline ?? defaultDeadline,
     );
 
     const request: SignerApiRegisterSignedKeyRequest = {
       registerSignerKeyReqBody: {
         signer_uuid: signer.signer_uuid,
-        app_fid: fid,
+        app_fid: developerFid,
         deadline: deadline ?? defaultDeadline,
         signature: signature,
       },
@@ -178,7 +181,7 @@ export class NeynarV2APIClient {
 
     while (true) {
       const response = await this.apis.feed.feed({
-        feedType: options?.feedType,
+        feedType: options?.feedType ?? 'following',
         filterType: options?.filterType,
         fid: fid,
         fids: options?.fids,
@@ -225,9 +228,7 @@ export class NeynarV2APIClient {
   public async fetchCasts(castHashes: string[]): Promise<Cast[] | null> {
     try {
       const response = await this.apis.cast.casts({
-        getCastsReqBody: {
-          casts: castHashes.map((hash) => ({ hash })),
-        },
+        casts: castHashes.join(','),
       });
       return response.data.result.casts;
     } catch (error) {
@@ -364,7 +365,7 @@ export class NeynarV2APIClient {
       signer_uuid: signerUuid,
       target_fids: fids,
     };
-    const response = await this.apis.follow.followUser({ followReqBody: body });
+    const response = await this.apis.user.followUser({ followReqBody: body });
     return response.data;
   }
 
@@ -379,7 +380,7 @@ export class NeynarV2APIClient {
       signer_uuid: signerUuid,
       target_fids: fids,
     };
-    const response = await this.apis.follow.unfollowUser({
+    const response = await this.apis.user.unfollowUser({
       followReqBody: body,
     });
     return response.data;

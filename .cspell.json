@@ -30,7 +30,10 @@
     "fname",
     "openapitools",
     "commitlint",
-    "Redocly"
+    "Redocly",
+    "qrcode",
+    "TYPEHASH",
+    "Seedable"
   ],
   "flagWords": [],
   "ignorePaths": [
