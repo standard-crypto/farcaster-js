@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@noble/curves": "^1.2.0",
-    "@standard-crypto/farcaster-js": "workspace:*",
+    "@standard-crypto/farcaster-js-neynar": "workspace:*",
     "commander": "^11.1.0",
     "inquirer": "^9.2.12",
     "ora": "^7.0.1",

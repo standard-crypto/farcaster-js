@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { NeynarAPIClient, waitForNeynarSignerApproval } from '@standard-crypto/farcaster-js';
+import { NeynarAPIClient, waitForNeynarSignerApproval } from '@standard-crypto/farcaster-js-neynar';
 import QRCode from 'qrcode';
 import { createDeveloperSigner } from './keyGateWayClient.js';
 

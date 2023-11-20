@@ -2168,7 +2168,7 @@ __metadata:
   resolution: "@standard-crypto/farcaster-js-cli@workspace:packages/farcaster-js-cli"
   dependencies:
     "@noble/curves": "npm:^1.2.0"
-    "@standard-crypto/farcaster-js": "workspace:*"
+    "@standard-crypto/farcaster-js-neynar": "workspace:*"
     "@types/inquirer": "npm:^9"
     commander: "npm:^11.1.0"
     inquirer: "npm:^9.2.12"
@@ -2240,7 +2240,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@standard-crypto/farcaster-js@workspace:*, @standard-crypto/farcaster-js@workspace:packages/farcaster-js":
+"@standard-crypto/farcaster-js@workspace:packages/farcaster-js":
   version: 0.0.0-use.local
   resolution: "@standard-crypto/farcaster-js@workspace:packages/farcaster-js"
   dependencies:
