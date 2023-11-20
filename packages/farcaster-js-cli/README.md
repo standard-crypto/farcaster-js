@@ -1,6 +1,6 @@
 # Farcaster Neynar API Client
 
-A tool for creating Farcaster signers..
+A tool for creating Farcaster signers.
 
 ![NPM](https://img.shields.io/npm/l/@standard-crypto/farcaster-js-cli?no-cache)
 ![NPM](https://img.shields.io/npm/v/@standard-crypto/farcaster-js-cli?no-cache)
