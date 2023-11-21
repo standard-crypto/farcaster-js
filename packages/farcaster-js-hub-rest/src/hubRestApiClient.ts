@@ -167,7 +167,7 @@ export class HubRestAPIClient {
       mentionsPositions?: number[]
     },
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -180,7 +180,7 @@ export class HubRestAPIClient {
       mentions: cast.mentions ?? [],
       mentionsPositions: cast.mentionsPositions ?? [],
     };
-    const msg = await makeCastAdd(castAdd, dataOptions, hexToSigner(signer));
+    const msg = await makeCastAdd(castAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -198,7 +198,7 @@ export class HubRestAPIClient {
   public async removeCast(
     castHash: string,
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -210,7 +210,7 @@ export class HubRestAPIClient {
     }
     const castToRemove = { targetHash: targetHashBytes.value };
 
-    const msg = await makeCastRemove(castToRemove, dataOptions, hexToSigner(signer));
+    const msg = await makeCastRemove(castToRemove, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -233,13 +233,13 @@ export class HubRestAPIClient {
       targetFid?: number
     },
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const msg = await makeLinkAdd(link, dataOptions, hexToSigner(signer));
+    const msg = await makeLinkAdd(link, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -248,6 +248,18 @@ export class HubRestAPIClient {
       body: messageBytes,
     });
     return response.data;
+  }
+
+  /**
+   * Follows a User. Wraps submitLink.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async followUser(
+    targetFid: number,
+    fid: number,
+    signerPrivateKeyHex: string,
+  ): Promise<HubMessage | null> {
+    return await this.submitLink({ type: 'follow', targetFid: targetFid }, fid, signerPrivateKeyHex);
   }
 
   /**
@@ -261,13 +273,13 @@ export class HubRestAPIClient {
       targetFid?: number
     },
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const msg = await makeLinkRemove(link, dataOptions, hexToSigner(signer));
+    const msg = await makeLinkRemove(link, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -276,6 +288,18 @@ export class HubRestAPIClient {
       body: messageBytes,
     });
     return response.data;
+  }
+
+  /**
+   * Un-follows a User. Wraps removeLink.
+   * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   */
+  public async unfollowUser(
+    targetFid: number,
+    fid: number,
+    signerPrivateKeyHex: string,
+  ): Promise<HubMessage | null> {
+    return await this.removeLink({ type: 'follow', targetFid: targetFid }, fid, signerPrivateKeyHex);
   }
 
   /**
@@ -288,7 +312,7 @@ export class HubRestAPIClient {
       target: CastId | { url: string }
     },
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -310,7 +334,7 @@ export class HubRestAPIClient {
       targetCastId: castId,
       targetUrl: targetUrl,
     };
-    const msg = await makeReactionAdd(reactionAdd, dataOptions, hexToSigner(signer));
+    const msg = await makeReactionAdd(reactionAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -331,7 +355,7 @@ export class HubRestAPIClient {
       target: CastId | { url: string }
     },
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -353,7 +377,7 @@ export class HubRestAPIClient {
       targetCastId: castId,
       targetUrl: targetUrl,
     };
-    const msg = await makeReactionRemove(reactionRemove, dataOptions, hexToSigner(signer));
+    const msg = await makeReactionRemove(reactionRemove, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -377,7 +401,7 @@ export class HubRestAPIClient {
       chainId: number
     },
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -413,7 +437,7 @@ export class HubRestAPIClient {
       verificationType: verification.verificationType === 'EOA' ? 0 : 1,
       chainId: verification.chainId,
     };
-    const msg = await makeVerificationAddEthAddress(verificationAdd, dataOptions, hexToSigner(signer));
+    const msg = await makeVerificationAddEthAddress(verificationAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -431,7 +455,7 @@ export class HubRestAPIClient {
   public async removeVerification(
     address: string,
     fid: number,
-    signer: string,
+    signerPrivateKeyHex: string,
   ): Promise<HubMessage | null> {
     const dataOptions = {
       fid: fid,
@@ -441,7 +465,7 @@ export class HubRestAPIClient {
     if (addressBytes.isErr()) {
       throw addressBytes.error;
     }
-    const msg = await makeVerificationRemove({ address: addressBytes.value }, dataOptions, hexToSigner(signer));
+    const msg = await makeVerificationRemove({ address: addressBytes.value }, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
       throw msg.error;
     }

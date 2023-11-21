@@ -1156,7 +1156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:1.3.2, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:^1.3.2, @noble/hashes@npm:~1.3.0, @noble/hashes@npm:~1.3.2":
+"@noble/hashes@npm:1.3.2, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:~1.3.0, @noble/hashes@npm:~1.3.2":
   version: 1.3.2
   resolution: "@noble/hashes@npm:1.3.2"
   checksum: 2482cce3bce6a596626f94ca296e21378e7a5d4c09597cbc46e65ffacc3d64c8df73111f2265444e36a3168208628258bbbaccba2ef24f65f58b2417638a20e7
@@ -2173,7 +2173,6 @@ __metadata:
   resolution: "@standard-crypto/farcaster-js-hub-rest@workspace:packages/farcaster-js-hub-rest"
   dependencies:
     "@farcaster/core": "npm:^0.13.1"
-    "@noble/hashes": "npm:^1.3.2"
     "@openapitools/openapi-generator-cli": "npm:^2.7.0"
     "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"

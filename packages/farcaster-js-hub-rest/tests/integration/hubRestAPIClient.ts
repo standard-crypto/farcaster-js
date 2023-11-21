@@ -7,6 +7,7 @@ import type { OpenAPIV3 } from 'openapi-types'; // cspell:disable-line
 import type { OverrideProperties } from 'type-fest';
 
 import { HubRestAPIClient } from '../../src/index.js';
+import { hexToBytes } from '../../src/utils.js';
 import { Logger, silentLogger } from '../../src/logger.js';
 import { expectDefinedNonNull } from '../utils.js';
 import {
@@ -19,7 +20,6 @@ import {
   UserDataType,
 } from '../../src/openapi/index.js';
 import type { paths as SchemaPaths } from '../../src/openapi/generated/schema.js';
-import { hexToBytes } from '@noble/hashes/utils';
 import { Message, NobleEd25519Signer, makeCastAdd } from '@farcaster/core';
 import { Wallet, ethers } from 'ethers';
 
@@ -104,12 +104,12 @@ describe('HubWebClient', function() {
         await client.removeCast(submittedCastHash, userGaviBotFid, signerPrivateKey);
       });
       it('can follow a user', async function() {
-        const linkResponse = await client.submitLink({ type: 'follow', targetFid: userGaviFid }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(linkResponse?.hash);
+        const followResponse = await client.followUser(userGaviFid, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(followResponse?.hash);
       });
       it('can unfollow a user', async function() {
-        const unlinkResponse = await client.removeLink({ type: 'follow', targetFid: userGaviFid }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(unlinkResponse?.hash);
+        const unfollowResponse = await client.unfollowUser(userGaviFid, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(unfollowResponse?.hash);
       });
       const castHash = '0x69ab635a1111c6d83e3e6043109e831328161901';
       it('can like a cast', async function() {

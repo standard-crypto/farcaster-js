@@ -12,13 +12,13 @@
   "author": "Gavi Galloway",
   "license": "MIT",
   "dependencies": {
-    "@farcaster/core": "^0.13.1"
+    "@farcaster/core": "^0.13.1",
+    "ethers": "^6.8.1"
   },
   "peerDependencies": {
     "axios": "~1.5.1"
   },
   "devDependencies": {
-    "@noble/hashes": "^1.3.2",
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "@types/chai": "^4.3.9",
     "@types/chai-as-promised": "^7.1.5",
@@ -50,8 +50,7 @@
     "clean:dist": "rm -rf dist",
     "clean:generated": "rm -rf src/openapi/generated",
     "cz": "yarn run -T cz",
-    "fixup-imports": "yarn run -T fix-esm-import-path src && yarn run fix-utils && sed -i.bak 's|models\"|models/index.js\"|' src/openapi/generated/**/*.ts && sed -i.bak 's|models|models/index.js|' src/openapi/generated/apis/**/*.ts && rm src/openapi/generated/**/*.ts.bak",
-    "fix-utils": "sed -i.bak 's/@noble\\/hashes\\/utils\\.js/@noble\\/hashes\\/utils/g' src/utils.ts && rm src/utils.ts.bak",
+    "fixup-imports": "yarn run -T fix-esm-import-path src && sed -i.bak 's|models\"|models/index.js\"|' src/openapi/generated/**/*.ts && sed -i.bak 's|models|models/index.js|' src/openapi/generated/apis/**/*.ts && rm src/openapi/generated/**/*.ts.bak",
     "generate": "yarn run generate:openapi && yarn run generate:docs",
     "generate:docs": "md-magic --path './README.md' && typedoc --plugin typedoc-plugin-markdown",
     "generate:openapi": "yarn run generate:openapi-axios && yarn run generate:openapi-typescript && yarn run fixup-imports",
