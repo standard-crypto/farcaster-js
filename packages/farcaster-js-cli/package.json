@@ -1,15 +1,15 @@
 {
   "name": "@standard-crypto/farcaster-js-cli",
-  "version": "6.0.3",
-  "description": "A collection of tools for interacting with the Farcaster social network.",
+  "version": "1.0.0",
+  "description": "A CLI for creating Farcaster signers",
   "type": "module",
   "repository": {
     "url": "https://github.com/standard-crypto/farcaster-js-cli",
     "type": "git"
   },
-  "homepage": "https://github.com/standard-crypto/farcaster-js-cli",
+  "homepage": "https://github.com/standard-crypto/farcaster-js",
   "bugs": "https://github.com/standard-crypto/farcaster-js/issues",
-  "author": "Gavi Galloway",
+  "author": "Kevin Ayling",
   "license": "MIT",
   "peerDependencies": {
     "axios": "~1.5.1"
@@ -17,9 +17,12 @@
   "dependencies": {
     "@noble/curves": "^1.2.0",
     "@standard-crypto/farcaster-js-neynar": "workspace:*",
+    "@types/inquirer": "^9.0.7",
     "commander": "^11.1.0",
     "inquirer": "^9.2.12",
     "ora": "^7.0.1",
+    "qrcode": "^1.5.3",
+    "typescript": "^5.3.2",
     "viem": "^1.19.3"
   },
   "files": [
@@ -28,15 +31,11 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "yarn run pre-tshy && yarn run -T tshy && yarn run post-tshy",
+    "build": "yarn run -T tshy",
     "clean": "yarn clean:dist",
     "clean:dist": "rm -rf dist",
     "cz": "yarn run -T cz",
-    "prepack": "cp ../../README.md .",
-    "postpack": "rm README.md",
-    "publish": "yarn npm publish",
-    "pre-tshy": "mv tsconfig.json tsconfig.json.bak && mv tsconfig.build.json tsconfig.json",
-    "post-tshy": "mv tsconfig.json tsconfig.build.json && mv tsconfig.json.bak tsconfig.json"
+    "publish": "yarn npm publish"
   },
   "keywords": [
     "farcaster"
@@ -64,9 +63,6 @@
         "default": "./dist/commonjs/index.js"
       }
     }
-  },
-  "devDependencies": {
-    "@types/inquirer": "^9"
   },
   "main": "./dist/commonjs/index.js"
 }

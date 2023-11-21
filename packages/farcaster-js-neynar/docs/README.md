@@ -41,13 +41,10 @@ import QRCode from 'qrcode';
 const client = new NeynarAPIClient('apiKey');
 
 const developerMnemonic = 'your farcaster recovery phrase';
-// default deadline is 30 days - set longer if needed
-// const deadline = Math.floor(Date.now() / 1000) + 30 * 86400;
 
 // create signer
 const signer = await client.v2.createSigner(
   developerMnemonic,
-//   deadline,
 );
 
 console.log('Scan the QR code below on a logged in device to approve signer');
@@ -99,14 +96,13 @@ console.log(`Reply hash:${publishedCast.hash}`);
 <!-- The below code snippet is automatically added from ./examples/likeAndRecast.ts -->
 ```ts
 import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
-import { ReactionType } from '@standard-crypto/farcaster-js-neynar/v2';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');
 
 const existingCastHash = 'existingCastHash';
-await client.v2.reactToCast(signerUuid, ReactionType.Like, existingCastHash); // Like Cast
-await client.v2.reactToCast(signerUuid, ReactionType.Recast, existingCastHash); // Recast Cast
+await client.v2.reactToCast(signerUuid, 'like', existingCastHash); // Like Cast
+await client.v2.reactToCast(signerUuid, 'recast', existingCastHash); // Recast Cast
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 

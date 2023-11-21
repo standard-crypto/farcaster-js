@@ -321,12 +321,12 @@ export class NeynarV2APIClient {
    */
   public async reactToCast(
     signerUuid: string,
-    reaction: ReactionType,
+    reaction: 'like' | 'recast',
     castHash: string,
   ): Promise<OperationResponse> {
     const body: ReactionReqBody = {
       signer_uuid: signerUuid,
-      reaction_type: reaction,
+      reaction_type: reaction === 'like' ? ReactionType.Like : ReactionType.Recast,
       target: castHash,
     };
     const response = await this.apis.reaction.postReaction({
@@ -340,12 +340,12 @@ export class NeynarV2APIClient {
    */
   public async removeReactionToCast(
     signerUuid: string,
-    reaction: ReactionType,
+    reaction: 'like' | 'recast',
     castHash: string,
   ): Promise<OperationResponse> {
     const body: ReactionReqBody = {
       signer_uuid: signerUuid,
-      reaction_type: reaction,
+      reaction_type: reaction === 'like' ? ReactionType.Like : ReactionType.Recast,
       target: castHash,
     };
     const response = await this.apis.reaction.deleteReaction({

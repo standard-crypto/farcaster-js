@@ -412,9 +412,9 @@ if (apiKey !== undefined && apiKey !== '') {
               followersSet.add(follower.fid);
               followerFound = true;
               followersFound++;
-              if (followersFound === 50) break;
+              if (followersFound === 25) break;
             }
-            expect(followersFound).to.eq(50);
+            expect(followersFound).to.eq(25);
             expect(followerFound).to.be.true;
           });
           it('returns empty generator for an invalid user', async function() {

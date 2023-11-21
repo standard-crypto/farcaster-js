@@ -4,13 +4,10 @@ import QRCode from 'qrcode';
 const client = new NeynarAPIClient('apiKey');
 
 const developerMnemonic = 'your farcaster recovery phrase';
-// default deadline is 30 days - set longer if needed
-// const deadline = Math.floor(Date.now() / 1000) + 30 * 86400;
 
 // create signer
 const signer = await client.v2.createSigner(
   developerMnemonic,
-//   deadline,
 );
 
 console.log('Scan the QR code below on a logged in device to approve signer');
