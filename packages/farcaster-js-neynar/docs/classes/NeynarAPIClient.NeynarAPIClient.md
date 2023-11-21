@@ -19,7 +19,7 @@
 
 ### constructor
 
-• **new NeynarAPIClient**(`apiKey`, `«destructured»?`)
+• **new NeynarAPIClient**(`apiKey`, `«destructured»?`): [`NeynarAPIClient`](NeynarAPIClient.NeynarAPIClient.md)
 
 Instantiates a NeynarAPIClient
 
@@ -33,6 +33,10 @@ Creates NeynarV1APIClient and NeynarV2APIClients
 | `«destructured»` | `Object` |
 | › `axiosInstance?` | `AxiosInstance` |
 | › `logger?` | [`Logger`](../interfaces/logger.Logger.md) |
+
+#### Returns
+
+[`NeynarAPIClient`](NeynarAPIClient.NeynarAPIClient.md)
 
 #### Defined in
 

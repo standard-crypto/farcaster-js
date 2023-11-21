@@ -37,7 +37,7 @@ ReactionsApi - object-oriented interface
 
 ### constructor
 
-• **new ReactionsApi**(`configuration?`, `basePath?`, `axios?`)
+• **new ReactionsApi**(`configuration?`, `basePath?`, `axios?`): [`ReactionsApi`](openapi.ReactionsApi.md)
 
 #### Parameters
 
@@ -46,6 +46,10 @@ ReactionsApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`ReactionsApi`](openapi.ReactionsApi.md)
 
 #### Inherited from
 
@@ -101,18 +105,18 @@ BaseAPI.configuration
 
 ### getReactionById
 
-▸ **getReactionById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`Reaction`](../modules/openapi.md#reaction), `any`\>\>
+▸ **getReactionById**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`Reaction`](../modules/openapi.md#reaction), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`ReactionsApiGetReactionByIdRequest`](../interfaces/openapi.ReactionsApiGetReactionByIdRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`Reaction`](../modules/openapi.md#reaction), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`Reaction`](../modules/openapi.md#reaction), `any`\>\>
 
 **`Summary`**
 
@@ -132,18 +136,18 @@ ___
 
 ### listReactionsByCast
 
-▸ **listReactionsByCast**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+▸ **listReactionsByCast**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`ReactionsApiListReactionsByCastRequest`](../interfaces/openapi.ReactionsApiListReactionsByCastRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
 **`Summary`**
 
@@ -163,18 +167,18 @@ ___
 
 ### listReactionsByFid
 
-▸ **listReactionsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+▸ **listReactionsByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`ReactionsApiListReactionsByFidRequest`](../interfaces/openapi.ReactionsApiListReactionsByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
 **`Summary`**
 
@@ -194,18 +198,18 @@ ___
 
 ### listReactionsByTarget
 
-▸ **listReactionsByTarget**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+▸ **listReactionsByTarget**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`ReactionsApiListReactionsByTargetRequest`](../interfaces/openapi.ReactionsApiListReactionsByTargetRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md), `any`\>\>
 
 **`Summary`**
 

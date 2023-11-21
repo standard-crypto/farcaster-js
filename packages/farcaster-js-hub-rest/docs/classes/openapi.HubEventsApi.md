@@ -35,7 +35,7 @@ HubEventsApi - object-oriented interface
 
 ### constructor
 
-• **new HubEventsApi**(`configuration?`, `basePath?`, `axios?`)
+• **new HubEventsApi**(`configuration?`, `basePath?`, `axios?`): [`HubEventsApi`](openapi.HubEventsApi.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@ HubEventsApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`HubEventsApi`](openapi.HubEventsApi.md)
 
 #### Inherited from
 
@@ -99,18 +103,18 @@ BaseAPI.configuration
 
 ### getEventById
 
-▸ **getEventById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`HubEvent`](../modules/openapi.md#hubevent), `any`\>\>
+▸ **getEventById**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`HubEvent`](../modules/openapi.md#hubevent), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`HubEventsApiGetEventByIdRequest`](../interfaces/openapi.HubEventsApiGetEventByIdRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`HubEvent`](../modules/openapi.md#hubevent), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`HubEvent`](../modules/openapi.md#hubevent), `any`\>\>
 
 **`Summary`**
 
@@ -130,18 +134,18 @@ ___
 
 ### listEvents
 
-▸ **listEvents**(`requestParameters?`, `options?`): `Promise`<`AxiosResponse`<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md), `any`\>\>
+▸ **listEvents**(`requestParameters?`, `options?`): `Promise`\<`AxiosResponse`\<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`HubEventsApiListEventsRequest`](../interfaces/openapi.HubEventsApiListEventsRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md), `any`\>\>
 
 **`Summary`**
 

@@ -29,7 +29,7 @@ Do not edit the class manually.
 
 ### accessToken
 
-• `Optional` **accessToken**: `string` \| `Promise`<`string`\> \| (`name?`: `string`, `scopes?`: `string`[]) => `string` \| (`name?`: `string`, `scopes?`: `string`[]) => `Promise`<`string`\>
+• `Optional` **accessToken**: `string` \| `Promise`\<`string`\> \| (`name?`: `string`, `scopes?`: `string`[]) => `string` \| (`name?`: `string`, `scopes?`: `string`[]) => `Promise`\<`string`\>
 
 #### Defined in
 
@@ -39,7 +39,7 @@ ___
 
 ### apiKey
 
-• `Optional` **apiKey**: `string` \| `Promise`<`string`\> \| (`name`: `string`) => `string` \| (`name`: `string`) => `Promise`<`string`\>
+• `Optional` **apiKey**: `string` \| `Promise`\<`string`\> \| (`name`: `string`) => `string` \| (`name`: `string`) => `Promise`\<`string`\>
 
 #### Defined in
 
@@ -73,7 +73,11 @@ ___
 
 #### Type declaration
 
-• **new formDataCtor**()
+• **new formDataCtor**(): `any`
+
+##### Returns
+
+`any`
 
 #### Defined in
 

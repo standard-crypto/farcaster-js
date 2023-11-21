@@ -34,7 +34,7 @@ FIDsApi - object-oriented interface
 
 ### constructor
 
-• **new FIDsApi**(`configuration?`, `basePath?`, `axios?`)
+• **new FIDsApi**(`configuration?`, `basePath?`, `axios?`): [`FIDsApi`](openapi.FIDsApi.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@ FIDsApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`FIDsApi`](openapi.FIDsApi.md)
 
 #### Inherited from
 
@@ -98,18 +102,18 @@ BaseAPI.configuration
 
 ### listFids
 
-▸ **listFids**(`requestParameters?`, `options?`): `Promise`<`AxiosResponse`<[`FidsResponse`](../interfaces/openapi.FidsResponse.md), `any`\>\>
+▸ **listFids**(`requestParameters?`, `options?`): `Promise`\<`AxiosResponse`\<[`FidsResponse`](../interfaces/openapi.FidsResponse.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`FIDsApiListFidsRequest`](../interfaces/openapi.FIDsApiListFidsRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`FidsResponse`](../interfaces/openapi.FidsResponse.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`FidsResponse`](../interfaces/openapi.FidsResponse.md), `any`\>\>
 
 **`Summary`**
 

@@ -36,7 +36,7 @@ LinksApi - object-oriented interface
 
 ### constructor
 
-• **new LinksApi**(`configuration?`, `basePath?`, `axios?`)
+• **new LinksApi**(`configuration?`, `basePath?`, `axios?`): [`LinksApi`](openapi.LinksApi.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@ LinksApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`LinksApi`](openapi.LinksApi.md)
 
 #### Inherited from
 
@@ -100,18 +104,18 @@ BaseAPI.configuration
 
 ### getLinkById
 
-▸ **getLinkById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`LinkAdd`](../modules/openapi.md#linkadd), `any`\>\>
+▸ **getLinkById**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`LinkAdd`](../modules/openapi.md#linkadd), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`LinksApiGetLinkByIdRequest`](../interfaces/openapi.LinksApiGetLinkByIdRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`LinkAdd`](../modules/openapi.md#linkadd), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`LinkAdd`](../modules/openapi.md#linkadd), `any`\>\>
 
 **`Summary`**
 
@@ -131,18 +135,18 @@ ___
 
 ### listLinksByFid
 
-▸ **listLinksByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
+▸ **listLinksByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`LinksApiListLinksByFidRequest`](../interfaces/openapi.LinksApiListLinksByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
 
 **`Summary`**
 
@@ -162,18 +166,18 @@ ___
 
 ### listLinksByTargetFid
 
-▸ **listLinksByTargetFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
+▸ **listLinksByTargetFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`LinksApiListLinksByTargetFidRequest`](../interfaces/openapi.LinksApiListLinksByTargetFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md), `any`\>\>
 
 **`Summary`**
 

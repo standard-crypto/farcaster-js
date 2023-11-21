@@ -235,7 +235,7 @@ ___
 
 ### HubEvent
 
-Ƭ **HubEvent**: { `type`: ``"HUB_EVENT_TYPE_MERGE_MESSAGE"``  } & [`HubEventMergeMessage`](../interfaces/openapi.HubEventMergeMessage.md) \| { `type`: ``"HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT"``  } & [`HubEventMergeOnChainEvent`](../interfaces/openapi.HubEventMergeOnChainEvent.md) \| { `type`: ``"HUB_EVENT_TYPE_MERGE_USERNAME_PROOF"``  } & [`HubEventMergeUsernameProof`](../interfaces/openapi.HubEventMergeUsernameProof.md) \| { `type`: ``"HUB_EVENT_TYPE_PRUNE_MESSAGE"``  } & [`HubEventPruneMessage`](../interfaces/openapi.HubEventPruneMessage.md) \| { `type`: ``"HUB_EVENT_TYPE_REVOKE_MESSAGE"``  } & [`HubEventRevokeMessage`](../interfaces/openapi.HubEventRevokeMessage.md)
+Ƭ **HubEvent**: \{ `type`: ``"HUB_EVENT_TYPE_MERGE_MESSAGE"``  } & [`HubEventMergeMessage`](../interfaces/openapi.HubEventMergeMessage.md) \| \{ `type`: ``"HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT"``  } & [`HubEventMergeOnChainEvent`](../interfaces/openapi.HubEventMergeOnChainEvent.md) \| \{ `type`: ``"HUB_EVENT_TYPE_MERGE_USERNAME_PROOF"``  } & [`HubEventMergeUsernameProof`](../interfaces/openapi.HubEventMergeUsernameProof.md) \| \{ `type`: ``"HUB_EVENT_TYPE_PRUNE_MESSAGE"``  } & [`HubEventPruneMessage`](../interfaces/openapi.HubEventPruneMessage.md) \| \{ `type`: ``"HUB_EVENT_TYPE_REVOKE_MESSAGE"``  } & [`HubEventRevokeMessage`](../interfaces/openapi.HubEventRevokeMessage.md)
 
 **`Export`**
 
@@ -295,7 +295,7 @@ ___
 
 ### MessageAllOfData
 
-Ƭ **MessageAllOfData**: { `type`: ``"MESSAGE_TYPE_CAST_ADD"``  } & [`MessageDataCastAdd`](openapi.md#messagedatacastadd) \| { `type`: ``"MESSAGE_TYPE_CAST_REMOVE"``  } & [`MessageDataCastRemove`](openapi.md#messagedatacastremove) \| { `type`: ``"MESSAGE_TYPE_LINK_ADD"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| { `type`: ``"MESSAGE_TYPE_LINK_REMOVE"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| { `type`: ``"MESSAGE_TYPE_REACTION_ADD"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| { `type`: ``"MESSAGE_TYPE_REACTION_REMOVE"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| { `type`: ``"MESSAGE_TYPE_USERNAME_PROOF"``  } & [`MessageDataUsernameProof`](openapi.md#messagedatausernameproof) \| { `type`: ``"MESSAGE_TYPE_USER_DATA_ADD"``  } & [`MessageDataUserDataAdd`](openapi.md#messagedatauserdataadd) \| { `type`: ``"MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS"``  } & [`MessageDataVerificationAdd`](openapi.md#messagedataverificationadd) \| { `type`: ``"MESSAGE_TYPE_VERIFICATION_REMOVE"``  } & [`MessageDataVerificationRemove`](openapi.md#messagedataverificationremove)
+Ƭ **MessageAllOfData**: \{ `type`: ``"MESSAGE_TYPE_CAST_ADD"``  } & [`MessageDataCastAdd`](openapi.md#messagedatacastadd) \| \{ `type`: ``"MESSAGE_TYPE_CAST_REMOVE"``  } & [`MessageDataCastRemove`](openapi.md#messagedatacastremove) \| \{ `type`: ``"MESSAGE_TYPE_LINK_ADD"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| \{ `type`: ``"MESSAGE_TYPE_LINK_REMOVE"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| \{ `type`: ``"MESSAGE_TYPE_REACTION_ADD"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| \{ `type`: ``"MESSAGE_TYPE_REACTION_REMOVE"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| \{ `type`: ``"MESSAGE_TYPE_USERNAME_PROOF"``  } & [`MessageDataUsernameProof`](openapi.md#messagedatausernameproof) \| \{ `type`: ``"MESSAGE_TYPE_USER_DATA_ADD"``  } & [`MessageDataUserDataAdd`](openapi.md#messagedatauserdataadd) \| \{ `type`: ``"MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS"``  } & [`MessageDataVerificationAdd`](openapi.md#messagedataverificationadd) \| \{ `type`: ``"MESSAGE_TYPE_VERIFICATION_REMOVE"``  } & [`MessageDataVerificationRemove`](openapi.md#messagedataverificationremove)
 
 **`Export`**
 
@@ -403,7 +403,7 @@ ___
 
 ### OnChainEvent
 
-Ƭ **OnChainEvent**: { `type`: ``"EVENT_TYPE_ID_REGISTER"``  } & [`OnChainEventIdRegister`](openapi.md#onchaineventidregister) \| { `type`: ``"EVENT_TYPE_SIGNER"``  } & [`OnChainEventSigner`](openapi.md#onchaineventsigner) \| { `type`: ``"EVENT_TYPE_SIGNER_MIGRATED"``  } & [`OnChainEventSignerMigrated`](openapi.md#onchaineventsignermigrated) \| { `type`: ``"EVENT_TYPE_STORAGE_RENT"``  } & [`OnChainEventStorageRent`](openapi.md#onchaineventstoragerent)
+Ƭ **OnChainEvent**: \{ `type`: ``"EVENT_TYPE_ID_REGISTER"``  } & [`OnChainEventIdRegister`](openapi.md#onchaineventidregister) \| \{ `type`: ``"EVENT_TYPE_SIGNER"``  } & [`OnChainEventSigner`](openapi.md#onchaineventsigner) \| \{ `type`: ``"EVENT_TYPE_SIGNER_MIGRATED"``  } & [`OnChainEventSignerMigrated`](openapi.md#onchaineventsignermigrated) \| \{ `type`: ``"EVENT_TYPE_STORAGE_RENT"``  } & [`OnChainEventStorageRent`](openapi.md#onchaineventstoragerent)
 
 **`Export`**
 
@@ -539,10 +539,10 @@ CastsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getCastById` | (`fid`: `number`, `hash`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listCastsByFid` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listCastsByMention` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listCastsByParent` | (`fid?`: `number`, `hash?`: `string`, `url?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getCastById` | (`fid`: `number`, `hash`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listCastsByFid` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listCastsByMention` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listCastsByParent` | (`fid?`: `number`, `hash?`: `string`, `url?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -572,10 +572,10 @@ CastsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getCastById` | (`requestParameters`: [`CastsApiGetCastByIdRequest`](../interfaces/openapi.CastsApiGetCastByIdRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`CastAdd`](openapi.md#castadd)\> |
-| `listCastsByFid` | (`requestParameters`: [`CastsApiListCastsByFidRequest`](../interfaces/openapi.CastsApiListCastsByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\> |
-| `listCastsByMention` | (`requestParameters`: [`CastsApiListCastsByMentionRequest`](../interfaces/openapi.CastsApiListCastsByMentionRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\> |
-| `listCastsByParent` | (`requestParameters`: [`CastsApiListCastsByParentRequest`](../interfaces/openapi.CastsApiListCastsByParentRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\> |
+| `getCastById` | (`requestParameters`: [`CastsApiGetCastByIdRequest`](../interfaces/openapi.CastsApiGetCastByIdRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`CastAdd`](openapi.md#castadd)\> |
+| `listCastsByFid` | (`requestParameters`: [`CastsApiListCastsByFidRequest`](../interfaces/openapi.CastsApiListCastsByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\> |
+| `listCastsByMention` | (`requestParameters`: [`CastsApiListCastsByMentionRequest`](../interfaces/openapi.CastsApiListCastsByMentionRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\> |
+| `listCastsByParent` | (`requestParameters`: [`CastsApiListCastsByParentRequest`](../interfaces/openapi.CastsApiListCastsByParentRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\> |
 
 **`Export`**
 
@@ -603,10 +603,10 @@ CastsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getCastById` | (`fid`: `number`, `hash`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`CastAdd`](openapi.md#castadd)\>\> |
-| `listCastsByFid` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\>\> |
-| `listCastsByMention` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\>\> |
-| `listCastsByParent` | (`fid?`: `number`, `hash?`: `string`, `url?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\>\> |
+| `getCastById` | (`fid`: `number`, `hash`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`CastAdd`](openapi.md#castadd)\>\> |
+| `listCastsByFid` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\>\> |
+| `listCastsByMention` | (`fid`: `number`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\>\> |
+| `listCastsByParent` | (`fid?`: `number`, `hash?`: `string`, `url?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md)\>\> |
 
 **`Export`**
 
@@ -634,7 +634,7 @@ FIDsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `listFids` | (`pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `listFids` | (`pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -664,7 +664,7 @@ FIDsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `listFids` | (`requestParameters`: [`FIDsApiListFidsRequest`](../interfaces/openapi.FIDsApiListFidsRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`FidsResponse`](../interfaces/openapi.FidsResponse.md)\> |
+| `listFids` | (`requestParameters`: [`FIDsApiListFidsRequest`](../interfaces/openapi.FIDsApiListFidsRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`FidsResponse`](../interfaces/openapi.FidsResponse.md)\> |
 
 **`Export`**
 
@@ -692,7 +692,7 @@ FIDsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `listFids` | (`pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`FidsResponse`](../interfaces/openapi.FidsResponse.md)\>\> |
+| `listFids` | (`pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`FidsResponse`](../interfaces/openapi.FidsResponse.md)\>\> |
 
 **`Export`**
 
@@ -720,8 +720,8 @@ HubEventsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getEventById` | (`eventId`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listEvents` | (`fromEventId?`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getEventById` | (`eventId`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listEvents` | (`fromEventId?`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -751,8 +751,8 @@ HubEventsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getEventById` | (`requestParameters`: [`HubEventsApiGetEventByIdRequest`](../interfaces/openapi.HubEventsApiGetEventByIdRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`HubEvent`](openapi.md#hubevent)\> |
-| `listEvents` | (`requestParameters`: [`HubEventsApiListEventsRequest`](../interfaces/openapi.HubEventsApiListEventsRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md)\> |
+| `getEventById` | (`requestParameters`: [`HubEventsApiGetEventByIdRequest`](../interfaces/openapi.HubEventsApiGetEventByIdRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`HubEvent`](openapi.md#hubevent)\> |
+| `listEvents` | (`requestParameters`: [`HubEventsApiListEventsRequest`](../interfaces/openapi.HubEventsApiListEventsRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md)\> |
 
 **`Export`**
 
@@ -780,8 +780,8 @@ HubEventsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getEventById` | (`eventId`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`HubEvent`](openapi.md#hubevent)\>\> |
-| `listEvents` | (`fromEventId?`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md)\>\> |
+| `getEventById` | (`eventId`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`HubEvent`](openapi.md#hubevent)\>\> |
+| `listEvents` | (`fromEventId?`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListEvents200Response`](../interfaces/openapi.ListEvents200Response.md)\>\> |
 
 **`Export`**
 
@@ -809,7 +809,7 @@ InfoApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getInfo` | (`dbstats`: `boolean`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getInfo` | (`dbstats`: `boolean`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -839,7 +839,7 @@ InfoApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getInfo` | (`requestParameters`: [`InfoApiGetInfoRequest`](../interfaces/openapi.InfoApiGetInfoRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)\> |
+| `getInfo` | (`requestParameters`: [`InfoApiGetInfoRequest`](../interfaces/openapi.InfoApiGetInfoRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)\> |
 
 **`Export`**
 
@@ -867,7 +867,7 @@ InfoApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getInfo` | (`dbstats`: `boolean`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)\>\> |
+| `getInfo` | (`dbstats`: `boolean`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)\>\> |
 
 **`Export`**
 
@@ -895,9 +895,9 @@ LinksApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getLinkById` | (`fid`: `number`, `targetFid`: `number`, `linkType`: [`Follow`](../enums/openapi.LinkType.md#follow), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listLinksByFid` | (`fid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listLinksByTargetFid` | (`targetFid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getLinkById` | (`fid`: `number`, `targetFid`: `number`, `linkType`: [`Follow`](../enums/openapi.LinkType.md#follow), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listLinksByFid` | (`fid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listLinksByTargetFid` | (`targetFid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -927,9 +927,9 @@ LinksApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getLinkById` | (`requestParameters`: [`LinksApiGetLinkByIdRequest`](../interfaces/openapi.LinksApiGetLinkByIdRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`LinkAdd`](openapi.md#linkadd)\> |
-| `listLinksByFid` | (`requestParameters`: [`LinksApiListLinksByFidRequest`](../interfaces/openapi.LinksApiListLinksByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\> |
-| `listLinksByTargetFid` | (`requestParameters`: [`LinksApiListLinksByTargetFidRequest`](../interfaces/openapi.LinksApiListLinksByTargetFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\> |
+| `getLinkById` | (`requestParameters`: [`LinksApiGetLinkByIdRequest`](../interfaces/openapi.LinksApiGetLinkByIdRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`LinkAdd`](openapi.md#linkadd)\> |
+| `listLinksByFid` | (`requestParameters`: [`LinksApiListLinksByFidRequest`](../interfaces/openapi.LinksApiListLinksByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\> |
+| `listLinksByTargetFid` | (`requestParameters`: [`LinksApiListLinksByTargetFidRequest`](../interfaces/openapi.LinksApiListLinksByTargetFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\> |
 
 **`Export`**
 
@@ -957,9 +957,9 @@ LinksApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getLinkById` | (`fid`: `number`, `targetFid`: `number`, `linkType`: [`Follow`](../enums/openapi.LinkType.md#follow), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`LinkAdd`](openapi.md#linkadd)\>\> |
-| `listLinksByFid` | (`fid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\>\> |
-| `listLinksByTargetFid` | (`targetFid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\>\> |
+| `getLinkById` | (`fid`: `number`, `targetFid`: `number`, `linkType`: [`Follow`](../enums/openapi.LinkType.md#follow), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`LinkAdd`](openapi.md#linkadd)\>\> |
+| `listLinksByFid` | (`fid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\>\> |
+| `listLinksByTargetFid` | (`targetFid`: `number`, `linkType?`: [`Follow`](../enums/openapi.LinkType.md#follow), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListLinksByFid200Response`](../interfaces/openapi.ListLinksByFid200Response.md)\>\> |
 
 **`Export`**
 
@@ -987,9 +987,9 @@ OnChainEventsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getOnChainIdRegistrationByAddress` | (`address`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listOnChainEventsByFid` | (`fid`: `number`, `eventType`: [`OnChainEventType`](../enums/openapi.OnChainEventType.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listOnChainSignersByFid` | (`fid`: `number`, `signer?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getOnChainIdRegistrationByAddress` | (`address`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listOnChainEventsByFid` | (`fid`: `number`, `eventType`: [`OnChainEventType`](../enums/openapi.OnChainEventType.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listOnChainSignersByFid` | (`fid`: `number`, `signer?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1019,9 +1019,9 @@ OnChainEventsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getOnChainIdRegistrationByAddress` | (`requestParameters`: [`OnChainEventsApiGetOnChainIdRegistrationByAddressRequest`](../interfaces/openapi.OnChainEventsApiGetOnChainIdRegistrationByAddressRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`OnChainEventIdRegister`](openapi.md#onchaineventidregister)\> |
-| `listOnChainEventsByFid` | (`requestParameters`: [`OnChainEventsApiListOnChainEventsByFidRequest`](../interfaces/openapi.OnChainEventsApiListOnChainEventsByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md)\> |
-| `listOnChainSignersByFid` | (`requestParameters`: [`OnChainEventsApiListOnChainSignersByFidRequest`](../interfaces/openapi.OnChainEventsApiListOnChainSignersByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListOnChainSignersByFid200Response`](openapi.md#listonchainsignersbyfid200response)\> |
+| `getOnChainIdRegistrationByAddress` | (`requestParameters`: [`OnChainEventsApiGetOnChainIdRegistrationByAddressRequest`](../interfaces/openapi.OnChainEventsApiGetOnChainIdRegistrationByAddressRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`OnChainEventIdRegister`](openapi.md#onchaineventidregister)\> |
+| `listOnChainEventsByFid` | (`requestParameters`: [`OnChainEventsApiListOnChainEventsByFidRequest`](../interfaces/openapi.OnChainEventsApiListOnChainEventsByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md)\> |
+| `listOnChainSignersByFid` | (`requestParameters`: [`OnChainEventsApiListOnChainSignersByFidRequest`](../interfaces/openapi.OnChainEventsApiListOnChainSignersByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListOnChainSignersByFid200Response`](openapi.md#listonchainsignersbyfid200response)\> |
 
 **`Export`**
 
@@ -1049,9 +1049,9 @@ OnChainEventsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getOnChainIdRegistrationByAddress` | (`address`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`OnChainEventIdRegister`](openapi.md#onchaineventidregister)\>\> |
-| `listOnChainEventsByFid` | (`fid`: `number`, `eventType`: [`OnChainEventType`](../enums/openapi.OnChainEventType.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md)\>\> |
-| `listOnChainSignersByFid` | (`fid`: `number`, `signer?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListOnChainSignersByFid200Response`](openapi.md#listonchainsignersbyfid200response)\>\> |
+| `getOnChainIdRegistrationByAddress` | (`address`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`OnChainEventIdRegister`](openapi.md#onchaineventidregister)\>\> |
+| `listOnChainEventsByFid` | (`fid`: `number`, `eventType`: [`OnChainEventType`](../enums/openapi.OnChainEventType.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md)\>\> |
+| `listOnChainSignersByFid` | (`fid`: `number`, `signer?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListOnChainSignersByFid200Response`](openapi.md#listonchainsignersbyfid200response)\>\> |
 
 **`Export`**
 
@@ -1079,10 +1079,10 @@ ReactionsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getReactionById` | (`fid`: `number`, `targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listReactionsByCast` | (`targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listReactionsByFid` | (`fid`: `number`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listReactionsByTarget` | (`url`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getReactionById` | (`fid`: `number`, `targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listReactionsByCast` | (`targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listReactionsByFid` | (`fid`: `number`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listReactionsByTarget` | (`url`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1112,10 +1112,10 @@ ReactionsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getReactionById` | (`requestParameters`: [`ReactionsApiGetReactionByIdRequest`](../interfaces/openapi.ReactionsApiGetReactionByIdRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`Reaction`](openapi.md#reaction)\> |
-| `listReactionsByCast` | (`requestParameters`: [`ReactionsApiListReactionsByCastRequest`](../interfaces/openapi.ReactionsApiListReactionsByCastRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\> |
-| `listReactionsByFid` | (`requestParameters`: [`ReactionsApiListReactionsByFidRequest`](../interfaces/openapi.ReactionsApiListReactionsByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\> |
-| `listReactionsByTarget` | (`requestParameters`: [`ReactionsApiListReactionsByTargetRequest`](../interfaces/openapi.ReactionsApiListReactionsByTargetRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\> |
+| `getReactionById` | (`requestParameters`: [`ReactionsApiGetReactionByIdRequest`](../interfaces/openapi.ReactionsApiGetReactionByIdRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`Reaction`](openapi.md#reaction)\> |
+| `listReactionsByCast` | (`requestParameters`: [`ReactionsApiListReactionsByCastRequest`](../interfaces/openapi.ReactionsApiListReactionsByCastRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\> |
+| `listReactionsByFid` | (`requestParameters`: [`ReactionsApiListReactionsByFidRequest`](../interfaces/openapi.ReactionsApiListReactionsByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\> |
+| `listReactionsByTarget` | (`requestParameters`: [`ReactionsApiListReactionsByTargetRequest`](../interfaces/openapi.ReactionsApiListReactionsByTargetRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\> |
 
 **`Export`**
 
@@ -1143,10 +1143,10 @@ ReactionsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getReactionById` | (`fid`: `number`, `targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`Reaction`](openapi.md#reaction)\>\> |
-| `listReactionsByCast` | (`targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\>\> |
-| `listReactionsByFid` | (`fid`: `number`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\>\> |
-| `listReactionsByTarget` | (`url`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\>\> |
+| `getReactionById` | (`fid`: `number`, `targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`Reaction`](openapi.md#reaction)\>\> |
+| `listReactionsByCast` | (`targetFid`: `number`, `targetHash`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\>\> |
+| `listReactionsByFid` | (`fid`: `number`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\>\> |
+| `listReactionsByTarget` | (`url`: `string`, `reactionType`: [`ReactionType`](../enums/openapi.ReactionType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListReactionsByCast200Response`](../interfaces/openapi.ListReactionsByCast200Response.md)\>\> |
 
 **`Export`**
 
@@ -1174,7 +1174,7 @@ StorageApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getStorageLimitsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getStorageLimitsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1204,7 +1204,7 @@ StorageApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getStorageLimitsByFid` | (`requestParameters`: [`StorageApiGetStorageLimitsByFidRequest`](../interfaces/openapi.StorageApiGetStorageLimitsByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md)\> |
+| `getStorageLimitsByFid` | (`requestParameters`: [`StorageApiGetStorageLimitsByFidRequest`](../interfaces/openapi.StorageApiGetStorageLimitsByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md)\> |
 
 **`Export`**
 
@@ -1232,7 +1232,7 @@ StorageApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getStorageLimitsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md)\>\> |
+| `getStorageLimitsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md)\>\> |
 
 **`Export`**
 
@@ -1260,7 +1260,7 @@ SubmitMessageApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `submitMessage` | (`body`: [`Message`](openapi.md#message), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `submitMessage` | (`body`: [`Message`](openapi.md#message), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1290,7 +1290,7 @@ SubmitMessageApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `submitMessage` | (`requestParameters`: [`SubmitMessageApiSubmitMessageRequest`](../interfaces/openapi.SubmitMessageApiSubmitMessageRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`Message`](openapi.md#message)\> |
+| `submitMessage` | (`requestParameters`: [`SubmitMessageApiSubmitMessageRequest`](../interfaces/openapi.SubmitMessageApiSubmitMessageRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`Message`](openapi.md#message)\> |
 
 **`Export`**
 
@@ -1318,7 +1318,7 @@ SubmitMessageApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `submitMessage` | (`body`: [`Message`](openapi.md#message), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`Message`](openapi.md#message)\>\> |
+| `submitMessage` | (`body`: [`Message`](openapi.md#message), `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`Message`](openapi.md#message)\>\> |
 
 **`Export`**
 
@@ -1346,7 +1346,7 @@ UserDataApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getUserDataByFid` | (`fid`: `number`, `userDataType?`: [`UserDataType`](../enums/openapi.UserDataType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getUserDataByFid` | (`fid`: `number`, `userDataType?`: [`UserDataType`](../enums/openapi.UserDataType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1376,7 +1376,7 @@ UserDataApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getUserDataByFid` | (`requestParameters`: [`UserDataApiGetUserDataByFidRequest`](../interfaces/openapi.UserDataApiGetUserDataByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`GetUserDataByFid200Response`](openapi.md#getuserdatabyfid200response)\> |
+| `getUserDataByFid` | (`requestParameters`: [`UserDataApiGetUserDataByFidRequest`](../interfaces/openapi.UserDataApiGetUserDataByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`GetUserDataByFid200Response`](openapi.md#getuserdatabyfid200response)\> |
 
 **`Export`**
 
@@ -1404,7 +1404,7 @@ UserDataApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getUserDataByFid` | (`fid`: `number`, `userDataType?`: [`UserDataType`](../enums/openapi.UserDataType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`GetUserDataByFid200Response`](openapi.md#getuserdatabyfid200response)\>\> |
+| `getUserDataByFid` | (`fid`: `number`, `userDataType?`: [`UserDataType`](../enums/openapi.UserDataType.md), `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`GetUserDataByFid200Response`](openapi.md#getuserdatabyfid200response)\>\> |
 
 **`Export`**
 
@@ -1432,8 +1432,8 @@ UsernamesApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `getUsernameProof` | (`name`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
-| `listUsernameProofsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `getUsernameProof` | (`name`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+| `listUsernameProofsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1463,8 +1463,8 @@ UsernamesApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `getUsernameProof` | (`requestParameters`: [`UsernamesApiGetUsernameProofRequest`](../interfaces/openapi.UsernamesApiGetUsernameProofRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)\> |
-| `listUsernameProofsByFid` | (`requestParameters`: [`UsernamesApiListUsernameProofsByFidRequest`](../interfaces/openapi.UsernamesApiListUsernameProofsByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md)\> |
+| `getUsernameProof` | (`requestParameters`: [`UsernamesApiGetUsernameProofRequest`](../interfaces/openapi.UsernamesApiGetUsernameProofRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)\> |
+| `listUsernameProofsByFid` | (`requestParameters`: [`UsernamesApiListUsernameProofsByFidRequest`](../interfaces/openapi.UsernamesApiListUsernameProofsByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md)\> |
 
 **`Export`**
 
@@ -1492,8 +1492,8 @@ UsernamesApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `getUsernameProof` | (`name`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)\>\> |
-| `listUsernameProofsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md)\>\> |
+| `getUsernameProof` | (`name`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)\>\> |
+| `listUsernameProofsByFid` | (`fid`: `number`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md)\>\> |
 
 **`Export`**
 
@@ -1521,7 +1521,7 @@ VerificationsApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `listVerificationsByFid` | (`fid`: `number`, `address?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `listVerificationsByFid` | (`fid`: `number`, `address?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1551,7 +1551,7 @@ VerificationsApi - factory interface
 
 | Name | Type |
 | :------ | :------ |
-| `listVerificationsByFid` | (`requestParameters`: [`VerificationsApiListVerificationsByFidRequest`](../interfaces/openapi.VerificationsApiListVerificationsByFidRequest.md), `options?`: `AxiosRequestConfig`<`any`\>) => `AxiosPromise`<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md)\> |
+| `listVerificationsByFid` | (`requestParameters`: [`VerificationsApiListVerificationsByFidRequest`](../interfaces/openapi.VerificationsApiListVerificationsByFidRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md)\> |
 
 **`Export`**
 
@@ -1579,7 +1579,7 @@ VerificationsApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `listVerificationsByFid` | (`fid`: `number`, `address?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md)\>\> |
+| `listVerificationsByFid` | (`fid`: `number`, `address?`: `string`, `pageSize?`: `number`, `reverse?`: `boolean`, `pageToken?`: `string`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md)\>\> |
 
 **`Export`**
 

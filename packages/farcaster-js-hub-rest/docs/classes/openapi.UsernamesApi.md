@@ -35,7 +35,7 @@ UsernamesApi - object-oriented interface
 
 ### constructor
 
-• **new UsernamesApi**(`configuration?`, `basePath?`, `axios?`)
+• **new UsernamesApi**(`configuration?`, `basePath?`, `axios?`): [`UsernamesApi`](openapi.UsernamesApi.md)
 
 #### Parameters
 
@@ -44,6 +44,10 @@ UsernamesApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`UsernamesApi`](openapi.UsernamesApi.md)
 
 #### Inherited from
 
@@ -99,18 +103,18 @@ BaseAPI.configuration
 
 ### getUsernameProof
 
-▸ **getUsernameProof**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md), `any`\>\>
+▸ **getUsernameProof**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`UserNameProof`](../interfaces/openapi.UserNameProof.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`UsernamesApiGetUsernameProofRequest`](../interfaces/openapi.UsernamesApiGetUsernameProofRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`UserNameProof`](../interfaces/openapi.UserNameProof.md), `any`\>\>
 
 **`Summary`**
 
@@ -130,18 +134,18 @@ ___
 
 ### listUsernameProofsByFid
 
-▸ **listUsernameProofsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md), `any`\>\>
+▸ **listUsernameProofsByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`UsernamesApiListUsernameProofsByFidRequest`](../interfaces/openapi.UsernamesApiListUsernameProofsByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`UsernameProofsResponse`](../interfaces/openapi.UsernameProofsResponse.md), `any`\>\>
 
 **`Summary`**
 

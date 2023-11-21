@@ -34,7 +34,7 @@ SubmitMessageApi - object-oriented interface
 
 ### constructor
 
-• **new SubmitMessageApi**(`configuration?`, `basePath?`, `axios?`)
+• **new SubmitMessageApi**(`configuration?`, `basePath?`, `axios?`): [`SubmitMessageApi`](openapi.SubmitMessageApi.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@ SubmitMessageApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`SubmitMessageApi`](openapi.SubmitMessageApi.md)
 
 #### Inherited from
 
@@ -98,18 +102,18 @@ BaseAPI.configuration
 
 ### submitMessage
 
-▸ **submitMessage**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`Message`](../modules/openapi.md#message), `any`\>\>
+▸ **submitMessage**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`Message`](../modules/openapi.md#message), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`SubmitMessageApiSubmitMessageRequest`](../interfaces/openapi.SubmitMessageApiSubmitMessageRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`Message`](../modules/openapi.md#message), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`Message`](../modules/openapi.md#message), `any`\>\>
 
 **`Summary`**
 

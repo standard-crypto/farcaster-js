@@ -14,7 +14,7 @@
 
 ### generateSignature
 
-▸ **generateSignature**(`publicKey`, `appFid`, `accountMnemonic`, `deadline`): `Promise`<`string`\>
+▸ **generateSignature**(`publicKey`, `appFid`, `accountMnemonic`, `deadline`): `Promise`\<`string`\>
 
 #### Parameters
 
@@ -27,7 +27,7 @@
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 #### Defined in
 
@@ -57,7 +57,7 @@ ___
 
 ### waitForNeynarSignerApproval
 
-▸ **waitForNeynarSignerApproval**(`client`, `signerUuid`): `Promise`<`void`\>
+▸ **waitForNeynarSignerApproval**(`client`, `signerUuid`): `Promise`\<`void`\>
 
 #### Parameters
 
@@ -68,7 +68,7 @@ ___
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
