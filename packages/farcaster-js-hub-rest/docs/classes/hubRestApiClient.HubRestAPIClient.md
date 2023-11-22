@@ -913,7 +913,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 | `verification.latestBlockHash` | `string` |
 | `verification.network` | ``"MAINNET"`` \| ``"TESTNET"`` \| ``"DEVNET"`` |
 | `verification.verificationType` | ``"EOA"`` \| ``"contract"`` |
-| `verification.verifiedAddressMnemonic` | `string` |
+| `verification.verifiedAddressMnemonicOrPrivateKey` | `string` |
 | `fid` | `number` |
 | `signerPrivateKeyHex` | `string` |
 

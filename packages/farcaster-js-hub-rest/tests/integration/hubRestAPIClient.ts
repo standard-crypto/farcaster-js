@@ -129,15 +129,25 @@ describe('HubWebClient', function() {
         expectDefinedNonNull(likeResponse?.hash);
       });
       if (verifiedAddressMnemonic !== undefined && verifiedAddressMnemonic !== '') {
-        it('can verify an address', async function() {
+        it('can verify an address with a mnemonic', async function() {
           this.timeout('5s');
           const blockHash = await ethers.getDefaultProvider('mainnet').getBlock('latest');
           expectDefinedNonNull(blockHash?.hash);
-          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonic: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, signerPrivateKey);
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(verificationResponse?.hash);
         });
         it('can remove a verified address', async function() {
           const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
+          const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
+          expectDefinedNonNull(removeVerificationResponse?.hash);
+        });
+        it('can verify an address with a private key', async function() {
+          this.timeout('10s');
+          const blockHash = await ethers.getDefaultProvider('mainnet').getBlock('latest');
+          expectDefinedNonNull(blockHash?.hash);
+          const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: wallet.privateKey, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, signerPrivateKey);
+          expectDefinedNonNull(verificationResponse?.hash);
           const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(removeVerificationResponse?.hash);
         });
@@ -353,6 +363,7 @@ describe('HubWebClient', function() {
 
     describe('#listReactionsByFid', function() {
       it('validates against OpenAPI spec', async function() {
+        this.timeout('10s');
         const response = await client.apis.reactions.listReactionsByFid({
           fid: 2,
           reactionType: ReactionType.Like,
@@ -610,6 +621,7 @@ describe('HubWebClient', function() {
   describe('FIDs API', function() {
     describe('#listFids', function() {
       it('validates against OpenAPI spec', async function() {
+        this.timeout('5s');
         const response = await client.apis.fids.listFids();
         expect(response.data.fids).to.not.be.empty;
         const validator = new OpenAPIResponseValidator.default({
@@ -890,6 +902,7 @@ describe('HubWebClient', function() {
       });
 
       it('returns some hub events', async function() {
+        this.timeout('5s');
         const eventsIter = client.listHubEvents();
         const eventOne = await eventsIter.next();
         const eventTwo = await eventsIter.next();
@@ -902,6 +915,7 @@ describe('HubWebClient', function() {
       let eventId: number;
 
       beforeEach('fetch recent event ID', async function() {
+        this.timeout('5s');
         const events = client.listHubEvents();
         const event = await events.next();
         expectDefinedNonNull(event.value);

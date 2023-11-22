@@ -1,5 +1,5 @@
-import { Eip712Signer, EthersEip712Signer, NobleEd25519Signer } from '@farcaster/core';
-import { Wallet } from 'ethers';
+import { Eip712Signer, ViemLocalEip712Signer, NobleEd25519Signer } from '@farcaster/core';
+import { privateKeyToAccount, mnemonicToAccount } from 'viem/accounts';
 
 export function hexToSigner(signerHex: string): NobleEd25519Signer {
   let privateKeyBytes;
@@ -11,9 +11,14 @@ export function hexToSigner(signerHex: string): NobleEd25519Signer {
   return new NobleEd25519Signer(privateKeyBytes);
 }
 
-export function eip712SignerFromPhrase(mnemonic: string): Eip712Signer {
-  const wallet = Wallet.fromPhrase(mnemonic);
-  return new EthersEip712Signer(wallet);
+export function eip712SignerFromMnemonicPrPrivateKey(mnemonicPrPrivateKey: string): Eip712Signer {
+  let account;
+  if (mnemonicPrPrivateKey.startsWith('0x')) {
+    account = privateKeyToAccount(mnemonicPrPrivateKey as `0x${string}`);
+  } else {
+    account = mnemonicToAccount(mnemonicPrPrivateKey);
+  }
+  return new ViemLocalEip712Signer(account);
 }
 
 export function hexToBytes(hex: string): Uint8Array {

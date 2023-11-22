@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@farcaster/core": "^0.13.1",
-    "ethers": "^6.8.1"
+    "viem": "^1.12.2"
   },
   "peerDependencies": {
     "axios": "~1.5.1"
