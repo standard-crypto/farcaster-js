@@ -11,12 +11,14 @@ export function hexToSigner(signerHex: string): NobleEd25519Signer {
   return new NobleEd25519Signer(privateKeyBytes);
 }
 
-export function eip712SignerFromMnemonicPrPrivateKey(mnemonicPrPrivateKey: string): Eip712Signer {
+export function eip712SignerFromMnemonicOrPrivateKey(mnemonicOrPrivateKey: string): Eip712Signer {
   let account;
-  if (mnemonicPrPrivateKey.startsWith('0x')) {
-    account = privateKeyToAccount(mnemonicPrPrivateKey as `0x${string}`);
+  if (mnemonicOrPrivateKey.startsWith('0x')) {
+    account = privateKeyToAccount(mnemonicOrPrivateKey as `0x${string}`);
+  } else if (mnemonicOrPrivateKey.split(' ').length > 1) {
+    account = privateKeyToAccount(`0x${mnemonicOrPrivateKey}`);
   } else {
-    account = mnemonicToAccount(mnemonicPrPrivateKey);
+    account = mnemonicToAccount(mnemonicOrPrivateKey);
   }
   return new ViemLocalEip712Signer(account);
 }
