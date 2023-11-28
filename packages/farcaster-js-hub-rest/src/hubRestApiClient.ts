@@ -54,7 +54,7 @@ import {
   makeVerificationEthAddressClaim,
   makeVerificationRemove,
 } from '@farcaster/core';
-import { eip712SignerFromMnemonicOrPrivateKey, hexToSigner } from './utils.js';
+import { eip712SignerFromMnemonicOrPrivateKey, getLatestBlock, hexToSigner } from './utils.js';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
@@ -397,7 +397,6 @@ export class HubRestAPIClient {
       verifiedAddressMnemonicOrPrivateKey: string
       verificationType: 'EOA' | 'contract'
       network: 'MAINNET' | 'TESTNET' | 'DEVNET'
-      latestBlockHash: string
       chainId: number
     },
     fid: number,
@@ -412,7 +411,7 @@ export class HubRestAPIClient {
     if (addressBytes.isErr()) {
       throw addressBytes.error;
     }
-    const latestBlockHashBytes = hexStringToBytes(verification.latestBlockHash);
+    const latestBlockHashBytes = hexStringToBytes(await getLatestBlock());
     if (latestBlockHashBytes.isErr()) {
       throw latestBlockHashBytes.error;
     }

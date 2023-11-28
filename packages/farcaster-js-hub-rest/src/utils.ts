@@ -1,5 +1,7 @@
 import { Eip712Signer, ViemLocalEip712Signer, NobleEd25519Signer } from '@farcaster/core';
 import { privateKeyToAccount, mnemonicToAccount } from 'viem/accounts';
+import { createPublicClient, http } from 'viem';
+import { mainnet } from 'viem/chains';
 
 export function hexToSigner(signerHex: string): NobleEd25519Signer {
   let privateKeyBytes;
@@ -15,7 +17,7 @@ export function eip712SignerFromMnemonicOrPrivateKey(mnemonicOrPrivateKey: strin
   let account;
   if (mnemonicOrPrivateKey.startsWith('0x')) {
     account = privateKeyToAccount(mnemonicOrPrivateKey as `0x${string}`);
-  } else if (mnemonicOrPrivateKey.split(' ').length > 1) {
+  } else if (mnemonicOrPrivateKey.split(' ').length === 1) {
     account = privateKeyToAccount(`0x${mnemonicOrPrivateKey}`);
   } else {
     account = mnemonicToAccount(mnemonicOrPrivateKey);
@@ -37,4 +39,13 @@ export function hexToBytes(hex: string): Uint8Array {
     array[i] = byte;
   }
   return array;
+}
+
+export async function getLatestBlock(): Promise<string> {
+  const publicClient = createPublicClient({
+    chain: mainnet,
+    transport: http(),
+  });
+  const latestBlock = await publicClient.getBlock();
+  return latestBlock.hash;
 }

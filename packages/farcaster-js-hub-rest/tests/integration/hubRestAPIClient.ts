@@ -21,7 +21,7 @@ import {
 } from '../../src/openapi/index.js';
 import type { paths as SchemaPaths } from '../../src/openapi/generated/schema.js';
 import { Message, NobleEd25519Signer, makeCastAdd } from '@farcaster/core';
-import { Wallet, ethers } from 'ethers';
+import { Wallet } from 'ethers';
 
 chai.use(chaiAsPromised);
 
@@ -131,9 +131,7 @@ describe('HubWebClient', function() {
       if (verifiedAddressMnemonic !== undefined && verifiedAddressMnemonic !== '') {
         it('can verify an address with a mnemonic', async function() {
           this.timeout('5s');
-          const blockHash = await ethers.getDefaultProvider('mainnet').getBlock('latest');
-          expectDefinedNonNull(blockHash?.hash);
-          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, signerPrivateKey);
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', chainId: 0 }, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(verificationResponse?.hash);
         });
         it('can remove a verified address', async function() {
@@ -143,10 +141,8 @@ describe('HubWebClient', function() {
         });
         it('can verify an address with a private key', async function() {
           this.timeout('10s');
-          const blockHash = await ethers.getDefaultProvider('mainnet').getBlock('latest');
-          expectDefinedNonNull(blockHash?.hash);
           const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
-          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: wallet.privateKey, verificationType: 'EOA', network: 'MAINNET', latestBlockHash: blockHash.hash, chainId: 0 }, userGaviBotFid, signerPrivateKey);
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: wallet.privateKey, verificationType: 'EOA', network: 'MAINNET', chainId: 0 }, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(verificationResponse?.hash);
           const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
           expectDefinedNonNull(removeVerificationResponse?.hash);
