@@ -20,7 +20,7 @@ SubmitMessageApiSubmitMessageRequest
 
 ### body
 
-• `Readonly` **body**: [`Message`](../modules/openapi.md#message)
+• `Readonly` **body**: `Buffer`
 
 *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
 

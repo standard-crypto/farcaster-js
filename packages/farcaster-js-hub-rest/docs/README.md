@@ -11,6 +11,9 @@ A tool for interacting with the REST API of a Farcaster hub.
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Setup](#setup)
 - [Examples](#examples)
+  - [Publish a Cast](#publish-a-cast)
+  - [React to a Cast](#react-to-a-cast)
+  - [Follow a User](#follow-a-user)
   - [Fetch a Cast](#fetch-a-cast)
   - [List a User's Casts](#list-a-users-casts)
   - [Fetch Hub Info](#fetch-hub-info)
@@ -30,6 +33,57 @@ npm install axios @standard-crypto/farcaster-js-hub-rest
 ```
 
 ## Examples
+
+### Publish a Cast
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/publishCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/publishCast.ts -->
+```ts
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const signerPrivateKey = '0x...';
+const fid = 111;
+const client = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281' });
+
+const publishCastResponse = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, fid, signerPrivateKey);
+console.log(`new cast hash: ${publishCastResponse?.hash}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### React to a Cast
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/reactToCast.ts) -->
+<!-- The below code snippet is automatically added from ./examples/reactToCast.ts -->
+```ts
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const signerPrivateKey = '0x...';
+const fid = 111;
+const targetFid = 6365;
+const targetCastHash = '0x3dba25e25db088f1a981da2b65b00f6008faee06';
+const client = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281' });
+
+const reactToCastResponse = await client.submitReaction({ type: 'like', target: { fid: targetFid, hash: targetCastHash } }, fid, signerPrivateKey);
+console.log(`reaction hash: ${reactToCastResponse?.hash}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Follow a User
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/followUser.ts) -->
+<!-- The below code snippet is automatically added from ./examples/followUser.ts -->
+```ts
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const signerPrivateKey = '0x...';
+const fid = 111;
+const targetFid = 6365;
+const client = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281' });
+
+const followResponse = await client.followUser(targetFid, fid, signerPrivateKey);
+console.log(`follow hash: ${followResponse?.hash}`);
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ### Fetch a Cast
 

@@ -34,11 +34,11 @@ export const SubmitMessageApiAxiosParamCreator = function (configuration?: Confi
         /**
          * 
          * @summary Submit a signed protobuf-serialized message to the Hub
-         * @param {Message} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
+         * @param {Buffer} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitMessage: async (body: Message, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        submitMessage: async (body: Buffer, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'body' is not null or undefined
             assertParamExists('submitMessage', 'body', body)
             const localVarPath = `/v1/submitMessage`;
@@ -59,7 +59,7 @@ export const SubmitMessageApiAxiosParamCreator = function (configuration?: Confi
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Content-Type'] = 'application/octet-stream';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -84,11 +84,11 @@ export const SubmitMessageApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Submit a signed protobuf-serialized message to the Hub
-         * @param {Message} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
+         * @param {Buffer} body *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submitMessage(body: Message, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+        async submitMessage(body: Buffer, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.submitMessage(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -123,10 +123,10 @@ export const SubmitMessageApiFactory = function (configuration?: Configuration, 
 export interface SubmitMessageApiSubmitMessageRequest {
     /**
      * *  A Message is a delta operation on the Farcaster network. The message protobuf is an envelope  that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
-     * @type {Message}
+     * @type {Buffer}
      * @memberof SubmitMessageApiSubmitMessage
      */
-    readonly body: Message
+    readonly body: Buffer
 }
 
 /**

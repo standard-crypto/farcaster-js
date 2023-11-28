@@ -4,5 +4,6 @@
     "modelPackage": "models",
     "stringEnums": true,
     "useSingleRequestParameter": true,
-    "supportsES6": true
+    "supportsES6": true,
+    "enablePostProcessFile": true
 }
