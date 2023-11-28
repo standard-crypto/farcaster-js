@@ -36,7 +36,7 @@
     "ts-mocha": "^10.0.0",
     "type-fest": "^4.3.3",
     "typedoc": "^0.25.2",
-    "typedoc-plugin-markdown": "^3.15.2",
+    "typedoc-plugin-markdown": "^3.17.1",
     "yaml": "^2.3.2"
   },
   "files": [

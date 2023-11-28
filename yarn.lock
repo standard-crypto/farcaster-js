@@ -2190,7 +2190,7 @@ __metadata:
     ts-mocha: "npm:^10.0.0"
     type-fest: "npm:^4.3.3"
     typedoc: "npm:^0.25.2"
-    typedoc-plugin-markdown: "npm:^3.15.2"
+    typedoc-plugin-markdown: "npm:^3.17.1"
     viem: "npm:^1.12.2"
     yaml: "npm:^2.3.2"
   peerDependencies:
@@ -2218,7 +2218,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     type-fest: "npm:^4.3.3"
     typedoc: "npm:^0.25.2"
-    typedoc-plugin-markdown: "npm:^3.15.2"
+    typedoc-plugin-markdown: "npm:^3.17.1"
     viem: "npm:^1.16.2"
   peerDependencies:
     axios: ~1.5.1
@@ -12710,14 +12710,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-markdown@npm:^3.15.2":
-  version: 3.16.0
-  resolution: "typedoc-plugin-markdown@npm:3.16.0"
+"typedoc-plugin-markdown@npm:^3.17.1":
+  version: 3.17.1
+  resolution: "typedoc-plugin-markdown@npm:3.17.1"
   dependencies:
     handlebars: "npm:^4.7.7"
   peerDependencies:
     typedoc: ">=0.24.0"
-  checksum: 0daa8290e7b8f03e9e1e79efdd564a61db3dbb8f20eb15ef89cc3bce0c14ff2061b7f35452b06e2c31644f33f0cc53c06570c9c1a20245f7458b1f88a3438588
+  checksum: 5c9322cd6b5218b1c8b18e6c9df45ad0f99dea9b9cee4006f1f286b04725db47e26856b3e07069beabbd65d8357da34563707d50027b19bb18fd3633a3591349
   languageName: node
   linkType: hard
 
