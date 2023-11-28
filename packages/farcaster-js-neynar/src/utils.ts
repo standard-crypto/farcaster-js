@@ -1,4 +1,8 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable no-console */
 import { mnemonicToAccount } from 'viem/accounts';
+import { NeynarAPIClient } from './NeynarAPIClient.js';
+import { SignerStatusEnum } from './v2/index.js';
 
 export async function generateSignature(
   publicKey: string,
@@ -39,4 +43,29 @@ export async function generateSignature(
   });
 
   return signature;
+}
+
+export function mnemonicToAddress(mnemonic: string): string {
+  const account = mnemonicToAccount(mnemonic);
+  return account.address;
+}
+
+export async function waitForNeynarSignerApproval(client: NeynarAPIClient, signerUuid: string): Promise<void> {
+  let signerStatus = SignerStatusEnum.PendingApproval;
+  while (signerStatus === SignerStatusEnum.PendingApproval) {
+    const signer = await client.v2.fetchSigner(signerUuid);
+    if (signer?.status === undefined) {
+      break;
+    }
+    signerStatus = signer.status;
+    // wait 10 seconds
+    await new Promise(resolve => setTimeout(resolve, 10000));
+  }
+  if (signerStatus === SignerStatusEnum.Approved) {
+    console.log('Approved! Now you can start using this signer.');
+    console.log(`Signer UUID: ${signerUuid}`);
+  } else {
+    const signerStatusString: string = signerStatus.toString();
+    console.log(`Something went wrong. Signer ${signerUuid} has status ${signerStatusString}`);
+  }
 }

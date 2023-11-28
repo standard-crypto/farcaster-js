@@ -37,7 +37,7 @@ CastsApi - object-oriented interface
 
 ### constructor
 
-• **new CastsApi**(`configuration?`, `basePath?`, `axios?`)
+• **new CastsApi**(`configuration?`, `basePath?`, `axios?`): [`CastsApi`](openapi.CastsApi.md)
 
 #### Parameters
 
@@ -46,6 +46,10 @@ CastsApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`CastsApi`](openapi.CastsApi.md)
 
 #### Inherited from
 
@@ -101,18 +105,18 @@ BaseAPI.configuration
 
 ### getCastById
 
-▸ **getCastById**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`CastAdd`](../modules/openapi.md#castadd), `any`\>\>
+▸ **getCastById**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`CastAdd`](../modules/openapi.md#castadd), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`CastsApiGetCastByIdRequest`](../interfaces/openapi.CastsApiGetCastByIdRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`CastAdd`](../modules/openapi.md#castadd), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`CastAdd`](../modules/openapi.md#castadd), `any`\>\>
 
 **`Summary`**
 
@@ -132,18 +136,18 @@ ___
 
 ### listCastsByFid
 
-▸ **listCastsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+▸ **listCastsByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`CastsApiListCastsByFidRequest`](../interfaces/openapi.CastsApiListCastsByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
 **`Summary`**
 
@@ -163,18 +167,18 @@ ___
 
 ### listCastsByMention
 
-▸ **listCastsByMention**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+▸ **listCastsByMention**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`CastsApiListCastsByMentionRequest`](../interfaces/openapi.CastsApiListCastsByMentionRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
 **`Summary`**
 
@@ -194,18 +198,18 @@ ___
 
 ### listCastsByParent
 
-▸ **listCastsByParent**(`requestParameters?`, `options?`): `Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+▸ **listCastsByParent**(`requestParameters?`, `options?`): `Promise`\<`AxiosResponse`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`CastsApiListCastsByParentRequest`](../interfaces/openapi.CastsApiListCastsByParentRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListCastsByFid200Response`](../interfaces/openapi.ListCastsByFid200Response.md), `any`\>\>
 
 **`Summary`**
 

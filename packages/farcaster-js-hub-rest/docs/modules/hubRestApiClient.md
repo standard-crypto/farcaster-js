@@ -26,7 +26,7 @@
 
 ### HubInfo
 
-Ƭ **HubInfo**<`T`\>: `T` extends ``true`` ? `SetRequired`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
+Ƭ **HubInfo**\<`T`\>: `T` extends ``true`` ? `SetRequired`\<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), ``"dbStats"``\> : [`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md)
 
 #### Type parameters
 
@@ -42,7 +42,7 @@ ___
 
 ### OnChainEventsReturnType
 
-Ƭ **OnChainEventsReturnType**<`T`\>: `T` extends [`Signer`](../enums/openapi.OnChainEventType.md#signer) ? [`OnChainEventSigner`](openapi.md#onchaineventsigner) : `T` extends [`SignerMigrated`](../enums/openapi.OnChainEventType.md#signermigrated) ? [`OnChainEventSignerMigrated`](openapi.md#onchaineventsignermigrated) : `T` extends [`IdRegister`](../enums/openapi.OnChainEventType.md#idregister) ? [`OnChainEventIdRegister`](openapi.md#onchaineventidregister) : `T` extends [`StorageRent`](../enums/openapi.OnChainEventType.md#storagerent) ? [`OnChainEventStorageRent`](openapi.md#onchaineventstoragerent) : `never`
+Ƭ **OnChainEventsReturnType**\<`T`\>: `T` extends [`Signer`](../enums/openapi.OnChainEventType.md#signer) ? [`OnChainEventSigner`](openapi.md#onchaineventsigner) : `T` extends [`SignerMigrated`](../enums/openapi.OnChainEventType.md#signermigrated) ? [`OnChainEventSignerMigrated`](openapi.md#onchaineventsignermigrated) : `T` extends [`IdRegister`](../enums/openapi.OnChainEventType.md#idregister) ? [`OnChainEventIdRegister`](openapi.md#onchaineventidregister) : `T` extends [`StorageRent`](../enums/openapi.OnChainEventType.md#storagerent) ? [`OnChainEventStorageRent`](openapi.md#onchaineventstoragerent) : `never`
 
 #### Type parameters
 

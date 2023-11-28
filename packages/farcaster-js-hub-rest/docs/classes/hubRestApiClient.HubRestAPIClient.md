@@ -56,7 +56,7 @@
 
 ### constructor
 
-• **new HubRestAPIClient**(`«destructured»?`)
+• **new HubRestAPIClient**(`«destructured»?`): [`HubRestAPIClient`](hubRestApiClient.HubRestAPIClient.md)
 
 Instantiates a HubRestAPIClient
 
@@ -65,6 +65,10 @@ Instantiates a HubRestAPIClient
 | Name | Type |
 | :------ | :------ |
 | `«destructured»` | [`HubRestAPIClientConfig`](../interfaces/hubRestApiClient.HubRestAPIClientConfig.md) |
+
+#### Returns
+
+[`HubRestAPIClient`](hubRestApiClient.HubRestAPIClient.md)
 
 #### Defined in
 
@@ -101,7 +105,7 @@ Instantiates a HubRestAPIClient
 
 ### followUser
 
-▸ **followUser**(`targetFid`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **followUser**(`targetFid`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Follows a User. Wraps submitLink.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -116,7 +120,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -126,7 +130,7 @@ ___
 
 ### getCastById
 
-▸ **getCastById**(`«destructured»`): `Promise`<``null`` \| [`CastAdd`](../modules/openapi.md#castadd)\>
+▸ **getCastById**(`«destructured»`): `Promise`\<``null`` \| [`CastAdd`](../modules/openapi.md#castadd)\>
 
 Get a cast by its FID and Hash.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castbyid)
@@ -139,7 +143,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Returns
 
-`Promise`<``null`` \| [`CastAdd`](../modules/openapi.md#castadd)\>
+`Promise`\<``null`` \| [`CastAdd`](../modules/openapi.md#castadd)\>
 
 #### Defined in
 
@@ -149,7 +153,7 @@ ___
 
 ### getHubEventById
 
-▸ **getHubEventById**(`eventId`): `Promise`<``null`` \| [`HubEvent`](../modules/openapi.md#hubevent)\>
+▸ **getHubEventById**(`eventId`): `Promise`\<``null`` \| [`HubEvent`](../modules/openapi.md#hubevent)\>
 
 Get a hub event by its Id.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#eventbyid)
@@ -162,7 +166,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html
 
 #### Returns
 
-`Promise`<``null`` \| [`HubEvent`](../modules/openapi.md#hubevent)\>
+`Promise`\<``null`` \| [`HubEvent`](../modules/openapi.md#hubevent)\>
 
 #### Defined in
 
@@ -172,7 +176,7 @@ ___
 
 ### getHubInfo
 
-▸ **getHubInfo**<`T`\>(`«destructured»?`): `Promise`<[`HubInfo`](../modules/hubRestApiClient.md#hubinfo)<`T`\>\>
+▸ **getHubInfo**\<`T`\>(`«destructured»?`): `Promise`\<[`HubInfo`](../modules/hubRestApiClient.md#hubinfo)\<`T`\>\>
 
 Get the Hub's info.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
@@ -192,7 +196,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#i
 
 #### Returns
 
-`Promise`<[`HubInfo`](../modules/hubRestApiClient.md#hubinfo)<`T`\>\>
+`Promise`\<[`HubInfo`](../modules/hubRestApiClient.md#hubinfo)\<`T`\>\>
 
 #### Defined in
 
@@ -202,7 +206,7 @@ ___
 
 ### getLinkById
 
-▸ **getLinkById**(`sourceFid`, `targetFid`): `Promise`<``null`` \| [`LinkAdd`](../modules/openapi.md#linkadd)\>
+▸ **getLinkById**(`sourceFid`, `targetFid`): `Promise`\<``null`` \| [`LinkAdd`](../modules/openapi.md#linkadd)\>
 
 Get a link by its FID and target FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linkbyid)
@@ -216,7 +220,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 
 #### Returns
 
-`Promise`<``null`` \| [`LinkAdd`](../modules/openapi.md#linkadd)\>
+`Promise`\<``null`` \| [`LinkAdd`](../modules/openapi.md#linkadd)\>
 
 #### Defined in
 
@@ -226,7 +230,7 @@ ___
 
 ### getOnChainIdRegistryEventByAddress
 
-▸ **getOnChainIdRegistryEventByAddress**(`address`): `Promise`<``null`` \| [`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister)\>
+▸ **getOnChainIdRegistryEventByAddress**(`address`): `Promise`\<``null`` \| [`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister)\>
 
 Get a specific on-chain ID registration event by address.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchainidregistryeventbyaddress)
@@ -239,7 +243,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Returns
 
-`Promise`<``null`` \| [`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister)\>
+`Promise`\<``null`` \| [`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister)\>
 
 #### Defined in
 
@@ -249,7 +253,7 @@ ___
 
 ### getOnChainSignerEventBySigner
 
-▸ **getOnChainSignerEventBySigner**(`fid`, `signer`): `Promise`<``null`` \| [`OnChainEventSigner`](../modules/openapi.md#onchaineventsigner)\>
+▸ **getOnChainSignerEventBySigner**(`fid`, `signer`): `Promise`\<``null`` \| [`OnChainEventSigner`](../modules/openapi.md#onchaineventsigner)\>
 
 Get a specific on-chain signer event by FID and signer.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchainsignersbyfid)
@@ -263,7 +267,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Returns
 
-`Promise`<``null`` \| [`OnChainEventSigner`](../modules/openapi.md#onchaineventsigner)\>
+`Promise`\<``null`` \| [`OnChainEventSigner`](../modules/openapi.md#onchaineventsigner)\>
 
 #### Defined in
 
@@ -273,7 +277,7 @@ ___
 
 ### getReactionById
 
-▸ **getReactionById**(`id`): `Promise`<``null`` \| [`Reaction`](../modules/openapi.md#reaction)\>
+▸ **getReactionById**(`id`): `Promise`\<``null`` \| [`Reaction`](../modules/openapi.md#reaction)\>
 
 Get a reaction by its created FID and target Cast.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionbyid)
@@ -286,7 +290,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Returns
 
-`Promise`<``null`` \| [`Reaction`](../modules/openapi.md#reaction)\>
+`Promise`\<``null`` \| [`Reaction`](../modules/openapi.md#reaction)\>
 
 #### Defined in
 
@@ -296,7 +300,7 @@ ___
 
 ### getSpecificUserDataByFid
 
-▸ **getSpecificUserDataByFid**(`fid`, `userDataType`): `Promise`<``null`` \| [`UserDataAdd`](../modules/openapi.md#userdataadd)\>
+▸ **getSpecificUserDataByFid**(`fid`, `userDataType`): `Promise`\<``null`` \| [`UserDataAdd`](../modules/openapi.md#userdataadd)\>
 
 Get a specific type of UserData for a FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.html#userdatabyfid)
@@ -310,7 +314,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.ht
 
 #### Returns
 
-`Promise`<``null`` \| [`UserDataAdd`](../modules/openapi.md#userdataadd)\>
+`Promise`\<``null`` \| [`UserDataAdd`](../modules/openapi.md#userdataadd)\>
 
 #### Defined in
 
@@ -320,7 +324,7 @@ ___
 
 ### getStorageLimitsByFid
 
-▸ **getStorageLimitsByFid**(`fid`): `Promise`<[`StorageLimit`](../interfaces/openapi.StorageLimit.md)[]\>
+▸ **getStorageLimitsByFid**(`fid`): `Promise`\<[`StorageLimit`](../interfaces/openapi.StorageLimit.md)[]\>
 
 Get an FID's storage limits.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/storagelimits.html#storagelimitsbyfid)
@@ -333,7 +337,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/storagelimi
 
 #### Returns
 
-`Promise`<[`StorageLimit`](../interfaces/openapi.StorageLimit.md)[]\>
+`Promise`\<[`StorageLimit`](../interfaces/openapi.StorageLimit.md)[]\>
 
 #### Defined in
 
@@ -343,7 +347,7 @@ ___
 
 ### getUsernameProof
 
-▸ **getUsernameProof**(`username`): `Promise`<``null`` \| [`UserNameProof`](../interfaces/openapi.UserNameProof.md)\>
+▸ **getUsernameProof**(`username`): `Promise`\<``null`` \| [`UserNameProof`](../interfaces/openapi.UserNameProof.md)\>
 
 Get an proof for a username by the Farcaster username.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernameproof.html#usernameproofbyname)
@@ -356,7 +360,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernamepro
 
 #### Returns
 
-`Promise`<``null`` \| [`UserNameProof`](../interfaces/openapi.UserNameProof.md)\>
+`Promise`\<``null`` \| [`UserNameProof`](../interfaces/openapi.UserNameProof.md)\>
 
 #### Defined in
 
@@ -366,7 +370,7 @@ ___
 
 ### listAllUserDataByFid
 
-▸ **listAllUserDataByFid**(`fid`, `options?`): `AsyncGenerator`<[`UserDataAdd`](../modules/openapi.md#userdataadd), `void`, `undefined`\>
+▸ **listAllUserDataByFid**(`fid`, `options?`): `AsyncGenerator`\<[`UserDataAdd`](../modules/openapi.md#userdataadd), `void`, `undefined`\>
 
 Get all UserData for a FID. Returns an empty iterator if FID has no user data or does not exist.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.html#userdatabyfid)
@@ -380,7 +384,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/userdata.ht
 
 #### Returns
 
-`AsyncGenerator`<[`UserDataAdd`](../modules/openapi.md#userdataadd), `void`, `undefined`\>
+`AsyncGenerator`\<[`UserDataAdd`](../modules/openapi.md#userdataadd), `void`, `undefined`\>
 
 #### Defined in
 
@@ -390,7 +394,7 @@ ___
 
 ### listCastsByFid
 
-▸ **listCastsByFid**(`fid`, `options?`): `AsyncGenerator`<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
+▸ **listCastsByFid**(`fid`, `options?`): `AsyncGenerator`\<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
 
 Fetch all casts for authored by an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbyfid)
@@ -404,7 +408,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Returns
 
-`AsyncGenerator`<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
+`AsyncGenerator`\<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
 
 #### Defined in
 
@@ -414,7 +418,7 @@ ___
 
 ### listCastsByMention
 
-▸ **listCastsByMention**(`fid`, `options?`): `AsyncGenerator`<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
+▸ **listCastsByMention**(`fid`, `options?`): `AsyncGenerator`\<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
 
 Fetch all casts that mention an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbymention)
@@ -428,7 +432,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 #### Returns
 
-`AsyncGenerator`<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
+`AsyncGenerator`\<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
 
 #### Defined in
 
@@ -438,7 +442,7 @@ ___
 
 ### listCastsByParent
 
-▸ **listCastsByParent**(`parent`, `options?`): `AsyncGenerator`<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
+▸ **listCastsByParent**(`parent`, `options?`): `AsyncGenerator`\<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
 
 Fetch all casts by parent cast's FID and Hash OR by the parent's URL.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castsbyparent)
@@ -447,12 +451,12 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#
 
 | Name | Type |
 | :------ | :------ |
-| `parent` | [`CastId`](../interfaces/openapi.CastId.md) \| { `url`: `string`  } |
+| `parent` | [`CastId`](../interfaces/openapi.CastId.md) \| \{ `url`: `string`  } |
 | `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) |
 
 #### Returns
 
-`AsyncGenerator`<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
+`AsyncGenerator`\<[`CastAdd`](../modules/openapi.md#castadd), `void`, `undefined`\>
 
 #### Defined in
 
@@ -462,7 +466,7 @@ ___
 
 ### listFids
 
-▸ **listFids**(`options?`): `AsyncGenerator`<`number`, `void`, `undefined`\>
+▸ **listFids**(`options?`): `AsyncGenerator`\<`number`, `void`, `undefined`\>
 
 Get a list of all the FIDs.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#fids)
@@ -475,7 +479,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/fids.html#f
 
 #### Returns
 
-`AsyncGenerator`<`number`, `void`, `undefined`\>
+`AsyncGenerator`\<`number`, `void`, `undefined`\>
 
 #### Defined in
 
@@ -485,7 +489,7 @@ ___
 
 ### listHubEvents
 
-▸ **listHubEvents**(`fromEventId?`): `AsyncGenerator`<[`HubEvent`](../modules/openapi.md#hubevent), `void`, `undefined`\>
+▸ **listHubEvents**(`fromEventId?`): `AsyncGenerator`\<[`HubEvent`](../modules/openapi.md#hubevent), `void`, `undefined`\>
 
 Get a page of Hub events.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html#events)
@@ -498,7 +502,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/events.html
 
 #### Returns
 
-`AsyncGenerator`<[`HubEvent`](../modules/openapi.md#hubevent), `void`, `undefined`\>
+`AsyncGenerator`\<[`HubEvent`](../modules/openapi.md#hubevent), `void`, `undefined`\>
 
 #### Defined in
 
@@ -508,7 +512,7 @@ ___
 
 ### listLinksByFid
 
-▸ **listLinksByFid**(`fid`, `options?`): `AsyncGenerator`<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
+▸ **listLinksByFid**(`fid`, `options?`): `AsyncGenerator`\<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
 
 Get all links from a source FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linksbyfid)
@@ -522,7 +526,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 
 #### Returns
 
-`AsyncGenerator`<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
+`AsyncGenerator`\<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
 
 #### Defined in
 
@@ -532,7 +536,7 @@ ___
 
 ### listLinksByTargetFid
 
-▸ **listLinksByTargetFid**(`targetFid`, `options?`): `AsyncGenerator`<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
+▸ **listLinksByTargetFid**(`targetFid`, `options?`): `AsyncGenerator`\<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
 
 Get all links to a target FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linksbytargetfid)
@@ -546,7 +550,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#
 
 #### Returns
 
-`AsyncGenerator`<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
+`AsyncGenerator`\<[`LinkAdd`](../modules/openapi.md#linkadd), `void`, `undefined`\>
 
 #### Defined in
 
@@ -556,7 +560,7 @@ ___
 
 ### listOnChainEventsByFid
 
-▸ **listOnChainEventsByFid**<`T`\>(`fid`, `eventType`): `Promise`<[`OnChainEventsReturnType`](../modules/hubRestApiClient.md#onchaineventsreturntype)<`T`\>[]\>
+▸ **listOnChainEventsByFid**\<`T`\>(`fid`, `eventType`): `Promise`\<[`OnChainEventsReturnType`](../modules/hubRestApiClient.md#onchaineventsreturntype)\<`T`\>[]\>
 
 Get a list of on-chain events by an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.html#onchaineventsbyfid)
@@ -576,7 +580,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/onchain.htm
 
 #### Returns
 
-`Promise`<[`OnChainEventsReturnType`](../modules/hubRestApiClient.md#onchaineventsreturntype)<`T`\>[]\>
+`Promise`\<[`OnChainEventsReturnType`](../modules/hubRestApiClient.md#onchaineventsreturntype)\<`T`\>[]\>
 
 #### Defined in
 
@@ -586,7 +590,7 @@ ___
 
 ### listReactionsByCast
 
-▸ **listReactionsByCast**(`targetFid`, `targetHash`, `reactionType`, `options?`): `AsyncGenerator`<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
+▸ **listReactionsByCast**(`targetFid`, `targetHash`, `reactionType`, `options?`): `AsyncGenerator`\<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
 
 Get all reactions to a cast.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbycast)
@@ -602,7 +606,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Returns
 
-`AsyncGenerator`<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
+`AsyncGenerator`\<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
 
 #### Defined in
 
@@ -612,7 +616,7 @@ ___
 
 ### listReactionsByFid
 
-▸ **listReactionsByFid**(`fid`, `reactionType`, `options?`): `AsyncGenerator`<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
+▸ **listReactionsByFid**(`fid`, `reactionType`, `options?`): `AsyncGenerator`\<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
 
 Get all reactions by an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbyfid)
@@ -627,7 +631,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Returns
 
-`AsyncGenerator`<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
+`AsyncGenerator`\<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
 
 #### Defined in
 
@@ -637,7 +641,7 @@ ___
 
 ### listReactionsByTarget
 
-▸ **listReactionsByTarget**(`url`, `reactionType`, `options?`): `AsyncGenerator`<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
+▸ **listReactionsByTarget**(`url`, `reactionType`, `options?`): `AsyncGenerator`\<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
 
 Get all reactions to cast's target URL.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.html#reactionsbytarget)
@@ -652,7 +656,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/reactions.h
 
 #### Returns
 
-`AsyncGenerator`<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
+`AsyncGenerator`\<[`Reaction`](../modules/openapi.md#reaction), `void`, `undefined`\>
 
 #### Defined in
 
@@ -662,7 +666,7 @@ ___
 
 ### listUsernameProofsForFid
 
-▸ **listUsernameProofsForFid**(`fid`): `Promise`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)[]\>
+▸ **listUsernameProofsForFid**(`fid`): `Promise`\<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)[]\>
 
 Get a list of proofs provided by an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernameproof.html#usernameproofsbyfid)
@@ -675,7 +679,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/usernamepro
 
 #### Returns
 
-`Promise`<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)[]\>
+`Promise`\<[`UserNameProof`](../interfaces/openapi.UserNameProof.md)[]\>
 
 #### Defined in
 
@@ -685,7 +689,7 @@ ___
 
 ### listVerificationsByFid
 
-▸ **listVerificationsByFid**(`fid`, `options?`): `AsyncGenerator`<[`Verification`](../modules/openapi.md#verification), `void`, `undefined`\>
+▸ **listVerificationsByFid**(`fid`, `options?`): `AsyncGenerator`\<[`Verification`](../modules/openapi.md#verification), `void`, `undefined`\>
 
 Get a list of verifications provided by an FID.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/verification.html)
@@ -695,11 +699,11 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/verificatio
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fid` | `number` | The FID being requested |
-| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) & { `address?`: `string`  } | The optional ETH address to filter by |
+| `options?` | [`PaginationOptions`](../interfaces/hubRestApiClient.PaginationOptions.md) & \{ `address?`: `string`  } | The optional ETH address to filter by |
 
 #### Returns
 
-`AsyncGenerator`<[`Verification`](../modules/openapi.md#verification), `void`, `undefined`\>
+`AsyncGenerator`\<[`Verification`](../modules/openapi.md#verification), `void`, `undefined`\>
 
 #### Defined in
 
@@ -709,7 +713,7 @@ ___
 
 ### removeCast
 
-▸ **removeCast**(`castHash`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **removeCast**(`castHash`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Deletes a Cast.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -724,7 +728,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -734,7 +738,7 @@ ___
 
 ### removeLink
 
-▸ **removeLink**(`link`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **removeLink**(`link`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Removes a Link. Used to unfollow users
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -752,7 +756,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -762,7 +766,7 @@ ___
 
 ### removeReaction
 
-▸ **removeReaction**(`reaction`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **removeReaction**(`reaction`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Removes a Reaction. Used to un-like or un-recast.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -772,14 +776,14 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 | Name | Type |
 | :------ | :------ |
 | `reaction` | `Object` |
-| `reaction.target` | [`CastId`](../interfaces/openapi.CastId.md) \| { `url`: `string`  } |
+| `reaction.target` | [`CastId`](../interfaces/openapi.CastId.md) \| \{ `url`: `string`  } |
 | `reaction.type` | ``"like"`` \| ``"recast"`` |
 | `fid` | `number` |
 | `signerPrivateKeyHex` | `string` |
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -789,7 +793,7 @@ ___
 
 ### removeVerification
 
-▸ **removeVerification**(`address`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **removeVerification**(`address`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Removes a Verification.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -804,7 +808,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -814,7 +818,7 @@ ___
 
 ### submitCast
 
-▸ **submitCast**(`cast`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **submitCast**(`cast`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Submits a Cast.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -834,7 +838,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -844,7 +848,7 @@ ___
 
 ### submitLink
 
-▸ **submitLink**(`link`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **submitLink**(`link`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Submits a Link. Used to follow users.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -862,7 +866,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -872,7 +876,7 @@ ___
 
 ### submitReaction
 
-▸ **submitReaction**(`reaction`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **submitReaction**(`reaction`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Submits a Reaction. Used to like or recast.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -882,14 +886,14 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 | Name | Type |
 | :------ | :------ |
 | `reaction` | `Object` |
-| `reaction.target` | [`CastId`](../interfaces/openapi.CastId.md) \| { `url`: `string`  } |
+| `reaction.target` | [`CastId`](../interfaces/openapi.CastId.md) \| \{ `url`: `string`  } |
 | `reaction.type` | ``"like"`` \| ``"recast"`` |
 | `fid` | `number` |
 | `signerPrivateKeyHex` | `string` |
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -899,7 +903,7 @@ ___
 
 ### submitVerification
 
-▸ **submitVerification**(`verification`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **submitVerification**(`verification`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Submits a Verification.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -918,7 +922,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -928,7 +932,7 @@ ___
 
 ### unfollowUser
 
-▸ **unfollowUser**(`targetFid`, `fid`, `signerPrivateKeyHex`): `Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+▸ **unfollowUser**(`targetFid`, `fid`, `signerPrivateKeyHex`): `Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 Un-follows a User. Wraps removeLink.
 See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
@@ -943,7 +947,7 @@ See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessa
 
 #### Returns
 
-`Promise`<``null`` \| [`Message`](../modules/openapi.md#message)\>
+`Promise`\<``null`` \| [`Message`](../modules/openapi.md#message)\>
 
 #### Defined in
 
@@ -953,7 +957,7 @@ ___
 
 ### isApiErrorResponse
 
-▸ `Static` **isApiErrorResponse**(`error`): error is Object
+▸ **isApiErrorResponse**(`error`): error is Object
 
 Utility for parsing errors returned by a hub's REST API server. Returns true
 if the given error is caused by an error response from the server, and

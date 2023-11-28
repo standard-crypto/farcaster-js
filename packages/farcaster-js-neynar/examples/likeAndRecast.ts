@@ -1,8 +1,8 @@
-import { NeynarAPIClient, ReactionType } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');
 
 const existingCastHash = 'existingCastHash';
-await client.v2.reactToCast(signerUuid, ReactionType.Like, existingCastHash); // Like Cast
-await client.v2.reactToCast(signerUuid, ReactionType.Recast, existingCastHash); // Recast Cast
+await client.v2.reactToCast(signerUuid, 'like', existingCastHash); // Like Cast
+await client.v2.reactToCast(signerUuid, 'recast', existingCastHash); // Recast Cast

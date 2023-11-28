@@ -33,28 +33,25 @@ npm install axios @standard-crypto/farcaster-js-neynar
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/createSigner.ts) -->
 <!-- The below code snippet is automatically added from ./examples/createSigner.ts -->
 ```ts
-import { generateSignature, NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient, waitForNeynarSignerApproval } from '@standard-crypto/farcaster-js-neynar';
+import QRCode from 'qrcode';
 
 const client = new NeynarAPIClient('apiKey');
 
-const signerFid = 111; // fid of signer
-const privateKey = 'mnemonic for signer';
-const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now
+const developerMnemonic = 'your farcaster recovery phrase';
 
-const signer = await client.v2.createSigner();
-
-const signature = await generateSignature(signer.public_key, signerFid, privateKey, deadline);
-
-const registeredSigner = await client.v2.registerSigner(signer.signer_uuid, signerFid, deadline, signature);
-
-console.log(
-    `Open url ${registeredSigner.signer_approval_url} on a logged in ios device to approve signer`,
+// create signer
+const signer = await client.v2.createSigner(
+  developerMnemonic,
 );
-const registerSignerToken =
-    registeredSigner.signer_approval_url?.split('=')[1];
-console.log(
-    `If using an android device, use url https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`,
-);
+
+console.log('Scan the QR code below on a logged in device to approve signer');
+console.log(await QRCode.toString(signer.signer_approval_url ?? '', { type: 'terminal', small: true }));
+console.log(`url: ${signer.signer_approval_url}`);
+console.log('Once approved, you can start using your signer to write data to Farcaster');
+console.log(`signer uuid: ${signer.signer_uuid}`);
+console.log('waiting for signer to be approved...');
+await waitForNeynarSignerApproval(client, signer.signer_uuid);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -96,14 +93,14 @@ console.log(`Reply hash:${publishedCast.hash}`);
 <!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/likeAndRecast.ts) -->
 <!-- The below code snippet is automatically added from ./examples/likeAndRecast.ts -->
 ```ts
-import { NeynarAPIClient, ReactionType } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
 
 const signerUuid = 'approvedSignerUUID';
 const client = new NeynarAPIClient('apiKey');
 
 const existingCastHash = 'existingCastHash';
-await client.v2.reactToCast(signerUuid, ReactionType.Like, existingCastHash); // Like Cast
-await client.v2.reactToCast(signerUuid, ReactionType.Recast, existingCastHash); // Recast Cast
+await client.v2.reactToCast(signerUuid, 'like', existingCastHash); // Like Cast
+await client.v2.reactToCast(signerUuid, 'recast', existingCastHash); // Recast Cast
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 

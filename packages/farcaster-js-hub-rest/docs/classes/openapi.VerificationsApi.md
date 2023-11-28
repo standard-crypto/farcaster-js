@@ -34,7 +34,7 @@ VerificationsApi - object-oriented interface
 
 ### constructor
 
-• **new VerificationsApi**(`configuration?`, `basePath?`, `axios?`)
+• **new VerificationsApi**(`configuration?`, `basePath?`, `axios?`): [`VerificationsApi`](openapi.VerificationsApi.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@ VerificationsApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`VerificationsApi`](openapi.VerificationsApi.md)
 
 #### Inherited from
 
@@ -98,18 +102,18 @@ BaseAPI.configuration
 
 ### listVerificationsByFid
 
-▸ **listVerificationsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md), `any`\>\>
+▸ **listVerificationsByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`VerificationsApiListVerificationsByFidRequest`](../interfaces/openapi.VerificationsApiListVerificationsByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListVerificationsByFid200Response`](../interfaces/openapi.ListVerificationsByFid200Response.md), `any`\>\>
 
 **`Summary`**
 

@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "A collection of tools for interacting with the Farcaster social network.",
   "type": "module",
   "repository": {
@@ -15,6 +15,7 @@
     "axios": "~1.5.1"
   },
   "dependencies": {
+    "@standard-crypto/farcaster-js-cli": "workspace:*",
     "@standard-crypto/farcaster-js-hub-rest": "workspace:*",
     "@standard-crypto/farcaster-js-neynar": "workspace:*"
   },
@@ -60,5 +61,6 @@
     }
   },
   "main": "./dist/commonjs/index.js",
+  "bin": "./dist/commonjs/cli.js",
   "types": "./dist/commonjs/index.d.ts"
 }

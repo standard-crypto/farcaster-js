@@ -9,6 +9,7 @@ A collection of tools for interacting with the Farcaster social network.
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Farcaster Hub REST API](#farcaster-hub-rest-api)
 - [Neynar REST APIs](#neynar-rest-apis)
+- [Signers](#signers)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Farcaster Hub REST API
@@ -76,6 +77,19 @@ const cast = await client.v2.publishCast(signerUuid, 'This is a test cast.');
 await client.v2.reactToCast(signerUuid, NeynarV2.ReactionType.Like, cast.hash);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
+
+## Signers
+
+Signers are required to write data to Farcaster. You can learn more about signers from these resources ([Farcaster](https://docs.farcaster.xyz/protocol/concepts.html#signers), [Neynar](https://docs.neynar.com/docs/write-to-farcaster-with-neynar-managed-signers)).
+
+This package includes a CLI for creating signers. You can run the code below to generate a signer:
+```
+farcaster-js create-signer
+```
+
+Read more about the CLI in [farcaster-js-cli/](./packages/farcaster-js-cli/README.md).
+
+Additionally, signers may be created programmatically without use of the CLI -- see the examples in [farcaster-js-neynar/](./packages/farcaster-js-neynar/README.md#create-a-signer).
 
 ***Usage Versus Hub APIs:***
 

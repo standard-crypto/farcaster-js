@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: v2 Farcaster
-  version: "1.0"
+  title: Farcaster API V2
+  version: "2.0"
 servers:
   - url: https://api.neynar.com/v2
 security:
@@ -21,7 +21,6 @@ components:
     Fid:
       type: integer
       format: int32
-      default: 3
       description: User identifier (unsigned integer)
     SignerUUID:
       type: string
@@ -135,6 +134,7 @@ components:
     User:
       type: object
       required:
+        - object
         - fid
         - username
         - display_name
@@ -145,6 +145,10 @@ components:
         - verifications
         - activeStatus
       properties:
+        object:
+          type: string
+          enum:
+            - user
         fid:
           $ref: "#/components/schemas/Fid"
         username:
@@ -182,6 +186,18 @@ components:
             $ref: "#/components/schemas/Address"
         activeStatus:
           $ref: "#/components/schemas/ActiveStatus"
+        viewer_context:
+          type: object
+          required:
+            - following
+            - followed_by
+          properties:
+            following:
+              type: integer
+              format: int32
+            followed_by:
+              type: integer
+              format: int32
     EmbeddedCast:
       oneOf:
         - $ref: "#/components/schemas/EmbedUrl"
@@ -270,7 +286,6 @@ components:
       type: object
       required:
         - signer_uuid
-        - text
       properties:
         signer_uuid:
           $ref: "#/components/schemas/SignerUUID"
@@ -324,6 +339,34 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Fid"
+    AddVerificationReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - address
+        - block_hash
+        - eth_signature
+      properties:
+        signer_uuid:
+          $ref: "#/components/schemas/SignerUUID"
+        address:
+          $ref: "#/components/schemas/Address"
+        block_hash:
+          type: string
+        eth_signature:
+          type: string
+    RemoveVerificationReqBody:
+      type: object
+      required:
+        - signer_uuid
+        - address
+        - block_hash
+        - eth_signature
+      properties:
+        signer_uuid:
+          $ref: "#/components/schemas/SignerUUID"
+        address:
+          $ref: "#/components/schemas/Address"
     UpdateUserReqBody:
       type: object
       required:
@@ -371,6 +414,7 @@ components:
             - reactions
             - replies
             - thread_hash
+            - mentioned_profiles
           properties:
             reactions:
               $ref: "#/components/schemas/CastWithInteractionsReactions"
@@ -379,6 +423,10 @@ components:
             thread_hash:
               type: string
               nullable: true
+            mentioned_profiles:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
     Signer:
       type: object
       required:
@@ -503,6 +551,134 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FollowResponse"
+    NotificationsResponse:
+      type: object
+      required:
+        - notifications
+        - next
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+        next:
+          $ref: "#/components/schemas/NextCursor"
+    Notification:
+      type: object
+      required:
+        - object
+        - most_recent_timestamp
+        - type
+      properties:
+        object:
+          type: string
+        most_recent_timestamp:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum:
+            - follows
+            - recasts
+            - likes
+            - mention
+            - reply
+        follows:
+          type: array
+          items:
+            $ref: "#/components/schemas/NotificationFollow"
+        cast:
+          $ref: "#/components/schemas/CastWithInteractions"
+        reactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/NotificationReactions"
+    NotificationFollow:
+      type: object
+      required:
+        - object
+        - user
+      properties:
+        object:
+          type: string
+          enum:
+            - follow
+        user:
+          $ref: "#/components/schemas/User"
+    NotificationReactions:
+      type: object
+      required:
+        - object
+        - cast
+        - user
+      properties:
+        object:
+          type: string
+          enum:
+            - likes
+            - recasts
+        cast:
+          type: object
+          required:
+            - hash
+            - object
+          properties:
+            hash:
+              type: string
+            object:
+              type: string
+              enum:
+                - cast_dehydrated
+        user:
+          $ref: "#/components/schemas/User"
+    RelevantFollowersResponse:
+      type: object
+      required:
+        - top_relevant_followers_hydrated
+        - all_relevant_followers_dehydrated
+      properties:
+        top_relevant_followers_hydrated:
+          type: array
+          items:
+            $ref: "#/components/schemas/HydratedFollower"
+        all_relevant_followers_dehydrated:
+          type: array
+          items:
+            $ref: "#/components/schemas/DehydratedFollower"
+    HydratedFollower:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+            - follow
+        user:
+          $ref: "#/components/schemas/User"
+    DehydratedFollower:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+            - follow
+        user:
+          $ref: "#/components/schemas/UserDehydrated"
+    UserDehydrated:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+            - user_dehydrated
+        fid:
+          $ref: "#/components/schemas/Fid"
+    UserResponse:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
 
   responses:
     404Response:
@@ -535,32 +711,37 @@ tags:
     description: Operations related to user
     externalDocs:
       description: More info about user
-      url: https://docs.neynar.com/reference/search-usernames
+      url: https://docs.neynar.com/reference/user-operations
   - name: Signer
     description: Operations related to signer
     externalDocs:
       description: More info about signer
-      url: https://docs.neynar.com/reference/write-to-farcaster-via-neynar
+      url: https://docs.neynar.com/reference/signer-operations
   - name: Cast
     description: Operations related to cast
     externalDocs:
       description: More info about cast
-      url: https://docs.neynar.com/reference/get-cast
+      url: https://docs.neynar.com/reference/cast-operations
   - name: Feed
     description: Operations related to feed
     externalDocs:
       description: More info about feed
-      url: https://docs.neynar.com/reference/how-to-use-the-feed-api
+      url: https://docs.neynar.com/reference/feed-operations
   - name: Reaction
     description: Operations related to reaction
     externalDocs:
       description: More info about reaction
-      url: https://docs.neynar.com/reference/post-a-reaction
-  - name: Follow
-    description: Operations related to follow
+      url: https://docs.neynar.com/reference/reaction-operations
+  - name: Notifications
+    description: Operations related to notifications
     externalDocs:
-      description: More info about follow
-      url: https://docs.neynar.com/reference/follow-a-user
+      description: More info about notifications
+      url: https://docs.neynar.com/reference/notifications-operations
+  - name: Follows
+    description: Operations related to follows
+    externalDocs:
+      description: More info about follows
+      url: https://docs.neynar.com/reference/follows-operations
 
 paths:
   /farcaster/signer:
@@ -569,6 +750,8 @@ paths:
         - Signer
       summary: Fetches the status of a signer
       description: Gets information status of a signer by passing in a signer_uuid (Use post API to generate a signer)
+      externalDocs:
+        url: https://docs.neynar.com/reference/signer
       operationId: signer
       parameters:
         - name: signer_uuid
@@ -599,6 +782,8 @@ paths:
       description: |
         Creates a signer and returns the signer status. \
         **Note**: While testing please reuse the signer, it costs money to approve a signer.
+      externalDocs:
+        url: https://docs.neynar.com/reference/create-signer
       operationId: create-signer
       responses:
         "200":
@@ -615,6 +800,8 @@ paths:
         - Signer
       summary: Register Signed Key
       description: Registers an app fid, deadline and a signature. Returns the signer status with an approval url.
+      externalDocs:
+        url: https://docs.neynar.com/reference/register-signed-key
       operationId: register-signed-key
       requestBody:
         required: true
@@ -648,6 +835,8 @@ paths:
         - User
       summary: Search for Usernames
       description: Search for Usernames
+      externalDocs:
+        url: https://docs.neynar.com/reference/user-search
       operationId: user-search
       parameters:
         - name: viewer_fid
@@ -671,6 +860,46 @@ paths:
                 $ref: "#/components/schemas/UserSearchResponse"
         "400":
           $ref: "#/components/responses/400Response"
+  /farcaster/user/bulk:
+    get:
+      tags:
+        - User
+      summary: Fetches information about multiple users based on FIDs
+      description: Fetches information about multiple users based on FIDs
+      externalDocs:
+        url: https://docs.neynar.com/reference/user-bulk
+      operationId: user-bulk
+      parameters:
+        - name: fids
+          in: query
+          required: true
+          example: 194, 191, 6131
+          schema:
+            type: string
+        - name: viewer_fid
+          in: query
+          required: false
+          example: 3
+          schema:
+            $ref: "#/components/schemas/Fid"
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - users
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
   /farcaster/user:
     patch:
       tags:
@@ -679,6 +908,8 @@ paths:
       description: |
         Update user profile \
         (In order to update user's profile `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/update-user
       operationId: update-user
       requestBody:
         required: true
@@ -711,8 +942,10 @@ paths:
     get:
       tags:
         - Cast
-      summary: Retrieve cast for a given hash
-      description: Gets information about an individual cast by passing in a web URL or cast hash
+      summary: Retrieve cast for a given hash or Warpcast URL
+      description: Gets information about an individual cast by passing in a Warpcast web URL or cast hash
+      externalDocs:
+        url: https://docs.neynar.com/reference/cast
       operationId: cast
       parameters:
         - name: type
@@ -744,6 +977,8 @@ paths:
       description: |
         Posts a cast or cast reply. Works with mentions and embeds.  
         (In order to post a cast `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/post-cast
       operationId: post-cast
       requestBody:
         required: true
@@ -776,6 +1011,8 @@ paths:
       description: |
         Delete an existing cast. \
         (In order to delete a cast `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/delete-cast
       operationId: delete-cast
       requestBody:
         required: true
@@ -807,17 +1044,17 @@ paths:
         - Cast
       summary: Gets information about an array of casts
       description: Retrieve multiple casts using their respective hashes.
+      externalDocs:
+        url: https://docs.neynar.com/reference/casts
       operationId: casts
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GetCastsReqBody"
-            example:
-              casts:
-                - hash: "0xa896906a5e397b4fec247c3ee0e9e4d4990b8004"
-                - hash: "0x27ff810f7f718afd8c40be236411f017982e0994"
+      parameters:
+        - name: casts
+          in: query
+          required: true
+          description: "Hashes of the cast to be retrieved (Comma separated)"
+          example: "0xa896906a5e397b4fec247c3ee0e9e4d4990b8004,0x27ff810f7f718afd8c40be236411f017982e0994"
+          schema:
+            type: string
       responses:
         "200":
           description: Successful operation.
@@ -830,17 +1067,21 @@ paths:
   /farcaster/feed:
     get:
       summary: Retrieve casts based on filters
+      externalDocs:
+        url: https://docs.neynar.com/reference/feed
       operationId: feed
       tags:
         - Feed
       parameters:
         - name: feed_type
           in: query
+          required: true
           schema:
             type: string
             enum:
-              - filter
               - following
+              - filter
+            default: following
           example: filter
           description: Defaults to following (requires fid or address). If set to filter (requires filter_type)
         - name: filter_type
@@ -850,11 +1091,11 @@ paths:
             enum:
               - fids
               - parent_url
+              - global_trending
           example: fids
           description: Used when feed_type=filter. Can be set to fids (requires fids) or parent_url (requires parent_url)
         - name: fid
           in: query
-          required: true
           schema:
             $ref: "#/components/schemas/Fid"
           description: (Optional) fid of user whose feed you want to create. By default, the API expects this field, except if you pass a filter_type
@@ -862,7 +1103,7 @@ paths:
           in: query
           schema:
             type: string
-          example: 3,4,194
+          example: 3,2,194
           description: Used when filter_type=fids . Create a feed based on a list of fids. Max array size is 250. Requires feed_type and filter_type.
         - name: parent_url
           in: query
@@ -876,12 +1117,18 @@ paths:
             type: string
         - name: limit
           in: query
-          description: Number of results to retrieve (default 25, max 150)
+          description: Number of results to retrieve (default 25, max 100)
           schema:
             type: integer
             default: 25
             minimum: 1
-            maximum: 150
+            maximum: 100
+        - name: with_recasts
+          in: query
+          description: Include recasts in the response, true by default
+          schema:
+            type: boolean
+            default: true
       responses:
         "200":
           description: Successful operation.
@@ -899,6 +1146,8 @@ paths:
       description: |
         Post a reaction (like or recast) to a given cast \
         (In order to post a reaction `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/post-reaction
       operationId: post-reaction
       requestBody:
         required: true
@@ -932,6 +1181,8 @@ paths:
       description: |
         Delete a reaction (like or recast) to a given cast \
         (In order to delete a reaction `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/delete-reaction
       operationId: delete-reaction
       requestBody:
         required: true
@@ -958,14 +1209,69 @@ paths:
           $ref: "#/components/responses/403Response"
         "500":
           $ref: "#/components/responses/500Response"
+  /farcaster/user/verification:
+    post:
+      tags:
+        - User
+      summary: Adds verification for an eth address for the user
+      description: |
+        Adds verification for an eth address for the user \
+        (In order to add verification `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/add-verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddVerificationReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              address: "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f"
+              block_hash: "0x191905a9201170abb55f4c90a4cc968b44c1b71cdf3db2764b775c93e7e22b29"
+              eth_signature: "0x2fc09da1f4dcb723fefb91f77932c249c418c0af00c66ed92ee1f35002c80d6a1145280c9f361d207d28447f8f7463366840d3a9309036cf6954afd1fd331beb1b"
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationResponse"
+    delete:
+      tags:
+        - User
+      summary: Removes verification for an eth address for the user
+      description: |
+        Removes verification for an eth address for the user \
+        (In order to add verification `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/remove-verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RemoveVerificationReqBody"
+            example:
+              signer_uuid: 19d0c5fd-9b33-4a48-a0e2-bc7b0555baec
+              address: "0x1ea99cbed57e4020314ba3fadd7c692d2de34d5f"
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationResponse"
   /farcaster/user/follow:
     post:
       tags:
-        - Follow
+        - User
       summary: Follow a user
       description: |
         Follow a user \
         (In order to follow a user `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/follow-user
       operationId: follow-user
       requestBody:
         required: true
@@ -995,11 +1301,13 @@ paths:
           $ref: "#/components/responses/500Response"
     delete:
       tags:
-        - Follow
+        - User
       summary: Unfollow a user
       description: |
         Unfollow a user \
         (In order to unfollow a user `signer_uuid` must be approved)
+      externalDocs:
+        url: https://docs.neynar.com/reference/unfollow-user
       operationId: unfollow-user
       requestBody:
         required: true
@@ -1027,3 +1335,101 @@ paths:
           $ref: "#/components/responses/403Response"
         "500":
           $ref: "#/components/responses/500Response"
+  /farcaster/user/custody-address:
+    get:
+      tags:
+        - User
+      summary: "Lookup a user by custody-address"
+      description: "Lookup a user by custody-address"
+      operationId: lookup-user-by-custody-address
+      externalDocs:
+        url: https://docs.neynar.com/reference/lookup-user-by-custody-address
+      parameters:
+        - name: custody_address
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "0xd1b702203b1b3b641a699997746bd4a12d157909"
+          description: Custody Address associated with mnemonic
+      responses:
+        "200":
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "404":
+          $ref: "#/components/responses/404Response"
+  /farcaster/notifications:
+    get:
+      tags:
+        - Notifications
+      summary: Retrieve notifications for a given user
+      description: Returns a list of notifications for a specific FID.
+      externalDocs:
+        url: https://docs.neynar.com/reference/notifications
+      operationId: notifications
+      parameters:
+        - name: fid
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/Fid"
+        - name: cursor
+          in: query
+          description: Pagination cursor.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results to retrieve (default 25, max 50)
+          required: false
+          schema:
+            type: integer
+            default: 25
+            minimum: 1
+            maximum: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationsResponse"
+        "400":
+          $ref: "#/components/responses/400Response"
+  /farcaster/followers/relevant:
+    get:
+      tags:
+        - Follows
+      summary: Retrieve relevant followers for a given user
+      description: Returns a list of relevant followers for a specific FID.
+      externalDocs:
+        url: https://docs.neynar.com/reference/relevant-followers
+      operationId: relevant-followers
+      parameters:
+        - name: target_fid
+          in: query
+          required: true
+          description: User who's profile you are looking at
+          schema:
+            $ref: "#/components/schemas/Fid"
+        - name: viewer_fid
+          in: query
+          required: true
+          description: Viewer who's looking at the profile
+          schema:
+            $ref: "#/components/schemas/Fid"
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RelevantFollowersResponse"
+        "400":
+          $ref: "#/components/responses/400Response"

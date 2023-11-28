@@ -34,7 +34,7 @@ UserDataApi - object-oriented interface
 
 ### constructor
 
-• **new UserDataApi**(`configuration?`, `basePath?`, `axios?`)
+• **new UserDataApi**(`configuration?`, `basePath?`, `axios?`): [`UserDataApi`](openapi.UserDataApi.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@ UserDataApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`UserDataApi`](openapi.UserDataApi.md)
 
 #### Inherited from
 
@@ -98,7 +102,7 @@ BaseAPI.configuration
 
 ### getUserDataByFid
 
-▸ **getUserDataByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`GetUserDataByFid200Response`](../modules/openapi.md#getuserdatabyfid200response), `any`\>\>
+▸ **getUserDataByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`GetUserDataByFid200Response`](../modules/openapi.md#getuserdatabyfid200response), `any`\>\>
 
 **Note:** one of two different response schemas is returned based on whether the caller provides the `user_data_type` parameter. If included, a single `UserDataAdd` message is returned (or a `not_found` error). If omitted, a paginated list of `UserDataAdd` messages is returned instead
 
@@ -107,11 +111,11 @@ BaseAPI.configuration
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`UserDataApiGetUserDataByFidRequest`](../interfaces/openapi.UserDataApiGetUserDataByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`GetUserDataByFid200Response`](../modules/openapi.md#getuserdatabyfid200response), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`GetUserDataByFid200Response`](../modules/openapi.md#getuserdatabyfid200response), `any`\>\>
 
 **`Summary`**
 

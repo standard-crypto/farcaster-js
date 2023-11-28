@@ -1,0 +1,68 @@
+{
+  "name": "@standard-crypto/farcaster-js-cli",
+  "version": "1.0.0",
+  "description": "A CLI for creating Farcaster signers",
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/standard-crypto/farcaster-js-cli",
+    "type": "git"
+  },
+  "homepage": "https://github.com/standard-crypto/farcaster-js",
+  "bugs": "https://github.com/standard-crypto/farcaster-js/issues",
+  "author": "Kevin Ayling",
+  "license": "MIT",
+  "peerDependencies": {
+    "axios": "~1.5.1"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.2.0",
+    "@standard-crypto/farcaster-js-neynar": "workspace:*",
+    "@types/inquirer": "^9.0.7",
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1",
+    "qrcode": "^1.5.3",
+    "typescript": "^5.3.2",
+    "viem": "^1.19.3"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "yarn run -T tshy",
+    "clean": "yarn clean:dist",
+    "clean:dist": "rm -rf dist",
+    "cz": "yarn run -T cz",
+    "publish": "yarn npm publish"
+  },
+  "keywords": [
+    "farcaster"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": "./dist/commonjs/bin.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    }
+  },
+  "main": "./dist/commonjs/index.js"
+}

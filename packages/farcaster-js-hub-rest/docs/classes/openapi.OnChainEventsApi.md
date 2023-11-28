@@ -36,7 +36,7 @@ OnChainEventsApi - object-oriented interface
 
 ### constructor
 
-• **new OnChainEventsApi**(`configuration?`, `basePath?`, `axios?`)
+• **new OnChainEventsApi**(`configuration?`, `basePath?`, `axios?`): [`OnChainEventsApi`](openapi.OnChainEventsApi.md)
 
 #### Parameters
 
@@ -45,6 +45,10 @@ OnChainEventsApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`OnChainEventsApi`](openapi.OnChainEventsApi.md)
 
 #### Inherited from
 
@@ -100,18 +104,18 @@ BaseAPI.configuration
 
 ### getOnChainIdRegistrationByAddress
 
-▸ **getOnChainIdRegistrationByAddress**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister), `any`\>\>
+▸ **getOnChainIdRegistrationByAddress**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`OnChainEventsApiGetOnChainIdRegistrationByAddressRequest`](../interfaces/openapi.OnChainEventsApiGetOnChainIdRegistrationByAddressRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`OnChainEventIdRegister`](../modules/openapi.md#onchaineventidregister), `any`\>\>
 
 **`Summary`**
 
@@ -131,18 +135,18 @@ ___
 
 ### listOnChainEventsByFid
 
-▸ **listOnChainEventsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md), `any`\>\>
+▸ **listOnChainEventsByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`OnChainEventsApiListOnChainEventsByFidRequest`](../interfaces/openapi.OnChainEventsApiListOnChainEventsByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListOnChainEventsByFid200Response`](../interfaces/openapi.ListOnChainEventsByFid200Response.md), `any`\>\>
 
 **`Summary`**
 
@@ -162,7 +166,7 @@ ___
 
 ### listOnChainSignersByFid
 
-▸ **listOnChainSignersByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`ListOnChainSignersByFid200Response`](../modules/openapi.md#listonchainsignersbyfid200response), `any`\>\>
+▸ **listOnChainSignersByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`ListOnChainSignersByFid200Response`](../modules/openapi.md#listonchainsignersbyfid200response), `any`\>\>
 
 **Note:** one of two different response schemas is returned based on whether the caller provides the `signer` parameter. If included, a single `OnChainEventSigner` message is returned (or a `not_found` error). If omitted, a non-paginated list of `OnChainEventSigner` messages is returned instead
 
@@ -171,11 +175,11 @@ ___
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`OnChainEventsApiListOnChainSignersByFidRequest`](../interfaces/openapi.OnChainEventsApiListOnChainSignersByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`ListOnChainSignersByFid200Response`](../modules/openapi.md#listonchainsignersbyfid200response), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`ListOnChainSignersByFid200Response`](../modules/openapi.md#listonchainsignersbyfid200response), `any`\>\>
 
 **`Summary`**
 

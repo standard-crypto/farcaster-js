@@ -34,7 +34,7 @@ InfoApi - object-oriented interface
 
 ### constructor
 
-• **new InfoApi**(`configuration?`, `basePath?`, `axios?`)
+• **new InfoApi**(`configuration?`, `basePath?`, `axios?`): [`InfoApi`](openapi.InfoApi.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@ InfoApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`InfoApi`](openapi.InfoApi.md)
 
 #### Inherited from
 
@@ -98,18 +102,18 @@ BaseAPI.configuration
 
 ### getInfo
 
-▸ **getInfo**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), `any`\>\>
+▸ **getInfo**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`InfoApiGetInfoRequest`](../interfaces/openapi.InfoApiGetInfoRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`HubInfoResponse`](../interfaces/openapi.HubInfoResponse.md), `any`\>\>
 
 **`Summary`**
 

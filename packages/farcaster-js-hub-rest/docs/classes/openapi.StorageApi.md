@@ -34,7 +34,7 @@ StorageApi - object-oriented interface
 
 ### constructor
 
-• **new StorageApi**(`configuration?`, `basePath?`, `axios?`)
+• **new StorageApi**(`configuration?`, `basePath?`, `axios?`): [`StorageApi`](openapi.StorageApi.md)
 
 #### Parameters
 
@@ -43,6 +43,10 @@ StorageApi - object-oriented interface
 | `configuration?` | [`Configuration`](openapi.Configuration.md) | `undefined` |
 | `basePath` | `string` | `BASE_PATH` |
 | `axios` | `AxiosInstance` | `globalAxios` |
+
+#### Returns
+
+[`StorageApi`](openapi.StorageApi.md)
 
 #### Inherited from
 
@@ -98,18 +102,18 @@ BaseAPI.configuration
 
 ### getStorageLimitsByFid
 
-▸ **getStorageLimitsByFid**(`requestParameters`, `options?`): `Promise`<`AxiosResponse`<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md), `any`\>\>
+▸ **getStorageLimitsByFid**(`requestParameters`, `options?`): `Promise`\<`AxiosResponse`\<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md), `any`\>\>
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestParameters` | [`StorageApiGetStorageLimitsByFidRequest`](../interfaces/openapi.StorageApiGetStorageLimitsByFidRequest.md) | Request parameters. |
-| `options?` | `AxiosRequestConfig`<`any`\> | Override http request option. |
+| `options?` | `AxiosRequestConfig`\<`any`\> | Override http request option. |
 
 #### Returns
 
-`Promise`<`AxiosResponse`<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md), `any`\>\>
+`Promise`\<`AxiosResponse`\<[`StorageLimitsResponse`](../interfaces/openapi.StorageLimitsResponse.md), `any`\>\>
 
 **`Summary`**
 

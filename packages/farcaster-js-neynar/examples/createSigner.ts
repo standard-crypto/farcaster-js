@@ -1,22 +1,19 @@
-import { generateSignature, NeynarAPIClient } from '@standard-crypto/farcaster-js-neynar';
+import { NeynarAPIClient, waitForNeynarSignerApproval } from '@standard-crypto/farcaster-js-neynar';
+import QRCode from 'qrcode';
 
 const client = new NeynarAPIClient('apiKey');
 
-const signerFid = 111; // fid of signer
-const privateKey = 'mnemonic for signer';
-const deadline = Math.floor(Date.now() / 1000) + 86400; // one day from now
+const developerMnemonic = 'your farcaster recovery phrase';
 
-const signer = await client.v2.createSigner();
-
-const signature = await generateSignature(signer.public_key, signerFid, privateKey, deadline);
-
-const registeredSigner = await client.v2.registerSigner(signer.signer_uuid, signerFid, deadline, signature);
-
-console.log(
-    `Open url ${registeredSigner.signer_approval_url} on a logged in ios device to approve signer`,
+// create signer
+const signer = await client.v2.createSigner(
+  developerMnemonic,
 );
-const registerSignerToken =
-    registeredSigner.signer_approval_url?.split('=')[1];
-console.log(
-    `If using an android device, use url https://client.warpcast.com/deeplinks/signed-key-request?token=${registerSignerToken}`,
-);
+
+console.log('Scan the QR code below on a logged in device to approve signer');
+console.log(await QRCode.toString(signer.signer_approval_url ?? '', { type: 'terminal', small: true }));
+console.log(`url: ${signer.signer_approval_url}`);
+console.log('Once approved, you can start using your signer to write data to Farcaster');
+console.log(`signer uuid: ${signer.signer_uuid}`);
+console.log('waiting for signer to be approved...');
+await waitForNeynarSignerApproval(client, signer.signer_uuid);
