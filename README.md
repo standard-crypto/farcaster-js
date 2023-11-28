@@ -89,7 +89,7 @@ farcaster-js create-signer
 
 Read more about the CLI in [farcaster-js-cli](./packages/farcaster-js-cli/README.md).
 
-Additionally, signers may be created programmatically without use of the CLI -- see the examples in [farcaster-js-neynar/](./packages/farcaster-js-neynar/README.md#create-a-signer).
+Additionally, signers may be created programmatically without use of the CLI -- see the examples in [farcaster-js-neynar](./packages/farcaster-js-neynar/README.md#create-a-signer).
 
 ***Usage Versus Hub APIs:***
 
