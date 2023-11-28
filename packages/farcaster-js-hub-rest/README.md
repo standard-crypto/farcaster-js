@@ -8,6 +8,7 @@ A tool for interacting with the REST API of a Farcaster hub.
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [Setup](#setup)
+- [Signers](#signers)
 - [Examples](#examples)
   - [Publish a Cast](#publish-a-cast)
   - [React to a Cast](#react-to-a-cast)
@@ -29,6 +30,19 @@ Install the library:
 ```bash
 npm install axios @standard-crypto/farcaster-js-hub-rest
 ```
+
+## Signers
+
+Signers are required to write data to Farcaster. You can learn more about signers from the [Farcaster docs](https://docs.farcaster.xyz/protocol/concepts.html#signers).
+
+The root package includes a CLI for creating signers. You can run the code below to generate a signer:
+```
+npm install axios @standard-crypto/farcaster-js
+# alternatively, you can use @standard-crypto/farcaster-js-cli
+farcaster-js create-signer
+```
+
+Read more about the CLI in [farcaster-js-cli/](../farcaster-js-cli/README.md).
 
 ## Examples
 
