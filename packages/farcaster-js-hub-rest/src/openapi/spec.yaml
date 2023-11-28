@@ -781,9 +781,10 @@ paths:
           \ The message protobuf is an envelope \nthat wraps a MessageData object\
           \ and contains a hash and signature which can verify its authenticity."
         content:
-          application/json:
+          application/octet-stream:
             schema:
-              $ref: '#/components/schemas/Message'
+              type: string
+              format: binary
         required: true
       responses:
         200:

@@ -1260,7 +1260,7 @@ SubmitMessageApi - axios parameter creator
 
 | Name | Type |
 | :------ | :------ |
-| `submitMessage` | (`body`: [`Message`](openapi.md#message), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
+| `submitMessage` | (`body`: `Buffer`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<`RequestArgs`\> |
 
 **`Export`**
 
@@ -1318,7 +1318,7 @@ SubmitMessageApi - functional programming interface
 
 | Name | Type |
 | :------ | :------ |
-| `submitMessage` | (`body`: [`Message`](openapi.md#message), `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`Message`](openapi.md#message)\>\> |
+| `submitMessage` | (`body`: `Buffer`, `options?`: `AxiosRequestConfig`<`any`\>) => `Promise`<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`<[`Message`](openapi.md#message)\>\> |
 
 **`Export`**
 

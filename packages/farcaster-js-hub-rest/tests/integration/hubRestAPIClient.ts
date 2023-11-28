@@ -7,6 +7,7 @@ import type { OpenAPIV3 } from 'openapi-types'; // cspell:disable-line
 import type { OverrideProperties } from 'type-fest';
 
 import { HubRestAPIClient } from '../../src/index.js';
+import { hexToBytes } from '../../src/utils.js';
 import { Logger, silentLogger } from '../../src/logger.js';
 import { expectDefinedNonNull } from '../utils.js';
 import {
@@ -19,10 +20,16 @@ import {
   UserDataType,
 } from '../../src/openapi/index.js';
 import type { paths as SchemaPaths } from '../../src/openapi/generated/schema.js';
+import { Message, NobleEd25519Signer, makeCastAdd } from '@farcaster/core';
+import { Wallet } from 'ethers';
 
 chai.use(chaiAsPromised);
 
 const userGaviFid = 69; // @gavi
+const userGaviBotFid = 6365; // @gavi-bot
+
+const signerPrivateKey = process.env.INTEGRATION_TEST_HUB_SIGNER_PRIVATE_KEY;
+const verifiedAddressMnemonic = process.env.INTEGRATION_TEST_HUB_VERIFICATION_ADDRESS_MNEMONIC;
 
 const testLogger: Logger = {
   info: silentLogger.info,
@@ -42,6 +49,7 @@ describe('HubWebClient', function() {
   before('setup', async function() {
     client = new HubRestAPIClient({
       logger: testLogger,
+      hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281',
     });
 
     const apiSpecYaml = await fs.readFile(
@@ -50,6 +58,98 @@ describe('HubWebClient', function() {
     );
     apiSpec = yaml.parse(apiSpecYaml);
   });
+
+  if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
+    describe('SubmitMessage API', function() {
+      let submitMessageCastHash: string | undefined;
+      it('validates against OpenAPI spec', async function() {
+        // Set up the signer
+        const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
+        const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
+        const msg = await makeCastAdd({
+          text: 'This is a test cast submitted by directly invoking the SubmitMessage API',
+          embeds: [],
+          embedsDeprecated: [],
+          mentions: [],
+          mentionsPositions: [],
+        }, {
+          fid: userGaviBotFid,
+          network: 1,
+        }, ed25519Signer);
+        if (msg.isErr()) {
+          throw msg.error;
+        }
+        const messageBytes = Buffer.from(Message.encode(msg.value).finish());
+
+        const submitMessageResp = await client.apis.submitMessage.submitMessage({ body: messageBytes });
+        const validator = new OpenAPIResponseValidator.default({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          responses: apiSpec.paths['/v1/submitMessage'].post.responses as any,
+          components: apiSpec.components,
+        });
+        const errors = validator.validateResponse(200, submitMessageResp.data);
+        expect(errors, JSON.stringify(errors)).is.undefined;
+        submitMessageCastHash = submitMessageResp.data.hash;
+      });
+      let submittedCastHash: string | undefined;
+      it('can submit a cast', async function() {
+        const responseMessage = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(responseMessage?.hash);
+        submittedCastHash = responseMessage.hash;
+      });
+      it('can remove a cast', async function() {
+        expectDefinedNonNull(submittedCastHash);
+        expectDefinedNonNull(submitMessageCastHash);
+        await client.removeCast(submitMessageCastHash, userGaviBotFid, signerPrivateKey);
+        await client.removeCast(submittedCastHash, userGaviBotFid, signerPrivateKey);
+      });
+      it('can follow a user', async function() {
+        const followResponse = await client.followUser(userGaviFid, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(followResponse?.hash);
+      });
+      it('can unfollow a user', async function() {
+        const unfollowResponse = await client.unfollowUser(userGaviFid, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(unfollowResponse?.hash);
+      });
+      const castHash = '0x69ab635a1111c6d83e3e6043109e831328161901';
+      it('can like a cast', async function() {
+        const likeResponse = await client.submitReaction({ type: 'like', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(likeResponse?.hash);
+      });
+      it('can unlike a cast', async function() {
+        const likeResponse = await client.removeReaction({ type: 'like', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(likeResponse?.hash);
+      });
+      it('can recast a cast', async function() {
+        const likeResponse = await client.submitReaction({ type: 'recast', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(likeResponse?.hash);
+      });
+      it('can un-recast a cast', async function() {
+        const likeResponse = await client.removeReaction({ type: 'recast', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(likeResponse?.hash);
+      });
+      if (verifiedAddressMnemonic !== undefined && verifiedAddressMnemonic !== '') {
+        it('can verify an address with a mnemonic', async function() {
+          this.timeout('5s');
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', chainId: 0 }, userGaviBotFid, signerPrivateKey);
+          expectDefinedNonNull(verificationResponse?.hash);
+        });
+        it('can remove a verified address', async function() {
+          const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
+          const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
+          expectDefinedNonNull(removeVerificationResponse?.hash);
+        });
+        it('can verify an address with a private key', async function() {
+          this.timeout('10s');
+          const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
+          const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: wallet.privateKey, verificationType: 'EOA', network: 'MAINNET', chainId: 0 }, userGaviBotFid, signerPrivateKey);
+          expectDefinedNonNull(verificationResponse?.hash);
+          const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
+          expectDefinedNonNull(removeVerificationResponse?.hash);
+        });
+      }
+    });
+  }
 
   describe('Info API', function() {
     this.timeout('5s');
@@ -259,6 +359,7 @@ describe('HubWebClient', function() {
 
     describe('#listReactionsByFid', function() {
       it('validates against OpenAPI spec', async function() {
+        this.timeout('10s');
         const response = await client.apis.reactions.listReactionsByFid({
           fid: 2,
           reactionType: ReactionType.Like,
@@ -516,6 +617,7 @@ describe('HubWebClient', function() {
   describe('FIDs API', function() {
     describe('#listFids', function() {
       it('validates against OpenAPI spec', async function() {
+        this.timeout('5s');
         const response = await client.apis.fids.listFids();
         expect(response.data.fids).to.not.be.empty;
         const validator = new OpenAPIResponseValidator.default({
@@ -796,6 +898,7 @@ describe('HubWebClient', function() {
       });
 
       it('returns some hub events', async function() {
+        this.timeout('5s');
         const eventsIter = client.listHubEvents();
         const eventOne = await eventsIter.next();
         const eventTwo = await eventsIter.next();
@@ -808,6 +911,7 @@ describe('HubWebClient', function() {
       let eventId: number;
 
       beforeEach('fetch recent event ID', async function() {
+        this.timeout('5s');
         const events = client.listHubEvents();
         const event = await events.next();
         expectDefinedNonNull(event.value);
