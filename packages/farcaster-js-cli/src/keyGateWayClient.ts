@@ -79,6 +79,8 @@ export async function createDeveloperSigner(mnemonic: string): Promise<void> {
   console.log(`Transaction written to OP Mainnet. Check txn status at https://optimistic.etherscan.io/tx/${signerAddTxHash}`);
   await publicClient.waitForTransactionReceipt({ hash: signerAddTxHash });
   console.log('Transaction Confirmed! Your signer is ready to use.');
+  console.log('Your private key (stay safe):');
+  console.log(privateKey);
 }
 
 async function getSignedMetadataParams(

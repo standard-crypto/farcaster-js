@@ -164,7 +164,8 @@ export class HubRestAPIClient {
       embeds?: Embed[]
       embedsDeprecated?: string[]
       mentions?: number[]
-      mentionsPositions?: number[]
+      mentionsPositions?: number[],
+      parentCastId?: { fid: number, hash: string }
     },
     fid: number,
     signerPrivateKeyHex: string,
@@ -179,6 +180,7 @@ export class HubRestAPIClient {
       embedsDeprecated: cast.embedsDeprecated ?? [],
       mentions: cast.mentions ?? [],
       mentionsPositions: cast.mentionsPositions ?? [],
+      ...cast
     };
     const msg = await makeCastAdd(castAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
     if (msg.isErr()) {
