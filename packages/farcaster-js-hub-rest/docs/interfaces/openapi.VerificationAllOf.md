@@ -18,7 +18,7 @@ VerificationAllOf
 
 ### data
 
-• **data**: [`MessageDataVerificationAdd`](../modules/openapi.md#messagedataverificationadd)
+• **data**: [`VerificationAllOfData`](../modules/openapi.md#verificationallofdata)
 
 **`Memberof`**
 

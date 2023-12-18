@@ -18,7 +18,7 @@ CastAddAllOf
 
 ### data
 
-• **data**: [`MessageDataCastAdd`](../modules/openapi.md#messagedatacastadd)
+• **data**: [`CastAddAllOfData`](../modules/openapi.md#castaddallofdata)
 
 **`Memberof`**
 

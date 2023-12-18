@@ -18,7 +18,7 @@ MessageAllOf
 
 ### data
 
-• **data**: `never`
+• **data**: [`MessageAllOfData`](../modules/openapi.md#messageallofdata)
 
 **`Memberof`**
 

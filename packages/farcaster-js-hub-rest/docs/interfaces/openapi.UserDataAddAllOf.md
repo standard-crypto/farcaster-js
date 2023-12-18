@@ -18,7 +18,7 @@ UserDataAddAllOf
 
 ### data
 
-• **data**: [`MessageDataUserDataAdd`](../modules/openapi.md#messagedatauserdataadd)
+• **data**: [`UserDataAddAllOfData`](../modules/openapi.md#userdataaddallofdata)
 
 **`Memberof`**
 

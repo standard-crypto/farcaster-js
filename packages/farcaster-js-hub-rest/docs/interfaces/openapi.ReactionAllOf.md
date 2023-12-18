@@ -18,7 +18,7 @@ ReactionAllOf
 
 ### data
 
-• **data**: [`MessageDataReaction`](../modules/openapi.md#messagedatareaction)
+• **data**: [`ReactionAllOfData`](../modules/openapi.md#reactionallofdata)
 
 **`Memberof`**
 

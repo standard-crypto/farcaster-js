@@ -18,7 +18,7 @@ CastRemoveAllOf
 
 ### data
 
-• **data**: [`MessageDataCastRemove`](../modules/openapi.md#messagedatacastremove)
+• **data**: [`CastRemoveAllOfData`](../modules/openapi.md#castremoveallofdata)
 
 **`Memberof`**
 
