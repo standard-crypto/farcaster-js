@@ -44,7 +44,7 @@ const testLogger: Logger = {
 };
 
 describe('HubWebClient', function() {
-  this.timeout(10000);
+  this.timeout(30000);
 
   let client: HubRestAPIClient;
   let apiSpec: OverrideProperties<OpenAPIV3.Document, { paths: SchemaPaths }>; // cspell:disable-line
@@ -339,8 +339,8 @@ describe('HubWebClient', function() {
       it('validates against OpenAPI spec', async function() {
         const response = await client.apis.reactions.getReactionById({
           fid: 2,
-          targetFid: 1795,
-          targetHash: '0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0',
+          targetFid: 7933,
+          targetHash: '0xe645e385f82697e4ddc955b86a14affee8fa4572',
           reactionType: ReactionType.Like,
         });
         const validator = new OpenAPIResponseValidator.default({
@@ -355,8 +355,8 @@ describe('HubWebClient', function() {
       it('can fetch an existing reaction', async function() {
         const reaction = await client.getReactionById({
           fid: 2,
-          targetFid: 1795,
-          targetHash: '0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0',
+          targetFid: 7933,
+          targetHash: '0xe645e385f82697e4ddc955b86a14affee8fa4572',
           reactionType: ReactionType.Like,
         });
         expectDefinedNonNull(reaction);
