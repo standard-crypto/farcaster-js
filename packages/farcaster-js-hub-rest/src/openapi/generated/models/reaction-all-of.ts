@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReaction } from './message-data-reaction.js';
+import { ReactionAllOfData } from './reaction-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataReaction } from './message-data-reaction.js';
 export interface ReactionAllOf {
     /**
      * 
-     * @type {MessageDataReaction}
+     * @type {ReactionAllOfData}
      * @memberof ReactionAllOf
      */
-    'data': MessageDataReaction;
+    'data': ReactionAllOfData;
 }
 

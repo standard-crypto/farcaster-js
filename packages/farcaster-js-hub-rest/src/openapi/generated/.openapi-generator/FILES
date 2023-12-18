@@ -15,10 +15,13 @@ base.ts
 common.ts
 configuration.ts
 index.ts
+models/cast-add-all-of-data-all-of.ts
+models/cast-add-all-of-data.ts
 models/cast-add-all-of.ts
 models/cast-add-body.ts
 models/cast-add.ts
 models/cast-id.ts
+models/cast-remove-all-of-data.ts
 models/cast-remove-all-of.ts
 models/cast-remove-body.ts
 models/cast-remove.ts
@@ -41,6 +44,7 @@ models/hub-info-response.ts
 models/id-register-event-body.ts
 models/id-register-event-type.ts
 models/index.ts
+models/link-add-all-of-data.ts
 models/link-add-all-of.ts
 models/link-add.ts
 models/link-body.ts
@@ -91,8 +95,10 @@ models/on-chain-event-storage-rent.ts
 models/on-chain-event-type.ts
 models/on-chain-event.ts
 models/prune-message-body.ts
+models/reaction-all-of-data.ts
 models/reaction-all-of.ts
 models/reaction-body.ts
+models/reaction-remove-all-of.ts
 models/reaction-remove.ts
 models/reaction-type.ts
 models/reaction.ts
@@ -105,6 +111,7 @@ models/storage-limit.ts
 models/storage-limits-response.ts
 models/storage-rent-event-body.ts
 models/store-type.ts
+models/user-data-add-all-of-data.ts
 models/user-data-add-all-of.ts
 models/user-data-add.ts
 models/user-data-body.ts
@@ -113,7 +120,9 @@ models/user-name-proof.ts
 models/user-name-type.ts
 models/username-proofs-response.ts
 models/verification-add-eth-address-body.ts
+models/verification-all-of-data.ts
 models/verification-all-of.ts
+models/verification-remove-all-of-data.ts
 models/verification-remove-all-of.ts
 models/verification-remove-body.ts
 models/verification-remove.ts

@@ -24,9 +24,6 @@ import { MessageDataCommon } from './message-data-common.js';
 import { MessageDataVerificationRemoveAllOf } from './message-data-verification-remove-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { VerificationRemoveBody } from './verification-remove-body.js';
 
 /**

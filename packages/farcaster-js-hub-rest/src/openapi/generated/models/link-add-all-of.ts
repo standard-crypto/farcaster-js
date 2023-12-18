@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLink } from './message-data-link.js';
+import { LinkAddAllOfData } from './link-add-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataLink } from './message-data-link.js';
 export interface LinkAddAllOf {
     /**
      * 
-     * @type {MessageDataLink}
+     * @type {LinkAddAllOfData}
      * @memberof LinkAddAllOf
      */
-    'data': MessageDataLink;
+    'data': LinkAddAllOfData;
 }
 

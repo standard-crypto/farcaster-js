@@ -21,10 +21,10 @@ import { HashScheme } from './hash-scheme.js';
 import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataReaction } from './message-data-reaction.js';
+import { ReactionAllOf } from './reaction-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionAllOf } from './reaction-all-of.js';
+import { ReactionAllOfData } from './reaction-all-of-data.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';

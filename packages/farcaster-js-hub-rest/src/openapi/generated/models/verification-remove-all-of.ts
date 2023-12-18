@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationRemove } from './message-data-verification-remove.js';
+import { VerificationRemoveAllOfData } from './verification-remove-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataVerificationRemove } from './message-data-verification-remov
 export interface VerificationRemoveAllOf {
     /**
      * 
-     * @type {MessageDataVerificationRemove}
+     * @type {VerificationRemoveAllOfData}
      * @memberof VerificationRemoveAllOf
      */
-    'data': MessageDataVerificationRemove;
+    'data': VerificationRemoveAllOfData;
 }
 

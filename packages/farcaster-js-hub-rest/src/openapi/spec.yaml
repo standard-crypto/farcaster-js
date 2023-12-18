@@ -885,7 +885,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataCastAdd'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataCastAdd'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     CastAddBody:
@@ -936,7 +943,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataCastRemove'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataCastRemove'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     CastId:
@@ -1207,7 +1221,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataLink'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataLink'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     LinkBody:
@@ -1234,7 +1255,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataLink'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataLink'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     LinkType:
@@ -1340,11 +1368,8 @@ components:
         - fid
         - network
         - timestamp
-        - type
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/MessageType'
         fid:
           title: Farcaster ID of the user producing the message
           type: integer
@@ -1563,7 +1588,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataReaction'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataReaction'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     ReactionBody:
@@ -1707,7 +1739,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataUserDataAdd'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataUserDataAdd'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     UserDataBody:
@@ -1787,7 +1826,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataVerificationAdd'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataVerificationAdd'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     VerificationAddEthAddressBody:
@@ -1817,7 +1863,14 @@ components:
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/MessageDataVerificationRemove'
+              allOf:
+                - $ref: '#/components/schemas/MessageDataVerificationRemove'
+                - type: object
+                  properties:
+                    type: 
+                      $ref: '#/components/schemas/MessageType'
+                  required:
+                    - type
           required:
             - data
     VerificationRemoveBody:

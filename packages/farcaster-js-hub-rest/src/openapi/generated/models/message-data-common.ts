@@ -16,9 +16,6 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { FarcasterNetwork } from './farcaster-network.js';
-// May contain unused imports in some cases
-// @ts-ignore
-import { MessageType } from './message-type.js';
 
 /**
  * 
@@ -26,12 +23,6 @@ import { MessageType } from './message-type.js';
  * @interface MessageDataCommon
  */
 export interface MessageDataCommon {
-    /**
-     * 
-     * @type {MessageType}
-     * @memberof MessageDataCommon
-     */
-    'type': MessageType;
     /**
      * 
      * @type {number}

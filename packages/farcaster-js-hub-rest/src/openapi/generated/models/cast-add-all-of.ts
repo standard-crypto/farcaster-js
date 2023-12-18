@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add.js';
+import { CastAddAllOfData } from './cast-add-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataCastAdd } from './message-data-cast-add.js';
 export interface CastAddAllOf {
     /**
      * 
-     * @type {MessageDataCastAdd}
+     * @type {CastAddAllOfData}
      * @memberof CastAddAllOf
      */
-    'data': MessageDataCastAdd;
+    'data': CastAddAllOfData;
 }
 

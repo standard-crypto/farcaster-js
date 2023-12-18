@@ -24,9 +24,6 @@ import { MessageDataCommon } from './message-data-common.js';
 import { MessageDataVerificationAddAllOf } from './message-data-verification-add-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { VerificationAddEthAddressBody } from './verification-add-eth-address-body.js';
 
 /**

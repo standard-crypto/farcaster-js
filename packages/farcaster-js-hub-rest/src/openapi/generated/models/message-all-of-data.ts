@@ -51,9 +51,6 @@ import { MessageDataVerificationAdd } from './message-data-verification-add.js';
 import { MessageDataVerificationRemove } from './message-data-verification-remove.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { ReactionBody } from './reaction-body.js';
 // May contain unused imports in some cases
 // @ts-ignore

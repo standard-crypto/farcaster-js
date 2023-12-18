@@ -15,6 +15,7 @@ import {
   HubEvent,
   LinkType,
   ListOnChainSignersByFid200ResponseOneOf,
+  MessageType,
   OnChainEventType,
   ReactionType,
   UserDataType,
@@ -43,6 +44,8 @@ const testLogger: Logger = {
 };
 
 describe('HubWebClient', function() {
+  this.timeout(10000);
+
   let client: HubRestAPIClient;
   let apiSpec: OverrideProperties<OpenAPIV3.Document, { paths: SchemaPaths }>; // cspell:disable-line
 
@@ -63,7 +66,7 @@ describe('HubWebClient', function() {
     describe('SubmitMessage API', function() {
       let submitMessageCastHash: string | undefined;
       it('validates against OpenAPI spec', async function() {
-        // Set up the signer
+      // Set up the signer
         const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
         const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
         const msg = await makeCastAdd({
@@ -83,7 +86,7 @@ describe('HubWebClient', function() {
 
         const submitMessageResp = await client.apis.submitMessage.submitMessage({ body: messageBytes });
         const validator = new OpenAPIResponseValidator.default({
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
           responses: apiSpec.paths['/v1/submitMessage'].post.responses as any,
           components: apiSpec.components,
         });
@@ -94,8 +97,21 @@ describe('HubWebClient', function() {
       let submittedCastHash: string | undefined;
       it('can submit a cast', async function() {
         const responseMessage = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(responseMessage?.hash);
+        expectDefinedNonNull(responseMessage.hash);
+        expect(responseMessage.data.type).to.eq(MessageType.CastAdd);
         submittedCastHash = responseMessage.hash;
+      });
+      it('can reply to a cast', async function() {
+        expectDefinedNonNull(submittedCastHash);
+        const reply = await client.submitCast({
+          text: 'This is a test reply submitted from farcaster-js-hub-rest',
+          parentCastId: {
+            hash: submittedCastHash,
+            fid: userGaviBotFid,
+          },
+        }, userGaviBotFid, signerPrivateKey);
+        expect(reply.data.castAddBody.parentCastId?.hash).to.eq(submittedCastHash);
+        await client.removeCast(reply.hash, userGaviBotFid, signerPrivateKey);
       });
       it('can remove a cast', async function() {
         expectDefinedNonNull(submittedCastHash);
@@ -105,47 +121,47 @@ describe('HubWebClient', function() {
       });
       it('can follow a user', async function() {
         const followResponse = await client.followUser(userGaviFid, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(followResponse?.hash);
+        expectDefinedNonNull(followResponse.hash);
       });
       it('can unfollow a user', async function() {
         const unfollowResponse = await client.unfollowUser(userGaviFid, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(unfollowResponse?.hash);
+        expectDefinedNonNull(unfollowResponse.hash);
       });
       const castHash = '0x69ab635a1111c6d83e3e6043109e831328161901';
       it('can like a cast', async function() {
         const likeResponse = await client.submitReaction({ type: 'like', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(likeResponse?.hash);
+        expectDefinedNonNull(likeResponse.hash);
       });
       it('can unlike a cast', async function() {
         const likeResponse = await client.removeReaction({ type: 'like', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(likeResponse?.hash);
+        expectDefinedNonNull(likeResponse.hash);
       });
       it('can recast a cast', async function() {
         const likeResponse = await client.submitReaction({ type: 'recast', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(likeResponse?.hash);
+        expectDefinedNonNull(likeResponse.hash);
       });
       it('can un-recast a cast', async function() {
         const likeResponse = await client.removeReaction({ type: 'recast', target: { fid: userGaviFid, hash: castHash } }, userGaviBotFid, signerPrivateKey);
-        expectDefinedNonNull(likeResponse?.hash);
+        expectDefinedNonNull(likeResponse.hash);
       });
       if (verifiedAddressMnemonic !== undefined && verifiedAddressMnemonic !== '') {
         it('can verify an address with a mnemonic', async function() {
           this.timeout('5s');
           const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: verifiedAddressMnemonic, verificationType: 'EOA', network: 'MAINNET', chainId: 0 }, userGaviBotFid, signerPrivateKey);
-          expectDefinedNonNull(verificationResponse?.hash);
+          expectDefinedNonNull(verificationResponse.hash);
         });
         it('can remove a verified address', async function() {
           const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
           const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
-          expectDefinedNonNull(removeVerificationResponse?.hash);
+          expectDefinedNonNull(removeVerificationResponse.hash);
         });
         it('can verify an address with a private key', async function() {
           this.timeout('10s');
           const wallet = Wallet.fromPhrase(verifiedAddressMnemonic);
           const verificationResponse = await client.submitVerification({ verifiedAddressMnemonicOrPrivateKey: wallet.privateKey, verificationType: 'EOA', network: 'MAINNET', chainId: 0 }, userGaviBotFid, signerPrivateKey);
-          expectDefinedNonNull(verificationResponse?.hash);
+          expectDefinedNonNull(verificationResponse.hash);
           const removeVerificationResponse = await client.removeVerification(wallet.address, userGaviBotFid, signerPrivateKey);
-          expectDefinedNonNull(removeVerificationResponse?.hash);
+          expectDefinedNonNull(removeVerificationResponse.hash);
         });
       }
     });

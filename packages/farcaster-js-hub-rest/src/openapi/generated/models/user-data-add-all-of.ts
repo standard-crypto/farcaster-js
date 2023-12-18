@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
+import { UserDataAddAllOfData } from './user-data-add-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
 export interface UserDataAddAllOf {
     /**
      * 
-     * @type {MessageDataUserDataAdd}
+     * @type {UserDataAddAllOfData}
      * @memberof UserDataAddAllOf
      */
-    'data': MessageDataUserDataAdd;
+    'data': UserDataAddAllOfData;
 }
 

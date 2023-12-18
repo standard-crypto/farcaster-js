@@ -24,9 +24,6 @@ import { MessageDataCommon } from './message-data-common.js';
 import { MessageDataUsernameProofAllOf } from './message-data-username-proof-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { UserNameProof } from './user-name-proof.js';
 
 /**

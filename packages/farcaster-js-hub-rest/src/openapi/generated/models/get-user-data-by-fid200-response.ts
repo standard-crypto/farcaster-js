@@ -21,13 +21,13 @@ import { GetUserDataByFid200ResponseOneOf } from './get-user-data-by-fid200-resp
 import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { UserDataAdd } from './user-data-add.js';
+// May contain unused imports in some cases
+// @ts-ignore
+import { UserDataAddAllOfData } from './user-data-add-all-of-data.js';
 
 /**
  * @type GetUserDataByFid200Response

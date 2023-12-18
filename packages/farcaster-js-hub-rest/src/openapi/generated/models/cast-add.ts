@@ -18,13 +18,13 @@
 import { CastAddAllOf } from './cast-add-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
+import { CastAddAllOfData } from './cast-add-all-of-data.js';
+// May contain unused imports in some cases
+// @ts-ignore
 import { HashScheme } from './hash-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageCommon } from './message-common.js';
-// May contain unused imports in some cases
-// @ts-ignore
-import { MessageDataCastAdd } from './message-data-cast-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';

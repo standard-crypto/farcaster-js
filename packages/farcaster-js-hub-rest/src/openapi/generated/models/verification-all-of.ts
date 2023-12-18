@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationAdd } from './message-data-verification-add.js';
+import { VerificationAllOfData } from './verification-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataVerificationAdd } from './message-data-verification-add.js';
 export interface VerificationAllOf {
     /**
      * 
-     * @type {MessageDataVerificationAdd}
+     * @type {VerificationAllOfData}
      * @memberof VerificationAllOf
      */
-    'data': MessageDataVerificationAdd;
+    'data': VerificationAllOfData;
 }
 
