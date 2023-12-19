@@ -22,7 +22,7 @@
     "inquirer": "^9.2.12",
     "ora": "^7.0.1",
     "qrcode": "^1.5.3",
-    "typescript": "^5.3.2",
+    "typescript": "^5.3.3",
     "viem": "^1.19.3"
   },
   "files": [
