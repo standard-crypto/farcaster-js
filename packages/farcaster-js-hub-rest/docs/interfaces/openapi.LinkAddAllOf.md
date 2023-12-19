@@ -18,7 +18,7 @@ LinkAddAllOf
 
 ### data
 
-• **data**: [`MessageDataLink`](../modules/openapi.md#messagedatalink)
+• **data**: [`LinkAddAllOfData`](../modules/openapi.md#linkaddallofdata)
 
 **`Memberof`**
 

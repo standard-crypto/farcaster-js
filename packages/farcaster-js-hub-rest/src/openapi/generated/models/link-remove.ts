@@ -21,10 +21,10 @@ import { HashScheme } from './hash-scheme.js';
 import { LinkAddAllOf } from './link-add-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common.js';
+import { LinkAddAllOfData } from './link-add-all-of-data.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataLink } from './message-data-link.js';
+import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';

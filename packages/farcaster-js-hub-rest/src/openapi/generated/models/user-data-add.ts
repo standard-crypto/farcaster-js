@@ -21,13 +21,13 @@ import { HashScheme } from './hash-scheme.js';
 import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { UserDataAddAllOf } from './user-data-add-all-of.js';
+// May contain unused imports in some cases
+// @ts-ignore
+import { UserDataAddAllOfData } from './user-data-add-all-of-data.js';
 
 /**
  * @type UserDataAdd

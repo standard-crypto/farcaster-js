@@ -25,9 +25,6 @@ import { MessageDataCommon } from './message-data-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageDataLinkAllOf } from './message-data-link-all-of.js';
-// May contain unused imports in some cases
-// @ts-ignore
-import { MessageType } from './message-type.js';
 
 /**
  * @type MessageDataLink

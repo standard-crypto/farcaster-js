@@ -24,7 +24,7 @@ import { MessageCommon } from './message-common.js';
 import { MessageDataReaction } from './message-data-reaction.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReactionAllOf } from './reaction-all-of.js';
+import { ReactionRemoveAllOf } from './reaction-remove-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';
@@ -33,6 +33,6 @@ import { SignatureScheme } from './signature-scheme.js';
  * @type ReactionRemove
  * @export
  */
-export type ReactionRemove = MessageCommon & ReactionAllOf;
+export type ReactionRemove = MessageCommon & ReactionRemoveAllOf;
 
 

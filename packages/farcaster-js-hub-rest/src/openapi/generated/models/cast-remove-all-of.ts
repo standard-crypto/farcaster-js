@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataCastRemove } from './message-data-cast-remove.js';
+import { CastRemoveAllOfData } from './cast-remove-all-of-data.js';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { MessageDataCastRemove } from './message-data-cast-remove.js';
 export interface CastRemoveAllOf {
     /**
      * 
-     * @type {MessageDataCastRemove}
+     * @type {CastRemoveAllOfData}
      * @memberof CastRemoveAllOf
      */
-    'data': MessageDataCastRemove;
+    'data': CastRemoveAllOfData;
 }
 

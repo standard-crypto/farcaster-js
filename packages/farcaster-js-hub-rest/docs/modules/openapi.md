@@ -38,6 +38,7 @@
 ### Interfaces
 
 - [CastAddAllOf](../interfaces/openapi.CastAddAllOf.md)
+- [CastAddAllOfDataAllOf](../interfaces/openapi.CastAddAllOfDataAllOf.md)
 - [CastAddBody](../interfaces/openapi.CastAddBody.md)
 - [CastId](../interfaces/openapi.CastId.md)
 - [CastRemoveAllOf](../interfaces/openapi.CastRemoveAllOf.md)
@@ -101,6 +102,7 @@
 - [PruneMessageBody](../interfaces/openapi.PruneMessageBody.md)
 - [ReactionAllOf](../interfaces/openapi.ReactionAllOf.md)
 - [ReactionBody](../interfaces/openapi.ReactionBody.md)
+- [ReactionRemoveAllOf](../interfaces/openapi.ReactionRemoveAllOf.md)
 - [ReactionsApiGetReactionByIdRequest](../interfaces/openapi.ReactionsApiGetReactionByIdRequest.md)
 - [ReactionsApiListReactionsByCastRequest](../interfaces/openapi.ReactionsApiListReactionsByCastRequest.md)
 - [ReactionsApiListReactionsByFidRequest](../interfaces/openapi.ReactionsApiListReactionsByFidRequest.md)
@@ -129,10 +131,13 @@
 ### Type Aliases
 
 - [CastAdd](openapi.md#castadd)
+- [CastAddAllOfData](openapi.md#castaddallofdata)
 - [CastRemove](openapi.md#castremove)
+- [CastRemoveAllOfData](openapi.md#castremoveallofdata)
 - [GetUserDataByFid200Response](openapi.md#getuserdatabyfid200response)
 - [HubEvent](openapi.md#hubevent)
 - [LinkAdd](openapi.md#linkadd)
+- [LinkAddAllOfData](openapi.md#linkaddallofdata)
 - [LinkRemove](openapi.md#linkremove)
 - [ListOnChainSignersByFid200Response](openapi.md#listonchainsignersbyfid200response)
 - [Message](openapi.md#message)
@@ -151,10 +156,14 @@
 - [OnChainEventSignerMigrated](openapi.md#onchaineventsignermigrated)
 - [OnChainEventStorageRent](openapi.md#onchaineventstoragerent)
 - [Reaction](openapi.md#reaction)
+- [ReactionAllOfData](openapi.md#reactionallofdata)
 - [ReactionRemove](openapi.md#reactionremove)
 - [UserDataAdd](openapi.md#userdataadd)
+- [UserDataAddAllOfData](openapi.md#userdataaddallofdata)
 - [Verification](openapi.md#verification)
+- [VerificationAllOfData](openapi.md#verificationallofdata)
 - [VerificationRemove](openapi.md#verificationremove)
+- [VerificationRemoveAllOfData](openapi.md#verificationremoveallofdata)
 
 ### Functions
 
@@ -209,6 +218,18 @@
 
 ___
 
+### CastAddAllOfData
+
+Ƭ **CastAddAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataCastAdd`](openapi.md#messagedatacastadd)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-add-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-add-all-of-data.ts#L36)
+
+___
+
 ### CastRemove
 
 Ƭ **CastRemove**: [`CastRemoveAllOf`](../interfaces/openapi.CastRemoveAllOf.md) & [`MessageCommon`](../interfaces/openapi.MessageCommon.md)
@@ -218,6 +239,18 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove.ts#L36)
+
+___
+
+### CastRemoveAllOfData
+
+Ƭ **CastRemoveAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataCastRemove`](openapi.md#messagedatacastremove)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove-all-of-data.ts#L36)
 
 ___
 
@@ -254,6 +287,18 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/models/link-add.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/link-add.ts#L36)
+
+___
+
+### LinkAddAllOfData
+
+Ƭ **LinkAddAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataLink`](openapi.md#messagedatalink)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/link-add-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/link-add-all-of-data.ts#L36)
 
 ___
 
@@ -301,7 +346,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts:75](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts#L75)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts:72](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts#L72)
 
 ___
 
@@ -313,7 +358,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-add.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-add.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-add.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-add.ts#L33)
 
 ___
 
@@ -325,7 +370,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-remove.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-remove.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-remove.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-remove.ts#L33)
 
 ___
 
@@ -337,7 +382,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-link.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-link.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-link.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-link.ts#L33)
 
 ___
 
@@ -349,7 +394,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-reaction.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-reaction.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-reaction.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-reaction.ts#L33)
 
 ___
 
@@ -361,7 +406,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-user-data-add.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-user-data-add.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-user-data-add.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-user-data-add.ts#L33)
 
 ___
 
@@ -373,7 +418,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-username-proof.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-username-proof.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-username-proof.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-username-proof.ts#L33)
 
 ___
 
@@ -385,7 +430,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-add.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-add.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-add.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-add.ts#L33)
 
 ___
 
@@ -397,7 +442,7 @@ ___
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-remove.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-remove.ts#L36)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-remove.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-verification-remove.ts#L33)
 
 ___
 
@@ -473,9 +518,21 @@ ___
 
 ___
 
+### ReactionAllOfData
+
+Ƭ **ReactionAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataReaction`](openapi.md#messagedatareaction)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/reaction-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/reaction-all-of-data.ts#L36)
+
+___
+
 ### ReactionRemove
 
-Ƭ **ReactionRemove**: [`MessageCommon`](../interfaces/openapi.MessageCommon.md) & [`ReactionAllOf`](../interfaces/openapi.ReactionAllOf.md)
+Ƭ **ReactionRemove**: [`MessageCommon`](../interfaces/openapi.MessageCommon.md) & [`ReactionRemoveAllOf`](../interfaces/openapi.ReactionRemoveAllOf.md)
 
 **`Export`**
 
@@ -497,6 +554,18 @@ ___
 
 ___
 
+### UserDataAddAllOfData
+
+Ƭ **UserDataAddAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataUserDataAdd`](openapi.md#messagedatauserdataadd)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/user-data-add-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/user-data-add-all-of-data.ts#L36)
+
+___
+
 ### Verification
 
 Ƭ **Verification**: [`MessageCommon`](../interfaces/openapi.MessageCommon.md) & [`VerificationAllOf`](../interfaces/openapi.VerificationAllOf.md)
@@ -509,6 +578,18 @@ ___
 
 ___
 
+### VerificationAllOfData
+
+Ƭ **VerificationAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataVerificationAdd`](openapi.md#messagedataverificationadd)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/verification-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/verification-all-of-data.ts#L36)
+
+___
+
 ### VerificationRemove
 
 Ƭ **VerificationRemove**: [`MessageCommon`](../interfaces/openapi.MessageCommon.md) & [`VerificationRemoveAllOf`](../interfaces/openapi.VerificationRemoveAllOf.md)
@@ -518,6 +599,18 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/models/verification-remove.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/verification-remove.ts#L36)
+
+___
+
+### VerificationRemoveAllOfData
+
+Ƭ **VerificationRemoveAllOfData**: [`CastAddAllOfDataAllOf`](../interfaces/openapi.CastAddAllOfDataAllOf.md) & [`MessageDataVerificationRemove`](openapi.md#messagedataverificationremove)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/verification-remove-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/verification-remove-all-of-data.ts#L36)
 
 ## Functions
 

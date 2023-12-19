@@ -118,9 +118,11 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    CastAdd: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataCastAdd"];
-    };
+    CastAdd: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataCastAdd"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Adds a new Cast */
     CastAddBody: {
       /** URLs to be embedded in the cast */
@@ -140,9 +142,11 @@ export interface components {
       /** URLs or cast ids to be embedded in the cast */
       embeds: components["schemas"]["Embed"][];
     };
-    CastRemove: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataCastRemove"];
-    };
+    CastRemove: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataCastRemove"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Identifier used to look up a Cast */
     CastId: {
       /**
@@ -266,9 +270,11 @@ export interface components {
      * @enum {string}
      */
     IdRegisterEventType: "ID_REGISTER_EVENT_TYPE_REGISTER" | "ID_REGISTER_EVENT_TYPE_TRANSFER" | "ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY";
-    LinkAdd: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataLink"];
-    };
+    LinkAdd: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataLink"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Adds or removes a Link */
     LinkBody: {
       type: components["schemas"]["LinkType"];
@@ -283,9 +289,11 @@ export interface components {
        */
       targetFid: number;
     };
-    LinkRemove: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataLink"];
-    };
+    LinkRemove: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataLink"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /**
      * @description Type of Link.
      * - follow: Follow another user
@@ -331,7 +339,6 @@ export interface components {
       signer: string;
     };
     MessageDataCommon: {
-      type: components["schemas"]["MessageType"];
       /**
        * Farcaster ID of the user producing the message
        * Format: uint64
@@ -425,9 +432,11 @@ export interface components {
     PruneMessageBody: {
       message: components["schemas"]["Message"];
     };
-    Reaction: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataReaction"];
-    };
+    Reaction: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataReaction"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Adds or removes a Reaction from a Cast */
     ReactionBody: {
       type: components["schemas"]["ReactionType"];
@@ -497,9 +506,11 @@ export interface components {
      * @enum {string}
      */
     StoreType: "STORE_TYPE_CASTS" | "STORE_TYPE_LINKS" | "STORE_TYPE_REACTIONS" | "STORE_TYPE_USER_DATA" | "STORE_TYPE_VERIFICATIONS" | "STORE_TYPE_USERNAME_PROOFS";
-    UserDataAdd: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataUserDataAdd"];
-    };
+    UserDataAdd: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataUserDataAdd"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Adds metadata about a user */
     UserDataBody: {
       type: components["schemas"]["UserDataType"];
@@ -537,9 +548,11 @@ export interface components {
      * @enum {string}
      */
     UserNameType: "USERNAME_TYPE_FNAME" | "USERNAME_TYPE_ENS_L1";
-    Verification: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataVerificationAdd"];
-    };
+    Verification: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataVerificationAdd"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Adds a Verification of ownership of an Ethereum Address */
     VerificationAddEthAddressBody: {
       /** Ethereum address being verified */
@@ -552,9 +565,11 @@ export interface components {
       /** Hash of the latest Ethereum block when the signature was produced */
       blockHash: string;
     };
-    VerificationRemove: components["schemas"]["MessageCommon"] & {
-      data: components["schemas"]["MessageDataVerificationRemove"];
-    };
+    VerificationRemove: components["schemas"]["MessageCommon"] & ({
+      data: components["schemas"]["MessageDataVerificationRemove"] & {
+        type: components["schemas"]["MessageType"];
+      };
+    });
     /** @description Removes a Verification of any type */
     VerificationRemoveBody: {
       /** Address of the Verification to remove */
