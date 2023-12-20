@@ -15,7 +15,6 @@ MessageDataCommon
 - [fid](openapi.MessageDataCommon.md#fid)
 - [network](openapi.MessageDataCommon.md#network)
 - [timestamp](openapi.MessageDataCommon.md#timestamp)
-- [type](openapi.MessageDataCommon.md#type)
 
 ## Properties
 
@@ -29,7 +28,7 @@ MessageDataCommon
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:40](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L40)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:31](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L31)
 
 ___
 
@@ -43,7 +42,7 @@ MessageDataCommon
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:52](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L52)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:43](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L43)
 
 ___
 
@@ -57,18 +56,4 @@ MessageDataCommon
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:46](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L46)
-
-___
-
-### type
-
-• **type**: [`MessageType`](../enums/openapi.MessageType.md)
-
-**`Memberof`**
-
-MessageDataCommon
-
-#### Defined in
-
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:34](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L34)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts:37](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-common.ts#L37)

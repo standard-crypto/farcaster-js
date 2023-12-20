@@ -60,7 +60,7 @@ const fid = 111;
 const client = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281' });
 
 const publishCastResponse = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, fid, signerPrivateKey);
-console.log(`new cast hash: ${publishCastResponse?.hash}`);
+console.log(`new cast hash: ${publishCastResponse.hash}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -78,7 +78,7 @@ const targetCastHash = '0x3dba25e25db088f1a981da2b65b00f6008faee06';
 const client = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281' });
 
 const reactToCastResponse = await client.submitReaction({ type: 'like', target: { fid: targetFid, hash: targetCastHash } }, fid, signerPrivateKey);
-console.log(`reaction hash: ${reactToCastResponse?.hash}`);
+console.log(`reaction hash: ${reactToCastResponse.hash}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
@@ -95,7 +95,7 @@ const targetFid = 6365;
 const client = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standardcrypto.vc:2281' });
 
 const followResponse = await client.followUser(targetFid, fid, signerPrivateKey);
-console.log(`follow hash: ${followResponse?.hash}`);
+console.log(`follow hash: ${followResponse.hash}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 

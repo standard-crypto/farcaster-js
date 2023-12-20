@@ -24,9 +24,6 @@ import { MessageDataCommon } from './message-data-common.js';
 import { MessageDataReactionAllOf } from './message-data-reaction-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { ReactionBody } from './reaction-body.js';
 
 /**

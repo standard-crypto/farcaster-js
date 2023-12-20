@@ -2206,7 +2206,7 @@ __metadata:
     "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/prompts": "npm:^2.4.7"
-    axios: "npm:~1.5.1"
+    axios: "npm:~1.6.0"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
     dotenv: "npm:^16.3.1"
@@ -2218,12 +2218,12 @@ __metadata:
     openapi-typescript: "npm:^6.7.0"
     ts-mocha: "npm:^10.0.0"
     type-fest: "npm:^4.8.3"
-    typedoc: "npm:^0.25.2"
+    typedoc: "npm:^0.25.4"
     typedoc-plugin-markdown: "npm:^3.15.2"
     viem: "npm:^1.12.2"
     yaml: "npm:^2.3.2"
   peerDependencies:
-    axios: ~1.5.1
+    axios: ~1.6.0
   languageName: unknown
   linkType: soft
 
@@ -2236,7 +2236,7 @@ __metadata:
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/prompts": "npm:^2.4.7"
     "@types/qrcode": "npm:^1"
-    axios: "npm:~1.5.1"
+    axios: "npm:~1.6.0"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
     dotenv: "npm:^16.3.1"
@@ -2248,11 +2248,11 @@ __metadata:
     ts-mocha: "npm:^10.0.0"
     ts-node: "npm:^10.9.1"
     type-fest: "npm:^4.8.3"
-    typedoc: "npm:^0.25.3"
+    typedoc: "npm:^0.25.4"
     typedoc-plugin-markdown: "npm:^3.17.1"
     viem: "npm:^1.16.2"
   peerDependencies:
-    axios: ~1.5.1
+    axios: ~1.6.0
   languageName: unknown
   linkType: soft
 
@@ -3411,7 +3411,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.0.0, axios@npm:~1.5.1":
+"axios@npm:^1.0.0":
   version: 1.5.1
   resolution: "axios@npm:1.5.1"
   dependencies:
@@ -3419,6 +3419,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: f9d975a17a9dff8e325e204d5e09ef07bdd1b6fa63983f184c3cf33249ee38339f1e5d8f874f89116be8942b46d1f4d5ce9ddb03757be69614f5775c2dd6da25
+  languageName: node
+  linkType: hard
+
+"axios@npm:~1.6.0":
+  version: 1.6.2
+  resolution: "axios@npm:1.6.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 9b77e030e85e4f9cbcba7bb52fbff67d6ce906c92d213e0bd932346a50140faf83733bf786f55bd58301bd92f9973885c7b87d6348023e10f7eaf286d0791a1d
   languageName: node
   linkType: hard
 
@@ -12964,19 +12975,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.25.2, typedoc@npm:^0.25.3":
-  version: 0.25.3
-  resolution: "typedoc@npm:0.25.3"
+"typedoc@npm:^0.25.4":
+  version: 0.25.4
+  resolution: "typedoc@npm:0.25.4"
   dependencies:
     lunr: "npm:^2.3.9"
     marked: "npm:^4.3.0"
     minimatch: "npm:^9.0.3"
     shiki: "npm:^0.14.1"
   peerDependencies:
-    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x
+    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x
   bin:
     typedoc: bin/typedoc
-  checksum: fcd0dfa48c2374037356968bcf931022c05783bdce41e5cd804221f427d33b402e2079c4b54fa72c9ebd0315d83e1faef52439e481a1cc8a3bd06de2fd3790aa
+  checksum: 2790b3f16b26a477cfc9b72f81b4f209c885c554f9c7b2557d5d85ea4c8bd6a51584af8d29eec123a26398c4986f52b0c3c7a9c32352a223c33a96bd211f288f
   languageName: node
   linkType: hard
 

@@ -21,13 +21,13 @@ import { HashScheme } from './hash-scheme.js';
 import { MessageCommon } from './message-common.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageDataVerificationRemove } from './message-data-verification-remove.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { SignatureScheme } from './signature-scheme.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { VerificationRemoveAllOf } from './verification-remove-all-of.js';
+// May contain unused imports in some cases
+// @ts-ignore
+import { VerificationRemoveAllOfData } from './verification-remove-all-of-data.js';
 
 /**
  * @type VerificationRemove

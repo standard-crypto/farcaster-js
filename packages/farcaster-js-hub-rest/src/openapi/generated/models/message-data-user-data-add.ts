@@ -24,9 +24,6 @@ import { MessageDataCommon } from './message-data-common.js';
 import { MessageDataUserDataAddAllOf } from './message-data-user-data-add-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageType } from './message-type.js';
-// May contain unused imports in some cases
-// @ts-ignore
 import { UserDataBody } from './user-data-body.js';
 
 /**

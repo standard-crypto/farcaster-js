@@ -36,7 +36,10 @@ import {
   HubEventsApi,
   HubEvent,
   SubmitMessageApi,
-  Message as HubMessage,
+  CastRemove,
+  LinkRemove,
+  ReactionRemove,
+  VerificationRemove,
 } from './openapi/index.js';
 import {
   hexStringToBytes,
@@ -53,8 +56,13 @@ import {
   FarcasterNetwork,
   makeVerificationEthAddressClaim,
   makeVerificationRemove,
+  CastAddBody,
 } from '@farcaster/core';
-import { eip712SignerFromMnemonicOrPrivateKey, getLatestBlock, hexToSigner } from './utils.js';
+import {
+  eip712SignerFromMnemonicOrPrivateKey,
+  getLatestBlock,
+  hexToSigner,
+} from './utils.js';
 
 export type OnChainEventsReturnType<T> = T extends OnChainEventType.Signer
   ? OnChainEventSigner
@@ -147,9 +155,9 @@ export class HubRestAPIClient {
    * Get the Hub's info.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
    */
-  public async getHubInfo<T extends (boolean | undefined)>({
+  public async getHubInfo<T extends boolean | undefined>({
     includeDbStats = false,
-  }: {includeDbStats?: T} = {}): Promise<HubInfo<T>> {
+  }: { includeDbStats?: T } = {}): Promise<HubInfo<T>> {
     const response = await this.apis.info.getInfo({ dbstats: includeDbStats });
     return response.data as HubInfo<T>;
   }
@@ -165,22 +173,39 @@ export class HubRestAPIClient {
       embedsDeprecated?: string[]
       mentions?: number[]
       mentionsPositions?: number[]
+      parentCastId?: CastId
     },
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<CastAdd> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const castAdd = {
+    const castAdd: CastAddBody = {
       text: cast.text,
       embeds: cast.embeds ?? [],
       embedsDeprecated: cast.embedsDeprecated ?? [],
       mentions: cast.mentions ?? [],
       mentionsPositions: cast.mentionsPositions ?? [],
     };
-    const msg = await makeCastAdd(castAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
+    if (cast.parentCastId !== undefined) {
+      const parentHashBytes = hexStringToBytes(cast.parentCastId.hash);
+      const parentFid = cast.parentCastId.fid;
+      parentHashBytes.match(bytes => {
+        castAdd.parentCastId = {
+          fid: parentFid,
+          hash: bytes,
+        };
+      }, (err) => {
+        throw err;
+      });
+    }
+    const msg = await makeCastAdd(
+      castAdd,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -188,7 +213,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as CastAdd;
   }
 
   /**
@@ -199,7 +224,7 @@ export class HubRestAPIClient {
     castHash: string,
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<CastRemove> {
     const dataOptions = {
       fid: fid,
       network: 1,
@@ -210,7 +235,11 @@ export class HubRestAPIClient {
     }
     const castToRemove = { targetHash: targetHashBytes.value };
 
-    const msg = await makeCastRemove(castToRemove, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeCastRemove(
+      castToRemove,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -219,7 +248,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as CastRemove;
   }
 
   /**
@@ -234,12 +263,16 @@ export class HubRestAPIClient {
     },
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<LinkAdd> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const msg = await makeLinkAdd(link, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeLinkAdd(
+      link,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -247,7 +280,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as LinkAdd;
   }
 
   /**
@@ -258,8 +291,12 @@ export class HubRestAPIClient {
     targetFid: number,
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
-    return await this.submitLink({ type: 'follow', targetFid: targetFid }, fid, signerPrivateKeyHex);
+  ): Promise<LinkAdd> {
+    return await this.submitLink(
+      { type: 'follow', targetFid: targetFid },
+      fid,
+      signerPrivateKeyHex,
+    );
   }
 
   /**
@@ -274,12 +311,16 @@ export class HubRestAPIClient {
     },
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<LinkRemove> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const msg = await makeLinkRemove(link, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeLinkRemove(
+      link,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -287,7 +328,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as LinkRemove;
   }
 
   /**
@@ -298,8 +339,12 @@ export class HubRestAPIClient {
     targetFid: number,
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
-    return await this.removeLink({ type: 'follow', targetFid: targetFid }, fid, signerPrivateKeyHex);
+  ): Promise<LinkRemove> {
+    return await this.removeLink(
+      { type: 'follow', targetFid: targetFid },
+      fid,
+      signerPrivateKeyHex,
+    );
   }
 
   /**
@@ -313,7 +358,7 @@ export class HubRestAPIClient {
     },
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<Reaction> {
     const dataOptions = {
       fid: fid,
       network: 1,
@@ -330,11 +375,18 @@ export class HubRestAPIClient {
       targetUrl = reaction.target.url;
     }
     const reactionAdd = {
-      type: reaction.type === 'like' ? ReactionTypeParam.LIKE : ReactionTypeParam.RECAST,
+      type:
+        reaction.type === 'like'
+          ? ReactionTypeParam.LIKE
+          : ReactionTypeParam.RECAST,
       targetCastId: castId,
       targetUrl: targetUrl,
     };
-    const msg = await makeReactionAdd(reactionAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeReactionAdd(
+      reactionAdd,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -342,7 +394,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as Reaction;
   }
 
   /**
@@ -356,7 +408,7 @@ export class HubRestAPIClient {
     },
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<ReactionRemove> {
     const dataOptions = {
       fid: fid,
       network: 1,
@@ -373,11 +425,18 @@ export class HubRestAPIClient {
       targetUrl = reaction.target.url;
     }
     const reactionRemove = {
-      type: reaction.type === 'like' ? ReactionTypeParam.LIKE : ReactionTypeParam.RECAST,
+      type:
+        reaction.type === 'like'
+          ? ReactionTypeParam.LIKE
+          : ReactionTypeParam.RECAST,
       targetCastId: castId,
       targetUrl: targetUrl,
     };
-    const msg = await makeReactionRemove(reactionRemove, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeReactionRemove(
+      reactionRemove,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -385,7 +444,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as ReactionRemove;
   }
 
   /**
@@ -401,12 +460,14 @@ export class HubRestAPIClient {
     },
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<Verification> {
     const dataOptions = {
       fid: fid,
       network: 1,
     };
-    const verificationSigner = eip712SignerFromMnemonicOrPrivateKey(verification.verifiedAddressMnemonicOrPrivateKey);
+    const verificationSigner = eip712SignerFromMnemonicOrPrivateKey(
+      verification.verifiedAddressMnemonicOrPrivateKey,
+    );
     const addressBytes = await verificationSigner.getSignerKey();
     if (addressBytes.isErr()) {
       throw addressBytes.error;
@@ -424,7 +485,8 @@ export class HubRestAPIClient {
     if (claim.isErr()) {
       throw claim.error;
     }
-    const ethSignResult = await verificationSigner.signVerificationEthAddressClaim(claim.value);
+    const ethSignResult =
+      await verificationSigner.signVerificationEthAddressClaim(claim.value);
     if (ethSignResult.isErr()) {
       throw ethSignResult.error;
     }
@@ -436,7 +498,11 @@ export class HubRestAPIClient {
       verificationType: verification.verificationType === 'EOA' ? 0 : 1,
       chainId: verification.chainId,
     };
-    const msg = await makeVerificationAddEthAddress(verificationAdd, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeVerificationAddEthAddress(
+      verificationAdd,
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -444,7 +510,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as Verification;
   }
 
   /**
@@ -455,7 +521,7 @@ export class HubRestAPIClient {
     address: string,
     fid: number,
     signerPrivateKeyHex: string,
-  ): Promise<HubMessage | null> {
+  ): Promise<VerificationRemove> {
     const dataOptions = {
       fid: fid,
       network: 1,
@@ -464,7 +530,11 @@ export class HubRestAPIClient {
     if (addressBytes.isErr()) {
       throw addressBytes.error;
     }
-    const msg = await makeVerificationRemove({ address: addressBytes.value }, dataOptions, hexToSigner(signerPrivateKeyHex));
+    const msg = await makeVerificationRemove(
+      { address: addressBytes.value },
+      dataOptions,
+      hexToSigner(signerPrivateKeyHex),
+    );
     if (msg.isErr()) {
       throw msg.error;
     }
@@ -472,7 +542,7 @@ export class HubRestAPIClient {
     const response = await this.apis.submitMessage.submitMessage({
       body: messageBytes,
     });
-    return response.data;
+    return response.data as VerificationRemove;
   }
 
   /**

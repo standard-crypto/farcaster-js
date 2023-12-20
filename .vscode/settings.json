@@ -2,13 +2,14 @@
   // only use words from .cspell.json
   "cSpell.userWords": [],
   "cSpell.enabled": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "javascript.format.semicolons": "insert",
-  "javascript.preferences.quoteStyle": "single",
-  "typescript.preferences.quoteStyle": "single",
   "eslint.lintTask.enable": true,
   "files.insertFinalNewline": true,
-  "prettier.singleQuote": true
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

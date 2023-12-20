@@ -15,24 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { HashScheme } from './hash-scheme.js';
+import { CastAddAllOfDataAllOf } from './cast-add-all-of-data-all-of.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkAddAllOf } from './link-add-all-of.js';
+import { FarcasterNetwork } from './farcaster-network.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { LinkAddAllOfData } from './link-add-all-of-data.js';
+import { MessageDataUserDataAdd } from './message-data-user-data-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { MessageCommon } from './message-common.js';
+import { MessageType } from './message-type.js';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignatureScheme } from './signature-scheme.js';
+import { UserDataBody } from './user-data-body.js';
 
 /**
- * @type LinkAdd
+ * @type UserDataAddAllOfData
  * @export
  */
-export type LinkAdd = LinkAddAllOf & MessageCommon;
+export type UserDataAddAllOfData = CastAddAllOfDataAllOf & MessageDataUserDataAdd;
 
 

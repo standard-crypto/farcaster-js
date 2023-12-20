@@ -50,7 +50,7 @@
     "viem": "^1.16.2"
   },
   "peerDependencies": {
-    "axios": "~1.5.1"
+    "axios": "~1.6.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.7.0",
@@ -58,7 +58,7 @@
     "@types/chai-as-promised": "^7.1.5",
     "@types/prompts": "^2.4.7",
     "@types/qrcode": "^1",
-    "axios": "~1.5.1",
+    "axios": "~1.6.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "dotenv": "^16.3.1",
@@ -70,7 +70,7 @@
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "type-fest": "^4.8.3",
-    "typedoc": "^0.25.3",
+    "typedoc": "^0.25.4",
     "typedoc-plugin-markdown": "^3.17.1"
   },
   "files": [
