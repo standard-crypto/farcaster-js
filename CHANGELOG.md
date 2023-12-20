@@ -1,3 +1,19 @@
+# [7.1.0](https://github.com/standard-crypto/farcaster-js/compare/v7.0.0...v7.1.0) (2023-12-20)
+
+### Features
+
+* Adds parentCastId to submitCast
+* Changes the openAPI spec to improve some of the generated typescript types (it was producing something unusable)
+* Remove the nullable types for return values of methods like submitCast
+* Update Neynar reactToCast parameters
+
+### Bug Fixes
+
+* **deps:** bump type-fest from 4.4.0 to 4.8.3 ([920d452](https://github.com/standard-crypto/farcaster-js/commit/920d452a7017216ad45693789c9e38bd08e6b79f))
+* **deps:** bump typedoc from 0.25.3 to 0.25.4 ([db52878](https://github.com/standard-crypto/farcaster-js/commit/db52878acdd237b5764704e05be74b6515eeecb1))
+* **deps:** bump axios from 1.5.1 to 1.6.0 ([df6a0f3](https://github.com/standard-crypto/farcaster-js/commit/df6a0f3eaf7aa6da3d4583ca54c681b64420f95b))
+
+
 # [7.0.0](https://github.com/standard-crypto/farcaster-js/compare/v6.0.7...v7.0.0) (2023-11-28)
 
 ### Features
