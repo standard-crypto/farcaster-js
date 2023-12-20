@@ -70,7 +70,7 @@
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "type-fest": "^4.3.3",
-    "typedoc": "^0.25.3",
+    "typedoc": "^0.25.4",
     "typedoc-plugin-markdown": "^3.17.1"
   },
   "files": [
