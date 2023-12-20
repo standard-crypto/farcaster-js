@@ -2206,7 +2206,7 @@ __metadata:
     "@types/chai": "npm:^4.3.9"
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/prompts": "npm:^2.4.7"
-    axios: "npm:~1.5.1"
+    axios: "npm:~1.6.0"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
     dotenv: "npm:^16.3.1"
@@ -2223,7 +2223,7 @@ __metadata:
     viem: "npm:^1.12.2"
     yaml: "npm:^2.3.2"
   peerDependencies:
-    axios: ~1.5.1
+    axios: ~1.6.0
   languageName: unknown
   linkType: soft
 
@@ -2236,7 +2236,7 @@ __metadata:
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/prompts": "npm:^2.4.7"
     "@types/qrcode": "npm:^1"
-    axios: "npm:~1.5.1"
+    axios: "npm:~1.6.0"
     chai: "npm:^4.3.4"
     chai-as-promised: "npm:^7.1.1"
     dotenv: "npm:^16.3.1"
@@ -2252,7 +2252,7 @@ __metadata:
     typedoc-plugin-markdown: "npm:^3.17.1"
     viem: "npm:^1.16.2"
   peerDependencies:
-    axios: ~1.5.1
+    axios: ~1.6.0
   languageName: unknown
   linkType: soft
 
@@ -3411,7 +3411,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.0.0, axios@npm:~1.5.1":
+"axios@npm:^1.0.0":
   version: 1.5.1
   resolution: "axios@npm:1.5.1"
   dependencies:
@@ -3419,6 +3419,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: f9d975a17a9dff8e325e204d5e09ef07bdd1b6fa63983f184c3cf33249ee38339f1e5d8f874f89116be8942b46d1f4d5ce9ddb03757be69614f5775c2dd6da25
+  languageName: node
+  linkType: hard
+
+"axios@npm:~1.6.0":
+  version: 1.6.2
+  resolution: "axios@npm:1.6.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 9b77e030e85e4f9cbcba7bb52fbff67d6ce906c92d213e0bd932346a50140faf83733bf786f55bd58301bd92f9973885c7b87d6348023e10f7eaf286d0791a1d
   languageName: node
   linkType: hard
 
