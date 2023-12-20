@@ -5,7 +5,6 @@
 * Adds parentCastId to submitCast
 * Changes the openAPI spec to improve some of the generated typescript types (it was producing something unusable)
 * Remove the nullable types for return values of methods like submitCast
-* Update Neynar reactToCast parameters
 
 ### Bug Fixes
 
