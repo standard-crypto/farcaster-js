@@ -2228,7 +2228,7 @@ __metadata:
     typedoc: "npm:^0.25.4"
     typedoc-plugin-markdown: "npm:^3.15.2"
     viem: "npm:^1.12.2"
-    yaml: "npm:^2.3.2"
+    yaml: "npm:^2.3.4"
   peerDependencies:
     axios: ~1.6.0
   languageName: unknown
@@ -13819,10 +13819,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.3.2":
-  version: 2.3.3
-  resolution: "yaml@npm:2.3.3"
-  checksum: a0c56bf682159b0567e9cbbddf23efc2f6806f6450716d9be6ec5eb1af1b941e95c8d3dc9c47da20d1b6883a9d6c61e31cf98bb4b77ebca4396bf772657f2f00
+"yaml@npm:^2.3.4":
+  version: 2.3.4
+  resolution: "yaml@npm:2.3.4"
+  checksum: cf03b68f8fef5e8516b0f0b54edaf2459f1648317fc6210391cf606d247e678b449382f4bd01f77392538429e306c7cba8ff46ff6b37cac4de9a76aff33bd9e1
   languageName: node
   linkType: hard
 
