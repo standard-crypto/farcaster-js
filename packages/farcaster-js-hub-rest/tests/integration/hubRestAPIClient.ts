@@ -335,47 +335,63 @@ describe('HubWebClient', function() {
   });
 
   describe('Reactions API', function() {
-    describe('#getReactionById', function() {
-      it('validates against OpenAPI spec', async function() {
-        const response = await client.apis.reactions.getReactionById({
-          fid: 2,
-          targetFid: 7933,
-          targetHash: '0xe645e385f82697e4ddc955b86a14affee8fa4572',
-          reactionType: ReactionType.Like,
-        });
-        const validator = new OpenAPIResponseValidator.default({
-          components: apiSpec.components,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          responses: apiSpec.paths['/v1/reactionById'].get.responses as any,
-        });
-        const errors = validator.validateResponse(200, response.data);
-        expect(errors, JSON.stringify(errors)).is.undefined;
-      });
+    // Due to hubs pruning Reactions, or some other nondeterministic reason, attempting to pin these tests to a specific
+    // Reaction will eventually fail. Instead, we create our own Reaction which can then be
+    if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
+      describe('#getReactionById', function() {
+        const targetFid = 7933;
+        const targetHash = '0xe645e385f82697e4ddc955b86a14affee8fa4572';
 
-      it('can fetch an existing reaction', async function() {
-        const reaction = await client.getReactionById({
-          fid: 2,
-          targetFid: 7933,
-          targetHash: '0xe645e385f82697e4ddc955b86a14affee8fa4572',
-          reactionType: ReactionType.Like,
+        before('create a Reaction', async function() {
+          await client.submitReaction({ type: 'like', target: { fid: targetFid, hash: targetHash } }, userGaviBotFid, signerPrivateKey);
         });
-        expectDefinedNonNull(reaction);
-      });
 
-      it('returns null for nonexistent cast', async function() {
-        const reaction = await client.getReactionById({
-          fid: 1,
-          targetFid: 2,
-          targetHash: '0x0000000000000000000000000000000000000000',
-          reactionType: ReactionType.Like,
+        after('cleanup the Reaction', async function() {
+          await client.removeReaction({ type: 'like', target: { fid: targetFid, hash: targetHash } }, userGaviBotFid, signerPrivateKey);
         });
-        expect(reaction).to.be.null;
+
+        it('validates against OpenAPI spec', async function() {
+          const response = await client.apis.reactions.getReactionById({
+            fid: userGaviBotFid,
+            targetFid,
+            targetHash,
+            reactionType: ReactionType.Like,
+          });
+          const validator = new OpenAPIResponseValidator.default({
+            components: apiSpec.components,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            responses: apiSpec.paths['/v1/reactionById'].get.responses as any,
+          });
+          const errors = validator.validateResponse(200, response.data);
+          expect(errors, JSON.stringify(errors)).is.undefined;
+        });
+
+        it('can fetch an existing reaction', async function() {
+          const reaction = await client.getReactionById({
+            fid: userGaviBotFid,
+            targetFid,
+            targetHash,
+            reactionType: ReactionType.Like,
+          });
+          expectDefinedNonNull(reaction);
+          expect(reaction.data.reactionBody.type).to.eq(ReactionType.Like);
+        });
+
+        it('returns null for nonexistent cast', async function() {
+          const reaction = await client.getReactionById({
+            fid: 1,
+            targetFid: 2,
+            targetHash: '0x0000000000000000000000000000000000000000',
+            reactionType: ReactionType.Like,
+          });
+          expect(reaction).to.be.null;
+        });
       });
-    });
+    }
 
     describe('#listReactionsByFid', function() {
       it('validates against OpenAPI spec', async function() {
-        this.timeout('10s');
+        this.timeout('30s');
         const response = await client.apis.reactions.listReactionsByFid({
           fid: 2,
           reactionType: ReactionType.Like,
