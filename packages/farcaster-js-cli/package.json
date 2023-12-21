@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js-cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A CLI for creating Farcaster signers",
   "type": "module",
   "repository": {
@@ -22,7 +22,7 @@
     "inquirer": "^9.2.12",
     "ora": "^7.0.1",
     "qrcode": "^1.5.3",
-    "typescript": "^5.3.3",
+    "typescript": "^5.2.2",
     "viem": "^1.19.3"
   },
   "files": [

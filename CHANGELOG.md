@@ -1,3 +1,13 @@
+# [7.1.1](https://github.com/standard-crypto/farcaster-js/compare/v7.0.0...v7.1.0) (2023-12-20)
+
+### Features
+
+* Adds parentCastId to submitCast
+* Changes the openAPI spec to improve some of the generated typescript types (it was producing something unusable)
+* Remove the nullable types for return values of methods like submitCast
+
+
+
 # [7.0.0](https://github.com/standard-crypto/farcaster-js/compare/v6.0.7...v7.0.0) (2023-11-28)
 
 ### Features
