@@ -45,7 +45,7 @@ async function createNeynarSigner(apiKey: string, developerMnemonic: string): Pr
 
 export async function runCli(): Promise<void> {
   program
-    .version('1.0.1')
+    .version('1.0.2')
     .command('create-signer')
     .description('Farcaster-JS CLI')
     .action(async() => {
