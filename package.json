@@ -52,7 +52,7 @@
     "lerna": "^7.4.2",
     "markdown-magic": "^2.6.1",
     "pinst": "^3.0.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.2.2",
     "semantic-release": "^22.0.5",
     "source-map-support": "^0.5.19",
     "tshy": "1.5.0",
