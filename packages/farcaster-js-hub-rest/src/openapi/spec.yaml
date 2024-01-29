@@ -796,6 +796,34 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
       x-codegen-request-body-name: body
+  /v1/validateMessage:
+    post:
+      tags:
+        - ValidateMessage
+      summary: Validate a signed protobuf-serialized message with the Hub
+      operationId: ValidateMessage
+      security:
+        - usernamePassword: []
+      requestBody:
+        description: "* \nA Message is a delta operation on the Farcaster network.\
+          \ The message protobuf is an envelope \nthat wraps a MessageData object\
+          \ and contains a hash and signature which can verify its authenticity."
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        200:
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateMessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      x-codegen-request-body-name: body
   /v1/events:
     get:
       tags:
@@ -1062,6 +1090,25 @@ components:
       required:
         - fids
         - nextPageToken
+    FrameActionBody:
+      description: 'A Farcaster Frame action'
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        buttonIndex:
+          title: The index of the button pressed (1-4)
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 4
+        castId:
+          $ref: '#/components/schemas/CastId'
+      required:
+        - url
+        - buttonIndex
+        - castId
     HashScheme:
       type: string
       description: >
@@ -1317,6 +1364,7 @@ components:
                 - $ref: '#/components/schemas/MessageDataVerificationRemove'
                 - $ref: '#/components/schemas/MessageDataUserDataAdd'
                 - $ref: '#/components/schemas/MessageDataUsernameProof'
+                - $ref: '#/components/schemas/MessageDataFrameAction'
               discriminator:
                 propertyName: type
                 mapping:
@@ -1330,6 +1378,7 @@ components:
                   MESSAGE_TYPE_VERIFICATION_REMOVE: '#/components/schemas/MessageDataVerificationRemove'
                   MESSAGE_TYPE_USER_DATA_ADD: '#/components/schemas/MessageDataUserDataAdd'
                   MESSAGE_TYPE_USERNAME_PROOF: '#/components/schemas/MessageDataUsernameProof'
+                  MESSAGE_TYPE_FRAME_ACTION: '#/components/schemas/MessageDataFrameAction'
           required:
             - data
         - $ref: '#/components/schemas/MessageCommon'
@@ -1400,6 +1449,15 @@ components:
           properties:
             castRemoveBody:
               $ref: '#/components/schemas/CastRemoveBody'
+    MessageDataFrameAction:
+      allOf:
+        - $ref: '#/components/schemas/MessageDataCommon'
+        - type: object
+          required:
+            - frameActionBody
+          properties:
+            frameActionBody:
+              $ref: '#/components/schemas/FrameActionBody'
     MessageDataLink:
       allOf:
         - $ref: '#/components/schemas/MessageDataCommon'
@@ -1458,7 +1516,7 @@ components:
       type: string
       description: |-
         Type of the MessageBody.
-        - MESSAGE_TYPE_CAST_ADD: Add a new Cast
+         - MESSAGE_TYPE_CAST_ADD: Add a new Cast
          - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast
          - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast
          - MESSAGE_TYPE_REACTION_REMOVE: Remove a Reaction from a Cast
@@ -1466,12 +1524,9 @@ components:
          - MESSAGE_TYPE_LINK_REMOVE: Remove an existing Link
          - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS: Add a Verification of an Ethereum Address
          - MESSAGE_TYPE_VERIFICATION_REMOVE: Remove a Verification
-         - MESSAGE_TYPE_USER_DATA_ADD: Deprecated
-         MESSAGE_TYPE_SIGNER_ADD = 9; // Add a new Ed25519 key pair that signs messages for a user
-         MESSAGE_TYPE_SIGNER_REMOVE = 10; // Remove an Ed25519 key pair that signs messages for a user
-
-        Add metadata about a user
+         - MESSAGE_TYPE_USER_DATA_ADD: Add metadata about a user
          - MESSAGE_TYPE_USERNAME_PROOF: Add or replace a username proof
+         - MESSAGE_TYPE_FRAME_ACTION: A Farcaster Frame action
       default: MESSAGE_TYPE_CAST_ADD
       enum:
         - MESSAGE_TYPE_CAST_ADD
@@ -1484,6 +1539,7 @@ components:
         - MESSAGE_TYPE_VERIFICATION_REMOVE
         - MESSAGE_TYPE_USER_DATA_ADD
         - MESSAGE_TYPE_USERNAME_PROOF
+        - MESSAGE_TYPE_FRAME_ACTION
     OnChainEvent:
       oneOf:
         - $ref: '#/components/schemas/OnChainEventSigner'
@@ -1820,6 +1876,16 @@ components:
       enum:
         - USERNAME_TYPE_FNAME
         - USERNAME_TYPE_ENS_L1
+    ValidateMessageResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        message:
+          $ref: '#/components/schemas/Message'
+      required:
+        - valid
+        - message
     Verification:
       allOf:
         - $ref: '#/components/schemas/MessageCommon'

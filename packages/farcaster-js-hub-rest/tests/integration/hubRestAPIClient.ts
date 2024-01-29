@@ -167,6 +167,30 @@ describe('HubWebClient', function() {
     });
   }
 
+  describe('Validate Message API', function() {
+    this.timeout('5s');
+    const encodedMessage = '0x0a42080d10c4aa0118c6d1922e20018201320a12687474703a2f2f6578616d706c652e636f6d10011a1a08c4aa0112141fd48ddc9d5910046acfa5e1b91d253763e320c31214230a1291ae8e220bf9173d9090716981402bdd3d18012240f08c907486afe1c3311565b7a27c1f0011c74bd22ba167abe8ba30a35e808cbeae674aef7b74d3161c6186e48e3cc4d843c5ec9dc1dce9c6b71547adcc02c90c28013220196a70ac9847d59e039d0cfcf0cde1adac12f5fb447bb53334d67ab18246306c';
+
+    it('validates against OpenAPI spec', async function() {
+      const messageBytes = Buffer.from(encodedMessage.slice(2), 'hex');
+      const validateMessageResp = await client.apis.validateMessage.validateMessage({ body: messageBytes });
+      const validator = new OpenAPIResponseValidator.default({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        responses: apiSpec.paths['/v1/validateMessage'].post.responses as any,
+        components: apiSpec.components,
+      });
+      const errors = validator.validateResponse(200, validateMessageResp.data);
+      expect(errors, JSON.stringify(errors)).is.undefined;
+    });
+
+    it('can validate a frame action message', async function() {
+      const response = await client.validateMessage(encodedMessage);
+      expectDefinedNonNull(response);
+      expect(response.valid).to.be.true;
+      expect(response.message.data.type).to.be.eq('MESSAGE_TYPE_FRAME_ACTION');
+    });
+  });
+
   describe('Info API', function() {
     this.timeout('5s');
 

@@ -12,7 +12,7 @@
   "author": "Gavi Galloway",
   "license": "MIT",
   "dependencies": {
-    "@farcaster/core": "^0.13.1",
+    "@farcaster/core": "^0.13.5",
     "viem": "^1.12.2"
   },
   "peerDependencies": {

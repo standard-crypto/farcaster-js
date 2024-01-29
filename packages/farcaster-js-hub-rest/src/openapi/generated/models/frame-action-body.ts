@@ -13,18 +13,33 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { CastId } from './cast-id.js';
 
-export * from './apis/casts-api.js';
-export * from './apis/fids-api.js';
-export * from './apis/hub-events-api.js';
-export * from './apis/info-api.js';
-export * from './apis/links-api.js';
-export * from './apis/on-chain-events-api.js';
-export * from './apis/reactions-api.js';
-export * from './apis/storage-api.js';
-export * from './apis/submit-message-api.js';
-export * from './apis/user-data-api.js';
-export * from './apis/usernames-api.js';
-export * from './apis/validate-message-api.js';
-export * from './apis/verifications-api.js';
+/**
+ * A Farcaster Frame action
+ * @export
+ * @interface FrameActionBody
+ */
+export interface FrameActionBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof FrameActionBody
+     */
+    'url': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FrameActionBody
+     */
+    'buttonIndex': number;
+    /**
+     * 
+     * @type {CastId}
+     * @memberof FrameActionBody
+     */
+    'castId': CastId;
+}
 

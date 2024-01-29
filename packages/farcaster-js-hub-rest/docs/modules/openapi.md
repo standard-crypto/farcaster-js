@@ -33,6 +33,7 @@
 - [SubmitMessageApi](../classes/openapi.SubmitMessageApi.md)
 - [UserDataApi](../classes/openapi.UserDataApi.md)
 - [UsernamesApi](../classes/openapi.UsernamesApi.md)
+- [ValidateMessageApi](../classes/openapi.ValidateMessageApi.md)
 - [VerificationsApi](../classes/openapi.VerificationsApi.md)
 
 ### Interfaces
@@ -54,6 +55,7 @@
 - [ErrorResponseMetadata](../interfaces/openapi.ErrorResponseMetadata.md)
 - [FIDsApiListFidsRequest](../interfaces/openapi.FIDsApiListFidsRequest.md)
 - [FidsResponse](../interfaces/openapi.FidsResponse.md)
+- [FrameActionBody](../interfaces/openapi.FrameActionBody.md)
 - [GetUserDataByFid200ResponseOneOf](../interfaces/openapi.GetUserDataByFid200ResponseOneOf.md)
 - [HubEventMergeMessage](../interfaces/openapi.HubEventMergeMessage.md)
 - [HubEventMergeOnChainEvent](../interfaces/openapi.HubEventMergeOnChainEvent.md)
@@ -85,6 +87,7 @@
 - [MessageDataCastAddAllOf](../interfaces/openapi.MessageDataCastAddAllOf.md)
 - [MessageDataCastRemoveAllOf](../interfaces/openapi.MessageDataCastRemoveAllOf.md)
 - [MessageDataCommon](../interfaces/openapi.MessageDataCommon.md)
+- [MessageDataFrameActionAllOf](../interfaces/openapi.MessageDataFrameActionAllOf.md)
 - [MessageDataLinkAllOf](../interfaces/openapi.MessageDataLinkAllOf.md)
 - [MessageDataReactionAllOf](../interfaces/openapi.MessageDataReactionAllOf.md)
 - [MessageDataUserDataAddAllOf](../interfaces/openapi.MessageDataUserDataAddAllOf.md)
@@ -122,6 +125,8 @@
 - [UsernameProofsResponse](../interfaces/openapi.UsernameProofsResponse.md)
 - [UsernamesApiGetUsernameProofRequest](../interfaces/openapi.UsernamesApiGetUsernameProofRequest.md)
 - [UsernamesApiListUsernameProofsByFidRequest](../interfaces/openapi.UsernamesApiListUsernameProofsByFidRequest.md)
+- [ValidateMessageApiValidateMessageRequest](../interfaces/openapi.ValidateMessageApiValidateMessageRequest.md)
+- [ValidateMessageResponse](../interfaces/openapi.ValidateMessageResponse.md)
 - [VerificationAddEthAddressBody](../interfaces/openapi.VerificationAddEthAddressBody.md)
 - [VerificationAllOf](../interfaces/openapi.VerificationAllOf.md)
 - [VerificationRemoveAllOf](../interfaces/openapi.VerificationRemoveAllOf.md)
@@ -144,6 +149,7 @@
 - [MessageAllOfData](openapi.md#messageallofdata)
 - [MessageDataCastAdd](openapi.md#messagedatacastadd)
 - [MessageDataCastRemove](openapi.md#messagedatacastremove)
+- [MessageDataFrameAction](openapi.md#messagedataframeaction)
 - [MessageDataLink](openapi.md#messagedatalink)
 - [MessageDataReaction](openapi.md#messagedatareaction)
 - [MessageDataUserDataAdd](openapi.md#messagedatauserdataadd)
@@ -200,6 +206,9 @@
 - [UsernamesApiAxiosParamCreator](openapi.md#usernamesapiaxiosparamcreator)
 - [UsernamesApiFactory](openapi.md#usernamesapifactory)
 - [UsernamesApiFp](openapi.md#usernamesapifp)
+- [ValidateMessageApiAxiosParamCreator](openapi.md#validatemessageapiaxiosparamcreator)
+- [ValidateMessageApiFactory](openapi.md#validatemessageapifactory)
+- [ValidateMessageApiFp](openapi.md#validatemessageapifp)
 - [VerificationsApiAxiosParamCreator](openapi.md#verificationsapiaxiosparamcreator)
 - [VerificationsApiFactory](openapi.md#verificationsapifactory)
 - [VerificationsApiFp](openapi.md#verificationsapifp)
@@ -340,13 +349,13 @@ ___
 
 ### MessageAllOfData
 
-Ƭ **MessageAllOfData**: \{ `type`: ``"MESSAGE_TYPE_CAST_ADD"``  } & [`MessageDataCastAdd`](openapi.md#messagedatacastadd) \| \{ `type`: ``"MESSAGE_TYPE_CAST_REMOVE"``  } & [`MessageDataCastRemove`](openapi.md#messagedatacastremove) \| \{ `type`: ``"MESSAGE_TYPE_LINK_ADD"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| \{ `type`: ``"MESSAGE_TYPE_LINK_REMOVE"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| \{ `type`: ``"MESSAGE_TYPE_REACTION_ADD"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| \{ `type`: ``"MESSAGE_TYPE_REACTION_REMOVE"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| \{ `type`: ``"MESSAGE_TYPE_USERNAME_PROOF"``  } & [`MessageDataUsernameProof`](openapi.md#messagedatausernameproof) \| \{ `type`: ``"MESSAGE_TYPE_USER_DATA_ADD"``  } & [`MessageDataUserDataAdd`](openapi.md#messagedatauserdataadd) \| \{ `type`: ``"MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS"``  } & [`MessageDataVerificationAdd`](openapi.md#messagedataverificationadd) \| \{ `type`: ``"MESSAGE_TYPE_VERIFICATION_REMOVE"``  } & [`MessageDataVerificationRemove`](openapi.md#messagedataverificationremove)
+Ƭ **MessageAllOfData**: \{ `type`: ``"MESSAGE_TYPE_CAST_ADD"``  } & [`MessageDataCastAdd`](openapi.md#messagedatacastadd) \| \{ `type`: ``"MESSAGE_TYPE_CAST_REMOVE"``  } & [`MessageDataCastRemove`](openapi.md#messagedatacastremove) \| \{ `type`: ``"MESSAGE_TYPE_FRAME_ACTION"``  } & [`MessageDataFrameAction`](openapi.md#messagedataframeaction) \| \{ `type`: ``"MESSAGE_TYPE_LINK_ADD"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| \{ `type`: ``"MESSAGE_TYPE_LINK_REMOVE"``  } & [`MessageDataLink`](openapi.md#messagedatalink) \| \{ `type`: ``"MESSAGE_TYPE_REACTION_ADD"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| \{ `type`: ``"MESSAGE_TYPE_REACTION_REMOVE"``  } & [`MessageDataReaction`](openapi.md#messagedatareaction) \| \{ `type`: ``"MESSAGE_TYPE_USERNAME_PROOF"``  } & [`MessageDataUsernameProof`](openapi.md#messagedatausernameproof) \| \{ `type`: ``"MESSAGE_TYPE_USER_DATA_ADD"``  } & [`MessageDataUserDataAdd`](openapi.md#messagedatauserdataadd) \| \{ `type`: ``"MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS"``  } & [`MessageDataVerificationAdd`](openapi.md#messagedataverificationadd) \| \{ `type`: ``"MESSAGE_TYPE_VERIFICATION_REMOVE"``  } & [`MessageDataVerificationRemove`](openapi.md#messagedataverificationremove)
 
 **`Export`**
 
 #### Defined in
 
-[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts:72](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts#L72)
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts:78](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-all-of-data.ts#L78)
 
 ___
 
@@ -371,6 +380,18 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-remove.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-cast-remove.ts#L33)
+
+___
+
+### MessageDataFrameAction
+
+Ƭ **MessageDataFrameAction**: [`MessageDataCommon`](../interfaces/openapi.MessageDataCommon.md) & [`MessageDataFrameActionAllOf`](../interfaces/openapi.MessageDataFrameActionAllOf.md)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-frame-action.ts:33](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/message-data-frame-action.ts#L33)
 
 ___
 
@@ -1593,6 +1614,92 @@ UsernamesApi - functional programming interface
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/apis/usernames-api.ts:117](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/usernames-api.ts#L117)
+
+___
+
+### ValidateMessageApiAxiosParamCreator
+
+▸ **ValidateMessageApiAxiosParamCreator**(`configuration?`): `Object`
+
+ValidateMessageApi - axios parameter creator
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `configuration?` | [`Configuration`](../classes/openapi.Configuration.md) |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `validateMessage` | (`body`: `Buffer`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<`RequestArgs`\> |
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/validate-message-api.ts:32](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/validate-message-api.ts#L32)
+
+___
+
+### ValidateMessageApiFactory
+
+▸ **ValidateMessageApiFactory**(`configuration?`, `basePath?`, `axios?`): `Object`
+
+ValidateMessageApi - factory interface
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `configuration?` | [`Configuration`](../classes/openapi.Configuration.md) |
+| `basePath?` | `string` |
+| `axios?` | `AxiosInstance` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `validateMessage` | (`requestParameters`: [`ValidateMessageApiValidateMessageRequest`](../interfaces/openapi.ValidateMessageApiValidateMessageRequest.md), `options?`: `AxiosRequestConfig`\<`any`\>) => `AxiosPromise`\<[`ValidateMessageResponse`](../interfaces/openapi.ValidateMessageResponse.md)\> |
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/validate-message-api.ts:102](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/validate-message-api.ts#L102)
+
+___
+
+### ValidateMessageApiFp
+
+▸ **ValidateMessageApiFp**(`configuration?`): `Object`
+
+ValidateMessageApi - functional programming interface
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `configuration?` | [`Configuration`](../classes/openapi.Configuration.md) |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `validateMessage` | (`body`: `Buffer`, `options?`: `AxiosRequestConfig`\<`any`\>) => `Promise`\<(`axios?`: `AxiosInstance`, `basePath?`: `string`) => `AxiosPromise`\<[`ValidateMessageResponse`](../interfaces/openapi.ValidateMessageResponse.md)\>\> |
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/apis/validate-message-api.ts:81](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/apis/validate-message-api.ts#L81)
 
 ___
 
