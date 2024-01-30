@@ -17,6 +17,7 @@ A tool for interacting with the REST API of a Farcaster hub.
   - [Follow a User](#follow-a-user)
   - [Fetch a Cast](#fetch-a-cast)
   - [List a User's Casts](#list-a-users-casts)
+  - [Validate a Message](#validate-a-message)
   - [Fetch Hub Info](#fetch-hub-info)
 - [Documentation](#documentation)
   - [HubRestAPIClient](#hubrestapiclient)
@@ -134,6 +135,21 @@ const casts = client.listCastsByFid(2);
 for await (const cast of casts) {
   console.log(cast.data.castAddBody.text);
 }
+```
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### Validate a Message
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./examples/validateMessage.ts) -->
+<!-- The below code snippet is automatically added from ./examples/validateMessage.ts -->
+```ts
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js-hub-rest';
+
+const client = new HubRestAPIClient();
+const rawMessageBytes = '0x0a42080d10c4aa0118c6d1922e20018201320a12687474703a2f2f6578616d706c652e636f6d10011a1a08c4aa0112141fd48ddc9d5910046acfa5e1b91d253763e320c31214230a1291ae8e220bf9173d9090716981402bdd3d18012240f08c907486afe1c3311565b7a27c1f0011c74bd22ba167abe8ba30a35e808cbeae674aef7b74d3161c6186e48e3cc4d843c5ec9dc1dce9c6b71547adcc02c90c28013220196a70ac9847d59e039d0cfcf0cde1adac12f5fb447bb53334d67ab18246306c';
+
+const validateCastResponse = await client.validateMessage(rawMessageBytes);
+console.log(`valid message: ${validateCastResponse.valid}`);
 ```
 <!-- AUTO-GENERATED-CONTENT:END -->
 
