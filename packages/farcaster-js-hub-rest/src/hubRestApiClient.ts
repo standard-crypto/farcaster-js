@@ -40,6 +40,8 @@ import {
   LinkRemove,
   ReactionRemove,
   VerificationRemove,
+  ValidateMessageResponse,
+  ValidateMessageApi,
 } from './openapi/index.js';
 import {
   hexStringToBytes,
@@ -107,6 +109,7 @@ export class HubRestAPIClient {
     userData: UserDataApi
     usernames: UsernamesApi
     verifications: VerificationsApi
+    validateMessage: ValidateMessageApi
   };
 
   /**
@@ -148,6 +151,7 @@ export class HubRestAPIClient {
       verifications: new VerificationsApi(config, undefined, axiosInstance),
       onChainEvents: new OnChainEventsApi(config, undefined, axiosInstance),
       hubEvents: new HubEventsApi(config, undefined, axiosInstance),
+      validateMessage: new ValidateMessageApi(config, undefined, axiosInstance),
     };
   }
 
@@ -1159,6 +1163,25 @@ export class HubRestAPIClient {
       // prep for next page
       fromEventId = response.data.nextPageEventId;
     }
+  }
+
+  /**
+   * Validate a signed protobuf-serialized message with the Hub.
+   * This can be used to verify that the hub will consider the message valid.
+   * Or to validate message that cannot be submitted (e.g. Frame actions).
+   * See [farcaster documentation](https://github.com/farcasterxyz/hub-monorepo/blob/main/apps/hubble/www/docs/docs/httpapi/message.md#validatemessage)
+   * @param encodedMessage A signed protobuf-serialized message to validate.
+   */
+  public async validateMessage(
+    encodedMessage: string,
+  ): Promise<ValidateMessageResponse> {
+    let encodedMessageHex = encodedMessage;
+    if (encodedMessage.startsWith('0x')) {
+      encodedMessageHex = encodedMessage.slice(2);
+    }
+    const messageBytes = Buffer.from(encodedMessageHex, 'hex');
+    const response = await this.apis.validateMessage.validateMessage({ body: messageBytes });
+    return response.data;
   }
 
   /**

@@ -24,6 +24,9 @@ import { CastRemoveBody } from './cast-remove-body.js';
 import { FarcasterNetwork } from './farcaster-network.js';
 // May contain unused imports in some cases
 // @ts-ignore
+import { FrameActionBody } from './frame-action-body.js';
+// May contain unused imports in some cases
+// @ts-ignore
 import { LinkBody } from './link-body.js';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -31,6 +34,9 @@ import { MessageDataCastAdd } from './message-data-cast-add.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageDataCastRemove } from './message-data-cast-remove.js';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MessageDataFrameAction } from './message-data-frame-action.js';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MessageDataLink } from './message-data-link.js';
@@ -69,6 +75,6 @@ import { VerificationRemoveBody } from './verification-remove-body.js';
  * @type MessageAllOfData
  * @export
  */
-export type MessageAllOfData = { type: 'MESSAGE_TYPE_CAST_ADD' } & MessageDataCastAdd | { type: 'MESSAGE_TYPE_CAST_REMOVE' } & MessageDataCastRemove | { type: 'MESSAGE_TYPE_LINK_ADD' } & MessageDataLink | { type: 'MESSAGE_TYPE_LINK_REMOVE' } & MessageDataLink | { type: 'MESSAGE_TYPE_REACTION_ADD' } & MessageDataReaction | { type: 'MESSAGE_TYPE_REACTION_REMOVE' } & MessageDataReaction | { type: 'MESSAGE_TYPE_USERNAME_PROOF' } & MessageDataUsernameProof | { type: 'MESSAGE_TYPE_USER_DATA_ADD' } & MessageDataUserDataAdd | { type: 'MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS' } & MessageDataVerificationAdd | { type: 'MESSAGE_TYPE_VERIFICATION_REMOVE' } & MessageDataVerificationRemove;
+export type MessageAllOfData = { type: 'MESSAGE_TYPE_CAST_ADD' } & MessageDataCastAdd | { type: 'MESSAGE_TYPE_CAST_REMOVE' } & MessageDataCastRemove | { type: 'MESSAGE_TYPE_FRAME_ACTION' } & MessageDataFrameAction | { type: 'MESSAGE_TYPE_LINK_ADD' } & MessageDataLink | { type: 'MESSAGE_TYPE_LINK_REMOVE' } & MessageDataLink | { type: 'MESSAGE_TYPE_REACTION_ADD' } & MessageDataReaction | { type: 'MESSAGE_TYPE_REACTION_REMOVE' } & MessageDataReaction | { type: 'MESSAGE_TYPE_USERNAME_PROOF' } & MessageDataUsernameProof | { type: 'MESSAGE_TYPE_USER_DATA_ADD' } & MessageDataUserDataAdd | { type: 'MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS' } & MessageDataVerificationAdd | { type: 'MESSAGE_TYPE_VERIFICATION_REMOVE' } & MessageDataVerificationRemove;
 
 

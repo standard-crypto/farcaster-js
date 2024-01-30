@@ -104,6 +104,10 @@ export interface paths {
     /** Submit a signed protobuf-serialized message to the Hub */
     post: operations["SubmitMessage"];
   };
+  "/v1/validateMessage": {
+    /** Validate a signed protobuf-serialized message with the Hub */
+    post: operations["ValidateMessage"];
+  };
   "/v1/events": {
     /** Get a page of Hub events */
     get: operations["ListEvents"];
@@ -201,6 +205,17 @@ export interface components {
       fids: number[];
       /** Format: byte */
       nextPageToken: string;
+    };
+    /** @description A Farcaster Frame action */
+    FrameActionBody: {
+      /** Format: uri */
+      url: string;
+      /**
+       * The index of the button pressed (1-4)
+       * Format: int32
+       */
+      buttonIndex: number;
+      castId: components["schemas"]["CastId"];
     };
     /**
      * @description Type of hashing scheme used to produce a digest of MessageData. - HASH_SCHEME_BLAKE3: Default scheme for hashing MessageData
@@ -320,7 +335,7 @@ export interface components {
      * that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
      */
     Message: ({
-      data: components["schemas"]["MessageDataCastAdd"] | components["schemas"]["MessageDataCastRemove"] | components["schemas"]["MessageDataReaction"] | components["schemas"]["MessageDataLink"] | components["schemas"]["MessageDataVerificationAdd"] | components["schemas"]["MessageDataVerificationRemove"] | components["schemas"]["MessageDataUserDataAdd"] | components["schemas"]["MessageDataUsernameProof"];
+      data: components["schemas"]["MessageDataCastAdd"] | components["schemas"]["MessageDataCastRemove"] | components["schemas"]["MessageDataReaction"] | components["schemas"]["MessageDataLink"] | components["schemas"]["MessageDataVerificationAdd"] | components["schemas"]["MessageDataVerificationRemove"] | components["schemas"]["MessageDataUserDataAdd"] | components["schemas"]["MessageDataUsernameProof"] | components["schemas"]["MessageDataFrameAction"];
     }) & components["schemas"]["MessageCommon"];
     MessageCommon: {
       /**
@@ -359,6 +374,9 @@ export interface components {
     MessageDataCastRemove: components["schemas"]["MessageDataCommon"] & {
       castRemoveBody: components["schemas"]["CastRemoveBody"];
     };
+    MessageDataFrameAction: components["schemas"]["MessageDataCommon"] & {
+      frameActionBody: components["schemas"]["FrameActionBody"];
+    };
     MessageDataLink: components["schemas"]["MessageDataCommon"] & {
       linkBody: components["schemas"]["LinkBody"];
     };
@@ -379,7 +397,7 @@ export interface components {
     };
     /**
      * @description Type of the MessageBody.
-     * - MESSAGE_TYPE_CAST_ADD: Add a new Cast
+     *  - MESSAGE_TYPE_CAST_ADD: Add a new Cast
      *  - MESSAGE_TYPE_CAST_REMOVE: Remove an existing Cast
      *  - MESSAGE_TYPE_REACTION_ADD: Add a Reaction to a Cast
      *  - MESSAGE_TYPE_REACTION_REMOVE: Remove a Reaction from a Cast
@@ -387,16 +405,13 @@ export interface components {
      *  - MESSAGE_TYPE_LINK_REMOVE: Remove an existing Link
      *  - MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS: Add a Verification of an Ethereum Address
      *  - MESSAGE_TYPE_VERIFICATION_REMOVE: Remove a Verification
-     *  - MESSAGE_TYPE_USER_DATA_ADD: Deprecated
-     *  MESSAGE_TYPE_SIGNER_ADD = 9; // Add a new Ed25519 key pair that signs messages for a user
-     *  MESSAGE_TYPE_SIGNER_REMOVE = 10; // Remove an Ed25519 key pair that signs messages for a user
-     *
-     * Add metadata about a user
+     *  - MESSAGE_TYPE_USER_DATA_ADD: Add metadata about a user
      *  - MESSAGE_TYPE_USERNAME_PROOF: Add or replace a username proof
+     *  - MESSAGE_TYPE_FRAME_ACTION: A Farcaster Frame action
      * @default MESSAGE_TYPE_CAST_ADD
      * @enum {string}
      */
-    MessageType: "MESSAGE_TYPE_CAST_ADD" | "MESSAGE_TYPE_CAST_REMOVE" | "MESSAGE_TYPE_REACTION_ADD" | "MESSAGE_TYPE_REACTION_REMOVE" | "MESSAGE_TYPE_LINK_ADD" | "MESSAGE_TYPE_LINK_REMOVE" | "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS" | "MESSAGE_TYPE_VERIFICATION_REMOVE" | "MESSAGE_TYPE_USER_DATA_ADD" | "MESSAGE_TYPE_USERNAME_PROOF";
+    MessageType: "MESSAGE_TYPE_CAST_ADD" | "MESSAGE_TYPE_CAST_REMOVE" | "MESSAGE_TYPE_REACTION_ADD" | "MESSAGE_TYPE_REACTION_REMOVE" | "MESSAGE_TYPE_LINK_ADD" | "MESSAGE_TYPE_LINK_REMOVE" | "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS" | "MESSAGE_TYPE_VERIFICATION_REMOVE" | "MESSAGE_TYPE_USER_DATA_ADD" | "MESSAGE_TYPE_USERNAME_PROOF" | "MESSAGE_TYPE_FRAME_ACTION";
     OnChainEvent: components["schemas"]["OnChainEventSigner"] | components["schemas"]["OnChainEventSignerMigrated"] | components["schemas"]["OnChainEventIdRegister"] | components["schemas"]["OnChainEventStorageRent"];
     OnChainEventCommon: {
       /** @example EVENT_TYPE_SIGNER */
@@ -548,6 +563,10 @@ export interface components {
      * @enum {string}
      */
     UserNameType: "USERNAME_TYPE_FNAME" | "USERNAME_TYPE_ENS_L1";
+    ValidateMessageResponse: {
+      valid: boolean;
+      message: components["schemas"]["Message"];
+    };
     Verification: components["schemas"]["MessageCommon"] & ({
       data: components["schemas"]["MessageDataVerificationAdd"] & {
         type: components["schemas"]["MessageType"];
@@ -1138,6 +1157,28 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["Message"];
+        };
+      };
+      default: components["responses"]["ErrorResponse"];
+    };
+  };
+  /** Validate a signed protobuf-serialized message with the Hub */
+  ValidateMessage: {
+    /**
+     * @description *
+     * A Message is a delta operation on the Farcaster network. The message protobuf is an envelope
+     * that wraps a MessageData object and contains a hash and signature which can verify its authenticity.
+     */
+    requestBody: {
+      content: {
+        "application/octet-stream": string;
+      };
+    };
+    responses: {
+      /** @description A successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ValidateMessageResponse"];
         };
       };
       default: components["responses"]["ErrorResponse"];

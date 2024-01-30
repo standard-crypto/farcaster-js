@@ -1,3 +1,10 @@
+# [7.2.0](https://github.com/standard-crypto/farcaster-js/compare/v7.1.0...v7.2.0) (2024-01-29)
+
+### Features
+
+* Updates the openAPI spec to add types for Frames and the `/validateMessage` endpoint
+* Implements validate message logic
+
 # [7.1.1](https://github.com/standard-crypto/farcaster-js/compare/v7.0.0...v7.1.0) (2023-12-20)
 
 ### Features
