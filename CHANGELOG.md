@@ -1,3 +1,13 @@
+# [7.2.1](https://github.com/standard-crypto/farcaster-js/compare/v7.2.0...v7.2.1) (2024-02-14)
+
+### Features
+
+* farcaster-js-hub-rest: Adds the param `parentUrl` to the `submitCast` method to allow casting into a channel
+
+### Bug Fixes
+
+* farcaster-js-hub-rest: Updates the openAPI spec to fix the `Embed` object to support urls and casts
+
 # [7.2.0](https://github.com/standard-crypto/farcaster-js/compare/v7.1.0...v7.2.0) (2024-01-29)
 
 ### Features
