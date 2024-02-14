@@ -1,4 +1,4 @@
-# [7.2.1](https://github.com/standard-crypto/farcaster-js/compare/v7.2.0...v7.2.1) (2024-02-14)
+# [7.3.0](https://github.com/standard-crypto/farcaster-js/compare/v7.2.0...v7.3.0) (2024-02-14)
 
 ### Features
 
