@@ -21,6 +21,7 @@ models/cast-add-all-of-data.ts
 models/cast-add-all-of.ts
 models/cast-add-body.ts
 models/cast-add.ts
+models/cast-embed.ts
 models/cast-id.ts
 models/cast-remove-all-of-data.ts
 models/cast-remove-all-of.ts
@@ -115,6 +116,7 @@ models/storage-limit.ts
 models/storage-limits-response.ts
 models/storage-rent-event-body.ts
 models/store-type.ts
+models/url-embed.ts
 models/user-data-add-all-of-data.ts
 models/user-data-add-all-of.ts
 models/user-data-add.ts
