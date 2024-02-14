@@ -26,7 +26,7 @@ CastAddBody
 
 ### embeds
 
-• **embeds**: [`Embed`](openapi.Embed.md)[]
+• **embeds**: [`Embed`](../modules/openapi.md#embed)[]
 
 **`Memberof`**
 

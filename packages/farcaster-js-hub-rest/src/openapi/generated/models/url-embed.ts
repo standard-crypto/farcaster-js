@@ -13,20 +13,18 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { CastEmbed } from './cast-embed.js';
-// May contain unused imports in some cases
-// @ts-ignore
-import { CastId } from './cast-id.js';
-// May contain unused imports in some cases
-// @ts-ignore
-import { UrlEmbed } from './url-embed.js';
 
 /**
- * @type Embed
+ * 
  * @export
+ * @interface UrlEmbed
  */
-export type Embed = CastEmbed | UrlEmbed;
-
+export interface UrlEmbed {
+    /**
+     * 
+     * @type {string}
+     * @memberof UrlEmbed
+     */
+    'url': string;
+}
 

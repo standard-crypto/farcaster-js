@@ -64,7 +64,7 @@ describe('HubWebClient', function() {
 
   if (signerPrivateKey !== undefined && signerPrivateKey !== '') {
     describe('SubmitMessage API', function() {
-      let submitMessageCastHash: string | undefined;
+      const submittedMessages: string[] = [];
       it('validates against OpenAPI spec', async function() {
       // Set up the signer
         const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
@@ -92,14 +92,21 @@ describe('HubWebClient', function() {
         });
         const errors = validator.validateResponse(200, submitMessageResp.data);
         expect(errors, JSON.stringify(errors)).is.undefined;
-        submitMessageCastHash = submitMessageResp.data.hash;
+        submittedMessages.push(submitMessageResp.data.hash);
       });
       let submittedCastHash: string | undefined;
+      it('can submit a cast into a channel', async function() {
+        const responseMessage = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest into a channel', parentUrl: 'https://warpcast.com/~/channel/test' }, userGaviBotFid, signerPrivateKey);
+        expectDefinedNonNull(responseMessage.hash);
+        expect(responseMessage.data.type).to.eq(MessageType.CastAdd);
+        submittedMessages.push(responseMessage.hash);
+      });
       it('can submit a cast', async function() {
         const responseMessage = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js-hub-rest' }, userGaviBotFid, signerPrivateKey);
         expectDefinedNonNull(responseMessage.hash);
         expect(responseMessage.data.type).to.eq(MessageType.CastAdd);
         submittedCastHash = responseMessage.hash;
+        submittedMessages.push(responseMessage.hash);
       });
       it('can reply to a cast', async function() {
         expectDefinedNonNull(submittedCastHash);
@@ -114,10 +121,12 @@ describe('HubWebClient', function() {
         await client.removeCast(reply.hash, userGaviBotFid, signerPrivateKey);
       });
       it('can remove a cast', async function() {
-        expectDefinedNonNull(submittedCastHash);
-        expectDefinedNonNull(submitMessageCastHash);
-        await client.removeCast(submitMessageCastHash, userGaviBotFid, signerPrivateKey);
-        await client.removeCast(submittedCastHash, userGaviBotFid, signerPrivateKey);
+        let numRemoved = 0;
+        for (const castHash of submittedMessages) {
+          numRemoved += 1;
+          await client.removeCast(castHash, userGaviBotFid, signerPrivateKey);
+        }
+        expect(numRemoved).to.be.eq(3);
       });
       it('can follow a user', async function() {
         const followResponse = await client.followUser(userGaviFid, userGaviBotFid, signerPrivateKey);
@@ -447,8 +456,8 @@ describe('HubWebClient', function() {
     describe('#listReactionsByCast', function() {
       it('validates against OpenAPI spec', async function() {
         const response = await client.apis.reactions.listReactionsByCast({
-          targetFid: 1795,
-          targetHash: '0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0',
+          targetFid: 3,
+          targetHash: '0x11867b896f94fd7072d9dab3fdf6010516e04a8d',
           reactionType: ReactionType.Like,
         });
         expect(response.data.messages).to.not.be.empty;
@@ -739,7 +748,8 @@ describe('HubWebClient', function() {
       });
 
       it('returns null for nonexistent name', async function() {
-        const response = await client.getUsernameProof('xxxxxxxx');
+        // cspell:disable-next-line
+        const response = await client.getUsernameProof('somefakefname');
         expect(response).to.be.null;
       });
     });

@@ -178,6 +178,7 @@ export class HubRestAPIClient {
       mentions?: number[]
       mentionsPositions?: number[]
       parentCastId?: CastId
+      parentUrl?: string
     },
     fid: number,
     signerPrivateKeyHex: string,
@@ -192,6 +193,7 @@ export class HubRestAPIClient {
       embedsDeprecated: cast.embedsDeprecated ?? [],
       mentions: cast.mentions ?? [],
       mentionsPositions: cast.mentionsPositions ?? [],
+      parentUrl: cast.parentUrl,
     };
     if (cast.parentCastId !== undefined) {
       const parentHashBytes = hexStringToBytes(cast.parentCastId.hash);

@@ -146,6 +146,9 @@ export interface components {
       /** URLs or cast ids to be embedded in the cast */
       embeds: components["schemas"]["Embed"][];
     };
+    CastEmbed: {
+      castId: components["schemas"]["CastId"];
+    };
     CastRemove: components["schemas"]["MessageCommon"] & ({
       data: components["schemas"]["MessageDataCastRemove"] & {
         type: components["schemas"]["MessageType"];
@@ -177,11 +180,7 @@ export interface components {
       /** Format: uint64 */
       numFnameEvents: number;
     };
-    Embed: {
-      /** Format: uri */
-      url: string;
-      castId?: components["schemas"]["CastId"];
-    };
+    Embed: components["schemas"]["CastEmbed"] | components["schemas"]["UrlEmbed"];
     ErrorResponse: {
       errCode: string;
       presentable: boolean;
@@ -521,6 +520,10 @@ export interface components {
      * @enum {string}
      */
     StoreType: "STORE_TYPE_CASTS" | "STORE_TYPE_LINKS" | "STORE_TYPE_REACTIONS" | "STORE_TYPE_USER_DATA" | "STORE_TYPE_VERIFICATIONS" | "STORE_TYPE_USERNAME_PROOFS";
+    UrlEmbed: {
+      /** Format: uri */
+      url: string;
+    };
     UserDataAdd: components["schemas"]["MessageCommon"] & ({
       data: components["schemas"]["MessageDataUserDataAdd"] & {
         type: components["schemas"]["MessageType"];

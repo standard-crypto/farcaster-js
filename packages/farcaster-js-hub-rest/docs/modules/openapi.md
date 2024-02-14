@@ -41,6 +41,7 @@
 - [CastAddAllOf](../interfaces/openapi.CastAddAllOf.md)
 - [CastAddAllOfDataAllOf](../interfaces/openapi.CastAddAllOfDataAllOf.md)
 - [CastAddBody](../interfaces/openapi.CastAddBody.md)
+- [CastEmbed](../interfaces/openapi.CastEmbed.md)
 - [CastId](../interfaces/openapi.CastId.md)
 - [CastRemoveAllOf](../interfaces/openapi.CastRemoveAllOf.md)
 - [CastRemoveBody](../interfaces/openapi.CastRemoveBody.md)
@@ -50,7 +51,6 @@
 - [CastsApiListCastsByParentRequest](../interfaces/openapi.CastsApiListCastsByParentRequest.md)
 - [ConfigurationParameters](../interfaces/openapi.ConfigurationParameters.md)
 - [DbStats](../interfaces/openapi.DbStats.md)
-- [Embed](../interfaces/openapi.Embed.md)
 - [ErrorResponse](../interfaces/openapi.ErrorResponse.md)
 - [ErrorResponseMetadata](../interfaces/openapi.ErrorResponseMetadata.md)
 - [FIDsApiListFidsRequest](../interfaces/openapi.FIDsApiListFidsRequest.md)
@@ -118,6 +118,7 @@
 - [StorageLimitsResponse](../interfaces/openapi.StorageLimitsResponse.md)
 - [StorageRentEventBody](../interfaces/openapi.StorageRentEventBody.md)
 - [SubmitMessageApiSubmitMessageRequest](../interfaces/openapi.SubmitMessageApiSubmitMessageRequest.md)
+- [UrlEmbed](../interfaces/openapi.UrlEmbed.md)
 - [UserDataAddAllOf](../interfaces/openapi.UserDataAddAllOf.md)
 - [UserDataApiGetUserDataByFidRequest](../interfaces/openapi.UserDataApiGetUserDataByFidRequest.md)
 - [UserDataBody](../interfaces/openapi.UserDataBody.md)
@@ -139,6 +140,7 @@
 - [CastAddAllOfData](openapi.md#castaddallofdata)
 - [CastRemove](openapi.md#castremove)
 - [CastRemoveAllOfData](openapi.md#castremoveallofdata)
+- [Embed](openapi.md#embed)
 - [GetUserDataByFid200Response](openapi.md#getuserdatabyfid200response)
 - [HubEvent](openapi.md#hubevent)
 - [LinkAdd](openapi.md#linkadd)
@@ -260,6 +262,18 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove-all-of-data.ts#L36)
+
+___
+
+### Embed
+
+Ƭ **Embed**: [`CastEmbed`](../interfaces/openapi.CastEmbed.md) \| [`UrlEmbed`](../interfaces/openapi.UrlEmbed.md)
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/embed.ts:30](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/embed.ts#L30)
 
 ___
 
