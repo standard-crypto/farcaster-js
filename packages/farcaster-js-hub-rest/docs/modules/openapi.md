@@ -50,7 +50,6 @@
 - [CastsApiListCastsByParentRequest](../interfaces/openapi.CastsApiListCastsByParentRequest.md)
 - [ConfigurationParameters](../interfaces/openapi.ConfigurationParameters.md)
 - [DbStats](../interfaces/openapi.DbStats.md)
-- [Embed](../interfaces/openapi.Embed.md)
 - [ErrorResponse](../interfaces/openapi.ErrorResponse.md)
 - [ErrorResponseMetadata](../interfaces/openapi.ErrorResponseMetadata.md)
 - [FIDsApiListFidsRequest](../interfaces/openapi.FIDsApiListFidsRequest.md)
@@ -139,6 +138,7 @@
 - [CastAddAllOfData](openapi.md#castaddallofdata)
 - [CastRemove](openapi.md#castremove)
 - [CastRemoveAllOfData](openapi.md#castremoveallofdata)
+- [Embed](openapi.md#embed)
 - [GetUserDataByFid200Response](openapi.md#getuserdatabyfid200response)
 - [HubEvent](openapi.md#hubevent)
 - [LinkAdd](openapi.md#linkadd)
@@ -260,6 +260,18 @@ ___
 #### Defined in
 
 [packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove-all-of-data.ts:36](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/cast-remove-all-of-data.ts#L36)
+
+___
+
+### Embed
+
+Ƭ **Embed**: `any`
+
+**`Export`**
+
+#### Defined in
+
+[packages/farcaster-js-hub-rest/src/openapi/generated/models/embed.ts:24](https://github.com/standard-crypto/farcaster-js/blob/main/packages/farcaster-js-hub-rest/src/openapi/generated/models/embed.ts#L24)
 
 ___
 

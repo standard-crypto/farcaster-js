@@ -456,8 +456,8 @@ describe('HubWebClient', function() {
     describe('#listReactionsByCast', function() {
       it('validates against OpenAPI spec', async function() {
         const response = await client.apis.reactions.listReactionsByCast({
-          targetFid: 1795,
-          targetHash: '0x7363f449bfb0e7f01c5a1cc0054768ed5146abc0',
+          targetFid: 3,
+          targetHash: '0x11867b896f94fd7072d9dab3fdf6010516e04a8d',
           reactionType: ReactionType.Like,
         });
         expect(response.data.messages).to.not.be.empty;
@@ -748,7 +748,8 @@ describe('HubWebClient', function() {
       });
 
       it('returns null for nonexistent name', async function() {
-        const response = await client.getUsernameProof('xxxxxxxx');
+        // cspell:disable-next-line
+        const response = await client.getUsernameProof('somefakefname');
         expect(response).to.be.null;
       });
     });

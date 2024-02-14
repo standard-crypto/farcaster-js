@@ -179,7 +179,7 @@ export interface components {
     };
     Embed: {
       /** Format: uri */
-      url: string;
+      url?: string;
       castId?: components["schemas"]["CastId"];
     };
     ErrorResponse: {

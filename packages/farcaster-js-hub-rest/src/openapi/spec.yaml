@@ -1032,8 +1032,11 @@ components:
           format: uri
         castId:
           $ref: '#/components/schemas/CastId'
-      required:
-        - url
+      oneOf:
+        - required:
+            - url
+        - required:
+            - castId
     ErrorResponse:
       required:
         - code

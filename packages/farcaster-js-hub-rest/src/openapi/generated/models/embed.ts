@@ -18,22 +18,9 @@
 import { CastId } from './cast-id.js';
 
 /**
- * 
+ * @type Embed
  * @export
- * @interface Embed
  */
-export interface Embed {
-    /**
-     * 
-     * @type {string}
-     * @memberof Embed
-     */
-    'url': string;
-    /**
-     * 
-     * @type {CastId}
-     * @memberof Embed
-     */
-    'castId'?: CastId;
-}
+export type Embed = any;
+
 
