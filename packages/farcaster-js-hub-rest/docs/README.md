@@ -36,7 +36,7 @@ npm install axios @standard-crypto/farcaster-js-hub-rest
 
 ## Signers
 
-Signers are required to write data to Farcaster. You can learn more about signers from the [Farcaster docs](https://docs.farcaster.xyz/protocol/concepts.html#signers).
+Signers are required to write data to Farcaster. You can learn more about signers from the [Farcaster docs](https://docs.farcaster.xyz/developers/guides/accounts/create-account-key).
 
 The root package includes a CLI for creating signers. You can run the code below to generate a signer:
 ```

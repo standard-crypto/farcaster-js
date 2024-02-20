@@ -80,7 +80,7 @@ await client.v2.reactToCast(signerUuid, NeynarV2.ReactionType.Like, cast.hash);
 
 ## Signers
 
-Signers are required to write data to Farcaster. You can learn more about signers from these resources ([Farcaster](https://docs.farcaster.xyz/protocol/concepts.html#signers), [Neynar](https://docs.neynar.com/docs/write-to-farcaster-with-neynar-managed-signers)).
+Signers are required to write data to Farcaster. You can learn more about signers from these resources ([Farcaster](https://docs.farcaster.xyz/developers/guides/accounts/create-account-key), [Neynar](https://docs.neynar.com/docs/write-to-farcaster-with-neynar-managed-signers)).
 
 This package includes a CLI for creating signers. You can run the code below to generate a signer:
 ```
