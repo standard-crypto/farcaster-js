@@ -15,7 +15,7 @@
     "axios": "~1.5.1"
   },
   "dependencies": {
-    "@noble/curves": "^1.2.0",
+    "@noble/curves": "^1.4.0",
     "@standard-crypto/farcaster-js-neynar": "workspace:*",
     "@types/inquirer": "^9.0.7",
     "commander": "^11.1.0",
