@@ -56,9 +56,10 @@ import {
   makeReactionRemove,
   makeVerificationAddEthAddress,
   FarcasterNetwork,
-  makeVerificationEthAddressClaim,
+  makeVerificationAddressClaim,
   makeVerificationRemove,
   CastAddBody,
+  Protocol
 } from '@farcaster/core';
 import {
   eip712SignerFromMnemonicOrPrivateKey,
@@ -482,11 +483,12 @@ export class HubRestAPIClient {
     if (latestBlockHashBytes.isErr()) {
       throw latestBlockHashBytes.error;
     }
-    const claim = await makeVerificationEthAddressClaim(
+    const claim = await makeVerificationAddressClaim(
       fid,
       addressBytes.value,
       FarcasterNetwork[verification.network as keyof typeof FarcasterNetwork],
       latestBlockHashBytes.value,
+      Protocol.ETHEREUM,
     );
     if (claim.isErr()) {
       throw claim.error;
