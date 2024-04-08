@@ -1,6 +1,6 @@
 {
   "name": "@standard-crypto/farcaster-js-hub-rest",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A tool for interacting with the REST API of any Farcaster hub.",
   "type": "module",
   "repository": {
@@ -12,7 +12,7 @@
   "author": "Gavi Galloway",
   "license": "MIT",
   "dependencies": {
-    "@farcaster/core": "^0.13.5",
+    "@farcaster/core": "^0.14.8",
     "viem": "^1.12.2"
   },
   "peerDependencies": {

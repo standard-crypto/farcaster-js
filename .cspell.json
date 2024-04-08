@@ -33,7 +33,8 @@
     "Redocly",
     "qrcode",
     "TYPEHASH",
-    "Seedable"
+    "Seedable", 
+    "Solana"
   ],
   "flagWords": [],
   "ignorePaths": [
