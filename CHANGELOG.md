@@ -1,3 +1,14 @@
+# [7.3.1](https://github.com/standard-crypto/farcaster-js/compare/v7.2.1...v7.3.0) (2024-04-09)
+
+### Features
+
+* update of makeVerificationEthAddressClaim to makeVerificationAddressClaim based on change: https://github.com/farcasterxyz/hub-monorepo/pull/1667
+
+### Bug Fixes
+
+* upgrade t0 @farcaster/core@0.14.8 to fix install issue
+* update api spec to accept Solana addresses
+
 # [7.3.0](https://github.com/standard-crypto/farcaster-js/compare/v7.2.0...v7.3.0) (2024-02-14)
 
 ### Features
