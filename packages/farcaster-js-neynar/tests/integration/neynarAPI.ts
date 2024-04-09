@@ -315,7 +315,7 @@ if (apiKey !== undefined && apiKey !== '') {
         describe('#fetchCastLikes', function() {
           it('can fetch cast likes', async function() {
             const existingCastHash =
-              '0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89';
+              '0x8763f082e0fef632825a1bc655cd7808ee3bf934';
             let castCount = 0;
             const reactionSet = new Set();
             let reactionFound = false;
@@ -343,7 +343,7 @@ if (apiKey !== undefined && apiKey !== '') {
         describe('#fetchCastReactions', function() {
           it('can fetch reactions to a cast', async function() {
             const existingCastHash =
-              '0xd02442da75c1a09c0b0a735f9d6fdfb0db287d89';
+              '0x8763f082e0fef632825a1bc655cd7808ee3bf934';
             let castCount = 0;
             const reactionSet = new Set();
             let reactionFound = false;
@@ -369,7 +369,8 @@ if (apiKey !== undefined && apiKey !== '') {
           });
         });
         describe('#fetchRecasters', function() {
-          it('can fetch recasters of a cast', async function() {
+          // TODO: fix timeouts
+          it.skip('can fetch recasters of a cast', async function() {
             const existingCastHash =
               '0xc6764a88086279ccae9d0bc502e2554a92c48d94';
             let recasterCount = 0;
@@ -681,6 +682,11 @@ if (apiKey !== undefined && apiKey !== '') {
           });
           describe('#deleteCast', function() {
             it('can delete casts', async function() {
+              this.timeout('120s');
+              // we get rate limited here
+              // eslint-disable-next-line no-console
+              console.log('sleeping 1 min for rate limit');
+              await sleep(60000);
               expectDefinedNonNull(publishedCast);
               expectDefinedNonNull(replyToCast);
               expectDefinedNonNull(replyToUrl);
