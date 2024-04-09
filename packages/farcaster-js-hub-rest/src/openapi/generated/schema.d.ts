@@ -577,14 +577,14 @@ export interface components {
     });
     /** @description Adds a Verification of ownership of an Ethereum Address */
     VerificationAddEthAddressBody: {
-      /** Ethereum address being verified */
+      /** Ethereum/Solana address being verified */
       address: string;
       /**
-       * Signature produced by the user's Ethereum address
+       * Signature produced by the user's Ethereum/Solana address
        * Format: byte
        */
       ethSignature: string;
-      /** Hash of the latest Ethereum block when the signature was produced */
+      /** Hash of the latest Ethereum/Solana block when the signature was produced */
       blockHash: string;
     };
     VerificationRemove: components["schemas"]["MessageCommon"] & ({
