@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@farcaster/core": "^0.14.8",
+    "neverthrow": "^6.0.0",
     "viem": "^1.12.2"
   },
   "peerDependencies": {

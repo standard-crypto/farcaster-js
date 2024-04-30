@@ -2219,6 +2219,7 @@ __metadata:
     ethers: "npm:^6.8.1"
     markdown-magic: "npm:^2.6.1"
     mocha: "npm:^10.2.0"
+    neverthrow: "npm:^6.0.0"
     openapi-response-validator: "npm:^12.1.3"
     openapi-types: "npm:^12.1.3"
     openapi-typescript: "npm:^6.7.0"
