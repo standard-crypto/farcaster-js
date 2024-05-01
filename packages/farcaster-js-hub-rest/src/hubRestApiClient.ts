@@ -160,7 +160,7 @@ export class HubRestAPIClient {
   /**
    * Takes in a hex private key or Signer object and returns a Signer object.
    * If the input is a hex private key, it will be converted to a Signer object.
-   * 
+   *
    * @param signer The signer's hex private key or Signer object
    */
   private formatSigner(signer: string | Signer): Signer {

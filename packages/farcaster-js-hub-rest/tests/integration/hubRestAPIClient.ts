@@ -53,7 +53,7 @@ describe('HubWebClient', function() {
   let client: HubRestAPIClient;
   let apiSpec: OverrideProperties<OpenAPIV3.Document, { paths: SchemaPaths }>; // cspell:disable-line
 
-  let signers: (string | Signer)[] = [];
+  const signers: Array<string | Signer> = [];
 
   before('setup', async function() {
     client = new HubRestAPIClient({
@@ -75,13 +75,13 @@ describe('HubWebClient', function() {
       // Build wrapped ED25519 signer in an ExternalEd25519Signer
       const privateKeyBytes = hexToBytes(signerPrivateKey.slice(2));
       const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
-      const externalSigner = new ExternalEd25519Signer(async (messageHash: Uint8Array) => {
+      const externalSigner = new ExternalEd25519Signer(async(messageHash: Uint8Array) => {
         const res = await ed25519Signer.signMessageHash(messageHash);
         if (res.isErr()) {
           throw res.error;
         }
         return res._unsafeUnwrap();
-      }, async () => {
+      }, async() => {
         const res = await ed25519Signer.getSignerKey();
         if (res.isErr()) {
           throw res.error;
