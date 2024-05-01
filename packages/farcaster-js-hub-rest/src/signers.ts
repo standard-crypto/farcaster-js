@@ -31,7 +31,7 @@ export class ExternalEd25519Signer extends Ed25519Signer {
         try {
             return ok(await this._getSignerKey());
         } catch (e) {
-            return err(new HubError("unknown", (e as any).message));
+            return err(new HubError("unknown", e instanceof Error ? e.message : "Unable to get signer key"));
         }
     }
     
@@ -46,7 +46,7 @@ export class ExternalEd25519Signer extends Ed25519Signer {
             const signature = await this._signMessageHash(hash);
             return ok(signature);
         } catch (e) {
-            return err(new HubError("unknown", (e as any).message));
+            return err(new HubError("unknown", e instanceof Error ? e.message : "Unable to get signer key"));
         }
     }
     
