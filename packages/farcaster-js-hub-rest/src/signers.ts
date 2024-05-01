@@ -1,5 +1,5 @@
 import { Ed25519Signer, HubAsyncResult, HubError } from '@farcaster/core';
-import { err, ok } from 'neverthrow'; // cspell:disable-line
+import { err, ok } from 'neverthrow';
 
 /**
  * External Ed25519 signer that allows signatures to be computed by an external service.

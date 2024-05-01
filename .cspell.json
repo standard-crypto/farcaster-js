@@ -34,7 +34,8 @@
     "qrcode",
     "TYPEHASH",
     "Seedable", 
-    "Solana"
+    "Solana",
+    "neverthrow"
   ],
   "flagWords": [],
   "ignorePaths": [
