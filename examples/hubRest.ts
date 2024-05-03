@@ -15,11 +15,21 @@ const publishCastResponse = await writeClient.submitCast({ text: 'This is a test
 console.log(`new cast hash: ${publishCastResponse.hash}`);
 
 const nobleSigner = new NobleEd25519Signer(new Uint8Array([]));
-const externalSigner = new ExternalEd25519Signer(async(messageHash: Uint8Array) => {
-  return await nobleSigner.signMessageHash(messageHash);
-}, async() => {
-  return await nobleSigner.getSignerKey();
-});
+const _signMessage = async(messageHash: Uint8Array): Promise<Uint8Array> => {
+  const res = await nobleSigner.signMessageHash(messageHash);
+  if (res.isErr()) {
+    throw res.error;
+  }
+  return res._unsafeUnwrap();
+};
+const _getPublicKey = async(): Promise<Uint8Array> => {
+  const res = await nobleSigner.getSignerKey();
+  if (res.isErr()) {
+    throw res.error;
+  }
+  return res._unsafeUnwrap();
+};
+const externalSigner = new ExternalEd25519Signer(_signMessage, _getPublicKey);
 
 const publishCastExternalSignerResponse = await writeClient.submitCast({ text: 'This is a test cast submitted from farcaster-js using an external signer' }, fid, externalSigner);
 console.log(`new cast hash with external signer: ${publishCastExternalSignerResponse.hash}`);
