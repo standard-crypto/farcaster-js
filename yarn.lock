@@ -5943,7 +5943,7 @@ __metadata:
     lerna: "npm:^7.4.2"
     markdown-magic: "npm:^2.6.1"
     pinst: "npm:^3.0.0"
-    prettier: "npm:^3.0.3"
+    prettier: "npm:^3.2.5"
     semantic-release: "npm:^22.0.5"
     source-map-support: "npm:^0.5.19"
     tshy: "npm:1.5.0"
@@ -10907,12 +10907,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "prettier@npm:3.0.3"
+"prettier@npm:^3.2.5":
+  version: 3.2.5
+  resolution: "prettier@npm:3.2.5"
   bin:
     prettier: bin/prettier.cjs
-  checksum: f950887bc03c5b970d8c6dd129364acfbbc61e7b46aec5d5ce17f4adf6404e2ef43072c98b51c4786e0eaca949b307d362a773fd47502862d754b5a328fa2b26
+  checksum: ea327f37a7d46f2324a34ad35292af2ad4c4c3c3355da07313339d7e554320f66f65f91e856add8530157a733c6c4a897dc41b577056be5c24c40f739f5ee8c6
   languageName: node
   linkType: hard
 
