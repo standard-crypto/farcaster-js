@@ -14,7 +14,7 @@ console.log(`new cast hash: ${publishCastResponse.hash}`);
 // Use an external signer
 import { NobleEd25519Signer } from '@farcaster/core';
 
-const nobleSigner = new NobleEd25519Signer(new Uint8Array([...]));
+const nobleSigner = new NobleEd25519Signer(new Uint8Array([]));
 const _signMessage = async (messageHash: Uint8Array) => {
     return nobleSigner.signMessageHash(messageHash);
 }
