@@ -1,4 +1,11 @@
-# [7.3.1](https://github.com/standard-crypto/farcaster-js/compare/v7.2.1...v7.3.0) (2024-04-09)
+# [7.4.0](https://github.com/standard-crypto/farcaster-js/compare/v7.3.1...v7.4.0) (2024-05-03)
+
+### Features
+
+* Adds an optional Signer object (from @farcaster/core) to all write methods where a private key hex string would be taken.
+
+
+# [7.3.1](https://github.com/standard-crypto/farcaster-js/compare/v7.3.0...v7.3.1) (2024-04-09)
 
 ### Features
 
