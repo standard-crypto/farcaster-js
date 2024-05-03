@@ -2496,10 +2496,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:^10.0.0":
-  version: 10.0.2
-  resolution: "@types/mocha@npm:10.0.2"
-  checksum: 742cefe5a51df6146bc6e36b5918e8802f76124cf07ef07ae3e7027ac32188291fca66826629505320100f9be609bc9049a19863067bc18384ba1903f1ea4f31
+"@types/mocha@npm:^10.0.6":
+  version: 10.0.6
+  resolution: "@types/mocha@npm:10.0.6"
+  checksum: 4526c9e88388f9e1004c6d3937c5488a39908810f26b927173c58d52b43057f3895627dc06538e96706e08b88158885f869ec6311f6b58fd72bdef715f26d6c3
   languageName: node
   linkType: hard
 
@@ -5921,7 +5921,7 @@ __metadata:
     "@semantic-release/github": "npm:^9.2.1"
     "@semantic-release/npm": "npm:^11.0.0"
     "@semantic-release/release-notes-generator": "npm:^12.0.0"
-    "@types/mocha": "npm:^10.0.0"
+    "@types/mocha": "npm:^10.0.6"
     "@types/node": "npm:^20.8.10"
     "@typescript-eslint/eslint-plugin": "npm:^5.59.9"
     "@typescript-eslint/parser": "npm:^6.9.1"
