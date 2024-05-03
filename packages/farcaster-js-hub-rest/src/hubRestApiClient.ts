@@ -60,6 +60,7 @@ import {
   makeVerificationRemove,
   CastAddBody,
   Protocol,
+  Signer,
 } from '@farcaster/core';
 import {
   eip712SignerFromMnemonicOrPrivateKey,
@@ -157,6 +158,19 @@ export class HubRestAPIClient {
   }
 
   /**
+   * Takes in a hex private key or Signer object and returns a Signer object.
+   * If the input is a hex private key, it will be converted to a Signer object.
+   *
+   * @param signer The signer's hex private key or Signer object
+   */
+  private formatSigner(signer: string | Signer): Signer {
+    if (typeof signer === 'string') {
+      return hexToSigner(signer);
+    }
+    return signer;
+  }
+
+  /**
    * Get the Hub's info.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/info.html#info)
    */
@@ -170,6 +184,9 @@ export class HubRestAPIClient {
   /**
    * Submits a Cast.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param cast The cast to submit
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async submitCast(
     cast: {
@@ -182,7 +199,7 @@ export class HubRestAPIClient {
       parentUrl?: string
     },
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<CastAdd> {
     const dataOptions = {
       fid: fid,
@@ -211,7 +228,7 @@ export class HubRestAPIClient {
     const msg = await makeCastAdd(
       castAdd,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -226,11 +243,14 @@ export class HubRestAPIClient {
   /**
    * Deletes a Cast.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param castHash The hash of the cast to delete
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async removeCast(
     castHash: string,
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<CastRemove> {
     const dataOptions = {
       fid: fid,
@@ -245,7 +265,7 @@ export class HubRestAPIClient {
     const msg = await makeCastRemove(
       castToRemove,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -261,6 +281,9 @@ export class HubRestAPIClient {
   /**
    * Submits a Link. Used to follow users.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param link The link to submit
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async submitLink(
     link: {
@@ -269,7 +292,7 @@ export class HubRestAPIClient {
       targetFid?: number
     },
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<LinkAdd> {
     const dataOptions = {
       fid: fid,
@@ -278,7 +301,7 @@ export class HubRestAPIClient {
     const msg = await makeLinkAdd(
       link,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -293,22 +316,28 @@ export class HubRestAPIClient {
   /**
    * Follows a User. Wraps submitLink.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param targetFid The FID of the user to follow
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async followUser(
     targetFid: number,
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<LinkAdd> {
     return await this.submitLink(
       { type: 'follow', targetFid: targetFid },
       fid,
-      signerPrivateKeyHex,
+      this.formatSigner(signer),
     );
   }
 
   /**
    * Removes a Link. Used to unfollow users
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param link The link to remove
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async removeLink(
     link: {
@@ -317,7 +346,7 @@ export class HubRestAPIClient {
       targetFid?: number
     },
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<LinkRemove> {
     const dataOptions = {
       fid: fid,
@@ -326,7 +355,7 @@ export class HubRestAPIClient {
     const msg = await makeLinkRemove(
       link,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -341,22 +370,28 @@ export class HubRestAPIClient {
   /**
    * Un-follows a User. Wraps removeLink.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param targetFid The FID of the user to unfollow
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async unfollowUser(
     targetFid: number,
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<LinkRemove> {
     return await this.removeLink(
       { type: 'follow', targetFid: targetFid },
       fid,
-      signerPrivateKeyHex,
+      this.formatSigner(signer),
     );
   }
 
   /**
    * Submits a Reaction. Used to like or recast.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param reaction The reaction to submit
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async submitReaction(
     reaction: {
@@ -364,7 +399,7 @@ export class HubRestAPIClient {
       target: CastId | { url: string }
     },
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<Reaction> {
     const dataOptions = {
       fid: fid,
@@ -392,7 +427,7 @@ export class HubRestAPIClient {
     const msg = await makeReactionAdd(
       reactionAdd,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -407,6 +442,9 @@ export class HubRestAPIClient {
   /**
    * Removes a Reaction. Used to un-like or un-recast.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param reaction The reaction to remove
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async removeReaction(
     reaction: {
@@ -414,7 +452,7 @@ export class HubRestAPIClient {
       target: CastId | { url: string }
     },
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<ReactionRemove> {
     const dataOptions = {
       fid: fid,
@@ -442,7 +480,7 @@ export class HubRestAPIClient {
     const msg = await makeReactionRemove(
       reactionRemove,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -457,6 +495,9 @@ export class HubRestAPIClient {
   /**
    * Submits a Verification.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param verification The verification to submit
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async submitVerification(
     verification: {
@@ -466,7 +507,7 @@ export class HubRestAPIClient {
       chainId: number
     },
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<Verification> {
     const dataOptions = {
       fid: fid,
@@ -510,7 +551,7 @@ export class HubRestAPIClient {
     const msg = await makeVerificationAddEthAddress(
       verificationAdd,
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -525,11 +566,14 @@ export class HubRestAPIClient {
   /**
    * Removes a Verification.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/submitmessage.html#submitmessage)
+   * @param address The address to remove the verification for
+   * @param fid The FID of the signer
+   * @param signer The signer's hex private key or Signer object
    */
   public async removeVerification(
     address: string,
     fid: number,
-    signerPrivateKeyHex: string,
+    signer: string | Signer,
   ): Promise<VerificationRemove> {
     const dataOptions = {
       fid: fid,
@@ -542,7 +586,7 @@ export class HubRestAPIClient {
     const msg = await makeVerificationRemove(
       { address: addressBytes.value, protocol: Protocol.ETHEREUM },
       dataOptions,
-      hexToSigner(signerPrivateKeyHex),
+      this.formatSigner(signer),
     );
     if (msg.isErr()) {
       throw msg.error;
@@ -557,6 +601,8 @@ export class HubRestAPIClient {
   /**
    * Get a cast by its FID and Hash.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/casts.html#castbyid)
+   * @param fid The FID of the cast's creator
+   * @param hash The hash of the cast
    */
   public async getCastById({ fid, hash }: CastId): Promise<CastAdd | null> {
     try {
@@ -797,6 +843,8 @@ export class HubRestAPIClient {
   /**
    * Get a link by its FID and target FID.
    * See [farcaster documentation](https://www.thehubble.xyz/docs/httpapi/links.html#linkbyid)
+   * @param sourceFid The FID of the link's creator
+   * @param targetFid The FID of the link's target
    */
   public async getLinkById(
     sourceFid: number,
