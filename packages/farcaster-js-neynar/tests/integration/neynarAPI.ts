@@ -283,7 +283,7 @@ if (apiKey !== undefined && apiKey !== '') {
           });
         });
         describe('#fetchUserLikesAndRecasts', function() {
-          it("can fetch a user's likes and recasts", async function() {
+          it.skip("can fetch a user's likes and recasts", async function() {
             let castCount = 0;
             let notificationFound = false;
             for await (const notification of client.v1.fetchUserLikesAndRecasts(

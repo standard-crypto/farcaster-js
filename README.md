@@ -10,6 +10,7 @@ A collection of tools for interacting with the Farcaster social network.
 - [Farcaster Hub REST API](#farcaster-hub-rest-api)
 - [Neynar REST APIs](#neynar-rest-apis)
 - [Signers](#signers)
+  - [Privy](#privy)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Farcaster Hub REST API
@@ -33,7 +34,6 @@ npm install axios @standard-crypto/farcaster-js-hub-rest
 ```ts
 import { HubRestAPIClient, ExternalEd25519Signer } from '@standard-crypto/farcaster-js';
 
-// Use an external signer
 import { NobleEd25519Signer } from '@farcaster/core';
 
 const client = new HubRestAPIClient();
@@ -47,6 +47,7 @@ const writeClient = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standa
 const publishCastResponse = await writeClient.submitCast({ text: 'This is a test cast submitted from farcaster-js' }, fid, signerPrivateKey);
 console.log(`new cast hash: ${publishCastResponse.hash}`);
 
+// Use an external signer
 const nobleSigner = new NobleEd25519Signer(new Uint8Array([]));
 const _signMessage = async(messageHash: Uint8Array): Promise<Uint8Array> => {
   const res = await nobleSigner.signMessageHash(messageHash);
@@ -104,7 +105,7 @@ await client.v2.reactToCast(signerUuid, NeynarV2.ReactionType.Like, cast.hash);
 
 ## Signers
 
-Signers are required to write data to Farcaster. You can learn more about signers from these resources ([Farcaster](https://docs.farcaster.xyz/developers/guides/accounts/create-account-key), [Neynar](https://docs.neynar.com/docs/write-to-farcaster-with-neynar-managed-signers)).
+Signers are required to write data to Farcaster. You can learn more about signers from these resources ([Farcaster](https://docs.farcaster.xyz/developers/guides/accounts/create-account-key), [Neynar](https://docs.neynar.com/docs/write-to-farcaster-with-neynar-managed-signers), [Privy](https://docs.privy.io/guide/react/recipes/misc/farcaster-writes#_2-create-an-embedded-farcaster-signer)).
 
 This package includes a CLI for creating signers. You can run the code below to generate a signer:
 ```
@@ -113,7 +114,29 @@ farcaster-js create-signer
 
 Read more about the CLI in [farcaster-js-cli](./packages/farcaster-js-cli/README.md).
 
-Additionally, signers may be created programmatically without use of the CLI -- see the examples in [farcaster-js-neynar](./packages/farcaster-js-neynar/README.md#create-a-signer).
+Additionally, signers may be created programmatically without use of the CLI. See the examples in [farcaster-js-neynar](./packages/farcaster-js-neynar/README.md#create-a-signer) or follow [this guide](https://docs.privy.io/guide/react/recipes/misc/farcaster-writes#_1-login-with-farcaster) from Privy for logging users in with Farcaster and authorizing a signer.
+
+### Privy
+
+[Privy](https://privy.io) enables users to easily log in to your app using their Farcaster account. Follow [this guide](https://docs.privy.io/guide/react/recipes/misc/farcaster-writes) to enable Farcaster login and begin writing messages. See the example below for usage once logging in with Farcaster is integrated.
+
+```
+import { HubRestAPIClient, ExternalEd25519Signer } from '@standard-crypto/farcaster-js';
+import { useExperimentalFarcasterSigner, usePrivy } from '@privy-io/react-auth';
+
+const client = new HubRestAPIClient();
+console.log(await client.getHubInfo());
+
+const { user } = usePrivy();
+const { getFarcasterSignerPublicKey, signFarcasterMessage } = useExperimentalFarcasterSigner();
+
+// Use a Privy embedded signer
+const privySigner = new ExternalEd25519Signer(signFarcasterMessage, getFarcasterSignerPublicKey);
+const fid = user.farcaster.fid!;
+
+const publishCastExternalSignerResponse = await client.submitCast({ text: 'This is a test cast submitted from farcaster-js using an external signer' }, fid, privySigner);
+console.log(`new cast hash with privy embedded signer signer: ${publishCastExternalSignerResponse.hash}`);
+```
 
 ***Usage Versus Hub APIs:***
 
