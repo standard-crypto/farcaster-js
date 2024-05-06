@@ -118,7 +118,7 @@ Additionally, signers may be created programmatically without use of the CLI. Se
 
 ### Privy
 
-[Privy](https://docs.privy.io/guide/react/recipes/misc/farcaster) enables users to easily log in to your app using their Farcaster account. Follow [this guide](https://docs.privy.io/guide/react/recipes/misc/farcaster) to enable Farcaster login and begin writing messages. See the example below for usage once logging in with Farcaster is integrated.
+[Privy](https://privy.io) enables users to easily log in to your app using their Farcaster account. Follow [this guide](https://docs.privy.io/guide/react/recipes/misc/farcaster-writes) to enable Farcaster login and begin writing messages. See the example below for usage once logging in with Farcaster is integrated.
 
 ```
 import { HubRestAPIClient, ExternalEd25519Signer } from '@standard-crypto/farcaster-js';

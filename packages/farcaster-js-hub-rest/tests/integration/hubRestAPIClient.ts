@@ -1008,7 +1008,7 @@ describe('HubWebClient', function() {
       });
 
       it('returns some hub events', async function() {
-        this.timeout('5s');
+        this.timeout('30s');
         const eventsIter = client.listHubEvents();
         const eventOne = await eventsIter.next();
         const eventTwo = await eventsIter.next();
@@ -1021,7 +1021,7 @@ describe('HubWebClient', function() {
       let eventId: number;
 
       beforeEach('fetch recent event ID', async function() {
-        this.timeout('5s');
+        this.timeout('30s');
         const events = client.listHubEvents();
         const event = await events.next();
         expectDefinedNonNull(event.value);
