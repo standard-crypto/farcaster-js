@@ -1,6 +1,5 @@
 import { HubRestAPIClient, ExternalEd25519Signer } from '@standard-crypto/farcaster-js';
 
-// Use an external signer
 import { NobleEd25519Signer } from '@farcaster/core';
 
 const client = new HubRestAPIClient();
@@ -14,6 +13,7 @@ const writeClient = new HubRestAPIClient({ hubUrl: 'https://hub.farcaster.standa
 const publishCastResponse = await writeClient.submitCast({ text: 'This is a test cast submitted from farcaster-js' }, fid, signerPrivateKey);
 console.log(`new cast hash: ${publishCastResponse.hash}`);
 
+// Use an external signer
 const nobleSigner = new NobleEd25519Signer(new Uint8Array([]));
 const _signMessage = async(messageHash: Uint8Array): Promise<Uint8Array> => {
   const res = await nobleSigner.signMessageHash(messageHash);
