@@ -16,6 +16,10 @@
             "name": "packages/farcaster-js-neynar",
             "path": "../packages/farcaster-js-neynar"
         },
+        {
+            "name": "packages/farcaster-js-warpcast",
+            "path": "../packages/farcaster-js-warpcast"
+        }
     ],
     "settings": {
         "files.exclude": {

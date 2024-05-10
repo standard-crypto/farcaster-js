@@ -1,0 +1,6 @@
+require:
+  - ts-node/register
+  - dotenv/config
+extensions: ['ts']
+spec: ['tests/**/*.ts']
+loader: ts-node/esm
