@@ -1,0 +1,496 @@
+---
+openapi: "3.0.1"
+info:
+  title: "Warpcast API"
+  description: "Private API used by the Warpcast client"
+  version: "1.0"
+tags:
+  - name: "direct-casts"
+    description: "Endpoints related to direct-casts"
+  - name: "users"
+    description: "Endpoints related to users"
+servers:
+# Added by API Auto Mocking Plugin
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/GAVI/Warpcast/1.0
+- url: "https://client.warpcast.com"
+paths:
+  /v2/direct-cast-conversation-list:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/cursor'
+      responses:
+        "200":
+          description: "List of conversations"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      hasArchived:
+                        type: boolean
+                      conversations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Conversation"
+                    required:
+                      - hasArchived
+                      - conversations
+                  next:
+                    $ref: "#/components/schemas/Pagination"
+                required:
+                  - result
+      security:
+      - TokenCredentials: []
+      tags:
+      - "direct-casts"
+  /v2/direct-cast-conversation:
+    get:
+      parameters:
+      - name: "conversationId"
+        in: "query"
+        required: true
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+        examples:
+          example:
+            value: "680-69"
+      responses:
+        "200":
+          description: "Overview of a conversation"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      conversation:
+                        $ref: "#/components/schemas/Conversation"
+                    required:
+                      - conversation
+                required:
+                  - result
+      security:
+      - TokenCredentials: []
+      tags:
+      - "direct-casts"
+  /v2/direct-cast-conversation-details:
+    get:
+      parameters:
+      - name: "conversationId"
+        in: "query"
+        required: true
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+        examples:
+          example:
+            value: "680-69"
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
+      responses:
+        "200":
+          description: "Conversation Details"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/ConversationDetails'
+                  next:
+                    $ref: "#/components/schemas/Pagination"
+                required:
+                  - result
+      security:
+      - TokenCredentials: []
+      tags:
+      - "direct-casts"
+  /v2/onboarding-state:
+    get:
+      responses:
+        "200":
+          description: "Onboarding state"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      state:
+                        $ref: "#/components/schemas/OnboardingState"
+                    required:
+                      - state
+                required:
+                  - result
+      security:
+        - TokenCredentials: []
+      tags:
+        - "users"
+  /v2/user:
+    get:
+      parameters:
+      - name: "fid"
+        in: "query"
+        required: true
+        style: "form"
+        explode: true
+        schema:
+          type: "integer"
+        examples:
+          example:
+            value: 347
+      responses:
+        "200":
+          description: "User details"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      user:
+                        $ref: "#/components/schemas/User"
+                      collectionsOwned:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Collection"
+                      extras:
+                        type: object
+                        properties:
+                          fid:
+                            $ref: "#/components/schemas/Fid"
+                          custodyAddress:
+                            $ref: "#/components/schemas/Address"
+                    required:
+                      - user
+                      - collectionsOwned
+                      - extras
+                required:
+                  - result
+      security:
+      - TokenCredentials: []
+      tags:
+      - "users"
+components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return in a single response
+      schema:
+        type: integer
+      required: false
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to paginate through results
+      schema:
+        type: string
+        example: "eyJwYWdlIjoxLCJsaW1pdCI6NTB9"
+      required: false
+  securitySchemes:
+    TokenCredentials:
+      type: "http"
+      scheme: "bearer"
+  schemas:
+    Address:
+      type: string
+      example: "0xefcbf0a3c475780a4ed25158e35f528d929c9a23"
+    Collection:
+      type: object
+    Conversation:
+      type: object
+      properties:
+        conversationId:
+          type: string
+          example: "347-69"
+        adminFids:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fid"
+        removedFids:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fid"
+        participants:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        lastReadTime:
+          $ref: "#/components/schemas/EpochMilliseconds"
+        selfLastReadTime:
+          $ref: "#/components/schemas/EpochMilliseconds"
+        lastMessage:
+          $ref: "#/components/schemas/ConversationMessage"
+        isGroup:
+          type: boolean
+        isCollectionTokenGated:
+          type: boolean
+        unreadCount:
+          type: integer
+        muted:
+          type: boolean
+        hasMention:
+          type: boolean
+        viewerContext:
+          type: object
+          properties:
+            category:
+              type: string
+            archived:
+              type: boolean
+            muted:
+              type: boolean
+            unreadCount:
+              type: integer
+            unreadMentionsCount:
+              type: integer
+          required:
+            - category
+            - archived
+            - muted
+            - unreadCount
+            - unreadMentionsCount
+      required: 
+        - conversationId
+        - adminFids
+        - removedFids
+        - participants
+        - lastReadTime
+        - selfLastReadTime
+        - lastMessage
+        - isGroup
+        - isCollectionTokenGated
+        - unreadCount
+        - muted
+        - hasMention
+        - viewerContext
+    ConversationDetails:
+      type: object
+      properties:
+        conversationId:
+          type: string
+          example: "580-50"
+        muted:
+          type: boolean
+        adminFids:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fid'
+        removedFids:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fid'
+        participants:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        lastReadTime:
+          type: integer
+        hasMention:
+          type: boolean
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationMessage'
+      required:
+        - conversationId
+        - muted
+        - adminFids
+        - removedFids
+        - participants
+        - lastReadTime
+        - hasMention
+    ConversationMessage:
+      type: object
+      properties:
+        conversationId:
+          type: string
+          example: '680-69'
+        senderFid:
+          $ref: '#/components/schemas/Fid'
+        messageId:
+          type: string
+          example: '1f391f8873f9a404f35d87ee31ffecad'
+        serverTimestamp:
+          $ref: '#/components/schemas/EpochMilliseconds'
+        type:
+          type: string
+          example: 'text'
+        message:
+          type: string
+          example: 'message contents'
+        hasMention:
+          type: boolean
+        reactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reaction'
+      required:
+        - conversationId
+        - senderFid
+        - messageId
+        - serverTimestamp
+        - type
+        - message
+        - hasMentions
+        - reactions
+    EpochMilliseconds:
+      type: integer
+      example: 1715285986098
+    Fid:
+      type: integer
+      example: 347
+    OnboardingState:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+        hasOnboarding:
+          type: boolean
+        hasConfirmedEmail:
+          type: boolean
+        handledConnectAddress:
+          type: boolean
+        canRegisterUsername:
+          type: boolean
+        needsRegistrationPayment:
+          type: boolean
+        hasFid:
+          type: boolean
+        hasFname:
+          type: boolean
+        hasDelegatedSigner:
+          type: boolean
+        hasSetupProfile:
+          type: boolean
+        hasCompletedRegistration:
+          type: boolean
+        hasStorage:
+          type: boolean
+        handledPushNotificationsNudge:
+          type: boolean
+        handledContactsNudge:
+          type: boolean
+        handledInterestsNudge:
+          type: boolean
+        hasValidPaidInvite:
+          type: boolean
+        hasPhone:
+          type: boolean
+        needsPhone:
+          type: boolean
+        sponsoredRegisterEligible:
+          type: boolean
+      required:
+        - id
+        - email
+        - user
+    Pagination:
+      type: object
+      properties:
+        cursor:
+          type: string
+          example: eyJwYWdlIjoxLCJsaW1pdCI6NTB9
+      required:
+        - cursor
+    Reaction:
+      type: object
+    User:
+      type: object
+      properties:
+        fid:
+          $ref: "#/components/schemas/Fid"
+        username:
+          type: string
+          example: "gavi"
+        displayName:
+          type: string
+          example: "Gavi Galloway"
+        pfp:
+          type: object
+          properties:
+            url: 
+              type: string
+              format: uri
+            verified:
+              type: boolean
+          required:
+            - url
+            - verified
+        profile:
+          type: object
+          properties:
+            bio:
+              type: object
+              properties:
+                text:
+                  type: string
+                mentions:
+                  type: string
+              required:
+                - text
+                - mentions
+            location:
+              type: object
+              properties:
+                placeId:
+                  type: string
+                description:
+                  type: string
+              required:
+                - placeId
+                - description
+          required:
+            - bio
+            - location
+        followerCount:
+          type: integer
+        followingCount:
+          type: integer
+        activeOnFcNetwork:
+          type: boolean
+        referrerUsername:
+          type: string
+        viewerContext:
+          type: object
+          properties:
+            following:
+              type: boolean
+            followedBy:
+              type: boolean
+            enableNotifications:
+              type: boolean
+          required:
+            - following
+            - followedBy
+            - enableNotifications
+      required:
+        - fid
+        - username
+        - displayName
+        - pfp
+        - profile
+        - followerCount
+        - followingCount
+        - activeOnFcNetwork
+        - referrerUsername
+        - viewerContext
