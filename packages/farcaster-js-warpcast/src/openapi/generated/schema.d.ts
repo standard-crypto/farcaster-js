@@ -7,6 +7,12 @@
 export interface paths {
   "/v2/direct-cast-conversation-list": {
     get: {
+      parameters: {
+        query?: {
+          limit?: components["parameters"]["limit"];
+          cursor?: components["parameters"]["cursor"];
+        };
+      };
       responses: {
         /** @description List of conversations */
         200: {
@@ -16,6 +22,7 @@ export interface paths {
                 hasArchived: boolean;
                 conversations: components["schemas"]["Conversation"][];
               };
+              next?: components["schemas"]["Pagination"];
             };
           };
         };
@@ -48,7 +55,8 @@ export interface paths {
       parameters: {
         query: {
           conversationId: string;
-          limit?: string;
+          limit?: components["parameters"]["limit"];
+          cursor?: components["parameters"]["cursor"];
         };
       };
       responses: {
@@ -57,6 +65,23 @@ export interface paths {
           content: {
             "application/json": {
               result: components["schemas"]["ConversationDetails"];
+              next?: components["schemas"]["Pagination"];
+            };
+          };
+        };
+      };
+    };
+  };
+  "/v2/onboarding-state": {
+    get: {
+      responses: {
+        /** @description Onboarding state */
+        200: {
+          content: {
+            "application/json": {
+              result: {
+                state: components["schemas"]["OnboardingState"];
+              };
             };
           };
         };
@@ -129,7 +154,7 @@ export interface components {
       participants: components["schemas"]["User"][];
       lastReadTime: number;
       hasMention: boolean;
-      messages: components["schemas"]["ConversationMessage"][];
+      messages?: components["schemas"]["ConversationMessage"][];
     };
     ConversationMessage: {
       /** @example 680-69 */
@@ -145,10 +170,37 @@ export interface components {
       hasMention?: boolean;
       reactions: components["schemas"]["Reaction"][];
     };
-    /** @example 347 */
-    Fid: number;
     /** @example 1715285986098 */
     EpochMilliseconds: number;
+    /** @example 347 */
+    Fid: number;
+    OnboardingState: {
+      id: string;
+      email: string;
+      user: components["schemas"]["User"];
+      hasOnboarding?: boolean;
+      hasConfirmedEmail?: boolean;
+      handledConnectAddress?: boolean;
+      canRegisterUsername?: boolean;
+      needsRegistrationPayment?: boolean;
+      hasFid?: boolean;
+      hasFname?: boolean;
+      hasDelegatedSigner?: boolean;
+      hasSetupProfile?: boolean;
+      hasCompletedRegistration?: boolean;
+      hasStorage?: boolean;
+      handledPushNotificationsNudge?: boolean;
+      handledContactsNudge?: boolean;
+      handledInterestsNudge?: boolean;
+      hasValidPaidInvite?: boolean;
+      hasPhone?: boolean;
+      needsPhone?: boolean;
+      sponsoredRegisterEligible?: boolean;
+    };
+    Pagination: {
+      /** @example eyJwYWdlIjoxLCJsaW1pdCI6NTB9 */
+      cursor: string;
+    };
     Reaction: Record<string, never>;
     User: {
       fid: components["schemas"]["Fid"];
@@ -183,7 +235,12 @@ export interface components {
     };
   };
   responses: never;
-  parameters: never;
+  parameters: {
+    /** @description Maximum number of items to return in a single response */
+    limit?: number;
+    /** @description Cursor to paginate through results */
+    cursor?: string;
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;

@@ -73,6 +73,6 @@ export interface ConversationDetails {
      * @type {Array<ConversationMessage>}
      * @memberof ConversationDetails
      */
-    'messages': Array<ConversationMessage>;
+    'messages'?: Array<ConversationMessage>;
 }
 

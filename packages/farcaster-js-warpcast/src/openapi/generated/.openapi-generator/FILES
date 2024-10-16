@@ -10,6 +10,8 @@ models/conversation-message.ts
 models/conversation-viewer-context.ts
 models/conversation.ts
 models/index.ts
+models/onboarding-state.ts
+models/pagination.ts
 models/user-pfp.ts
 models/user-profile-bio.ts
 models/user-profile-location.ts
@@ -21,6 +23,8 @@ models/v2-direct-cast-conversation-get200-response-result.ts
 models/v2-direct-cast-conversation-get200-response.ts
 models/v2-direct-cast-conversation-list-get200-response-result.ts
 models/v2-direct-cast-conversation-list-get200-response.ts
+models/v2-onboarding-state-get200-response-result.ts
+models/v2-onboarding-state-get200-response.ts
 models/v2-user-get200-response-result-extras.ts
 models/v2-user-get200-response-result.ts
 models/v2-user-get200-response.ts

@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { Pagination } from './pagination.js';
+// May contain unused imports in some cases
+// @ts-ignore
 import { V2DirectCastConversationListGet200ResponseResult } from './v2-direct-cast-conversation-list-get200-response-result.js';
 
 /**
@@ -29,5 +32,11 @@ export interface V2DirectCastConversationListGet200Response {
      * @memberof V2DirectCastConversationListGet200Response
      */
     'result': V2DirectCastConversationListGet200ResponseResult;
+    /**
+     * 
+     * @type {Pagination}
+     * @memberof V2DirectCastConversationListGet200Response
+     */
+    'next'?: Pagination;
 }
 

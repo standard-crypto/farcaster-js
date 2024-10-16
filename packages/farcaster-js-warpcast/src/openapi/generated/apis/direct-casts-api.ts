@@ -36,11 +36,12 @@ export const DirectCastsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @param {string} conversationId 
-         * @param {string} [limit] 
+         * @param {number} [limit] Maximum number of items to return in a single response
+         * @param {string} [cursor] Cursor to paginate through results
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v2DirectCastConversationDetailsGet: async (conversationId: string, limit?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v2DirectCastConversationDetailsGet: async (conversationId: string, limit?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'conversationId' is not null or undefined
             assertParamExists('v2DirectCastConversationDetailsGet', 'conversationId', conversationId)
             const localVarPath = `/v2/direct-cast-conversation-details`;
@@ -65,6 +66,10 @@ export const DirectCastsApiAxiosParamCreator = function (configuration?: Configu
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
+            }
+
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
             }
 
 
@@ -120,10 +125,12 @@ export const DirectCastsApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
+         * @param {number} [limit] Maximum number of items to return in a single response
+         * @param {string} [cursor] Cursor to paginate through results
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v2DirectCastConversationListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v2DirectCastConversationListGet: async (limit?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v2/direct-cast-conversation-list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -139,6 +146,14 @@ export const DirectCastsApiAxiosParamCreator = function (configuration?: Configu
             // authentication TokenCredentials required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
 
 
     
@@ -164,12 +179,13 @@ export const DirectCastsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} conversationId 
-         * @param {string} [limit] 
+         * @param {number} [limit] Maximum number of items to return in a single response
+         * @param {string} [cursor] Cursor to paginate through results
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v2DirectCastConversationDetailsGet(conversationId: string, limit?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V2DirectCastConversationDetailsGet200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v2DirectCastConversationDetailsGet(conversationId, limit, options);
+        async v2DirectCastConversationDetailsGet(conversationId: string, limit?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V2DirectCastConversationDetailsGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.v2DirectCastConversationDetailsGet(conversationId, limit, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -184,11 +200,13 @@ export const DirectCastsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} [limit] Maximum number of items to return in a single response
+         * @param {string} [cursor] Cursor to paginate through results
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v2DirectCastConversationListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V2DirectCastConversationListGet200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v2DirectCastConversationListGet(options);
+        async v2DirectCastConversationListGet(limit?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V2DirectCastConversationListGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.v2DirectCastConversationListGet(limit, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -208,7 +226,7 @@ export const DirectCastsApiFactory = function (configuration?: Configuration, ba
          * @throws {RequiredError}
          */
         v2DirectCastConversationDetailsGet(requestParameters: DirectCastsApiV2DirectCastConversationDetailsGetRequest, options?: AxiosRequestConfig): AxiosPromise<V2DirectCastConversationDetailsGet200Response> {
-            return localVarFp.v2DirectCastConversationDetailsGet(requestParameters.conversationId, requestParameters.limit, options).then((request) => request(axios, basePath));
+            return localVarFp.v2DirectCastConversationDetailsGet(requestParameters.conversationId, requestParameters.limit, requestParameters.cursor, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -221,11 +239,12 @@ export const DirectCastsApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
+         * @param {DirectCastsApiV2DirectCastConversationListGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v2DirectCastConversationListGet(options?: AxiosRequestConfig): AxiosPromise<V2DirectCastConversationListGet200Response> {
-            return localVarFp.v2DirectCastConversationListGet(options).then((request) => request(axios, basePath));
+        v2DirectCastConversationListGet(requestParameters: DirectCastsApiV2DirectCastConversationListGetRequest = {}, options?: AxiosRequestConfig): AxiosPromise<V2DirectCastConversationListGet200Response> {
+            return localVarFp.v2DirectCastConversationListGet(requestParameters.limit, requestParameters.cursor, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -244,11 +263,18 @@ export interface DirectCastsApiV2DirectCastConversationDetailsGetRequest {
     readonly conversationId: string
 
     /**
-     * 
+     * Maximum number of items to return in a single response
+     * @type {number}
+     * @memberof DirectCastsApiV2DirectCastConversationDetailsGet
+     */
+    readonly limit?: number
+
+    /**
+     * Cursor to paginate through results
      * @type {string}
      * @memberof DirectCastsApiV2DirectCastConversationDetailsGet
      */
-    readonly limit?: string
+    readonly cursor?: string
 }
 
 /**
@@ -266,6 +292,27 @@ export interface DirectCastsApiV2DirectCastConversationGetRequest {
 }
 
 /**
+ * Request parameters for v2DirectCastConversationListGet operation in DirectCastsApi.
+ * @export
+ * @interface DirectCastsApiV2DirectCastConversationListGetRequest
+ */
+export interface DirectCastsApiV2DirectCastConversationListGetRequest {
+    /**
+     * Maximum number of items to return in a single response
+     * @type {number}
+     * @memberof DirectCastsApiV2DirectCastConversationListGet
+     */
+    readonly limit?: number
+
+    /**
+     * Cursor to paginate through results
+     * @type {string}
+     * @memberof DirectCastsApiV2DirectCastConversationListGet
+     */
+    readonly cursor?: string
+}
+
+/**
  * DirectCastsApi - object-oriented interface
  * @export
  * @class DirectCastsApi
@@ -280,7 +327,7 @@ export class DirectCastsApi extends BaseAPI {
      * @memberof DirectCastsApi
      */
     public v2DirectCastConversationDetailsGet(requestParameters: DirectCastsApiV2DirectCastConversationDetailsGetRequest, options?: AxiosRequestConfig) {
-        return DirectCastsApiFp(this.configuration).v2DirectCastConversationDetailsGet(requestParameters.conversationId, requestParameters.limit, options).then((request) => request(this.axios, this.basePath));
+        return DirectCastsApiFp(this.configuration).v2DirectCastConversationDetailsGet(requestParameters.conversationId, requestParameters.limit, requestParameters.cursor, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -296,11 +343,12 @@ export class DirectCastsApi extends BaseAPI {
 
     /**
      * 
+     * @param {DirectCastsApiV2DirectCastConversationListGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DirectCastsApi
      */
-    public v2DirectCastConversationListGet(options?: AxiosRequestConfig) {
-        return DirectCastsApiFp(this.configuration).v2DirectCastConversationListGet(options).then((request) => request(this.axios, this.basePath));
+    public v2DirectCastConversationListGet(requestParameters: DirectCastsApiV2DirectCastConversationListGetRequest = {}, options?: AxiosRequestConfig) {
+        return DirectCastsApiFp(this.configuration).v2DirectCastConversationListGet(requestParameters.limit, requestParameters.cursor, options).then((request) => request(this.axios, this.basePath));
     }
 }

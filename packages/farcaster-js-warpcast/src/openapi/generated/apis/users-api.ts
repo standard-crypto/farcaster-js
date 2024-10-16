@@ -22,6 +22,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base.js';
 // @ts-ignore
+import { V2OnboardingStateGet200Response } from '../models/index.js';
+// @ts-ignore
 import { V2UserGet200Response } from '../models/index.js';
 /**
  * UsersApi - axios parameter creator
@@ -29,6 +31,39 @@ import { V2UserGet200Response } from '../models/index.js';
  */
 export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        v2OnboardingStateGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v2/onboarding-state`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication TokenCredentials required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @param {number} fid 
@@ -81,6 +116,15 @@ export const UsersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async v2OnboardingStateGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V2OnboardingStateGet200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.v2OnboardingStateGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {number} fid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -99,6 +143,14 @@ export const UsersApiFp = function(configuration?: Configuration) {
 export const UsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = UsersApiFp(configuration)
     return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        v2OnboardingStateGet(options?: AxiosRequestConfig): AxiosPromise<V2OnboardingStateGet200Response> {
+            return localVarFp.v2OnboardingStateGet(options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @param {UsersApiV2UserGetRequest} requestParameters Request parameters.
@@ -132,6 +184,16 @@ export interface UsersApiV2UserGetRequest {
  * @extends {BaseAPI}
  */
 export class UsersApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public v2OnboardingStateGet(options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).v2OnboardingStateGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {UsersApiV2UserGetRequest} requestParameters Request parameters.

@@ -17,7 +17,9 @@ servers:
 paths:
   /v2/direct-cast-conversation-list:
     get:
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/cursor'
       responses:
         "200":
           description: "List of conversations"
@@ -38,6 +40,8 @@ paths:
                     required:
                       - hasArchived
                       - conversations
+                  next:
+                    $ref: "#/components/schemas/Pagination"
                 required:
                   - result
       security:
@@ -91,16 +95,8 @@ paths:
         examples:
           example:
             value: "680-69"
-      - name: "limit"
-        in: "query"
-        required: false
-        style: "form"
-        explode: true
-        schema:
-          type: "string"
-        examples:
-          example:
-            value: "50"
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/cursor'
       responses:
         "200":
           description: "Conversation Details"
@@ -111,12 +107,37 @@ paths:
                 properties:
                   result:
                     $ref: '#/components/schemas/ConversationDetails'
+                  next:
+                    $ref: "#/components/schemas/Pagination"
                 required:
                   - result
       security:
       - TokenCredentials: []
       tags:
       - "direct-casts"
+  /v2/onboarding-state:
+    get:
+      responses:
+        "200":
+          description: "Onboarding state"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      state:
+                        $ref: "#/components/schemas/OnboardingState"
+                    required:
+                      - state
+                required:
+                  - result
+      security:
+        - TokenCredentials: []
+      tags:
+        - "users"
   /v2/user:
     get:
       parameters:
@@ -165,6 +186,22 @@ paths:
       tags:
       - "users"
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return in a single response
+      schema:
+        type: integer
+      required: false
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to paginate through results
+      schema:
+        type: string
+        example: "eyJwYWdlIjoxLCJsaW1pdCI6NTB9"
+      required: false
   securitySchemes:
     TokenCredentials:
       type: "http"
@@ -278,7 +315,6 @@ components:
         - participants
         - lastReadTime
         - hasMention
-        - messages
     ConversationMessage:
       type: object
       properties:
@@ -313,12 +349,69 @@ components:
         - message
         - hasMentions
         - reactions
-    Fid:
-      type: integer
-      example: 347
     EpochMilliseconds:
       type: integer
       example: 1715285986098
+    Fid:
+      type: integer
+      example: 347
+    OnboardingState:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+        hasOnboarding:
+          type: boolean
+        hasConfirmedEmail:
+          type: boolean
+        handledConnectAddress:
+          type: boolean
+        canRegisterUsername:
+          type: boolean
+        needsRegistrationPayment:
+          type: boolean
+        hasFid:
+          type: boolean
+        hasFname:
+          type: boolean
+        hasDelegatedSigner:
+          type: boolean
+        hasSetupProfile:
+          type: boolean
+        hasCompletedRegistration:
+          type: boolean
+        hasStorage:
+          type: boolean
+        handledPushNotificationsNudge:
+          type: boolean
+        handledContactsNudge:
+          type: boolean
+        handledInterestsNudge:
+          type: boolean
+        hasValidPaidInvite:
+          type: boolean
+        hasPhone:
+          type: boolean
+        needsPhone:
+          type: boolean
+        sponsoredRegisterEligible:
+          type: boolean
+      required:
+        - id
+        - email
+        - user
+    Pagination:
+      type: object
+      properties:
+        cursor:
+          type: string
+          example: eyJwYWdlIjoxLCJsaW1pdCI6NTB9
+      required:
+        - cursor
     Reaction:
       type: object
     User:
